@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QuickAction xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Lets staff set a stop code that the system does not set automatically, with a reason and an effective date.</description>
+    <flowDefinition>ScreenFlowAccountAddStopCode</flowDefinition>
+    <label>Add Stop Code</label>
+    <optionsCreateFeedItem>false</optionsCreateFeedItem>
+    <type>Flow</type>
+</QuickAction>
