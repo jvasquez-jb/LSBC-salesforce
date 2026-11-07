@@ -130,7 +130,8 @@ default business record type, required before Person Accounts can be enabled. `S
 separate because bonds, programmes, hours and DOE status apply only to schools. `Organization`
 holds unlicensed businesses — parent companies, CE providers, foreign credential evaluation
 agencies — so they never appear in licence search or carry licensing layouts. Person Accounts use
-the standard `PersonAccount` record type.
+the standard `PersonAccount` record type, relabelled **Person** to sit alongside the three business
+record types.
 
 | Object | Purpose | Key content |
 |---|---|---|
@@ -1363,4 +1364,5 @@ the source.
 | 6 Nov 2026 | `BusinessLicenseStatus` gains Active alongside Retired and Deceased. |
 | 6 Nov 2026 | Parish is the global value set `Parish` (64 parishes plus Out of state), used by `Account.Parish__c` for business addresses and `Contact.HomeParish__c` for home addresses. Picklists shared across objects are global value sets. |
 | 6 Nov 2026 | `BusinessLicenseStatus` gains Active alongside Retired and Deceased. |
+| 6 Nov 2026 | Person Account record type relabelled **Person** and given a description; developer name `PersonAccount` unchanged. |
 | 6 Nov 2026 | Metadata labels and API names use US spelling (License, Program, Check) to match the platform; this document keeps its own spelling. |

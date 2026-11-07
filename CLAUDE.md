@@ -41,7 +41,7 @@ you are working on before building, and section 9 for what the org actually prov
 ## Org notes
 
 - Business Account record types deployed: `Establishment` (default), `School`, `Organization` (`DM-01a`).
-- Person Accounts are enabled.
+- Person Accounts are enabled. The record type is labelled `Person`; its developer name stays `PersonAccount`.
 - Admin access comes from the permission set group `force__Public_Sector_Solutions_Admin`.
   Field access for PSS objects is granted by `PublicSectorAccessAdminPSL` in that group (added to the
   group in Phase 1; after changing it, wait for the group status to return to Updated). Add new
