@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QuickAction xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Moves a charge to a different license year and notes the change in the item comments.</description>
+    <flowDefinition>ScreenFlowRegulatoryTransactionFeeItemChangeYear</flowDefinition>
+    <label>Change Year</label>
+    <optionsCreateFeedItem>false</optionsCreateFeedItem>
+    <type>Flow</type>
+</QuickAction>

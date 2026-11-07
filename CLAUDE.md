@@ -64,6 +64,8 @@ Raised by later phases while Phase 2 is paused. Pick these up when it resumes.
 4. BRE Designer for LSBC's long-term admin (5 seats in the org).
 5. Confirm system-context rule flows are acceptable under the private-by-default model.
 6. Portal users need `BRECmtyRuntime` (Phase 5).
+7. History on `RegulatoryTrxnFeeItem` is not enabled, so Change Year notes the change in the item's
+   Comments. Enable field history on `ForYear__c` if the object supports it (`SEC-05`).
 
 ## Org notes
 
@@ -85,6 +87,10 @@ Raised by later phases while Phase 2 is paused. Pick these up when it resumes.
   - An active version can't be redeployed. Set `ExpressionSetVersion.IsActive` false with
     `sf data update record`, deploy, and the file's `<status>Active</status>` reactivates it. Once
     rules are in use, make a new version instead.
+  - Every expression set variable must be an input, an output or a constant. A working variable
+    that is neither breaks the Flow action ("type mapping … is not a supported type"), though the
+    REST test passes. Fold working values into the output formulas.
+  - No `ADDDAYS`; add days with `Date + Number`. `DATE`, `YEAR`, `MIN`, `IF` work.
   - `ISBLANK` never matches a blank Text input. Compare against the expected values instead
     (`Result != "Pass" && Result != "Fail"`). `ISBLANK` works on Date and Number. `ADDMONTHS` works.
 - Decision matrix rows are data, not metadata. Deploy the definition as Draft, load rows with

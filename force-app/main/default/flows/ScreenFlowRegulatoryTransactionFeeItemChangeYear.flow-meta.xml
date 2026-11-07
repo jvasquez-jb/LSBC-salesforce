@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>66.0</apiVersion>
+    <description>Moves a charge to a different license year, the dedicated change-payment-year path, so the reversal screen is not used for it. Notes the old year, new year, person and date in the item comments.</description>
+    <environments>Default</environments>
+    <formulas>
+        <name>forT_AuditNote</name>
+        <description>Adds the change to the front of the comments so the history of corrections stays on the item.</description>
+        <dataType>String</dataType>
+        <expression>LEFT(&quot;Year changed from &quot; &amp; {!GetFeeItem.ForYear__c} &amp; &quot; to &quot; &amp; {!CY_NewYear} &amp; &quot; by &quot; &amp; {!$User.FirstName} &amp; &quot; &quot; &amp; {!$User.LastName} &amp; &quot; on &quot; &amp; TEXT(TODAY()) &amp; &quot;. &quot; &amp; BLANKVALUE({!GetFeeItem.Comments}, &quot;&quot;), 255)</expression>
+    </formulas>
+    <interviewLabel>Screen Flow: Regulatory Transaction Fee Item Change Year {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Screen Flow: Regulatory Transaction Fee Item Change Year</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>Flow</processType>
+    <recordLookups>
+        <name>GetFeeItem</name>
+        <label>Get Fee Item</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>ChangeYear</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>recordId</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>RegulatoryTrxnFeeItem</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <name>UpdateFeeItemYear</name>
+        <label>Update Fee Item Year</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <faultConnector>
+            <targetReference>CouldNotChangeYear</targetReference>
+        </faultConnector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>recordId</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Comments</field>
+            <value>
+                <elementReference>forT_AuditNote</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>ForYear__c</field>
+            <value>
+                <elementReference>CY_NewYear</elementReference>
+            </value>
+        </inputAssignments>
+        <object>RegulatoryTrxnFeeItem</object>
+    </recordUpdates>
+    <screens>
+        <name>ChangeYear</name>
+        <label>Change Year</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <connector>
+            <targetReference>UpdateFeeItemYear</targetReference>
+        </connector>
+        <fields>
+            <name>CY_CurrentYear</name>
+            <fieldText>&lt;p&gt;{!GetFeeItem.Name}: currently for license year &lt;b&gt;{!GetFeeItem.ForYear__c}&lt;/b&gt;.&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>CY_NewYear</name>
+            <dataType>String</dataType>
+            <fieldText>New license year</fieldText>
+            <fieldType>InputField</fieldType>
+            <helpText>The four-digit license year this charge should apply to.</helpText>
+            <isRequired>true</isRequired>
+            <validationRule>
+                <errorMessage>Enter a four-digit year different from the current one.</errorMessage>
+                <formulaExpression>LEN({!CY_NewYear}) = 4 &amp;&amp; ISNUMBER({!CY_NewYear}) &amp;&amp; {!CY_NewYear} &lt;&gt; {!GetFeeItem.ForYear__c}</formulaExpression>
+            </validationRule>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <name>CouldNotChangeYear</name>
+        <label>Could Not Change Year</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <fields>
+            <name>CNCY_Message</name>
+            <fieldText>&lt;p&gt;The year could not be changed.&lt;/p&gt;&lt;p&gt;{!$Flow.FaultMessage}&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <start>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>GetFeeItem</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+    <variables>
+        <name>recordId</name>
+        <description>The fee item being corrected. Named recordId because the quick action passes the record under that name.</description>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>
