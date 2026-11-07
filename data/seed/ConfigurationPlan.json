@@ -1,0 +1,26 @@
+[
+  {
+    "sobject": "Product2",
+    "saveRefs": true,
+    "resolveRefs": false,
+    "files": [
+      "Product2.json"
+    ]
+  },
+  {
+    "sobject": "TrnCourse",
+    "saveRefs": true,
+    "resolveRefs": false,
+    "files": [
+      "TrnCourse.json"
+    ]
+  },
+  {
+    "sobject": "RegulatoryAuthorizationType",
+    "saveRefs": false,
+    "resolveRefs": true,
+    "files": [
+      "RegulatoryAuthorizationType.json"
+    ]
+  }
+]

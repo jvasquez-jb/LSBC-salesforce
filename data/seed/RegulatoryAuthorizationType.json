@@ -1,0 +1,153 @@
+{
+  "records": [
+    {
+      "attributes": {
+        "type": "RegulatoryAuthorizationType",
+        "referenceId": "TypeCosmetologist"
+      },
+      "Name": "Cosmetologist",
+      "RegulatoryAuthCategory": "License",
+      "ExpirationBasis__c": "Holders Birthday",
+      "TermLength__c": 12,
+      "DurationType": "Month",
+      "Program__c": "@CourseCosmetology",
+      "TestingThresholdHours__c": 1400,
+      "CompletionThresholdHours__c": 1500,
+      "RequiresNationalExam__c": true,
+      "RequiresPracticalExam__c": true,
+      "RequiresStateExam__c": true
+    },
+    {
+      "attributes": {
+        "type": "RegulatoryAuthorizationType",
+        "referenceId": "TypeManicurist"
+      },
+      "Name": "Manicurist",
+      "RegulatoryAuthCategory": "License",
+      "ExpirationBasis__c": "Holders Birthday",
+      "TermLength__c": 12,
+      "DurationType": "Month",
+      "Program__c": "@CourseManicurist",
+      "RequiresNationalExam__c": true,
+      "RequiresPracticalExam__c": true,
+      "RequiresStateExam__c": true
+    },
+    {
+      "attributes": {
+        "type": "RegulatoryAuthorizationType",
+        "referenceId": "TypeEsthetician"
+      },
+      "Name": "Esthetician",
+      "RegulatoryAuthCategory": "License",
+      "ExpirationBasis__c": "Holders Birthday",
+      "TermLength__c": 12,
+      "DurationType": "Month",
+      "Program__c": "@CourseEsthetician",
+      "RequiresNationalExam__c": true,
+      "RequiresPracticalExam__c": true,
+      "RequiresStateExam__c": true
+    },
+    {
+      "attributes": {
+        "type": "RegulatoryAuthorizationType",
+        "referenceId": "TypeShampooAssistant"
+      },
+      "Name": "Shampoo Assistant",
+      "RegulatoryAuthCategory": "Permit",
+      "ExpirationBasis__c": "Holders Birthday",
+      "TermLength__c": 12,
+      "DurationType": "Month",
+      "Program__c": "@CourseShampooAssistant"
+    },
+    {
+      "attributes": {
+        "type": "RegulatoryAuthorizationType",
+        "referenceId": "TypeInstructor"
+      },
+      "Name": "Instructor",
+      "RegulatoryAuthCategory": "License",
+      "ExpirationBasis__c": "Holders Birthday",
+      "TermLength__c": 12,
+      "DurationType": "Month",
+      "Program__c": "@CourseTeacher",
+      "CompletionThresholdHours__c": 500,
+      "RequiresNationalExam__c": true,
+      "RequiresPracticalExam__c": true,
+      "RequiresStateExam__c": true,
+      "RequiresCE__c": true,
+      "CEHoursRequired__c": 16,
+      "CECycleYears__c": 2
+    },
+    {
+      "attributes": {
+        "type": "RegulatoryAuthorizationType",
+        "referenceId": "TypeAlternativeHairDesignPermit"
+      },
+      "Name": "Alternative Hair Design Permit",
+      "RegulatoryAuthCategory": "Permit",
+      "ExpirationBasis__c": "Holders Birthday",
+      "TermLength__c": 12,
+      "DurationType": "Month",
+      "Program__c": "@CourseAlternativeHairDesign",
+      "CompletionThresholdHours__c": 500,
+      "RequiresNationalExam__c": true,
+      "RequiresPracticalExam__c": true,
+      "RequiresStateExam__c": true
+    },
+    {
+      "attributes": {
+        "type": "RegulatoryAuthorizationType",
+        "referenceId": "TypeThreadingPermit"
+      },
+      "Name": "Threading Permit",
+      "RegulatoryAuthCategory": "Permit",
+      "ExpirationBasis__c": "Holders Birthday",
+      "TermLength__c": 12,
+      "DurationType": "Month"
+    },
+    {
+      "attributes": {
+        "type": "RegulatoryAuthorizationType",
+        "referenceId": "TypeBoothRentalPermit"
+      },
+      "Name": "Booth Rental Permit",
+      "RegulatoryAuthCategory": "Permit",
+      "ExpirationBasis__c": "January 31",
+      "TermLength__c": 12,
+      "DurationType": "Month"
+    },
+    {
+      "attributes": {
+        "type": "RegulatoryAuthorizationType",
+        "referenceId": "TypeTemporaryPermit"
+      },
+      "Name": "Temporary Permit",
+      "RegulatoryAuthCategory": "Permit",
+      "ExpirationBasis__c": "From Issue Date",
+      "TermLength__c": 30,
+      "DurationType": "Day"
+    },
+    {
+      "attributes": {
+        "type": "RegulatoryAuthorizationType",
+        "referenceId": "TypeSalon"
+      },
+      "Name": "Salon",
+      "RegulatoryAuthCategory": "License",
+      "ExpirationBasis__c": "January 31",
+      "TermLength__c": 12,
+      "DurationType": "Month"
+    },
+    {
+      "attributes": {
+        "type": "RegulatoryAuthorizationType",
+        "referenceId": "TypeSchool"
+      },
+      "Name": "School",
+      "RegulatoryAuthCategory": "License",
+      "ExpirationBasis__c": "January 31",
+      "TermLength__c": 12,
+      "DurationType": "Month"
+    }
+  ]
+}

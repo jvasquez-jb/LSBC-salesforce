@@ -1,0 +1,67 @@
+{
+  "records": [
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "FeeAC"
+      },
+      "Name": "Renewal",
+      "FeeCode__c": "AC",
+      "IsActive": true
+    },
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "FeeBY"
+      },
+      "Name": "Miscellaneous",
+      "FeeCode__c": "BY",
+      "IsActive": true
+    },
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "FeeFD"
+      },
+      "Name": "School Renewal",
+      "FeeCode__c": "FD",
+      "IsActive": true
+    },
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "FeeFH"
+      },
+      "Name": "Late Fee",
+      "FeeCode__c": "FH",
+      "IsActive": true
+    },
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "FeePB"
+      },
+      "Name": "Overpayment And Refund Request",
+      "FeeCode__c": "PB",
+      "IsActive": true
+    },
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "FeePE"
+      },
+      "Name": "List",
+      "FeeCode__c": "PE",
+      "IsActive": true
+    },
+    {
+      "attributes": {
+        "type": "Product2",
+        "referenceId": "FeePO"
+      },
+      "Name": "Failure To Timely Renew",
+      "FeeCode__c": "PO",
+      "IsActive": true
+    }
+  ]
+}

@@ -6,6 +6,7 @@
     <permissionSets>force__ActionPlans</permissionSets>
     <permissionSets>force__AdvancedProgramManagement</permissionSets>
     <permissionSets>force__AnalyticsStoreUser</permissionSets>
+    <permissionSets>force__BREDesigner</permissionSets>
     <permissionSets>force__BenefitDisbursementPermissionSetLicense</permissionSets>
     <permissionSets>force__BenefitManagementPermissionSetLicense</permissionSets>
     <permissionSets>force__CarePlansPermissionSetLicense</permissionSets>

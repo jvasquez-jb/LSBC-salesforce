@@ -1,0 +1,76 @@
+{
+  "records": [
+    {
+      "attributes": {
+        "type": "TrnCourse",
+        "referenceId": "CourseCosmetology"
+      },
+      "Name": "Cosmetology",
+      "Status": "Active"
+    },
+    {
+      "attributes": {
+        "type": "TrnCourse",
+        "referenceId": "CourseManicurist"
+      },
+      "Name": "Manicurist",
+      "Status": "Active"
+    },
+    {
+      "attributes": {
+        "type": "TrnCourse",
+        "referenceId": "CourseShampooAssistant"
+      },
+      "Name": "Shampoo Assistant",
+      "Status": "Active"
+    },
+    {
+      "attributes": {
+        "type": "TrnCourse",
+        "referenceId": "CourseManicuristEsthetician"
+      },
+      "Name": "Manicurist Esthetician",
+      "Status": "Active"
+    },
+    {
+      "attributes": {
+        "type": "TrnCourse",
+        "referenceId": "CourseMicrodermabrasion"
+      },
+      "Name": "Microdermabrasion",
+      "Status": "Active"
+    },
+    {
+      "attributes": {
+        "type": "TrnCourse",
+        "referenceId": "CourseTeacher"
+      },
+      "Name": "Teacher",
+      "Status": "Active"
+    },
+    {
+      "attributes": {
+        "type": "TrnCourse",
+        "referenceId": "CourseEsthetician"
+      },
+      "Name": "Esthetician",
+      "Status": "Active"
+    },
+    {
+      "attributes": {
+        "type": "TrnCourse",
+        "referenceId": "CourseAlternativeHairDesign"
+      },
+      "Name": "Alternative Hair Design",
+      "Status": "Active"
+    },
+    {
+      "attributes": {
+        "type": "TrnCourse",
+        "referenceId": "CourseAdvancedTraining"
+      },
+      "Name": "Advanced Training",
+      "Status": "Active"
+    }
+  ]
+}

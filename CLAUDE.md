@@ -10,10 +10,24 @@ you are working on before building, and section 9 for what the org actually prov
 - Requirement IDs (`DM-01`, `BR-04`, …) go in commit messages and Jira only. Never put them in
   metadata descriptions, help text, labels or anything an admin sees in Setup: a future admin
   won't know what they mean. Write descriptions in plain language.
-- Naming: no spaces or underscores in the readable part of anything we create.
-  `ForYear__c`, record type `NewLicensure`, flow `PortalIndividualApplication`,
-  decision matrix `StopCodeEligibility`, permission set `SchoolAdministrator`.
-  Standard objects and fields keep Salesforce's spelling.
+- Naming follows the [CFPB Salesforce Naming Conventions](https://github.com/cfpb/salesforce-docs/blob/master/_pages/Salesforce-Naming-Conventions.md)
+  and, for flows, [Automation Champion's flow conventions](https://automationchampion.com/2021/11/09/naming-conventions-for-salesforce-flow/).
+  **List every proposed label and API name to Jonathan before creating it.**
+  - Objects, fields, record types, permission sets: whole words, PascalCase, no spaces or
+    underscores. `ForYear__c`, record type `NewLicensure`, permission set `SchoolAdministrator`.
+  - Flow label per Automation Champion; API name is the label minus spaces and punctuation.
+    `Record-Trigger: Business License After Save` → `RecordTriggerBusinessLicenseAfterSave`;
+    `Screen Flow: Account Add Stop Code`, `Subflow: Stop Code Sync`,
+    `Business License Schedule: Expired And Lapsed Licenses`.
+    One record-triggered flow per object per context; later phases add to it.
+  - Flow elements use the article's prefixes, the one sanctioned underscore: `varB_`, `varT_`,
+    `varR_`, `forD_`, `textT_`, `choice_`, screen-initial components (`ASC_Category`). Elements read
+    `Get <Object>`, `Set <Field> to value`, `Loop Through <Objects>`; decisions are questions.
+  - BRE decision matrices and expression sets: area + purpose, `FeeLateCalculation` (label
+    Fee Late Calculation).
+  - Validation rules: `<Field><Rule><Dependency>` in PascalCase, e.g. `TotalHoursMax192MonthlyHours`;
+    plain-language error message.
+  - Standard objects and fields keep Salesforce's spelling.
 - A picklist whose values are used on more than one object is a global value set, referenced by
   each field. Never copy the same values inline on two fields. Example: `Parish`, used by
   `Account.Parish__c` and `Contact.HomeParish__c`.
@@ -32,11 +46,24 @@ you are working on before building, and section 9 for what the org actually prov
 |---|---|---|
 | 0 | Foundation: Person Accounts, record types, repo, doc corrections | Done |
 | 1 | Data model (section 1), encrypted field list | Done |
-| 2 | Security (5.1), `OPEN-11` ACR sharing spike | |
-| 3 | Business rules (section 2) | |
+| 2 | Security (5.1), `OPEN-11` ACR sharing spike | Paused: awaiting Board feedback on `LSBC_Access_Matrix.xlsx` |
+| 3 | Business rules (section 2) | In progress |
 | 4 | Cases and violations (section 4) | |
 | 5 | Portal (section 3) | |
 | 6 | Staff tools, reports, cutover (PT-15–17, DM-18c, section 5) | |
+
+### Phase 2 carry-over
+
+Raised by later phases while Phase 2 is paused. Pick these up when it resumes.
+
+1. Staff permission sets need Run Flow and BRE runtime access for the rule flows. Confirm whether
+   the Public Sector licence includes internal BRE runtime.
+2. Who can add and end manual stop codes: `RecordAlert` create/edit, its org-wide default, and the
+   Add Stop Code action.
+3. Field history on `RecordAlert` `ValidUntilDate` and `IsActive` (`SEC-05`).
+4. BRE Designer for LSBC's long-term admin (5 seats in the org).
+5. Confirm system-context rule flows are acceptable under the private-by-default model.
+6. Portal users need `BRECmtyRuntime` (Phase 5).
 
 ## Org notes
 
