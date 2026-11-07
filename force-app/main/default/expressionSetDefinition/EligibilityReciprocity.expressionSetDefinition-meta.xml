@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ExpressionSetDefinition xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Decides which examinations a reciprocity applicant may take on their hours, and whether an hour shortfall goes to the Board because they hold an active out-of-state license.</description>
+    <executionScale>Low</executionScale>
+    <label>Eligibility Reciprocity</label>
+    <processType>Bre</processType>
+    <template>false</template>
+    <versions>
+        <fullName>EligibilityReciprocity_V1</fullName>
+        <description>Decides which examinations a reciprocity applicant may take on their hours, and whether an hour shortfall goes to the Board because they hold an active out-of-state license.</description>
+        <expressionSetDefinition>EligibilityReciprocity</expressionSetDefinition>
+        <label>Eligibility Reciprocity V1</label>
+        <rank>1</rank>
+        <shouldShowExplExternally>false</shouldShowExplExternally>
+        <startDate>2026-01-01T00:00:00.000Z</startDate>
+        <status>Active</status>
+        <versionNumber>1</versionNumber>
+        <steps>
+            <actionType>AssignParameterValues</actionType>
+            <assignment>
+                <assignedParameter>IsRejected</assignedParameter>
+                <expression>NOT(StateIsAccepted)</expression>
+            </assignment>
+            <description>The originating state is not accepted for reciprocity.</description>
+            <label>Set Is Rejected</label>
+            <name>SetIsRejected</name>
+            <resultIncluded>true</resultIncluded>
+            <sequenceNumber>1</sequenceNumber>
+            <shouldExposExecPathMsgOnly>true</shouldExposExecPathMsgOnly>
+            <shouldExposeConditionDetails>false</shouldExposeConditionDetails>
+            <shouldShowExplExternally>false</shouldShowExplExternally>
+            <stepType>BusinessKnowledgeModel</stepType>
+        </steps>
+        <steps>
+            <actionType>AssignParameterValues</actionType>
+            <assignment>
+                <assignedParameter>CanTakeNational</assignedParameter>
+                <expression>StateIsAccepted &amp;&amp; IF(ISBLANK(ApprovedHours), 0, ApprovedHours) &gt;= NationalExamHours</expression>
+            </assignment>
+            <description>Enough hours for the national examination.</description>
+            <label>Set Can Take National</label>
+            <name>SetCanTakeNational</name>
+            <resultIncluded>true</resultIncluded>
+            <sequenceNumber>2</sequenceNumber>
+            <shouldExposExecPathMsgOnly>true</shouldExposExecPathMsgOnly>
+            <shouldExposeConditionDetails>false</shouldExposeConditionDetails>
+            <shouldShowExplExternally>false</shouldShowExplExternally>
+            <stepType>BusinessKnowledgeModel</stepType>
+        </steps>
+        <steps>
+            <actionType>AssignParameterValues</actionType>
+            <assignment>
+                <assignedParameter>CanTakePractical</assignedParameter>
+                <expression>StateIsAccepted &amp;&amp; IF(ISBLANK(ApprovedHours), 0, ApprovedHours) &gt;= PracticalExamHours</expression>
+            </assignment>
+            <description>Enough hours for the practical examination.</description>
+            <label>Set Can Take Practical</label>
+            <name>SetCanTakePractical</name>
+            <resultIncluded>true</resultIncluded>
+            <sequenceNumber>3</sequenceNumber>
+            <shouldExposExecPathMsgOnly>true</shouldExposExecPathMsgOnly>
+            <shouldExposeConditionDetails>false</shouldExposeConditionDetails>
+            <shouldShowExplExternally>false</shouldShowExplExternally>
+            <stepType>BusinessKnowledgeModel</stepType>
+        </steps>
+        <steps>
+            <actionType>AssignParameterValues</actionType>
+            <assignment>
+                <assignedParameter>NeedsBoardReview</assignedParameter>
+                <expression>StateIsAccepted &amp;&amp; HasActiveOutOfStateLicense &amp;&amp; IF(ISBLANK(ApprovedHours), 0, ApprovedHours) &lt; PracticalExamHours</expression>
+            </assignment>
+            <description>Short on hours but licensed elsewhere, so the Board decides instead of a block.</description>
+            <label>Set Needs Board Review</label>
+            <name>SetNeedsBoardReview</name>
+            <resultIncluded>true</resultIncluded>
+            <sequenceNumber>4</sequenceNumber>
+            <shouldExposExecPathMsgOnly>true</shouldExposExecPathMsgOnly>
+            <shouldExposeConditionDetails>false</shouldExposeConditionDetails>
+            <shouldShowExplExternally>false</shouldShowExplExternally>
+            <stepType>BusinessKnowledgeModel</stepType>
+        </steps>
+        <variables>
+            <collection>false</collection>
+            <dataType>Numeric</dataType>
+            <decimalPlaces>2</decimalPlaces>
+            <description>Hours the applicant has documented.</description>
+            <input>true</input>
+            <name>ApprovedHours</name>
+            <output>false</output>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Boolean</dataType>
+            <description>True when the out-of-state license is verified as active.</description>
+            <input>true</input>
+            <name>HasActiveOutOfStateLicense</name>
+            <output>false</output>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Boolean</dataType>
+            <description>From the Reciprocity State Rule. Pass true when the state has no row there.</description>
+            <input>true</input>
+            <name>StateIsAccepted</name>
+            <output>false</output>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Numeric</dataType>
+            <decimalPlaces>2</decimalPlaces>
+            <description>Hours needed for the national examination.</description>
+            <input>false</input>
+            <name>NationalExamHours</name>
+            <output>false</output>
+            <type>Constant</type>
+            <value>1000</value>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Numeric</dataType>
+            <decimalPlaces>2</decimalPlaces>
+            <description>Hours needed for the practical examination.</description>
+            <input>false</input>
+            <name>PracticalExamHours</name>
+            <output>false</output>
+            <type>Constant</type>
+            <value>1500</value>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Boolean</dataType>
+            <description>The originating state is not accepted for reciprocity.</description>
+            <input>false</input>
+            <name>IsRejected</name>
+            <output>true</output>
+            <resultStep>SetIsRejected</resultStep>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Boolean</dataType>
+            <description>Enough hours for the national examination.</description>
+            <input>false</input>
+            <name>CanTakeNational</name>
+            <output>true</output>
+            <resultStep>SetCanTakeNational</resultStep>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Boolean</dataType>
+            <description>Enough hours for the practical examination.</description>
+            <input>false</input>
+            <name>CanTakePractical</name>
+            <output>true</output>
+            <resultStep>SetCanTakePractical</resultStep>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Boolean</dataType>
+            <description>Short on hours but licensed elsewhere, so the Board decides instead of a block.</description>
+            <input>false</input>
+            <name>NeedsBoardReview</name>
+            <output>true</output>
+            <resultStep>SetNeedsBoardReview</resultStep>
+            <type>Variable</type>
+        </variables>
+    </versions>
+</ExpressionSetDefinition>

@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ExpressionSetDefinition xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Decides whether a permit may be issued: threading only for people with no other license, booth rental only with a current operator and salon license, and a temporary permit applied for 30 days ahead and renewed once at most.</description>
+    <executionScale>Low</executionScale>
+    <label>Eligibility Permit</label>
+    <processType>Bre</processType>
+    <template>false</template>
+    <versions>
+        <fullName>EligibilityPermit_V1</fullName>
+        <description>Decides whether a permit may be issued: threading only for people with no other license, booth rental only with a current operator and salon license, and a temporary permit applied for 30 days ahead and renewed once at most.</description>
+        <expressionSetDefinition>EligibilityPermit</expressionSetDefinition>
+        <label>Eligibility Permit V1</label>
+        <rank>1</rank>
+        <shouldShowExplExternally>false</shouldShowExplExternally>
+        <startDate>2026-01-01T00:00:00.000Z</startDate>
+        <status>Active</status>
+        <versionNumber>1</versionNumber>
+        <steps>
+            <actionType>AssignParameterValues</actionType>
+            <assignment>
+                <assignedParameter>IsAppliedInTime</assignedParameter>
+                <expression>PermitType != "Temporary Permit" || IsRenewal || (NOT(ISBLANK(EventStartDate)) &amp;&amp; EventStartDate &gt;= ApplicationDate + AdvanceNoticeDays)</expression>
+            </assignment>
+            <description>A new temporary permit was applied for far enough ahead of the event.</description>
+            <label>Set Is Applied In Time</label>
+            <name>SetIsAppliedInTime</name>
+            <resultIncluded>true</resultIncluded>
+            <sequenceNumber>1</sequenceNumber>
+            <shouldExposExecPathMsgOnly>true</shouldExposExecPathMsgOnly>
+            <shouldExposeConditionDetails>false</shouldExposeConditionDetails>
+            <shouldShowExplExternally>false</shouldShowExplExternally>
+            <stepType>BusinessKnowledgeModel</stepType>
+        </steps>
+        <steps>
+            <actionType>AssignParameterValues</actionType>
+            <assignment>
+                <assignedParameter>CanRenew</assignedParameter>
+                <expression>PermitType != "Temporary Permit" || NOT(IsRenewal) || ISBLANK(PriorRenewalCount) || PriorRenewalCount &lt; MaxTemporaryRenewals</expression>
+            </assignment>
+            <description>A temporary permit renewal is within the limit.</description>
+            <label>Set Can Renew</label>
+            <name>SetCanRenew</name>
+            <resultIncluded>true</resultIncluded>
+            <sequenceNumber>2</sequenceNumber>
+            <shouldExposExecPathMsgOnly>true</shouldExposExecPathMsgOnly>
+            <shouldExposeConditionDetails>false</shouldExposeConditionDetails>
+            <shouldShowExplExternally>false</shouldShowExplExternally>
+            <stepType>BusinessKnowledgeModel</stepType>
+        </steps>
+        <steps>
+            <actionType>AssignParameterValues</actionType>
+            <assignment>
+                <assignedParameter>IsEligible</assignedParameter>
+                <expression>IF(PermitType == "Threading Permit", NOT(HoldsOtherLicense), IF(PermitType == "Booth Rental Permit", HasCurrentOperatorLicense &amp;&amp; HasCurrentSalonLicense, true)) &amp;&amp; IsAppliedInTime &amp;&amp; CanRenew</expression>
+            </assignment>
+            <description>All conditions for this permit are met.</description>
+            <label>Set Is Eligible</label>
+            <name>SetIsEligible</name>
+            <resultIncluded>true</resultIncluded>
+            <sequenceNumber>3</sequenceNumber>
+            <shouldExposExecPathMsgOnly>true</shouldExposExecPathMsgOnly>
+            <shouldExposeConditionDetails>false</shouldExposeConditionDetails>
+            <shouldShowExplExternally>false</shouldShowExplExternally>
+            <stepType>BusinessKnowledgeModel</stepType>
+        </steps>
+        <variables>
+            <collection>false</collection>
+            <dataType>Text</dataType>
+            <description>The permit applied for: Threading Permit, Booth Rental Permit or Temporary Permit.</description>
+            <input>true</input>
+            <name>PermitType</name>
+            <output>false</output>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Boolean</dataType>
+            <description>True when the applicant holds any current license.</description>
+            <input>true</input>
+            <name>HoldsOtherLicense</name>
+            <output>false</output>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Boolean</dataType>
+            <description>True when the applicant holds a current cosmetologist license.</description>
+            <input>true</input>
+            <name>HasCurrentOperatorLicense</name>
+            <output>false</output>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Boolean</dataType>
+            <description>True when the host salon holds a current salon license.</description>
+            <input>true</input>
+            <name>HasCurrentSalonLicense</name>
+            <output>false</output>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Date</dataType>
+            <description>When the application was made.</description>
+            <input>true</input>
+            <name>ApplicationDate</name>
+            <output>false</output>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Date</dataType>
+            <description>Temporary permits: when the event starts.</description>
+            <input>true</input>
+            <name>EventStartDate</name>
+            <output>false</output>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Boolean</dataType>
+            <description>True when this renews an existing permit.</description>
+            <input>true</input>
+            <name>IsRenewal</name>
+            <output>false</output>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Numeric</dataType>
+            <decimalPlaces>2</decimalPlaces>
+            <description>Times the permit has been renewed before.</description>
+            <input>true</input>
+            <name>PriorRenewalCount</name>
+            <output>false</output>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Numeric</dataType>
+            <decimalPlaces>2</decimalPlaces>
+            <description>Days ahead of the event a temporary permit must be applied for.</description>
+            <input>false</input>
+            <name>AdvanceNoticeDays</name>
+            <output>false</output>
+            <type>Constant</type>
+            <value>30</value>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Numeric</dataType>
+            <decimalPlaces>2</decimalPlaces>
+            <description>Times a temporary permit can be renewed.</description>
+            <input>false</input>
+            <name>MaxTemporaryRenewals</name>
+            <output>false</output>
+            <type>Constant</type>
+            <value>1</value>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Boolean</dataType>
+            <description>A new temporary permit was applied for far enough ahead of the event.</description>
+            <input>false</input>
+            <name>IsAppliedInTime</name>
+            <output>true</output>
+            <resultStep>SetIsAppliedInTime</resultStep>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Boolean</dataType>
+            <description>A temporary permit renewal is within the limit.</description>
+            <input>false</input>
+            <name>CanRenew</name>
+            <output>true</output>
+            <resultStep>SetCanRenew</resultStep>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Boolean</dataType>
+            <description>All conditions for this permit are met.</description>
+            <input>false</input>
+            <name>IsEligible</name>
+            <output>true</output>
+            <resultStep>SetIsEligible</resultStep>
+            <type>Variable</type>
+        </variables>
+    </versions>
+</ExpressionSetDefinition>

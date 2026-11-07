@@ -1,0 +1,5 @@
+ApplicationPath,UsesLicenseTypeExams,RequiresNationalExam,RequiresPracticalExam,RequiresStateExam,RequiresBoardApproval
+Regular,True,False,False,False,False
+International,True,False,False,False,True
+Military,False,False,False,True,False
+Welcome Home Act,False,False,False,True,False

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TotalHoursNegativeOnlyRelinquished</fullName>
+    <active>true</active>
+    <description>Hours are only reduced by a notarized relinquishment, entered as a negative number. Any other entry must be zero or more.</description>
+    <errorConditionFormula>TotalHours &lt; 0 &amp;&amp; NOT(ISPICKVAL(EntryType__c, &quot;Relinquished&quot;))</errorConditionFormula>
+    <errorDisplayField>TotalHours</errorDisplayField>
+    <errorMessage>Only relinquished hours can be a negative number.</errorMessage>
+</ValidationRule>

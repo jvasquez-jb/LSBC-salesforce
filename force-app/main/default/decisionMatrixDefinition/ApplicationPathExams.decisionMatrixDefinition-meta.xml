@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DecisionMatrixDefinition xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Which examinations, and whether Board approval, each reciprocity path requires. Uses License Type Exams means the exams come from the license type being applied for.</description>
+    <label>Application Path Exams</label>
+    <processType>Bre</processType>
+    <type>Standard</type>
+    <versions>
+        <fullName>ApplicationPathExams_V1</fullName>
+        <columns>
+            <columnType>Input</columnType>
+            <dataType>Text</dataType>
+            <displaySequence>1</displaySequence>
+            <isWildcardColumn>false</isWildcardColumn>
+            <name>ApplicationPath</name>
+        </columns>
+        <columns>
+            <columnType>Output</columnType>
+            <dataType>Boolean</dataType>
+            <displaySequence>2</displaySequence>
+            <isWildcardColumn>false</isWildcardColumn>
+            <name>UsesLicenseTypeExams</name>
+        </columns>
+        <columns>
+            <columnType>Output</columnType>
+            <dataType>Boolean</dataType>
+            <displaySequence>3</displaySequence>
+            <isWildcardColumn>false</isWildcardColumn>
+            <name>RequiresNationalExam</name>
+        </columns>
+        <columns>
+            <columnType>Output</columnType>
+            <dataType>Boolean</dataType>
+            <displaySequence>4</displaySequence>
+            <isWildcardColumn>false</isWildcardColumn>
+            <name>RequiresPracticalExam</name>
+        </columns>
+        <columns>
+            <columnType>Output</columnType>
+            <dataType>Boolean</dataType>
+            <displaySequence>5</displaySequence>
+            <isWildcardColumn>false</isWildcardColumn>
+            <name>RequiresStateExam</name>
+        </columns>
+        <columns>
+            <columnType>Output</columnType>
+            <dataType>Boolean</dataType>
+            <displaySequence>6</displaySequence>
+            <isWildcardColumn>false</isWildcardColumn>
+            <name>RequiresBoardApproval</name>
+        </columns>
+        <decisionMatrixDefinition>ApplicationPathExams</decisionMatrixDefinition>
+        <label>Application Path Exams V1</label>
+        <rank>1</rank>
+        <startDate>2026-01-01T00:00:00.000Z</startDate>
+        <status>Active</status>
+        <versionNumber>1</versionNumber>
+    </versions>
+</DecisionMatrixDefinition>

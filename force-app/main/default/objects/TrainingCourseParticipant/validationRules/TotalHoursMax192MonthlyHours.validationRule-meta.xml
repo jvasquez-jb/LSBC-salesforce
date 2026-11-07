@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TotalHoursMax192MonthlyHours</fullName>
+    <active>true</active>
+    <description>A student can earn at most 48 hours a week, so one month's entry can't exceed 192 hours. Imports must respect the same limit.</description>
+    <errorConditionFormula>ISPICKVAL(EntryType__c, &quot;Monthly Hours&quot;) &amp;&amp; TotalHours &gt; 192</errorConditionFormula>
+    <errorDisplayField>TotalHours</errorDisplayField>
+    <errorMessage>A month of hours can&apos;t be more than 192 (48 a week).</errorMessage>
+</ValidationRule>

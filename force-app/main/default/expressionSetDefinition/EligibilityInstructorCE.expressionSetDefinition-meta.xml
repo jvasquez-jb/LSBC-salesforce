@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ExpressionSetDefinition xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Decides whether an instructor met the continuing-education requirement for the cycle, the new count of consecutive cycles, and master instructor status at five in a row. A missed cycle resets the count and ends master status.</description>
+    <executionScale>Low</executionScale>
+    <label>Eligibility Instructor CE</label>
+    <processType>Bre</processType>
+    <template>false</template>
+    <versions>
+        <fullName>EligibilityInstructorCE_V1</fullName>
+        <description>Decides whether an instructor met the continuing-education requirement for the cycle, the new count of consecutive cycles, and master instructor status at five in a row. A missed cycle resets the count and ends master status.</description>
+        <expressionSetDefinition>EligibilityInstructorCE</expressionSetDefinition>
+        <label>Eligibility Instructor CE V1</label>
+        <rank>1</rank>
+        <shouldShowExplExternally>false</shouldShowExplExternally>
+        <startDate>2026-01-01T00:00:00.000Z</startDate>
+        <status>Active</status>
+        <versionNumber>1</versionNumber>
+        <steps>
+            <actionType>AssignParameterValues</actionType>
+            <assignment>
+                <assignedParameter>IsCompliant</assignedParameter>
+                <expression>ISBLANK(CEHoursRequired) || IF(ISBLANK(CEHoursEarned), 0, CEHoursEarned) &gt;= CEHoursRequired</expression>
+            </assignment>
+            <description>The cycle requirement is met.</description>
+            <label>Set Is Compliant</label>
+            <name>SetIsCompliant</name>
+            <resultIncluded>true</resultIncluded>
+            <sequenceNumber>1</sequenceNumber>
+            <shouldExposExecPathMsgOnly>true</shouldExposExecPathMsgOnly>
+            <shouldExposeConditionDetails>false</shouldExposeConditionDetails>
+            <shouldShowExplExternally>false</shouldShowExplExternally>
+            <stepType>BusinessKnowledgeModel</stepType>
+        </steps>
+        <steps>
+            <actionType>AssignParameterValues</actionType>
+            <assignment>
+                <assignedParameter>NewConsecutiveCycles</assignedParameter>
+                <expression>IF(IsCompliant, IF(ISBLANK(PriorConsecutiveCycles), 0, PriorConsecutiveCycles) + 1, 0)</expression>
+            </assignment>
+            <description>Consecutive cycles including this one; zero after a missed cycle.</description>
+            <label>Set New Consecutive Cycles</label>
+            <name>SetNewConsecutiveCycles</name>
+            <resultIncluded>true</resultIncluded>
+            <sequenceNumber>2</sequenceNumber>
+            <shouldExposExecPathMsgOnly>true</shouldExposExecPathMsgOnly>
+            <shouldExposeConditionDetails>false</shouldExposeConditionDetails>
+            <shouldShowExplExternally>false</shouldShowExplExternally>
+            <stepType>BusinessKnowledgeModel</stepType>
+        </steps>
+        <steps>
+            <actionType>AssignParameterValues</actionType>
+            <assignment>
+                <assignedParameter>IsMasterInstructor</assignedParameter>
+                <expression>IsCompliant &amp;&amp; (NewConsecutiveCycles &gt;= MasterInstructorCycles || IsCurrentlyMaster)</expression>
+            </assignment>
+            <description>Holds master instructor status after this cycle.</description>
+            <label>Set Is Master Instructor</label>
+            <name>SetIsMasterInstructor</name>
+            <resultIncluded>true</resultIncluded>
+            <sequenceNumber>3</sequenceNumber>
+            <shouldExposExecPathMsgOnly>true</shouldExposExecPathMsgOnly>
+            <shouldExposeConditionDetails>false</shouldExposeConditionDetails>
+            <shouldShowExplExternally>false</shouldShowExplExternally>
+            <stepType>BusinessKnowledgeModel</stepType>
+        </steps>
+        <variables>
+            <collection>false</collection>
+            <dataType>Numeric</dataType>
+            <decimalPlaces>2</decimalPlaces>
+            <description>Hours earned this cycle from providers approved for that year.</description>
+            <input>true</input>
+            <name>CEHoursEarned</name>
+            <output>false</output>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Numeric</dataType>
+            <decimalPlaces>2</decimalPlaces>
+            <description>Hours required per cycle, from the license type.</description>
+            <input>true</input>
+            <name>CEHoursRequired</name>
+            <output>false</output>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Numeric</dataType>
+            <decimalPlaces>2</decimalPlaces>
+            <description>Consecutive cycles completed before this one.</description>
+            <input>true</input>
+            <name>PriorConsecutiveCycles</name>
+            <output>false</output>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Boolean</dataType>
+            <description>True when the instructor already holds master status.</description>
+            <input>true</input>
+            <name>IsCurrentlyMaster</name>
+            <output>false</output>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Numeric</dataType>
+            <decimalPlaces>2</decimalPlaces>
+            <description>Consecutive cycles needed for master instructor status.</description>
+            <input>false</input>
+            <name>MasterInstructorCycles</name>
+            <output>false</output>
+            <type>Constant</type>
+            <value>5</value>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Boolean</dataType>
+            <description>The cycle requirement is met.</description>
+            <input>false</input>
+            <name>IsCompliant</name>
+            <output>true</output>
+            <resultStep>SetIsCompliant</resultStep>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Numeric</dataType>
+            <decimalPlaces>2</decimalPlaces>
+            <description>Consecutive cycles including this one; zero after a missed cycle.</description>
+            <input>false</input>
+            <name>NewConsecutiveCycles</name>
+            <output>true</output>
+            <resultStep>SetNewConsecutiveCycles</resultStep>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Boolean</dataType>
+            <description>Holds master instructor status after this cycle.</description>
+            <input>false</input>
+            <name>IsMasterInstructor</name>
+            <output>true</output>
+            <resultStep>SetIsMasterInstructor</resultStep>
+            <type>Variable</type>
+        </variables>
+    </versions>
+</ExpressionSetDefinition>

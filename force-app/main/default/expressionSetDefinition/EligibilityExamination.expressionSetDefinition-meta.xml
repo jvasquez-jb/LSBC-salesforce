@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ExpressionSetDefinition xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Decides whether a student has the hours to test and to complete, against the thresholds for the license type, and how many hours are still needed. Testing also needs the certification of contractual fees.</description>
+    <executionScale>Low</executionScale>
+    <label>Eligibility Examination</label>
+    <processType>Bre</processType>
+    <template>false</template>
+    <versions>
+        <fullName>EligibilityExamination_V1</fullName>
+        <description>Decides whether a student has the hours to test and to complete, against the thresholds for the license type, and how many hours are still needed. Testing also needs the certification of contractual fees.</description>
+        <expressionSetDefinition>EligibilityExamination</expressionSetDefinition>
+        <label>Eligibility Examination V1</label>
+        <rank>1</rank>
+        <shouldShowExplExternally>false</shouldShowExplExternally>
+        <startDate>2026-01-01T00:00:00.000Z</startDate>
+        <status>Active</status>
+        <versionNumber>1</versionNumber>
+        <steps>
+            <actionType>AssignParameterValues</actionType>
+            <assignment>
+                <assignedParameter>HoursToTest</assignedParameter>
+                <expression>MAX(IF(ISBLANK(TestingThresholdHours), IF(ISBLANK(CompletionThresholdHours), 0, CompletionThresholdHours), TestingThresholdHours) - IF(ISBLANK(ApprovedHours), 0, ApprovedHours), 0)</expression>
+            </assignment>
+            <description>Hours still needed before testing.</description>
+            <label>Set Hours To Test</label>
+            <name>SetHoursToTest</name>
+            <resultIncluded>true</resultIncluded>
+            <sequenceNumber>1</sequenceNumber>
+            <shouldExposExecPathMsgOnly>true</shouldExposExecPathMsgOnly>
+            <shouldExposeConditionDetails>false</shouldExposeConditionDetails>
+            <shouldShowExplExternally>false</shouldShowExplExternally>
+            <stepType>BusinessKnowledgeModel</stepType>
+        </steps>
+        <steps>
+            <actionType>AssignParameterValues</actionType>
+            <assignment>
+                <assignedParameter>HoursToComplete</assignedParameter>
+                <expression>MAX(IF(ISBLANK(CompletionThresholdHours), 0, CompletionThresholdHours) - IF(ISBLANK(ApprovedHours), 0, ApprovedHours), 0)</expression>
+            </assignment>
+            <description>Hours still needed before completion.</description>
+            <label>Set Hours To Complete</label>
+            <name>SetHoursToComplete</name>
+            <resultIncluded>true</resultIncluded>
+            <sequenceNumber>2</sequenceNumber>
+            <shouldExposExecPathMsgOnly>true</shouldExposExecPathMsgOnly>
+            <shouldExposeConditionDetails>false</shouldExposeConditionDetails>
+            <shouldShowExplExternally>false</shouldShowExplExternally>
+            <stepType>BusinessKnowledgeModel</stepType>
+        </steps>
+        <steps>
+            <actionType>AssignParameterValues</actionType>
+            <assignment>
+                <assignedParameter>CanTest</assignedParameter>
+                <expression>HoursToTest == 0 &amp;&amp; HasContractualFeesCertification</expression>
+            </assignment>
+            <description>Enough hours and the certification, so the student can be scheduled for examination.</description>
+            <label>Set Can Test</label>
+            <name>SetCanTest</name>
+            <resultIncluded>true</resultIncluded>
+            <sequenceNumber>3</sequenceNumber>
+            <shouldExposExecPathMsgOnly>true</shouldExposExecPathMsgOnly>
+            <shouldExposeConditionDetails>false</shouldExposeConditionDetails>
+            <shouldShowExplExternally>false</shouldShowExplExternally>
+            <stepType>BusinessKnowledgeModel</stepType>
+        </steps>
+        <steps>
+            <actionType>AssignParameterValues</actionType>
+            <assignment>
+                <assignedParameter>CanComplete</assignedParameter>
+                <expression>HoursToComplete == 0</expression>
+            </assignment>
+            <description>Enough hours for completion and initial licensure.</description>
+            <label>Set Can Complete</label>
+            <name>SetCanComplete</name>
+            <resultIncluded>true</resultIncluded>
+            <sequenceNumber>4</sequenceNumber>
+            <shouldExposExecPathMsgOnly>true</shouldExposExecPathMsgOnly>
+            <shouldExposeConditionDetails>false</shouldExposeConditionDetails>
+            <shouldShowExplExternally>false</shouldShowExplExternally>
+            <stepType>BusinessKnowledgeModel</stepType>
+        </steps>
+        <variables>
+            <collection>false</collection>
+            <dataType>Numeric</dataType>
+            <decimalPlaces>2</decimalPlaces>
+            <description>Total approved hours for the program.</description>
+            <input>true</input>
+            <name>ApprovedHours</name>
+            <output>false</output>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Numeric</dataType>
+            <decimalPlaces>2</decimalPlaces>
+            <description>Hours needed to test, from the license type. Blank means the completion figure applies.</description>
+            <input>true</input>
+            <name>TestingThresholdHours</name>
+            <output>false</output>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Numeric</dataType>
+            <decimalPlaces>2</decimalPlaces>
+            <description>Hours needed to complete, from the license type. Blank means no hour requirement.</description>
+            <input>true</input>
+            <name>CompletionThresholdHours</name>
+            <output>false</output>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Boolean</dataType>
+            <description>True when the notarized certification of contractual fees has been accepted.</description>
+            <input>true</input>
+            <name>HasContractualFeesCertification</name>
+            <output>false</output>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Numeric</dataType>
+            <decimalPlaces>2</decimalPlaces>
+            <description>Hours still needed before testing.</description>
+            <input>false</input>
+            <name>HoursToTest</name>
+            <output>true</output>
+            <resultStep>SetHoursToTest</resultStep>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Numeric</dataType>
+            <decimalPlaces>2</decimalPlaces>
+            <description>Hours still needed before completion.</description>
+            <input>false</input>
+            <name>HoursToComplete</name>
+            <output>true</output>
+            <resultStep>SetHoursToComplete</resultStep>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Boolean</dataType>
+            <description>Enough hours and the certification, so the student can be scheduled for examination.</description>
+            <input>false</input>
+            <name>CanTest</name>
+            <output>true</output>
+            <resultStep>SetCanTest</resultStep>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Boolean</dataType>
+            <description>Enough hours for completion and initial licensure.</description>
+            <input>false</input>
+            <name>CanComplete</name>
+            <output>true</output>
+            <resultStep>SetCanComplete</resultStep>
+            <type>Variable</type>
+        </variables>
+    </versions>
+</ExpressionSetDefinition>
