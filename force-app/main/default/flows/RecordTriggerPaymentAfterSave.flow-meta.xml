@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>66.0</apiVersion>
+    <description>After a payment is recorded or its status changes, for example to Returned, re-checks automatic stop codes for the payer.</description>
+    <environments>Default</environments>
+    <interviewLabel>Record-Trigger: Payment After Save {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Record-Trigger: Payment After Save</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>SyncStopCodes</targetReference>
+        </connector>
+        <filterFormula>ISNEW() || ISCHANGED({!$Record.Status__c})</filterFormula>
+        <object>Payment__c</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+    <subflows>
+        <name>SyncStopCodes</name>
+        <label>Sync Stop Codes</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <flowName>SubflowStopCodeSync</flowName>
+        <inputAssignments>
+            <name>varT_AccountId</name>
+            <value>
+                <elementReference>$Record.Account__c</elementReference>
+            </value>
+        </inputAssignments>
+    </subflows>
+</Flow>

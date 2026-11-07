@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>66.0</apiVersion>
+    <decisions>
+        <name>IsThisInTheWindow</name>
+        <label>Is This In The Window?</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnectorLabel>No</defaultConnectorLabel>
+        <rules>
+            <name>InWindow</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>forB_IsInWindow</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>SyncStopCodes</targetReference>
+            </connector>
+            <label>Yes</label>
+        </rules>
+    </decisions>
+    <description>Nightly. Re-checks stop codes for students whose hours entry ended six months ago in the last week. The sync uses the latest entry, so students with newer hours are unaffected.</description>
+    <environments>Default</environments>
+    <formulas>
+        <name>forB_IsInWindow</name>
+        <description>True when the date this schedule watches fell in the last seven days.</description>
+        <dataType>Boolean</dataType>
+        <expression>DATEVALUE({!$Record.EndDate}) &gt;= ADDMONTHS(TODAY(), -6) - 7 &amp;&amp; DATEVALUE({!$Record.EndDate}) &lt; ADDMONTHS(TODAY(), -6)</expression>
+    </formulas>
+    <interviewLabel>Training Course Participant Schedule: Six Months Without Hours {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Training Course Participant Schedule: Six Months Without Hours</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>IsThisInTheWindow</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>EndDate</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <object>TrainingCourseParticipant</object>
+        <schedule>
+            <frequency>Daily</frequency>
+            <startDate>2026-11-08</startDate>
+            <startTime>06:20:00.000Z</startTime>
+        </schedule>
+        <triggerType>Scheduled</triggerType>
+    </start>
+    <status>Active</status>
+    <subflows>
+        <name>SyncStopCodes</name>
+        <label>Sync Stop Codes</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <flowName>SubflowStopCodeSync</flowName>
+        <inputAssignments>
+            <name>varT_AccountId</name>
+            <value>
+                <elementReference>$Record.Contact.AccountId</elementReference>
+            </value>
+        </inputAssignments>
+    </subflows>
+</Flow>

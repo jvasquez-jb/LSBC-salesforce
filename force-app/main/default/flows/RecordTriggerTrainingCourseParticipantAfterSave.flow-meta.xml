@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>66.0</apiVersion>
+    <description>After hours are entered or corrected, re-checks automatic stop codes for the student.</description>
+    <environments>Default</environments>
+    <interviewLabel>Record-Trigger: Training Course Participant After Save {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Record-Trigger: Training Course Participant After Save</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>SyncStopCodes</targetReference>
+        </connector>
+        <filterFormula>ISNEW() || ISCHANGED({!$Record.TotalHours}) || ISCHANGED({!$Record.EndDate}) || ISCHANGED({!$Record.CourseOfferingId})</filterFormula>
+        <object>TrainingCourseParticipant</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+    <subflows>
+        <name>SyncStopCodes</name>
+        <label>Sync Stop Codes</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <flowName>SubflowStopCodeSync</flowName>
+        <inputAssignments>
+            <name>varT_AccountId</name>
+            <value>
+                <elementReference>$Record.Contact.AccountId</elementReference>
+            </value>
+        </inputAssignments>
+    </subflows>
+</Flow>
