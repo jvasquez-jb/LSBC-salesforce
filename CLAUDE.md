@@ -87,6 +87,11 @@ Raised by later phases while Phase 2 is paused. Pick these up when it resumes.
     rules are in use, make a new version instead.
   - `ISBLANK` never matches a blank Text input. Compare against the expected values instead
     (`Result != "Pass" && Result != "Fail"`). `ISBLANK` works on Date and Number. `ADDMONTHS` works.
+- Decision matrix rows are data, not metadata. Deploy the definition as Draft, load rows with
+  `POST /services/data/v66.0/connect/omnistudio/decision-matrices/<matrixId>/versions/<versionId>/rows`
+  and body `{"rows":[{"rowData":{...}}]}` (a direct `CalculationMatrixRow` insert skips the hash key),
+  then redeploy as Active. Row sources live in `data/decisionMatrices/*.csv`. Test with
+  `POST /services/data/v66.0/actions/custom/runDecisionMatrix/<Name>`. An unmatched input returns blank outputs.
 - Flow: an empty Text variable is null, and `CONTAINS(null, …)` is null, not false, so it fails an
   "equals false" check. Prefix the haystack: `CONTAINS(";" & {!varT_List}, …)`.
 - Stop code test records in LSBC-Partial are named `StopCodeTest …` (a person, a salon, a school).

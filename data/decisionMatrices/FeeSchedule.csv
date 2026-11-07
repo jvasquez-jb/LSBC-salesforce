@@ -1,0 +1,19 @@
+FeeName,FeeCode,Amount
+Individual License,,35
+Permit,,50
+Temporary Permit,,50
+Booth Renter Contract,,5
+Late Penalty,FH,35
+School Renewal,FD,190
+Failure To Timely Renew,PO,175
+Practical Examination,,25
+State Examination,,25
+Restoration Examination,,25
+Duplicate License,,25
+Affidavit,,15
+Student Registration,,10
+School Initial Inspection,,100
+School Final Inspection,,300
+Violation,,25
+Cleanup Order,,100
+Late School Registration,,2500
