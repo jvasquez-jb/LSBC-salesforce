@@ -18,62 +18,14 @@
         <steps>
             <actionType>AssignParameterValues</actionType>
             <assignment>
-                <assignedParameter>SafeBirthDay</assignedParameter>
-                <expression>IF(BirthMonth == 2 &amp;&amp; BirthDay == 29, 28, BirthDay)</expression>
-            </assignment>
-            <description>A February 29 birthday is treated as February 28.</description>
-            <label>Set Safe Birth Day</label>
-            <name>SetSafeBirthDay</name>
-            <resultIncluded>true</resultIncluded>
-            <sequenceNumber>1</sequenceNumber>
-            <shouldExposExecPathMsgOnly>true</shouldExposExecPathMsgOnly>
-            <shouldExposeConditionDetails>false</shouldExposeConditionDetails>
-            <shouldShowExplExternally>false</shouldShowExplExternally>
-            <stepType>BusinessKnowledgeModel</stepType>
-        </steps>
-        <steps>
-            <actionType>AssignParameterValues</actionType>
-            <assignment>
-                <assignedParameter>BirthdayInStartYear</assignedParameter>
-                <expression>DATE(YEAR(StartDate), BirthMonth, SafeBirthDay)</expression>
-            </assignment>
-            <description>The holder's birthday in the start date's year.</description>
-            <label>Set Birthday In Start Year</label>
-            <name>SetBirthdayInStartYear</name>
-            <resultIncluded>true</resultIncluded>
-            <sequenceNumber>2</sequenceNumber>
-            <shouldExposExecPathMsgOnly>true</shouldExposExecPathMsgOnly>
-            <shouldExposeConditionDetails>false</shouldExposeConditionDetails>
-            <shouldShowExplExternally>false</shouldShowExplExternally>
-            <stepType>BusinessKnowledgeModel</stepType>
-        </steps>
-        <steps>
-            <actionType>AssignParameterValues</actionType>
-            <assignment>
-                <assignedParameter>JanuaryThirtyFirstInStartYear</assignedParameter>
-                <expression>DATE(YEAR(StartDate), 1, 31)</expression>
-            </assignment>
-            <description>January 31 in the start date's year.</description>
-            <label>Set January Thirty First In Start Year</label>
-            <name>SetJanuaryThirtyFirstInStartYear</name>
-            <resultIncluded>true</resultIncluded>
-            <sequenceNumber>3</sequenceNumber>
-            <shouldExposExecPathMsgOnly>true</shouldExposExecPathMsgOnly>
-            <shouldExposeConditionDetails>false</shouldExposeConditionDetails>
-            <shouldShowExplExternally>false</shouldShowExplExternally>
-            <stepType>BusinessKnowledgeModel</stepType>
-        </steps>
-        <steps>
-            <actionType>AssignParameterValues</actionType>
-            <assignment>
                 <assignedParameter>NewPeriodEnd</assignedParameter>
-                <expression>IF(ExpirationBasis == "Holders Birthday", IF(BirthdayInStartYear &gt; StartDate, BirthdayInStartYear, ADDMONTHS(BirthdayInStartYear, 12)), IF(ExpirationBasis == "January 31", IF(JanuaryThirtyFirstInStartYear &gt; StartDate, JanuaryThirtyFirstInStartYear, ADDMONTHS(JanuaryThirtyFirstInStartYear, 12)), IF(DurationType == "Day", StartDate + TermLength, ADDMONTHS(StartDate, TermLength))))</expression>
+                <expression>IF(ExpirationBasis == "Holders Birthday", IF(DATE(YEAR(StartDate), BirthMonth, IF(BirthMonth == 2 &amp;&amp; BirthDay == 29, 28, BirthDay)) &gt; StartDate, DATE(YEAR(StartDate), BirthMonth, IF(BirthMonth == 2 &amp;&amp; BirthDay == 29, 28, BirthDay)), ADDMONTHS(DATE(YEAR(StartDate), BirthMonth, IF(BirthMonth == 2 &amp;&amp; BirthDay == 29, 28, BirthDay)), 12)), IF(ExpirationBasis == "January 31", IF(DATE(YEAR(StartDate), 1, 31) &gt; StartDate, DATE(YEAR(StartDate), 1, 31), ADDMONTHS(DATE(YEAR(StartDate), 1, 31), 12)), IF(DurationType == "Day", StartDate + TermLength, ADDMONTHS(StartDate, TermLength))))</expression>
             </assignment>
-            <description>The next expiration date after the start date.</description>
+            <description>The next expiration date after the start date. A February 29 birthday is treated as February 28.</description>
             <label>Set New Period End</label>
             <name>SetNewPeriodEnd</name>
             <resultIncluded>true</resultIncluded>
-            <sequenceNumber>4</sequenceNumber>
+            <sequenceNumber>1</sequenceNumber>
             <shouldExposExecPathMsgOnly>true</shouldExposExecPathMsgOnly>
             <shouldExposeConditionDetails>false</shouldExposeConditionDetails>
             <shouldShowExplExternally>false</shouldShowExplExternally>
@@ -138,39 +90,8 @@
         </variables>
         <variables>
             <collection>false</collection>
-            <dataType>Numeric</dataType>
-            <decimalPlaces>2</decimalPlaces>
-            <description>A February 29 birthday is treated as February 28.</description>
-            <input>false</input>
-            <name>SafeBirthDay</name>
-            <output>false</output>
-            <resultStep>SetSafeBirthDay</resultStep>
-            <type>Variable</type>
-        </variables>
-        <variables>
-            <collection>false</collection>
             <dataType>Date</dataType>
-            <description>The holder's birthday in the start date's year.</description>
-            <input>false</input>
-            <name>BirthdayInStartYear</name>
-            <output>false</output>
-            <resultStep>SetBirthdayInStartYear</resultStep>
-            <type>Variable</type>
-        </variables>
-        <variables>
-            <collection>false</collection>
-            <dataType>Date</dataType>
-            <description>January 31 in the start date's year.</description>
-            <input>false</input>
-            <name>JanuaryThirtyFirstInStartYear</name>
-            <output>false</output>
-            <resultStep>SetJanuaryThirtyFirstInStartYear</resultStep>
-            <type>Variable</type>
-        </variables>
-        <variables>
-            <collection>false</collection>
-            <dataType>Date</dataType>
-            <description>The next expiration date after the start date.</description>
+            <description>The next expiration date after the start date. A February 29 birthday is treated as February 28.</description>
             <input>false</input>
             <name>NewPeriodEnd</name>
             <output>true</output>

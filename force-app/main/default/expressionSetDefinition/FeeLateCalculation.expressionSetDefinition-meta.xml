@@ -18,30 +18,14 @@
         <steps>
             <actionType>AssignParameterValues</actionType>
             <assignment>
-                <assignedParameter>YearsBetween</assignedParameter>
-                <expression>YEAR(AsOfDate) - YEAR(PaidThroughDate)</expression>
-            </assignment>
-            <description>Calendar years between the paid-through date and the as-of date.</description>
-            <label>Set Years Between</label>
-            <name>SetYearsBetween</name>
-            <resultIncluded>true</resultIncluded>
-            <sequenceNumber>1</sequenceNumber>
-            <shouldExposExecPathMsgOnly>true</shouldExposExecPathMsgOnly>
-            <shouldExposeConditionDetails>false</shouldExposeConditionDetails>
-            <shouldShowExplExternally>false</shouldShowExplExternally>
-            <stepType>BusinessKnowledgeModel</stepType>
-        </steps>
-        <steps>
-            <actionType>AssignParameterValues</actionType>
-            <assignment>
                 <assignedParameter>DelinquentYears</assignedParameter>
-                <expression>IF(PaidThroughDate &gt;= AsOfDate, 0, YearsBetween + IF(ADDMONTHS(PaidThroughDate, 12 * YearsBetween) &lt; AsOfDate, 1, 0))</expression>
+                <expression>IF(PaidThroughDate &gt;= AsOfDate, 0, (YEAR(AsOfDate) - YEAR(PaidThroughDate)) + IF(ADDMONTHS(PaidThroughDate, 12 * (YEAR(AsOfDate) - YEAR(PaidThroughDate))) &lt; AsOfDate, 1, 0))</expression>
             </assignment>
             <description>License years missed: each anniversary of the paid-through date that has passed counts as one.</description>
             <label>Set Delinquent Years</label>
             <name>SetDelinquentYears</name>
             <resultIncluded>true</resultIncluded>
-            <sequenceNumber>2</sequenceNumber>
+            <sequenceNumber>1</sequenceNumber>
             <shouldExposExecPathMsgOnly>true</shouldExposExecPathMsgOnly>
             <shouldExposeConditionDetails>false</shouldExposeConditionDetails>
             <shouldShowExplExternally>false</shouldShowExplExternally>
@@ -57,7 +41,7 @@
             <label>Set Requires Restoration Exam</label>
             <name>SetRequiresRestorationExam</name>
             <resultIncluded>true</resultIncluded>
-            <sequenceNumber>3</sequenceNumber>
+            <sequenceNumber>2</sequenceNumber>
             <shouldExposExecPathMsgOnly>true</shouldExposExecPathMsgOnly>
             <shouldExposeConditionDetails>false</shouldExposeConditionDetails>
             <shouldShowExplExternally>false</shouldShowExplExternally>
@@ -73,7 +57,7 @@
             <label>Set Late Fee Total</label>
             <name>SetLateFeeTotal</name>
             <resultIncluded>true</resultIncluded>
-            <sequenceNumber>4</sequenceNumber>
+            <sequenceNumber>3</sequenceNumber>
             <shouldExposExecPathMsgOnly>true</shouldExposExecPathMsgOnly>
             <shouldExposeConditionDetails>false</shouldExposeConditionDetails>
             <shouldShowExplExternally>false</shouldShowExplExternally>
@@ -89,7 +73,7 @@
             <label>Set Renewal Amount</label>
             <name>SetRenewalAmount</name>
             <resultIncluded>true</resultIncluded>
-            <sequenceNumber>5</sequenceNumber>
+            <sequenceNumber>4</sequenceNumber>
             <shouldExposExecPathMsgOnly>true</shouldExposExecPathMsgOnly>
             <shouldExposeConditionDetails>false</shouldExposeConditionDetails>
             <shouldShowExplExternally>false</shouldShowExplExternally>
@@ -173,17 +157,6 @@
             <output>false</output>
             <type>Constant</type>
             <value>36</value>
-        </variables>
-        <variables>
-            <collection>false</collection>
-            <dataType>Numeric</dataType>
-            <decimalPlaces>2</decimalPlaces>
-            <description>Calendar years between the paid-through date and the as-of date.</description>
-            <input>false</input>
-            <name>YearsBetween</name>
-            <output>false</output>
-            <resultStep>SetYearsBetween</resultStep>
-            <type>Variable</type>
         </variables>
         <variables>
             <collection>false</collection>
