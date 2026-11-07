@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ExpressionSetDefinition xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Decides whether a student may be registered: the school must not be Rogue, the student must be old enough, and a copy of the social security card must be on file. Each condition is reported separately.</description>
+    <executionScale>Low</executionScale>
+    <label>Eligibility Student Registration</label>
+    <processType>Bre</processType>
+    <template>false</template>
+    <versions>
+        <fullName>EligibilityStudentRegistration_V1</fullName>
+        <description>Decides whether a student may be registered: the school must not be Rogue, the student must be old enough, and a copy of the social security card must be on file. Each condition is reported separately.</description>
+        <expressionSetDefinition>EligibilityStudentRegistration</expressionSetDefinition>
+        <label>Eligibility Student Registration V1</label>
+        <rank>1</rank>
+        <shouldShowExplExternally>false</shouldShowExplExternally>
+        <startDate>2026-01-01T00:00:00.000Z</startDate>
+        <status>Active</status>
+        <versionNumber>1</versionNumber>
+        <steps>
+            <actionType>AssignParameterValues</actionType>
+            <assignment>
+                <assignedParameter>SchoolStatusOk</assignedParameter>
+                <expression>DoeStatus == "Seeking Approval" || DoeStatus == "Not Seeking Approval"</expression>
+            </assignment>
+            <description>The school may register students.</description>
+            <label>Set School Status Ok</label>
+            <name>SetSchoolStatusOk</name>
+            <resultIncluded>true</resultIncluded>
+            <sequenceNumber>1</sequenceNumber>
+            <shouldExposExecPathMsgOnly>true</shouldExposExecPathMsgOnly>
+            <shouldExposeConditionDetails>false</shouldExposeConditionDetails>
+            <shouldShowExplExternally>false</shouldShowExplExternally>
+            <stepType>BusinessKnowledgeModel</stepType>
+        </steps>
+        <steps>
+            <actionType>AssignParameterValues</actionType>
+            <assignment>
+                <assignedParameter>AgeOk</assignedParameter>
+                <expression>NOT(ISBLANK(StudentAge)) &amp;&amp; StudentAge &gt;= MinimumAge</expression>
+            </assignment>
+            <description>The student is old enough.</description>
+            <label>Set Age Ok</label>
+            <name>SetAgeOk</name>
+            <resultIncluded>true</resultIncluded>
+            <sequenceNumber>2</sequenceNumber>
+            <shouldExposExecPathMsgOnly>true</shouldExposExecPathMsgOnly>
+            <shouldExposeConditionDetails>false</shouldExposeConditionDetails>
+            <shouldShowExplExternally>false</shouldShowExplExternally>
+            <stepType>BusinessKnowledgeModel</stepType>
+        </steps>
+        <steps>
+            <actionType>AssignParameterValues</actionType>
+            <assignment>
+                <assignedParameter>SocialSecurityCardOk</assignedParameter>
+                <expression>SocialSecurityCardReceived</expression>
+            </assignment>
+            <description>The social security card copy is on file.</description>
+            <label>Set Social Security Card Ok</label>
+            <name>SetSocialSecurityCardOk</name>
+            <resultIncluded>true</resultIncluded>
+            <sequenceNumber>3</sequenceNumber>
+            <shouldExposExecPathMsgOnly>true</shouldExposExecPathMsgOnly>
+            <shouldExposeConditionDetails>false</shouldExposeConditionDetails>
+            <shouldShowExplExternally>false</shouldShowExplExternally>
+            <stepType>BusinessKnowledgeModel</stepType>
+        </steps>
+        <steps>
+            <actionType>AssignParameterValues</actionType>
+            <assignment>
+                <assignedParameter>IsEligible</assignedParameter>
+                <expression>SchoolStatusOk &amp;&amp; AgeOk &amp;&amp; SocialSecurityCardOk</expression>
+            </assignment>
+            <description>All registration conditions are met.</description>
+            <label>Set Is Eligible</label>
+            <name>SetIsEligible</name>
+            <resultIncluded>true</resultIncluded>
+            <sequenceNumber>4</sequenceNumber>
+            <shouldExposExecPathMsgOnly>true</shouldExposExecPathMsgOnly>
+            <shouldExposeConditionDetails>false</shouldExposeConditionDetails>
+            <shouldShowExplExternally>false</shouldShowExplExternally>
+            <stepType>BusinessKnowledgeModel</stepType>
+        </steps>
+        <variables>
+            <collection>false</collection>
+            <dataType>Text</dataType>
+            <description>The school's DOE status: Seeking Approval, Not Seeking Approval or Rogue.</description>
+            <input>true</input>
+            <name>DoeStatus</name>
+            <output>false</output>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Numeric</dataType>
+            <decimalPlaces>2</decimalPlaces>
+            <description>The student's age in whole years, worked out by the calling flow so the birthdate never enters a rule.</description>
+            <input>true</input>
+            <name>StudentAge</name>
+            <output>false</output>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Boolean</dataType>
+            <description>True when a copy of the social security card is on file.</description>
+            <input>true</input>
+            <name>SocialSecurityCardReceived</name>
+            <output>false</output>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Numeric</dataType>
+            <decimalPlaces>2</decimalPlaces>
+            <description>Youngest age at which a student can register.</description>
+            <input>false</input>
+            <name>MinimumAge</name>
+            <output>false</output>
+            <type>Constant</type>
+            <value>16</value>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Boolean</dataType>
+            <description>The school may register students.</description>
+            <input>false</input>
+            <name>SchoolStatusOk</name>
+            <output>true</output>
+            <resultStep>SetSchoolStatusOk</resultStep>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Boolean</dataType>
+            <description>The student is old enough.</description>
+            <input>false</input>
+            <name>AgeOk</name>
+            <output>true</output>
+            <resultStep>SetAgeOk</resultStep>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Boolean</dataType>
+            <description>The social security card copy is on file.</description>
+            <input>false</input>
+            <name>SocialSecurityCardOk</name>
+            <output>true</output>
+            <resultStep>SetSocialSecurityCardOk</resultStep>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Boolean</dataType>
+            <description>All registration conditions are met.</description>
+            <input>false</input>
+            <name>IsEligible</name>
+            <output>true</output>
+            <resultStep>SetIsEligible</resultStep>
+            <type>Variable</type>
+        </variables>
+    </versions>
+</ExpressionSetDefinition>
