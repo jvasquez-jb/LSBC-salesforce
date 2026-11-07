@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ExpressionSetDefinition xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Works out the next expiration date for a license from its type's expiration basis: the holder's next birthday, the next January 31, or a set length of time from the start date.</description>
+    <executionScale>Low</executionScale>
+    <label>License Expiration Date</label>
+    <processType>Bre</processType>
+    <template>false</template>
+    <versions>
+        <fullName>LicenseExpirationDate_V1</fullName>
+        <description>Works out the next expiration date for a license from its type's expiration basis: the holder's next birthday, the next January 31, or a set length of time from the start date.</description>
+        <expressionSetDefinition>LicenseExpirationDate</expressionSetDefinition>
+        <label>License Expiration Date V1</label>
+        <rank>1</rank>
+        <shouldShowExplExternally>false</shouldShowExplExternally>
+        <startDate>2026-01-01T00:00:00.000Z</startDate>
+        <status>Active</status>
+        <versionNumber>1</versionNumber>
+        <steps>
+            <actionType>AssignParameterValues</actionType>
+            <assignment>
+                <assignedParameter>SafeBirthDay</assignedParameter>
+                <expression>IF(BirthMonth == 2 &amp;&amp; BirthDay == 29, 28, BirthDay)</expression>
+            </assignment>
+            <description>A February 29 birthday is treated as February 28.</description>
+            <label>Set Safe Birth Day</label>
+            <name>SetSafeBirthDay</name>
+            <resultIncluded>true</resultIncluded>
+            <sequenceNumber>1</sequenceNumber>
+            <shouldExposExecPathMsgOnly>true</shouldExposExecPathMsgOnly>
+            <shouldExposeConditionDetails>false</shouldExposeConditionDetails>
+            <shouldShowExplExternally>false</shouldShowExplExternally>
+            <stepType>BusinessKnowledgeModel</stepType>
+        </steps>
+        <steps>
+            <actionType>AssignParameterValues</actionType>
+            <assignment>
+                <assignedParameter>BirthdayInStartYear</assignedParameter>
+                <expression>DATE(YEAR(StartDate), BirthMonth, SafeBirthDay)</expression>
+            </assignment>
+            <description>The holder's birthday in the start date's year.</description>
+            <label>Set Birthday In Start Year</label>
+            <name>SetBirthdayInStartYear</name>
+            <resultIncluded>true</resultIncluded>
+            <sequenceNumber>2</sequenceNumber>
+            <shouldExposExecPathMsgOnly>true</shouldExposExecPathMsgOnly>
+            <shouldExposeConditionDetails>false</shouldExposeConditionDetails>
+            <shouldShowExplExternally>false</shouldShowExplExternally>
+            <stepType>BusinessKnowledgeModel</stepType>
+        </steps>
+        <steps>
+            <actionType>AssignParameterValues</actionType>
+            <assignment>
+                <assignedParameter>JanuaryThirtyFirstInStartYear</assignedParameter>
+                <expression>DATE(YEAR(StartDate), 1, 31)</expression>
+            </assignment>
+            <description>January 31 in the start date's year.</description>
+            <label>Set January Thirty First In Start Year</label>
+            <name>SetJanuaryThirtyFirstInStartYear</name>
+            <resultIncluded>true</resultIncluded>
+            <sequenceNumber>3</sequenceNumber>
+            <shouldExposExecPathMsgOnly>true</shouldExposExecPathMsgOnly>
+            <shouldExposeConditionDetails>false</shouldExposeConditionDetails>
+            <shouldShowExplExternally>false</shouldShowExplExternally>
+            <stepType>BusinessKnowledgeModel</stepType>
+        </steps>
+        <steps>
+            <actionType>AssignParameterValues</actionType>
+            <assignment>
+                <assignedParameter>NewPeriodEnd</assignedParameter>
+                <expression>IF(ExpirationBasis == "Holders Birthday", IF(BirthdayInStartYear &gt; StartDate, BirthdayInStartYear, ADDMONTHS(BirthdayInStartYear, 12)), IF(ExpirationBasis == "January 31", IF(JanuaryThirtyFirstInStartYear &gt; StartDate, JanuaryThirtyFirstInStartYear, ADDMONTHS(JanuaryThirtyFirstInStartYear, 12)), IF(DurationType == "Day", StartDate + TermLength, ADDMONTHS(StartDate, TermLength))))</expression>
+            </assignment>
+            <description>The next expiration date after the start date.</description>
+            <label>Set New Period End</label>
+            <name>SetNewPeriodEnd</name>
+            <resultIncluded>true</resultIncluded>
+            <sequenceNumber>4</sequenceNumber>
+            <shouldExposExecPathMsgOnly>true</shouldExposExecPathMsgOnly>
+            <shouldExposeConditionDetails>false</shouldExposeConditionDetails>
+            <shouldShowExplExternally>false</shouldShowExplExternally>
+            <stepType>BusinessKnowledgeModel</stepType>
+        </steps>
+        <variables>
+            <collection>false</collection>
+            <dataType>Text</dataType>
+            <description>From the license type: Holders Birthday, January 31, or From Issue Date.</description>
+            <input>true</input>
+            <name>ExpirationBasis</name>
+            <output>false</output>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Numeric</dataType>
+            <decimalPlaces>2</decimalPlaces>
+            <description>From the license type: how long the license lasts when it runs from the issue date.</description>
+            <input>true</input>
+            <name>TermLength</name>
+            <output>false</output>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Text</dataType>
+            <description>From the license type: the unit of the term length, Day or Month.</description>
+            <input>true</input>
+            <name>DurationType</name>
+            <output>false</output>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Date</dataType>
+            <description>The issue date for a new license, or the current expiration date for a renewal.</description>
+            <input>true</input>
+            <name>StartDate</name>
+            <output>false</output>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Numeric</dataType>
+            <decimalPlaces>2</decimalPlaces>
+            <description>Month of the holder's birthday, 1 to 12. Passed in so the birthdate itself never enters a rule.</description>
+            <input>true</input>
+            <name>BirthMonth</name>
+            <output>false</output>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Numeric</dataType>
+            <decimalPlaces>2</decimalPlaces>
+            <description>Day of the holder's birthday.</description>
+            <input>true</input>
+            <name>BirthDay</name>
+            <output>false</output>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Numeric</dataType>
+            <decimalPlaces>2</decimalPlaces>
+            <description>A February 29 birthday is treated as February 28.</description>
+            <input>false</input>
+            <name>SafeBirthDay</name>
+            <output>false</output>
+            <resultStep>SetSafeBirthDay</resultStep>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Date</dataType>
+            <description>The holder's birthday in the start date's year.</description>
+            <input>false</input>
+            <name>BirthdayInStartYear</name>
+            <output>false</output>
+            <resultStep>SetBirthdayInStartYear</resultStep>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Date</dataType>
+            <description>January 31 in the start date's year.</description>
+            <input>false</input>
+            <name>JanuaryThirtyFirstInStartYear</name>
+            <output>false</output>
+            <resultStep>SetJanuaryThirtyFirstInStartYear</resultStep>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Date</dataType>
+            <description>The next expiration date after the start date.</description>
+            <input>false</input>
+            <name>NewPeriodEnd</name>
+            <output>true</output>
+            <resultStep>SetNewPeriodEnd</resultStep>
+            <type>Variable</type>
+        </variables>
+    </versions>
+</ExpressionSetDefinition>

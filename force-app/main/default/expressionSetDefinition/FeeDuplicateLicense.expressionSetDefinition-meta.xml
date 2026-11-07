@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ExpressionSetDefinition xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Decides whether a duplicate license may be issued and what it costs: one per twelve months, the first ever free and later ones charged the Fee Schedule amount.</description>
+    <executionScale>Low</executionScale>
+    <label>Fee Duplicate License</label>
+    <processType>Bre</processType>
+    <template>false</template>
+    <versions>
+        <fullName>FeeDuplicateLicense_V1</fullName>
+        <description>Decides whether a duplicate license may be issued and what it costs: one per twelve months, the first ever free and later ones charged the Fee Schedule amount.</description>
+        <expressionSetDefinition>FeeDuplicateLicense</expressionSetDefinition>
+        <label>Fee Duplicate License V1</label>
+        <rank>1</rank>
+        <shouldShowExplExternally>false</shouldShowExplExternally>
+        <startDate>2026-01-01T00:00:00.000Z</startDate>
+        <status>Active</status>
+        <versionNumber>1</versionNumber>
+        <steps>
+            <actionType>AssignParameterValues</actionType>
+            <assignment>
+                <assignedParameter>IsAllowed</assignedParameter>
+                <expression>ISBLANK(LastDuplicateDate) || LastDuplicateDate &lt;= ADDMONTHS(AsOfDate, -12)</expression>
+            </assignment>
+            <description>True when no duplicate was issued in the last twelve months.</description>
+            <label>Set Is Allowed</label>
+            <name>SetIsAllowed</name>
+            <resultIncluded>true</resultIncluded>
+            <sequenceNumber>1</sequenceNumber>
+            <shouldExposExecPathMsgOnly>true</shouldExposExecPathMsgOnly>
+            <shouldExposeConditionDetails>false</shouldExposeConditionDetails>
+            <shouldShowExplExternally>false</shouldShowExplExternally>
+            <stepType>BusinessKnowledgeModel</stepType>
+        </steps>
+        <steps>
+            <actionType>AssignParameterValues</actionType>
+            <assignment>
+                <assignedParameter>Amount</assignedParameter>
+                <expression>IF(ISBLANK(DuplicateLicenseCount) || DuplicateLicenseCount == 0, 0, DuplicateFee)</expression>
+            </assignment>
+            <description>Nothing for the first duplicate ever, otherwise the duplicate fee.</description>
+            <label>Set Amount</label>
+            <name>SetAmount</name>
+            <resultIncluded>true</resultIncluded>
+            <sequenceNumber>2</sequenceNumber>
+            <shouldExposExecPathMsgOnly>true</shouldExposExecPathMsgOnly>
+            <shouldExposeConditionDetails>false</shouldExposeConditionDetails>
+            <shouldShowExplExternally>false</shouldShowExplExternally>
+            <stepType>BusinessKnowledgeModel</stepType>
+        </steps>
+        <variables>
+            <collection>false</collection>
+            <dataType>Numeric</dataType>
+            <decimalPlaces>2</decimalPlaces>
+            <description>Duplicates already issued to the person. Blank counts as none.</description>
+            <input>true</input>
+            <name>DuplicateLicenseCount</name>
+            <output>false</output>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Date</dataType>
+            <description>When the last duplicate was issued. Blank when there has been none.</description>
+            <input>true</input>
+            <name>LastDuplicateDate</name>
+            <output>false</output>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Date</dataType>
+            <description>The date of the request, normally today.</description>
+            <input>true</input>
+            <name>AsOfDate</name>
+            <output>false</output>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Currency</dataType>
+            <decimalPlaces>2</decimalPlaces>
+            <description>Duplicate license fee from the Fee Schedule.</description>
+            <input>true</input>
+            <name>DuplicateFee</name>
+            <output>false</output>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Boolean</dataType>
+            <description>True when no duplicate was issued in the last twelve months.</description>
+            <input>false</input>
+            <name>IsAllowed</name>
+            <output>true</output>
+            <resultStep>SetIsAllowed</resultStep>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Currency</dataType>
+            <decimalPlaces>2</decimalPlaces>
+            <description>Nothing for the first duplicate ever, otherwise the duplicate fee.</description>
+            <input>false</input>
+            <name>Amount</name>
+            <output>true</output>
+            <resultStep>SetAmount</resultStep>
+            <type>Variable</type>
+        </variables>
+    </versions>
+</ExpressionSetDefinition>
