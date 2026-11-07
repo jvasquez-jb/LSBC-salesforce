@@ -14,6 +14,11 @@ you are working on before building, and section 9 for what the org actually prov
   `ForYear__c`, record type `NewLicensure`, flow `PortalIndividualApplication`,
   decision matrix `StopCodeEligibility`, permission set `SchoolAdministrator`.
   Standard objects and fields keep Salesforce's spelling.
+- A picklist whose values are used on more than one object is a global value set, referenced by
+  each field. Never copy the same values inline on two fields. Example: `Parish`, used by
+  `Account.Parish__c` and `Contact.HomeParish__c`.
+- Person-level fields go on Contact (they surface on the Person Account as `__pc`). Account custom
+  fields are for business accounts.
 - Standard objects first (`PR-01`). Declarative first: Flow + Business Rules Engine; LWCs only for
   the cases listed in `PT-18`. Business logic never lives in a component (`PR-05`).
 - Shield is in scope. Avoid formula, filter and list-view dependencies on fields on the
@@ -26,7 +31,7 @@ you are working on before building, and section 9 for what the org actually prov
 | Phase | Scope | Status |
 |---|---|---|
 | 0 | Foundation: Person Accounts, record types, repo, doc corrections | Done |
-| 1 | Data model (section 1), encrypted field list | |
+| 1 | Data model (section 1), encrypted field list | Done |
 | 2 | Security (5.1), `OPEN-11` ACR sharing spike | |
 | 3 | Business rules (section 2) | |
 | 4 | Cases and violations (section 4) | |
@@ -38,7 +43,8 @@ you are working on before building, and section 9 for what the org actually prov
 - Business Account record types deployed: `Establishment` (default), `School`, `Organization` (`DM-01a`).
 - Person Accounts are enabled.
 - Admin access comes from the permission set group `force__Public_Sector_Solutions_Admin`.
-  Field access for PSS objects is granted by `PublicSectorAccessAdminPSL` in that group. Add new
+  Field access for PSS objects is granted by `PublicSectorAccessAdminPSL` in that group (added to the
+  group in Phase 1; after changing it, wait for the group status to return to Updated). Add new
   admin field access there. Don't create separate admin permission sets.
 - Training Course's API name is `TrnCourse`, not `TrainingCourse`.
 - Holds attach to the holder (Person or business Account), not the licence. Accepted; the Board may

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ConsecutiveCEUCycles__c</fullName>
+    <description>Number of continuing-education cycles completed in a row without a gap. Five in a row qualifies an instructor for master instructor status. A missed cycle resets the count to zero.</description>
+    <inlineHelpText>Count of back-to-back completed cycles. Reset to 0 when a cycle is missed.</inlineHelpText>
+    <label>Consecutive CEU Cycles</label>
+    <precision>2</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <type>Number</type>
+</CustomField>

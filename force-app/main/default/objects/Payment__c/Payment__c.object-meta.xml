@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>The Payment object records money received by the Board, such as a check or card payment for a violation fee. It captures Payer, Received Date, Amount and Method; Applied Amount and Unapplied Amount calculate from its allocations. A refund is tracked on the payment itself. Commonly used for violation payments and refund audits.</description>
+    <enableActivities>false</enableActivities>
+    <enableHistory>true</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <label>Payment</label>
+    <nameField>
+        <displayFormat>PAY-{000000}</displayFormat>
+        <label>Payment Number</label>
+        <startingNumber>1</startingNumber>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Payments</pluralLabel>
+    <sharingModel>Private</sharingModel>
+    <externalSharingModel>Private</externalSharingModel>
+    <visibility>Public</visibility>
+</CustomObject>

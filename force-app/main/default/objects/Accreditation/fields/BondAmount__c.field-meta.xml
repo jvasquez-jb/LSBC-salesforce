@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>BondAmount__c</fullName>
+    <description>Face value of a school's surety bond.</description>
+    <inlineHelpText>Enter the bond amount shown on the bond.</inlineHelpText>
+    <label>Bond Amount</label>
+    <precision>16</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <type>Currency</type>
+</CustomField>

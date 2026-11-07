@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Program__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>The training program whose hours count toward this license type.</description>
+    <inlineHelpText>Choose the program a student completes to qualify for this license.</inlineHelpText>
+    <label>Program</label>
+    <referenceTo>TrnCourse</referenceTo>
+    <relationshipLabel>License Types</relationshipLabel>
+    <relationshipName>LicenseTypes</relationshipName>
+    <required>false</required>
+    <type>Lookup</type>
+</CustomField>

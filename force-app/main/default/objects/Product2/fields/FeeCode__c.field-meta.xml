@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>FeeCode__c</fullName>
+    <description>The two-letter fee code used by the Board, such as AC for a renewal. Unique, so fee products can be loaded and matched by code.</description>
+    <externalId>true</externalId>
+    <inlineHelpText>Enter the two-letter fee code in capitals.</inlineHelpText>
+    <label>Fee Code</label>
+    <length>2</length>
+    <required>false</required>
+    <type>Text</type>
+    <unique>true</unique>
+    <caseSensitive>false</caseSensitive>
+</CustomField>

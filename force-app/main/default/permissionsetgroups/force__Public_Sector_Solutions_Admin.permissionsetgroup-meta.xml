@@ -40,6 +40,7 @@
     <permissionSets>force__OmniStudioAdmin</permissionSets>
     <permissionSets>force__ProviderManagementPsl</permissionSets>
     <permissionSets>force__PubSecServiceExcellencePsl</permissionSets>
+    <permissionSets>PublicSectorAccessAdminPSL</permissionSets>
     <permissionSets>force__PublicSectorAccessPSL</permissionSets>
     <permissionSets>force__PublicSectorGenerativeAIPsl</permissionSets>
     <permissionSets>force__RunAccountingSubledgerJob</permissionSets>

@@ -187,6 +187,16 @@ and there is no encryption at rest behind it in Phase 1. See `OPEN-13`.
 Deceased are not holds — they never clear and never receive an end date. CLOSE already has a
 separate Deceased flag on the applicant, which supports this. See `BR-04`.
 
+`DM-08a` `[SETTLED]` **One `BusinessLicense` per credential, kept for life.** A renewal moves
+`PeriodEnd` forward on the same record; it does not create a new one. `Identifier` therefore stays
+the single public lookup key, and stop-code and prerequisite rules never have to find "the current
+one". Year-by-year history comes from renewal applications, fee items carrying `ForYear__c`, and
+field history. Credential-level facts — `LastCEUDate__c`, `ConsecutiveCEUCycles__c`,
+`IsMasterInstructor__c`, `RenewalCount__c` — live on the licence.
+
+> `BusinessLicenseStatus` in the org ships with Inactive (default), Revoked, Draft and Verified.
+> Phase 1 added Active, Retired and Deceased.
+
 `DM-09` `[SETTLED]` **Originating state is captured on reciprocity applications.** Not captured
 today. It is the only way interstate routing becomes visible — applicants licence in an
 intermediate state to bypass exclusions.
@@ -205,7 +215,7 @@ against the licence" is this junction.
 | Object | Purpose | Key content |
 |---|---|---|
 | Training Course (`TrnCourse`) | Catalogue of programmes and CE courses | `TotalHours`, `TotalCredits`, `Status`. The API name is abbreviated: `TrnCourse`, not `TrainingCourse` |
-| Course Offering | A school's approved offering of a programme | That school's approved hours |
+| Course Offering | A school's approved offering of a programme | That school's approved hours (`ApprovedHours__c`). The standard object has no link to an Account, so `School__c` is a custom lookup limited to School Accounts |
 | `TrainingCourseParticipant` | Student enrolment and hours | `TotalHours`, `TotalCredits`, `StartDate` and `EndDate` are native. One record per student per month, bounded by the dates, so history is preserved rather than overwritten |
 | Person Education | Schooling history | Used in reciprocity review |
 | `Examination` | The catalogue | Eight fields — name, description, status. Light enough that one record per timed station costs nothing |
@@ -255,6 +265,13 @@ LSBC's compliance officer owns most of them, and each changes on its own cycle.
 | State reciprocity exceptions | Florida excluded; others carry their own examination requirements |
 | Violation types and regulatory codes | Owned by the chief inspector; the checklist was last revised April 2026 |
 
+Where they live, decided in Phase 1: CE providers, credential evaluation agencies and unacceptable
+diploma sources are `Organization` Accounts, told apart by `Account.Type`. A provider's or agency's
+approval for a given year is an `Accreditation` record (Type CE Provider Approval or Credential
+Evaluator Approval) with `EffectiveFrom` and `EffectiveTo`, so current and prior years sit side by
+side. State reciprocity exceptions are decided in Phase 3 (decision matrix or custom metadata).
+Violation types and regulatory codes are Phase 4 reference data.
+
 `DM-16` `[OPEN]` CLOSE has a **Seminar module** — Maintain Seminar Details and Maintain Seminar
 Codes — which may be where approved CE providers and courses actually live. Confirm before
 assuming Training Course and Course Offering cover it. See `OPEN-14`.
@@ -262,6 +279,10 @@ assuming Training Course and Course Offering cover it. See `OPEN-14`.
 `DM-17` `[SETTLED]` **School bonds are tracked with effective and end dates and an underwriter.**
 A $30,000 insurance bond must be current for a school to renew, and the bond check is a hard
 gate in the print path.
+
+A bond is an `Accreditation` record on the School Account: Type Surety Bond, `EffectiveFrom` and
+`EffectiveTo`, the bond number in `SourceSystemIdentifier`, plus custom `Underwriter__c` and
+`BondAmount__c`. Not a `BusinessLicense`, so it never appears in licence search or the print run.
 
 > **Migration warning.** Bond records in CLOSE repeat the same bond number with appended
 > characters (`$$**`, `***`, `///`, `>>>>`) to force uniqueness across renewal years. Any
@@ -904,6 +925,25 @@ data model milestone at Week 6, and before UAT opens in Week 11 (`CUT-02`).
 with no separate Board approval. Fields are built now and encrypted when Shield is provisioned. Dependencies on those
 fields in formulas, filters and list views are avoided from the start.
 
+**The encrypted field list** (Phase 1, November 2026):
+
+| Field | Scheme | Why |
+|---|---|---|
+| `Contact.SocialSecurityNumber__c` (`SocialSecurityNumber__pc` on the Person Account) | Probabilistic | Identity. Never filtered or matched on (`OPEN-09`) |
+| `PersonDisability.AccommodationDetails__c` | Probabilistic | Health information (`SEC-08`) |
+| Person birthdate (`Contact.Birthdate`) | Confirm it is encryptable at enablement | Identity; the L number already encodes part of it |
+
+Considered and **not** encrypted:
+
+| Field | Reason |
+|---|---|
+| `MaidenName__c`, email, mobile | Used for secondary matching at portal registration |
+| `BusinessLicense.Identifier` | The public lookup key for search and registration |
+| `PersonDisability.Accommodations__c` | Picklists cannot be encrypted. Protected by field access to testing and reciprocity roles |
+
+From now on, no formula, filter, list view, lookup filter or decision-matrix input may reference a
+field on the encrypted list.
+
 `SEC-05` `[SETTLED]` **Standard field history tracking enabled deliberately** on licence status,
 exam results and hold status. Also on comment fields — CLOSE comment boxes have no edit lock and
 no history, and anyone can change anyone's comment with no record.
@@ -1312,3 +1352,15 @@ the source.
 | 6 Nov 2026 | `BusinessLicense` holder corrected to `AccountId`. `DM-01a` adds business Account record types `Establishment`, `School`, `Organization`. |
 | 6 Nov 2026 | Training Course API name recorded as `TrnCourse`. |
 | 6 Nov 2026 | `OPEN-37` settled: holds attach to the holder. `SEC-04`: encrypted field list needs no Board approval; encrypt after build. |
+| 6 Nov 2026 | Phase 1 data model built. `DM-08a` added: one `BusinessLicense` per credential, renewals extend `PeriodEnd`. |
+| 6 Nov 2026 | `DM-17`: school bonds are `Accreditation` records (Type Surety Bond), not licences. |
+| 6 Nov 2026 | `DM-15`: reference lists placed — Organization Accounts by `Account.Type`, yearly approvals as `Accreditation` records. |
+| 6 Nov 2026 | Course Offering gains a `School__c` lookup; the standard object has none. |
+| 6 Nov 2026 | `SEC-04` encrypted field list drafted in 5.1. |
+| 6 Nov 2026 | `DM-05`, `DM-06`, `BR-04` built ahead of LSBC confirmation; still marked PROPOSED. |
+| 6 Nov 2026 | Person-level fields (maiden name, legacy certification number, social security number and card, duplicate licence count) live on **Contact** and surface on the Person Account as `__pc`. Account custom fields are for business accounts. |
+| 6 Nov 2026 | Parish is one global value set, `Parish` (64 parishes plus Out of state), used by `Account.Parish__c` for business addresses and `Contact.HomeParish__c` for home addresses. |
+| 6 Nov 2026 | `BusinessLicenseStatus` gains Active alongside Retired and Deceased. |
+| 6 Nov 2026 | Parish is the global value set `Parish` (64 parishes plus Out of state), used by `Account.Parish__c` for business addresses and `Contact.HomeParish__c` for home addresses. Picklists shared across objects are global value sets. |
+| 6 Nov 2026 | `BusinessLicenseStatus` gains Active alongside Retired and Deceased. |
+| 6 Nov 2026 | Metadata labels and API names use US spelling (License, Program, Check) to match the platform; this document keeps its own spelling. |

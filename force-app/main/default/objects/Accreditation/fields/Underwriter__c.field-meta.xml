@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Underwriter__c</fullName>
+    <description>The insurance company that issued a school's surety bond.</description>
+    <inlineHelpText>Name of the bond's underwriting company.</inlineHelpText>
+    <label>Underwriter</label>
+    <length>120</length>
+    <required>false</required>
+    <type>Text</type>
+</CustomField>

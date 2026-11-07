@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ReturnReason__c</fullName>
+    <description>Why the application was returned to the applicant. Used with the Was Returned box.</description>
+    <inlineHelpText>Choose the main reason the application was sent back.</inlineHelpText>
+    <label>Return Reason</label>
+    <required>false</required>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetName>ApplicationReturnReason</valueSetName>
+    </valueSet>
+</CustomField>

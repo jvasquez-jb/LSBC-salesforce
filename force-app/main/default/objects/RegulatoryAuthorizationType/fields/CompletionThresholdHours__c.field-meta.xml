@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CompletionThresholdHours__c</fullName>
+    <description>Minimum hours set by law before a student completes the program and can be licensed.</description>
+    <inlineHelpText>The legal minimum hours for completion, not a school's own figure.</inlineHelpText>
+    <label>Completion Threshold Hours</label>
+    <precision>5</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <type>Number</type>
+</CustomField>

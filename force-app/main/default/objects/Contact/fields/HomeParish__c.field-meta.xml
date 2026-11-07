@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HomeParish__c</fullName>
+    <description>The Louisiana parish of the person's home address. Uses the same parish list as the business Parish field. Used for reporting on licensees and students by parish.</description>
+    <inlineHelpText>Choose the parish of the person's home address. Choose Out of state for addresses outside Louisiana.</inlineHelpText>
+    <label>Home Parish</label>
+    <required>false</required>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetName>Parish</valueSetName>
+    </valueSet>
+</CustomField>

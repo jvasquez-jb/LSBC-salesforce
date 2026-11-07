@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Parish__c</fullName>
+    <description>The Louisiana parish of the record&apos;s main address. Used for reporting and for the public school and license directories.</description>
+    <inlineHelpText>Choose the parish of the main address. Choose Out of state for addresses outside Louisiana.</inlineHelpText>
+    <label>Parish</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetName>Parish</valueSetName>
+    </valueSet>
+</CustomField>

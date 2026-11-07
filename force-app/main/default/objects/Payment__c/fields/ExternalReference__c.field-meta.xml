@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ExternalReference__c</fullName>
+    <description>The check, money order or card transaction number, used to trace the payment.</description>
+    <inlineHelpText>Enter the number printed on the check or money order, or the card transaction number.</inlineHelpText>
+    <label>Check or Transaction Number</label>
+    <length>50</length>
+    <required>false</required>
+    <type>Text</type>
+</CustomField>

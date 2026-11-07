@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ExpirationBasis__c</fullName>
+    <description>What a license of this type expires on: the holder's birthday, January 31, or a set length of time after it is issued.</description>
+    <inlineHelpText>Choose how the expiration date is set for this license type.</inlineHelpText>
+    <label>Expiration Basis</label>
+    <required>false</required>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Holders Birthday</fullName>
+                <default>false</default>
+                <label>Holder's birthday</label>
+            </value>
+            <value>
+                <fullName>January 31</fullName>
+                <default>false</default>
+                <label>January 31</label>
+            </value>
+            <value>
+                <fullName>From Issue Date</fullName>
+                <default>false</default>
+                <label>From issue date</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

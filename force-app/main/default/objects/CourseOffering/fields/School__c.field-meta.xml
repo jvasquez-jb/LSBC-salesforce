@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>School__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>The school that offers this program.</description>
+    <inlineHelpText>Choose the school. Only school accounts can be chosen.</inlineHelpText>
+    <label>School</label>
+    <lookupFilter>
+        <active>true</active>
+        <filterItems>
+            <field>Account.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>School</value>
+        </filterItems>
+        <isOptional>false</isOptional>
+    </lookupFilter>
+    <referenceTo>Account</referenceTo>
+    <relationshipLabel>Course Offerings</relationshipLabel>
+    <relationshipName>CourseOfferings</relationshipName>
+    <required>false</required>
+    <type>Lookup</type>
+</CustomField>

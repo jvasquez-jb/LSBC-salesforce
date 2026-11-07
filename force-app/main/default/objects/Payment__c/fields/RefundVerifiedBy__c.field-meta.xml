@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>RefundVerifiedBy__c</fullName>
+    <description>The staff member who verified the refund request.</description>
+    <inlineHelpText>Who checked and signed the refund request.</inlineHelpText>
+    <label>Refund Verified By</label>
+    <referenceTo>User</referenceTo>
+    <relationshipLabel>Refunds Verified</relationshipLabel>
+    <relationshipName>RefundsVerified</relationshipName>
+    <required>false</required>
+    <type>Lookup</type>
+</CustomField>

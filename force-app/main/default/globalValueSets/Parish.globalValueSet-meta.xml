@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Acadia</fullName>
+        <default>false</default>
+        <label>Acadia</label>
+    </customValue>
+    <customValue>
+        <fullName>Allen</fullName>
+        <default>false</default>
+        <label>Allen</label>
+    </customValue>
+    <customValue>
+        <fullName>Ascension</fullName>
+        <default>false</default>
+        <label>Ascension</label>
+    </customValue>
+    <customValue>
+        <fullName>Assumption</fullName>
+        <default>false</default>
+        <label>Assumption</label>
+    </customValue>
+    <customValue>
+        <fullName>Avoyelles</fullName>
+        <default>false</default>
+        <label>Avoyelles</label>
+    </customValue>
+    <customValue>
+        <fullName>Beauregard</fullName>
+        <default>false</default>
+        <label>Beauregard</label>
+    </customValue>
+    <customValue>
+        <fullName>Bienville</fullName>
+        <default>false</default>
+        <label>Bienville</label>
+    </customValue>
+    <customValue>
+        <fullName>Bossier</fullName>
+        <default>false</default>
+        <label>Bossier</label>
+    </customValue>
+    <customValue>
+        <fullName>Caddo</fullName>
+        <default>false</default>
+        <label>Caddo</label>
+    </customValue>
+    <customValue>
+        <fullName>Calcasieu</fullName>
+        <default>false</default>
+        <label>Calcasieu</label>
+    </customValue>
+    <customValue>
+        <fullName>Caldwell</fullName>
+        <default>false</default>
+        <label>Caldwell</label>
+    </customValue>
+    <customValue>
+        <fullName>Cameron</fullName>
+        <default>false</default>
+        <label>Cameron</label>
+    </customValue>
+    <customValue>
+        <fullName>Catahoula</fullName>
+        <default>false</default>
+        <label>Catahoula</label>
+    </customValue>
+    <customValue>
+        <fullName>Claiborne</fullName>
+        <default>false</default>
+        <label>Claiborne</label>
+    </customValue>
+    <customValue>
+        <fullName>Concordia</fullName>
+        <default>false</default>
+        <label>Concordia</label>
+    </customValue>
+    <customValue>
+        <fullName>De Soto</fullName>
+        <default>false</default>
+        <label>De Soto</label>
+    </customValue>
+    <customValue>
+        <fullName>East Baton Rouge</fullName>
+        <default>false</default>
+        <label>East Baton Rouge</label>
+    </customValue>
+    <customValue>
+        <fullName>East Carroll</fullName>
+        <default>false</default>
+        <label>East Carroll</label>
+    </customValue>
+    <customValue>
+        <fullName>East Feliciana</fullName>
+        <default>false</default>
+        <label>East Feliciana</label>
+    </customValue>
+    <customValue>
+        <fullName>Evangeline</fullName>
+        <default>false</default>
+        <label>Evangeline</label>
+    </customValue>
+    <customValue>
+        <fullName>Franklin</fullName>
+        <default>false</default>
+        <label>Franklin</label>
+    </customValue>
+    <customValue>
+        <fullName>Grant</fullName>
+        <default>false</default>
+        <label>Grant</label>
+    </customValue>
+    <customValue>
+        <fullName>Iberia</fullName>
+        <default>false</default>
+        <label>Iberia</label>
+    </customValue>
+    <customValue>
+        <fullName>Iberville</fullName>
+        <default>false</default>
+        <label>Iberville</label>
+    </customValue>
+    <customValue>
+        <fullName>Jackson</fullName>
+        <default>false</default>
+        <label>Jackson</label>
+    </customValue>
+    <customValue>
+        <fullName>Jefferson</fullName>
+        <default>false</default>
+        <label>Jefferson</label>
+    </customValue>
+    <customValue>
+        <fullName>Jefferson Davis</fullName>
+        <default>false</default>
+        <label>Jefferson Davis</label>
+    </customValue>
+    <customValue>
+        <fullName>Lafayette</fullName>
+        <default>false</default>
+        <label>Lafayette</label>
+    </customValue>
+    <customValue>
+        <fullName>Lafourche</fullName>
+        <default>false</default>
+        <label>Lafourche</label>
+    </customValue>
+    <customValue>
+        <fullName>LaSalle</fullName>
+        <default>false</default>
+        <label>LaSalle</label>
+    </customValue>
+    <customValue>
+        <fullName>Lincoln</fullName>
+        <default>false</default>
+        <label>Lincoln</label>
+    </customValue>
+    <customValue>
+        <fullName>Livingston</fullName>
+        <default>false</default>
+        <label>Livingston</label>
+    </customValue>
+    <customValue>
+        <fullName>Madison</fullName>
+        <default>false</default>
+        <label>Madison</label>
+    </customValue>
+    <customValue>
+        <fullName>Morehouse</fullName>
+        <default>false</default>
+        <label>Morehouse</label>
+    </customValue>
+    <customValue>
+        <fullName>Natchitoches</fullName>
+        <default>false</default>
+        <label>Natchitoches</label>
+    </customValue>
+    <customValue>
+        <fullName>Orleans</fullName>
+        <default>false</default>
+        <label>Orleans</label>
+    </customValue>
+    <customValue>
+        <fullName>Ouachita</fullName>
+        <default>false</default>
+        <label>Ouachita</label>
+    </customValue>
+    <customValue>
+        <fullName>Plaquemines</fullName>
+        <default>false</default>
+        <label>Plaquemines</label>
+    </customValue>
+    <customValue>
+        <fullName>Pointe Coupee</fullName>
+        <default>false</default>
+        <label>Pointe Coupee</label>
+    </customValue>
+    <customValue>
+        <fullName>Rapides</fullName>
+        <default>false</default>
+        <label>Rapides</label>
+    </customValue>
+    <customValue>
+        <fullName>Red River</fullName>
+        <default>false</default>
+        <label>Red River</label>
+    </customValue>
+    <customValue>
+        <fullName>Richland</fullName>
+        <default>false</default>
+        <label>Richland</label>
+    </customValue>
+    <customValue>
+        <fullName>Sabine</fullName>
+        <default>false</default>
+        <label>Sabine</label>
+    </customValue>
+    <customValue>
+        <fullName>St Bernard</fullName>
+        <default>false</default>
+        <label>St. Bernard</label>
+    </customValue>
+    <customValue>
+        <fullName>St Charles</fullName>
+        <default>false</default>
+        <label>St. Charles</label>
+    </customValue>
+    <customValue>
+        <fullName>St Helena</fullName>
+        <default>false</default>
+        <label>St. Helena</label>
+    </customValue>
+    <customValue>
+        <fullName>St James</fullName>
+        <default>false</default>
+        <label>St. James</label>
+    </customValue>
+    <customValue>
+        <fullName>St John the Baptist</fullName>
+        <default>false</default>
+        <label>St. John the Baptist</label>
+    </customValue>
+    <customValue>
+        <fullName>St Landry</fullName>
+        <default>false</default>
+        <label>St. Landry</label>
+    </customValue>
+    <customValue>
+        <fullName>St Martin</fullName>
+        <default>false</default>
+        <label>St. Martin</label>
+    </customValue>
+    <customValue>
+        <fullName>St Mary</fullName>
+        <default>false</default>
+        <label>St. Mary</label>
+    </customValue>
+    <customValue>
+        <fullName>St Tammany</fullName>
+        <default>false</default>
+        <label>St. Tammany</label>
+    </customValue>
+    <customValue>
+        <fullName>Tangipahoa</fullName>
+        <default>false</default>
+        <label>Tangipahoa</label>
+    </customValue>
+    <customValue>
+        <fullName>Tensas</fullName>
+        <default>false</default>
+        <label>Tensas</label>
+    </customValue>
+    <customValue>
+        <fullName>Terrebonne</fullName>
+        <default>false</default>
+        <label>Terrebonne</label>
+    </customValue>
+    <customValue>
+        <fullName>Union</fullName>
+        <default>false</default>
+        <label>Union</label>
+    </customValue>
+    <customValue>
+        <fullName>Vermilion</fullName>
+        <default>false</default>
+        <label>Vermilion</label>
+    </customValue>
+    <customValue>
+        <fullName>Vernon</fullName>
+        <default>false</default>
+        <label>Vernon</label>
+    </customValue>
+    <customValue>
+        <fullName>Washington</fullName>
+        <default>false</default>
+        <label>Washington</label>
+    </customValue>
+    <customValue>
+        <fullName>Webster</fullName>
+        <default>false</default>
+        <label>Webster</label>
+    </customValue>
+    <customValue>
+        <fullName>West Baton Rouge</fullName>
+        <default>false</default>
+        <label>West Baton Rouge</label>
+    </customValue>
+    <customValue>
+        <fullName>West Carroll</fullName>
+        <default>false</default>
+        <label>West Carroll</label>
+    </customValue>
+    <customValue>
+        <fullName>West Feliciana</fullName>
+        <default>false</default>
+        <label>West Feliciana</label>
+    </customValue>
+    <customValue>
+        <fullName>Winn</fullName>
+        <default>false</default>
+        <label>Winn</label>
+    </customValue>
+    <customValue>
+        <fullName>Out of State</fullName>
+        <default>false</default>
+        <label>Out of state</label>
+    </customValue>
+    <masterLabel>Parish</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

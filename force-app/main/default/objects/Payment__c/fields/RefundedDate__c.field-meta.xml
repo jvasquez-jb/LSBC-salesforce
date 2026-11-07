@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>RefundedDate__c</fullName>
+    <description>Date the refund was entered as complete.</description>
+    <inlineHelpText>When the refund check was entered.</inlineHelpText>
+    <label>Refunded Date</label>
+    <required>false</required>
+    <type>Date</type>
+</CustomField>

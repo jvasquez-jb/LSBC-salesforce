@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>The Payment Allocation object records how much of a payment is applied to a fee item, and for which license year. It belongs to a Payment and points to the fee item it settles. Refunds and reversals are negative amounts. Commonly used for fee balances and refund reconciliation.</description>
+    <enableReports>true</enableReports>
+    <label>Payment Allocation</label>
+    <nameField>
+        <displayFormat>ALC-{000000}</displayFormat>
+        <label>Allocation Number</label>
+        <startingNumber>1</startingNumber>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Payment Allocations</pluralLabel>
+    <sharingModel>ControlledByParent</sharingModel>
+    <externalSharingModel>ControlledByParent</externalSharingModel>
+    <visibility>Public</visibility>
+</CustomObject>

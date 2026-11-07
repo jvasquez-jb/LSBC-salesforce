@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Missing Certification</fullName>
+        <default>false</default>
+        <label>Missing Certification</label>
+    </customValue>
+    <customValue>
+        <fullName>Expired License</fullName>
+        <default>false</default>
+        <label>Expired License</label>
+    </customValue>
+    <customValue>
+        <fullName>Wrong Fee</fullName>
+        <default>false</default>
+        <label>Wrong Fee</label>
+    </customValue>
+    <customValue>
+        <fullName>Missing Identity Document</fullName>
+        <default>false</default>
+        <label>Missing Identity Document</label>
+    </customValue>
+    <customValue>
+        <fullName>Missing Testing Evidence</fullName>
+        <default>false</default>
+        <label>Missing Testing Evidence</label>
+    </customValue>
+    <customValue>
+        <fullName>Missing Signatures</fullName>
+        <default>false</default>
+        <label>Missing Signatures</label>
+    </customValue>
+    <customValue>
+        <fullName>Courses Not Selected</fullName>
+        <default>false</default>
+        <label>Courses Not Selected</label>
+    </customValue>
+    <customValue>
+        <fullName>Incomplete Address</fullName>
+        <default>false</default>
+        <label>Incomplete Address</label>
+    </customValue>
+    <customValue>
+        <fullName>Illegible Handwriting</fullName>
+        <default>false</default>
+        <label>Illegible Handwriting</label>
+    </customValue>
+    <customValue>
+        <fullName>Other</fullName>
+        <default>false</default>
+        <label>Other</label>
+    </customValue>
+    <description>Reasons an application is returned to the applicant.</description>
+    <masterLabel>Application Return Reason</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

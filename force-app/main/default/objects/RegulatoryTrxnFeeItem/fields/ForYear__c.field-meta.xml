@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ForYear__c</fullName>
+    <description>The license year this charge applies to. One transaction can cover several years, for example a renewal plus a late fee for each missed year.</description>
+    <inlineHelpText>Four-digit license year, for example 2026.</inlineHelpText>
+    <label>For Year</label>
+    <length>4</length>
+    <required>false</required>
+    <type>Text</type>
+</CustomField>

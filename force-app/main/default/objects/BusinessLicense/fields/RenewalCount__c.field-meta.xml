@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>RenewalCount__c</fullName>
+    <description>Number of times this license or permit has been renewed. A temporary permit may be renewed only once.</description>
+    <inlineHelpText>Goes up by one at each renewal.</inlineHelpText>
+    <label>Renewal Count</label>
+    <precision>2</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <type>Number</type>
+</CustomField>

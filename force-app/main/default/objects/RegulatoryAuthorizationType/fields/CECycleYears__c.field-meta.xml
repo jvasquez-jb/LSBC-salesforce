@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CECycleYears__c</fullName>
+    <description>Length of one continuing-education cycle, in years.</description>
+    <inlineHelpText>For example 2 if the hours are due every other year.</inlineHelpText>
+    <label>CE Cycle Years</label>
+    <precision>2</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <type>Number</type>
+</CustomField>

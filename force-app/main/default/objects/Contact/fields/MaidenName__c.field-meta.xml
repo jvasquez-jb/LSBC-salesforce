@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MaidenName__c</fullName>
+    <description>The surname a person used before marriage. Used as a second way to match a returning licensee when they register on the portal.</description>
+    <inlineHelpText>Enter the person's surname before marriage, if it differs from their current surname.</inlineHelpText>
+    <label>Maiden Name</label>
+    <length>80</length>
+    <required>false</required>
+    <type>Text</type>
+</CustomField>

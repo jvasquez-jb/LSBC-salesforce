@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AppliedAmount__c</fullName>
+    <description>Total of this payment applied to fees, from its allocations.</description>
+    <inlineHelpText>Calculated from the payment's allocations.</inlineHelpText>
+    <label>Applied Amount</label>
+    <summarizedField>PaymentAllocation__c.Amount__c</summarizedField>
+    <summaryForeignKey>PaymentAllocation__c.Payment__c</summaryForeignKey>
+    <summaryOperation>sum</summaryOperation>
+    <type>Summary</type>
+</CustomField>

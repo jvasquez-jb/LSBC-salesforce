@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>RequiresPracticalExam__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Shows that applicants for this license type must pass the practical examination.</description>
+    <inlineHelpText>Tick if the practical examination is required.</inlineHelpText>
+    <label>Requires Practical Exam</label>
+    <type>Checkbox</type>
+</CustomField>

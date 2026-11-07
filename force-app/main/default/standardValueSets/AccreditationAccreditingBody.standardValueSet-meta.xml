@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StandardValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sorted>false</sorted>
+    <standardValue>
+        <fullName>US Department of Education</fullName>
+        <default>false</default>
+        <label>US Department of Education</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Louisiana State Board of Cosmetology</fullName>
+        <default>false</default>
+        <label>Louisiana State Board of Cosmetology</label>
+    </standardValue>
+</StandardValueSet>

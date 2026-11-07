@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IsCertified__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Shows that the applicant certified the application as true and complete before submitting it.</description>
+    <inlineHelpText>Ticked when the applicant confirms the certification statement.</inlineHelpText>
+    <label>Applicant Certified</label>
+    <type>Checkbox</type>
+</CustomField>

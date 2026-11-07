@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>RequiresCE__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Shows that holders of this license type must complete continuing education to keep it active.</description>
+    <inlineHelpText>Tick if this license type requires continuing education.</inlineHelpText>
+    <label>Requires Continuing Education</label>
+    <type>Checkbox</type>
+</CustomField>

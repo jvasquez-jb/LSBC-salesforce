@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SaturdayHours__c</fullName>
+    <description>Hours the student plans to attend school on Saturdays, from the enrollment form.</description>
+    <inlineHelpText>Planned hours of attendance on Saturdays.</inlineHelpText>
+    <label>Saturday Hours</label>
+    <precision>3</precision>
+    <required>false</required>
+    <scale>1</scale>
+    <type>Number</type>
+</CustomField>

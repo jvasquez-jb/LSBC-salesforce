@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>RefundRequestedBy__c</fullName>
+    <description>The department that requested the refund.</description>
+    <inlineHelpText>Name of the department that asked for the refund.</inlineHelpText>
+    <label>Refund Requested By</label>
+    <length>80</length>
+    <required>false</required>
+    <type>Text</type>
+</CustomField>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Accommodations__c</fullName>
+    <description>Testing accommodations requested for this person. Health information: only testing and reciprocity staff should see it.</description>
+    <inlineHelpText>Choose every accommodation requested.</inlineHelpText>
+    <label>Accommodations</label>
+    <required>false</required>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Accessible Testing Site</fullName>
+                <default>false</default>
+                <label>Accessible Testing Site</label>
+            </value>
+            <value>
+                <fullName>Braille</fullName>
+                <default>false</default>
+                <label>Braille</label>
+            </value>
+            <value>
+                <fullName>Reader for Visual Impairment</fullName>
+                <default>false</default>
+                <label>Reader for Visual Impairment</label>
+            </value>
+            <value>
+                <fullName>Reader for Learning Disability</fullName>
+                <default>false</default>
+                <label>Reader for Learning Disability</label>
+            </value>
+            <value>
+                <fullName>Sign Language Interpreter</fullName>
+                <default>false</default>
+                <label>Sign Language Interpreter</label>
+            </value>
+            <value>
+                <fullName>Time and a Half</fullName>
+                <default>false</default>
+                <label>Time and a half</label>
+            </value>
+            <value>
+                <fullName>Double Time</fullName>
+                <default>false</default>
+                <label>Double Time</label>
+            </value>
+            <value>
+                <fullName>Separate Testing Area</fullName>
+                <default>false</default>
+                <label>Separate Testing Area</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>5</visibleLines>
+</CustomField>

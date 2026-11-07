@@ -215,43 +215,19 @@
     <picklistValues>
         <picklist>Type</picklist>
         <values>
-            <fullName>Analyst</fullName>
+            <fullName>Parent Company</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Competitor</fullName>
+            <fullName>CE Provider</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Customer</fullName>
+            <fullName>Credential Evaluation Agency</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Integrator</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Investor</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Other</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Partner</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Press</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Prospect</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Reseller</fullName>
+            <fullName>Unacceptable Diploma Source</fullName>
             <default>false</default>
         </values>
     </picklistValues>

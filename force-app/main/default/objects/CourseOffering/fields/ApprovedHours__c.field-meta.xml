@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ApprovedHours__c</fullName>
+    <description>Hours the Board approved for this school's program. Schools may set more hours than the legal minimum; eligibility always uses the legal minimum on the license type.</description>
+    <inlineHelpText>The school's approved program hours.</inlineHelpText>
+    <label>Approved Hours</label>
+    <precision>5</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <type>Number</type>
+</CustomField>

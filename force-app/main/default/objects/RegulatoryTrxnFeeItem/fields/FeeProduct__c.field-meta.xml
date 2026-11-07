@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>FeeProduct__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>The fee code this charge is for.</description>
+    <inlineHelpText>Choose the fee code product for this charge.</inlineHelpText>
+    <label>Fee Product</label>
+    <referenceTo>Product2</referenceTo>
+    <relationshipLabel>Fee Items</relationshipLabel>
+    <relationshipName>FeeItems</relationshipName>
+    <required>false</required>
+    <type>Lookup</type>
+</CustomField>

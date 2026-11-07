@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>FeeProduct__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>The fee code charged when this type of license or permit is issued or renewed.</description>
+    <inlineHelpText>Choose the fee code product for the issue or renewal fee.</inlineHelpText>
+    <label>Fee Product</label>
+    <referenceTo>Product2</referenceTo>
+    <relationshipLabel>License Types</relationshipLabel>
+    <relationshipName>LicenseTypes</relationshipName>
+    <required>false</required>
+    <type>Lookup</type>
+</CustomField>

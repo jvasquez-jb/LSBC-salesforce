@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IsMasterInstructor__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Shows that the instructor holds master instructor status.</description>
+    <inlineHelpText>Tick when the instructor has earned master instructor status.</inlineHelpText>
+    <label>Master Instructor</label>
+    <type>Checkbox</type>
+</CustomField>

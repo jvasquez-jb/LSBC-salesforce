@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LastCEUDate__c</fullName>
+    <description>Date the holder last completed the continuing-education hours needed to keep an instructor license active.</description>
+    <inlineHelpText>Enter the completion date of the most recent continuing-education cycle.</inlineHelpText>
+    <label>Last CEU Date</label>
+    <required>false</required>
+    <type>Date</type>
+</CustomField>

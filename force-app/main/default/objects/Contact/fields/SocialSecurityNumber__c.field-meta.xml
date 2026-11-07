@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SocialSecurityNumber__c</fullName>
+    <description>The person's social security number. Kept for identity records only and never used to search for or match a person. Will be encrypted when Shield Platform Encryption is turned on.</description>
+    <inlineHelpText>Enter as 123-45-6789. Never use this number to search for or match a person.</inlineHelpText>
+    <label>Social Security Number</label>
+    <length>11</length>
+    <required>false</required>
+    <type>Text</type>
+</CustomField>

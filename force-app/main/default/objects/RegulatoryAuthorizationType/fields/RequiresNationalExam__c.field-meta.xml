@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>RequiresNationalExam__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Shows that applicants for this license type must pass the national examination.</description>
+    <inlineHelpText>Tick if the national examination is required.</inlineHelpText>
+    <label>Requires National Exam</label>
+    <type>Checkbox</type>
+</CustomField>
