@@ -325,6 +325,7 @@
         <default>false</default>
         <label>Out of state</label>
     </customValue>
+    <description>The 64 Louisiana parishes, plus Out of state for addresses outside Louisiana. Shared by the business Parish field on Account and the Home Parish field on Contact, so the list is maintained in one place.</description>
     <masterLabel>Parish</masterLabel>
     <sorted>false</sorted>
 </GlobalValueSet>
