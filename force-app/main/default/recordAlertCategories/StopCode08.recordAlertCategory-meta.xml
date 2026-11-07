@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordAlertCategory xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Set and ended automatically. Opens when the latest attempt at a required examination is a fail. Ends when it is passed. Until it is ended, the holder's licenses are not printed or mailed; they stay valid.</description>
+    <masterLabel>08 Exam Not Passed</masterLabel>
+    <severity>Error</severity>
+</RecordAlertCategory>

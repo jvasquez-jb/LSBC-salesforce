@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordAlertCategory xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Set and ended by staff. Used while a license suspected of fraud is pending revocation. Until it is ended, the holder's licenses are not printed or mailed; they stay valid.</description>
+    <masterLabel>14 Fraudulent License</masterLabel>
+    <severity>Error</severity>
+</RecordAlertCategory>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordAlertCategory xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Set and ended automatically. Opens when a fee is unpaid past its due date. Ends when it is paid in full. Until it is ended, the holder's licenses are not printed or mailed; they stay valid.</description>
+    <masterLabel>21 Non Payment</masterLabel>
+    <severity>Error</severity>
+</RecordAlertCategory>

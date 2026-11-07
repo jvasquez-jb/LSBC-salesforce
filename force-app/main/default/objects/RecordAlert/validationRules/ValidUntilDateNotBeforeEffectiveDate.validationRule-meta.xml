@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ValidUntilDateNotBeforeEffectiveDate</fullName>
+    <active>true</active>
+    <description>A hold cannot end before it started. An open hold carries 31 December 4000 as its end date.</description>
+    <errorConditionFormula>ValidUntilDate &lt; EffectiveDate</errorConditionFormula>
+    <errorDisplayField>ValidUntilDate</errorDisplayField>
+    <errorMessage>The end date can&apos;t be before the effective date.</errorMessage>
+</ValidationRule>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordAlertCategory xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Set and ended automatically. Opens when a school has no current surety bond. Ends when a current bond is recorded. Until it is ended, the holder's licenses are not printed or mailed; they stay valid.</description>
+    <masterLabel>03 No Active Bond</masterLabel>
+    <severity>Error</severity>
+</RecordAlertCategory>

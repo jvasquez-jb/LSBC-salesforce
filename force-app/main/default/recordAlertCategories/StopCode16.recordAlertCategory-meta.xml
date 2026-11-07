@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordAlertCategory xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Set and ended automatically. Opens when a shop has no current licensed manager linked to it. Ends when one is recorded. Until it is ended, the holder's licenses are not printed or mailed; they stay valid.</description>
+    <masterLabel>16 No Manager License On Shop</masterLabel>
+    <severity>Error</severity>
+</RecordAlertCategory>

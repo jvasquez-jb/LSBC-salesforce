@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordAlertCategory xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Set and ended by staff. Used for examination misconduct. Until it is ended, the holder's licenses are not printed or mailed; they stay valid.</description>
+    <masterLabel>29 Caught Cheating During Exam</masterLabel>
+    <severity>Error</severity>
+</RecordAlertCategory>

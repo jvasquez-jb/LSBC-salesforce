@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordAlertCategory xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Set and ended automatically. Opens when an instructor does not hold a current esthetician license. Ends when they do. Until it is ended, the holder's licenses are not printed or mailed; they stay valid.</description>
+    <masterLabel>09 No Esthetician License For Instructor</masterLabel>
+    <severity>Error</severity>
+</RecordAlertCategory>

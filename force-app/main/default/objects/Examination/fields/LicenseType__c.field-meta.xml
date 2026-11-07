@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LicenseType__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>The license or permit type this examination counts toward.</description>
+    <inlineHelpText>Choose the license this examination is for.</inlineHelpText>
+    <label>License Type</label>
+    <referenceTo>RegulatoryAuthorizationType</referenceTo>
+    <relationshipLabel>Examinations</relationshipLabel>
+    <relationshipName>Examinations</relationshipName>
+    <required>false</required>
+    <type>Lookup</type>
+</CustomField>

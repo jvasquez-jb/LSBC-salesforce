@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordAlertCategory xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Set and ended automatically. Opens when a student's approved hours are below the minimum for their program. Ends when the hours reach it. Until it is ended, the holder's licenses are not printed or mailed; they stay valid.</description>
+    <masterLabel>04 Student Hours Incomplete</masterLabel>
+    <severity>Error</severity>
+</RecordAlertCategory>
