@@ -47,7 +47,7 @@ you are working on before building, and section 9 for what the org actually prov
 | 0 | Foundation: Person Accounts, record types, repo, doc corrections | Done |
 | 1 | Data model (section 1), encrypted field list | Done |
 | 2 | Security (5.1), `OPEN-11` ACR sharing spike | Paused: awaiting Board feedback on `LSBC_Access_Matrix.xlsx` |
-| 3 | Business rules (section 2) | In progress |
+| 3 | Business rules (section 2) | Done. Eligibility rules built, called from Phase 5 and 6 |
 | 4 | Cases and violations (section 4) | |
 | 5 | Portal (section 3) | |
 | 6 | Staff tools, reports, cutover (PT-15–17, DM-18c, section 5) | |
