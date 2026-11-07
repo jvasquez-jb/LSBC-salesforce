@@ -1,0 +1,544 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ExpressionSetDefinition xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Decides which automatic stop codes apply to a person: licensee, student, instructor or booth renter. Each output is true when that hold should be open. The calling flow supplies the facts and opens or ends the holds.</description>
+    <executionScale>Low</executionScale>
+    <label>Stop Code Person</label>
+    <processType>Bre</processType>
+    <template>false</template>
+    <versions>
+        <fullName>StopCodePerson_V1</fullName>
+        <description>Decides which automatic stop codes apply to a person: licensee, student, instructor or booth renter. Each output is true when that hold should be open. The calling flow supplies the facts and opens or ends the holds.</description>
+        <expressionSetDefinition>StopCodePerson</expressionSetDefinition>
+        <label>Stop Code Person V1</label>
+        <rank>1</rank>
+        <shouldShowExplExternally>false</shouldShowExplExternally>
+        <startDate>2026-01-01T00:00:00.000Z</startDate>
+        <status>Active</status>
+        <versionNumber>1</versionNumber>
+        <steps>
+            <actionType>AssignParameterValues</actionType>
+            <assignment>
+                <assignedParameter>StopCode01</assignedParameter>
+                <expression>HasReturnedPayment</expression>
+            </assignment>
+            <description>Returned payment.</description>
+            <label>Set Stop Code 01</label>
+            <name>SetStopCode01</name>
+            <resultIncluded>true</resultIncluded>
+            <sequenceNumber>1</sequenceNumber>
+            <shouldExposExecPathMsgOnly>true</shouldExposExecPathMsgOnly>
+            <shouldExposeConditionDetails>false</shouldExposeConditionDetails>
+            <shouldShowExplExternally>false</shouldShowExplExternally>
+            <stepType>BusinessKnowledgeModel</stepType>
+        </steps>
+        <steps>
+            <actionType>AssignParameterValues</actionType>
+            <assignment>
+                <assignedParameter>StopCode04</assignedParameter>
+                <expression>HasOpenLicensureApplication &amp;&amp; NOT(ISBLANK(CompletionThresholdHours)) &amp;&amp; ApprovedHours &lt; CompletionThresholdHours</expression>
+            </assignment>
+            <description>Applying for licensure with hours below the completion threshold.</description>
+            <label>Set Stop Code 04</label>
+            <name>SetStopCode04</name>
+            <resultIncluded>true</resultIncluded>
+            <sequenceNumber>2</sequenceNumber>
+            <shouldExposExecPathMsgOnly>true</shouldExposExecPathMsgOnly>
+            <shouldExposeConditionDetails>false</shouldExposeConditionDetails>
+            <shouldShowExplExternally>false</shouldShowExplExternally>
+            <stepType>BusinessKnowledgeModel</stepType>
+        </steps>
+        <steps>
+            <actionType>AssignParameterValues</actionType>
+            <assignment>
+                <assignedParameter>StopCode05</assignedParameter>
+                <expression>HoldsCosmetologistLicense &amp;&amp; NOT(ISBLANK(CosmetologistPeriodEnd)) &amp;&amp; CosmetologistPeriodEnd &lt; AsOfDate</expression>
+            </assignment>
+            <description>Cosmetologist license expired.</description>
+            <label>Set Stop Code 05</label>
+            <name>SetStopCode05</name>
+            <resultIncluded>true</resultIncluded>
+            <sequenceNumber>3</sequenceNumber>
+            <shouldExposExecPathMsgOnly>true</shouldExposExecPathMsgOnly>
+            <shouldExposeConditionDetails>false</shouldExposeConditionDetails>
+            <shouldShowExplExternally>false</shouldShowExplExternally>
+            <stepType>BusinessKnowledgeModel</stepType>
+        </steps>
+        <steps>
+            <actionType>AssignParameterValues</actionType>
+            <assignment>
+                <assignedParameter>StopCode06</assignedParameter>
+                <expression>IsBoothRenter &amp;&amp; NOT(HoldsCosmetologistLicense &amp;&amp; NOT(ISBLANK(CosmetologistPeriodEnd)) &amp;&amp; CosmetologistPeriodEnd &gt;= AsOfDate)</expression>
+            </assignment>
+            <description>Booth renter without a current cosmetologist license.</description>
+            <label>Set Stop Code 06</label>
+            <name>SetStopCode06</name>
+            <resultIncluded>true</resultIncluded>
+            <sequenceNumber>4</sequenceNumber>
+            <shouldExposExecPathMsgOnly>true</shouldExposExecPathMsgOnly>
+            <shouldExposeConditionDetails>false</shouldExposeConditionDetails>
+            <shouldShowExplExternally>false</shouldShowExplExternally>
+            <stepType>BusinessKnowledgeModel</stepType>
+        </steps>
+        <steps>
+            <actionType>AssignParameterValues</actionType>
+            <assignment>
+                <assignedParameter>StopCode07</assignedParameter>
+                <expression>IsInstructor &amp;&amp; NOT(HoldsCosmetologistLicense &amp;&amp; NOT(ISBLANK(CosmetologistPeriodEnd)) &amp;&amp; CosmetologistPeriodEnd &gt;= AsOfDate)</expression>
+            </assignment>
+            <description>Instructor without a current cosmetologist license.</description>
+            <label>Set Stop Code 07</label>
+            <name>SetStopCode07</name>
+            <resultIncluded>true</resultIncluded>
+            <sequenceNumber>5</sequenceNumber>
+            <shouldExposExecPathMsgOnly>true</shouldExposExecPathMsgOnly>
+            <shouldExposeConditionDetails>false</shouldExposeConditionDetails>
+            <shouldShowExplExternally>false</shouldShowExplExternally>
+            <stepType>BusinessKnowledgeModel</stepType>
+        </steps>
+        <steps>
+            <actionType>AssignParameterValues</actionType>
+            <assignment>
+                <assignedParameter>StopCode08</assignedParameter>
+                <expression>(RequiresNationalExam &amp;&amp; LatestNationalResult == "Fail") || (RequiresPracticalExam &amp;&amp; LatestPracticalResult == "Fail") || (RequiresStateExam &amp;&amp; LatestStateResult == "Fail")</expression>
+            </assignment>
+            <description>Latest attempt at a required examination failed.</description>
+            <label>Set Stop Code 08</label>
+            <name>SetStopCode08</name>
+            <resultIncluded>true</resultIncluded>
+            <sequenceNumber>6</sequenceNumber>
+            <shouldExposExecPathMsgOnly>true</shouldExposExecPathMsgOnly>
+            <shouldExposeConditionDetails>false</shouldExposeConditionDetails>
+            <shouldShowExplExternally>false</shouldShowExplExternally>
+            <stepType>BusinessKnowledgeModel</stepType>
+        </steps>
+        <steps>
+            <actionType>AssignParameterValues</actionType>
+            <assignment>
+                <assignedParameter>StopCode09</assignedParameter>
+                <expression>IsInstructor &amp;&amp; NOT(HoldsEstheticianLicense &amp;&amp; NOT(ISBLANK(EstheticianPeriodEnd)) &amp;&amp; EstheticianPeriodEnd &gt;= AsOfDate)</expression>
+            </assignment>
+            <description>Instructor without a current esthetician license.</description>
+            <label>Set Stop Code 09</label>
+            <name>SetStopCode09</name>
+            <resultIncluded>true</resultIncluded>
+            <sequenceNumber>7</sequenceNumber>
+            <shouldExposExecPathMsgOnly>true</shouldExposExecPathMsgOnly>
+            <shouldExposeConditionDetails>false</shouldExposeConditionDetails>
+            <shouldShowExplExternally>false</shouldShowExplExternally>
+            <stepType>BusinessKnowledgeModel</stepType>
+        </steps>
+        <steps>
+            <actionType>AssignParameterValues</actionType>
+            <assignment>
+                <assignedParameter>StopCode15</assignedParameter>
+                <expression>NOT(ISBLANK(EarliestLapsedPeriodEnd)) &amp;&amp; EarliestLapsedPeriodEnd &lt; ADDMONTHS(AsOfDate, 0 - RestorationLapseMonths)</expression>
+            </assignment>
+            <description>A license expired longer ago than the restoration limit.</description>
+            <label>Set Stop Code 15</label>
+            <name>SetStopCode15</name>
+            <resultIncluded>true</resultIncluded>
+            <sequenceNumber>8</sequenceNumber>
+            <shouldExposExecPathMsgOnly>true</shouldExposExecPathMsgOnly>
+            <shouldExposeConditionDetails>false</shouldExposeConditionDetails>
+            <shouldShowExplExternally>false</shouldShowExplExternally>
+            <stepType>BusinessKnowledgeModel</stepType>
+        </steps>
+        <steps>
+            <actionType>AssignParameterValues</actionType>
+            <assignment>
+                <assignedParameter>StopCode17</assignedParameter>
+                <expression>HasOpenLicensureApplication &amp;&amp; ((RequiresNationalExam &amp;&amp; LatestNationalResult != "Pass" &amp;&amp; LatestNationalResult != "Fail") || (RequiresPracticalExam &amp;&amp; LatestPracticalResult != "Pass" &amp;&amp; LatestPracticalResult != "Fail") || (RequiresStateExam &amp;&amp; LatestStateResult != "Pass" &amp;&amp; LatestStateResult != "Fail"))</expression>
+            </assignment>
+            <description>A required examination has not been taken.</description>
+            <label>Set Stop Code 17</label>
+            <name>SetStopCode17</name>
+            <resultIncluded>true</resultIncluded>
+            <sequenceNumber>9</sequenceNumber>
+            <shouldExposExecPathMsgOnly>true</shouldExposExecPathMsgOnly>
+            <shouldExposeConditionDetails>false</shouldExposeConditionDetails>
+            <shouldShowExplExternally>false</shouldShowExplExternally>
+            <stepType>BusinessKnowledgeModel</stepType>
+        </steps>
+        <steps>
+            <actionType>AssignParameterValues</actionType>
+            <assignment>
+                <assignedParameter>StopCode20</assignedParameter>
+                <expression>NOT(ISBLANK(LatestHoursEndDate)) &amp;&amp; NOT(ISBLANK(CompletionThresholdHours)) &amp;&amp; ApprovedHours &lt; CompletionThresholdHours &amp;&amp; LatestHoursEndDate &lt; ADDMONTHS(AsOfDate, 0 - ReRegistrationMonths)</expression>
+            </assignment>
+            <description>A student with no hours submitted for the re-registration period.</description>
+            <label>Set Stop Code 20</label>
+            <name>SetStopCode20</name>
+            <resultIncluded>true</resultIncluded>
+            <sequenceNumber>10</sequenceNumber>
+            <shouldExposExecPathMsgOnly>true</shouldExposExecPathMsgOnly>
+            <shouldExposeConditionDetails>false</shouldExposeConditionDetails>
+            <shouldShowExplExternally>false</shouldShowExplExternally>
+            <stepType>BusinessKnowledgeModel</stepType>
+        </steps>
+        <steps>
+            <actionType>AssignParameterValues</actionType>
+            <assignment>
+                <assignedParameter>StopCode21</assignedParameter>
+                <expression>NOT(ISBLANK(OldestOverdueFeeDueDate)) &amp;&amp; OldestOverdueFeeDueDate &lt; AsOfDate</expression>
+            </assignment>
+            <description>A fee is unpaid past its due date.</description>
+            <label>Set Stop Code 21</label>
+            <name>SetStopCode21</name>
+            <resultIncluded>true</resultIncluded>
+            <sequenceNumber>11</sequenceNumber>
+            <shouldExposExecPathMsgOnly>true</shouldExposExecPathMsgOnly>
+            <shouldExposeConditionDetails>false</shouldExposeConditionDetails>
+            <shouldShowExplExternally>false</shouldShowExplExternally>
+            <stepType>BusinessKnowledgeModel</stepType>
+        </steps>
+        <steps>
+            <actionType>AssignParameterValues</actionType>
+            <assignment>
+                <assignedParameter>StopCode31</assignedParameter>
+                <expression>LatestRestorationResult == "Fail"</expression>
+            </assignment>
+            <description>Latest restoration examination attempt failed.</description>
+            <label>Set Stop Code 31</label>
+            <name>SetStopCode31</name>
+            <resultIncluded>true</resultIncluded>
+            <sequenceNumber>12</sequenceNumber>
+            <shouldExposExecPathMsgOnly>true</shouldExposExecPathMsgOnly>
+            <shouldExposeConditionDetails>false</shouldExposeConditionDetails>
+            <shouldShowExplExternally>false</shouldShowExplExternally>
+            <stepType>BusinessKnowledgeModel</stepType>
+        </steps>
+        <variables>
+            <collection>false</collection>
+            <dataType>Date</dataType>
+            <description>The date to evaluate against, normally today.</description>
+            <input>true</input>
+            <name>AsOfDate</name>
+            <output>false</output>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Boolean</dataType>
+            <description>True when a payment from this person has been returned by the bank.</description>
+            <input>true</input>
+            <name>HasReturnedPayment</name>
+            <output>false</output>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Boolean</dataType>
+            <description>True when the person has an open new licensure application.</description>
+            <input>true</input>
+            <name>HasOpenLicensureApplication</name>
+            <output>false</output>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Numeric</dataType>
+            <decimalPlaces>2</decimalPlaces>
+            <description>Total approved training hours for the program, after transfers and relinquished hours.</description>
+            <input>true</input>
+            <name>ApprovedHours</name>
+            <output>false</output>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Numeric</dataType>
+            <decimalPlaces>2</decimalPlaces>
+            <description>Hours the license type requires for completion. Blank when it has no hour requirement.</description>
+            <input>true</input>
+            <name>CompletionThresholdHours</name>
+            <output>false</output>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Date</dataType>
+            <description>End date of the most recent hours entry. Blank when there are none.</description>
+            <input>true</input>
+            <name>LatestHoursEndDate</name>
+            <output>false</output>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Boolean</dataType>
+            <description>True when the person holds a cosmetologist license that is not revoked, retired or deceased.</description>
+            <input>true</input>
+            <name>HoldsCosmetologistLicense</name>
+            <output>false</output>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Date</dataType>
+            <description>Expiration date of that cosmetologist license.</description>
+            <input>true</input>
+            <name>CosmetologistPeriodEnd</name>
+            <output>false</output>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Boolean</dataType>
+            <description>True when the person holds an esthetician license that is not revoked, retired or deceased.</description>
+            <input>true</input>
+            <name>HoldsEstheticianLicense</name>
+            <output>false</output>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Date</dataType>
+            <description>Expiration date of that esthetician license.</description>
+            <input>true</input>
+            <name>EstheticianPeriodEnd</name>
+            <output>false</output>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Boolean</dataType>
+            <description>True when the person holds a booth rental permit or rents a booth in a salon.</description>
+            <input>true</input>
+            <name>IsBoothRenter</name>
+            <output>false</output>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Boolean</dataType>
+            <description>True when the person holds an instructor license.</description>
+            <input>true</input>
+            <name>IsInstructor</name>
+            <output>false</output>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Boolean</dataType>
+            <description>True when the license applied for requires the national examination.</description>
+            <input>true</input>
+            <name>RequiresNationalExam</name>
+            <output>false</output>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Boolean</dataType>
+            <description>True when the license applied for requires the practical examination.</description>
+            <input>true</input>
+            <name>RequiresPracticalExam</name>
+            <output>false</output>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Boolean</dataType>
+            <description>True when the license applied for requires the state examination.</description>
+            <input>true</input>
+            <name>RequiresStateExam</name>
+            <output>false</output>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Text</dataType>
+            <description>Result of the latest national examination attempt: Pass, Fail, or blank if none.</description>
+            <input>true</input>
+            <name>LatestNationalResult</name>
+            <output>false</output>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Text</dataType>
+            <description>Result of the latest practical examination: Fail if any station of it failed, Pass, or blank if none.</description>
+            <input>true</input>
+            <name>LatestPracticalResult</name>
+            <output>false</output>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Text</dataType>
+            <description>Result of the latest state examination attempt: Pass, Fail, or blank if none.</description>
+            <input>true</input>
+            <name>LatestStateResult</name>
+            <output>false</output>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Text</dataType>
+            <description>Result of the latest restoration examination attempt: Pass, Fail, or blank if none.</description>
+            <input>true</input>
+            <name>LatestRestorationResult</name>
+            <output>false</output>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Date</dataType>
+            <description>Earliest expiration date among the person's expired licenses. Blank when none has expired.</description>
+            <input>true</input>
+            <name>EarliestLapsedPeriodEnd</name>
+            <output>false</output>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Date</dataType>
+            <description>Due date of the oldest unpaid fee on the person. Blank when nothing is owed.</description>
+            <input>true</input>
+            <name>OldestOverdueFeeDueDate</name>
+            <output>false</output>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Numeric</dataType>
+            <decimalPlaces>2</decimalPlaces>
+            <description>Months a license can be expired before a restoration examination is required.</description>
+            <input>false</input>
+            <name>RestorationLapseMonths</name>
+            <output>false</output>
+            <type>Constant</type>
+            <value>36</value>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Numeric</dataType>
+            <decimalPlaces>2</decimalPlaces>
+            <description>Months without submitted hours before a student must re-register.</description>
+            <input>false</input>
+            <name>ReRegistrationMonths</name>
+            <output>false</output>
+            <type>Constant</type>
+            <value>6</value>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Boolean</dataType>
+            <description>Returned payment.</description>
+            <input>false</input>
+            <name>StopCode01</name>
+            <output>true</output>
+            <resultStep>SetStopCode01</resultStep>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Boolean</dataType>
+            <description>Applying for licensure with hours below the completion threshold.</description>
+            <input>false</input>
+            <name>StopCode04</name>
+            <output>true</output>
+            <resultStep>SetStopCode04</resultStep>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Boolean</dataType>
+            <description>Cosmetologist license expired.</description>
+            <input>false</input>
+            <name>StopCode05</name>
+            <output>true</output>
+            <resultStep>SetStopCode05</resultStep>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Boolean</dataType>
+            <description>Booth renter without a current cosmetologist license.</description>
+            <input>false</input>
+            <name>StopCode06</name>
+            <output>true</output>
+            <resultStep>SetStopCode06</resultStep>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Boolean</dataType>
+            <description>Instructor without a current cosmetologist license.</description>
+            <input>false</input>
+            <name>StopCode07</name>
+            <output>true</output>
+            <resultStep>SetStopCode07</resultStep>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Boolean</dataType>
+            <description>Latest attempt at a required examination failed.</description>
+            <input>false</input>
+            <name>StopCode08</name>
+            <output>true</output>
+            <resultStep>SetStopCode08</resultStep>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Boolean</dataType>
+            <description>Instructor without a current esthetician license.</description>
+            <input>false</input>
+            <name>StopCode09</name>
+            <output>true</output>
+            <resultStep>SetStopCode09</resultStep>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Boolean</dataType>
+            <description>A license expired longer ago than the restoration limit.</description>
+            <input>false</input>
+            <name>StopCode15</name>
+            <output>true</output>
+            <resultStep>SetStopCode15</resultStep>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Boolean</dataType>
+            <description>A required examination has not been taken.</description>
+            <input>false</input>
+            <name>StopCode17</name>
+            <output>true</output>
+            <resultStep>SetStopCode17</resultStep>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Boolean</dataType>
+            <description>A student with no hours submitted for the re-registration period.</description>
+            <input>false</input>
+            <name>StopCode20</name>
+            <output>true</output>
+            <resultStep>SetStopCode20</resultStep>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Boolean</dataType>
+            <description>A fee is unpaid past its due date.</description>
+            <input>false</input>
+            <name>StopCode21</name>
+            <output>true</output>
+            <resultStep>SetStopCode21</resultStep>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Boolean</dataType>
+            <description>Latest restoration examination attempt failed.</description>
+            <input>false</input>
+            <name>StopCode31</name>
+            <output>true</output>
+            <resultStep>SetStopCode31</resultStep>
+            <type>Variable</type>
+        </variables>
+    </versions>
+</ExpressionSetDefinition>

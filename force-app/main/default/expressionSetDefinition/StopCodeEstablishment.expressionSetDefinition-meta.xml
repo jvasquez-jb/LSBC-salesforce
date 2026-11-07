@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ExpressionSetDefinition xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Decides which automatic stop codes apply to a salon or shop. Each output is true when that hold should be open. The calling flow supplies the facts and opens or ends the holds.</description>
+    <executionScale>Low</executionScale>
+    <label>Stop Code Establishment</label>
+    <processType>Bre</processType>
+    <template>false</template>
+    <versions>
+        <fullName>StopCodeEstablishment_V1</fullName>
+        <description>Decides which automatic stop codes apply to a salon or shop. Each output is true when that hold should be open. The calling flow supplies the facts and opens or ends the holds.</description>
+        <expressionSetDefinition>StopCodeEstablishment</expressionSetDefinition>
+        <label>Stop Code Establishment V1</label>
+        <rank>1</rank>
+        <shouldShowExplExternally>false</shouldShowExplExternally>
+        <startDate>2026-01-01T00:00:00.000Z</startDate>
+        <status>Active</status>
+        <versionNumber>1</versionNumber>
+        <steps>
+            <actionType>AssignParameterValues</actionType>
+            <assignment>
+                <assignedParameter>StopCode01</assignedParameter>
+                <expression>HasReturnedPayment</expression>
+            </assignment>
+            <description>Returned payment.</description>
+            <label>Set Stop Code 01</label>
+            <name>SetStopCode01</name>
+            <resultIncluded>true</resultIncluded>
+            <sequenceNumber>1</sequenceNumber>
+            <shouldExposExecPathMsgOnly>true</shouldExposExecPathMsgOnly>
+            <shouldExposeConditionDetails>false</shouldExposeConditionDetails>
+            <shouldShowExplExternally>false</shouldShowExplExternally>
+            <stepType>BusinessKnowledgeModel</stepType>
+        </steps>
+        <steps>
+            <actionType>AssignParameterValues</actionType>
+            <assignment>
+                <assignedParameter>StopCode16</assignedParameter>
+                <expression>HoldsSalonLicense &amp;&amp; NOT(HasLicensedOwnerOrManager)</expression>
+            </assignment>
+            <description>Salon without a licensed owner or manager.</description>
+            <label>Set Stop Code 16</label>
+            <name>SetStopCode16</name>
+            <resultIncluded>true</resultIncluded>
+            <sequenceNumber>2</sequenceNumber>
+            <shouldExposExecPathMsgOnly>true</shouldExposExecPathMsgOnly>
+            <shouldExposeConditionDetails>false</shouldExposeConditionDetails>
+            <shouldShowExplExternally>false</shouldShowExplExternally>
+            <stepType>BusinessKnowledgeModel</stepType>
+        </steps>
+        <steps>
+            <actionType>AssignParameterValues</actionType>
+            <assignment>
+                <assignedParameter>StopCode21</assignedParameter>
+                <expression>NOT(ISBLANK(OldestOverdueFeeDueDate)) &amp;&amp; OldestOverdueFeeDueDate &lt; AsOfDate</expression>
+            </assignment>
+            <description>A fee is unpaid past its due date.</description>
+            <label>Set Stop Code 21</label>
+            <name>SetStopCode21</name>
+            <resultIncluded>true</resultIncluded>
+            <sequenceNumber>3</sequenceNumber>
+            <shouldExposExecPathMsgOnly>true</shouldExposExecPathMsgOnly>
+            <shouldExposeConditionDetails>false</shouldExposeConditionDetails>
+            <shouldShowExplExternally>false</shouldShowExplExternally>
+            <stepType>BusinessKnowledgeModel</stepType>
+        </steps>
+        <variables>
+            <collection>false</collection>
+            <dataType>Date</dataType>
+            <description>The date to evaluate against, normally today.</description>
+            <input>true</input>
+            <name>AsOfDate</name>
+            <output>false</output>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Boolean</dataType>
+            <description>True when a payment from the establishment has been returned by the bank.</description>
+            <input>true</input>
+            <name>HasReturnedPayment</name>
+            <output>false</output>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Boolean</dataType>
+            <description>True when the establishment holds a salon license.</description>
+            <input>true</input>
+            <name>HoldsSalonLicense</name>
+            <output>false</output>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Boolean</dataType>
+            <description>True when an active owner or manager linked to the establishment holds a current operator license.</description>
+            <input>true</input>
+            <name>HasLicensedOwnerOrManager</name>
+            <output>false</output>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Date</dataType>
+            <description>Due date of the oldest unpaid fee on the establishment. Blank when nothing is owed.</description>
+            <input>true</input>
+            <name>OldestOverdueFeeDueDate</name>
+            <output>false</output>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Boolean</dataType>
+            <description>Returned payment.</description>
+            <input>false</input>
+            <name>StopCode01</name>
+            <output>true</output>
+            <resultStep>SetStopCode01</resultStep>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Boolean</dataType>
+            <description>Salon without a licensed owner or manager.</description>
+            <input>false</input>
+            <name>StopCode16</name>
+            <output>true</output>
+            <resultStep>SetStopCode16</resultStep>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Boolean</dataType>
+            <description>A fee is unpaid past its due date.</description>
+            <input>false</input>
+            <name>StopCode21</name>
+            <output>true</output>
+            <resultStep>SetStopCode21</resultStep>
+            <type>Variable</type>
+        </variables>
+    </versions>
+</ExpressionSetDefinition>

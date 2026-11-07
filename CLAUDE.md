@@ -79,5 +79,13 @@ Raised by later phases while Phase 2 is paused. Pick these up when it resumes.
 - Encrypted field list: build the fields now, encrypt when Shield arrives. No Board approval needed.
 - Reference data (fee codes, stop-code files, violations list, programme hours) not yet received.
   Use placeholders and flag them; don't invent values.
+- BRE in this org:
+  - Test an expression set through `POST /services/data/v66.0/actions/custom/runExpressionSet/<Name>`
+    with `{"inputs":[{...}]}` (the same action Flow uses). The Connect `business-rules` endpoint rejects the name.
+  - An active version can't be redeployed. Set `ExpressionSetVersion.IsActive` false with
+    `sf data update record`, deploy, and the file's `<status>Active</status>` reactivates it. Once
+    rules are in use, make a new version instead.
+  - `ISBLANK` never matches a blank Text input. Compare against the expected values instead
+    (`Result != "Pass" && Result != "Fail"`). `ISBLANK` works on Date and Number. `ADDMONTHS` works.
 - `force-app` holds only metadata this project owns. A full org retrieve sits in `reference/`
   (ignored by git) for lookups. Copy a file into `force-app` only when we change it.
