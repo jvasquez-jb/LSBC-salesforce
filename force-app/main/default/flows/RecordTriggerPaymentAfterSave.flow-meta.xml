@@ -2,6 +2,31 @@
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>66.0</apiVersion>
     <decisions>
+        <name>DidTheStatusChange</name>
+        <label>Did The Payment Status Change?</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>GetHolderFirstRecordInSameSave</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>No, a new payment</defaultConnectorLabel>
+        <rules>
+            <name>Changed</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>forB_StatusChanged</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>GetPaymentAllocations</targetReference>
+            </connector>
+            <label>Yes</label>
+        </rules>
+    </decisions>
+    <decisions>
         <name>IsThisTheFirstRecordForTheHolder</name>
         <label>Is This The First Record For The Holder In This Save?</label>
         <locationX>0</locationX>
@@ -23,10 +48,30 @@
             <label>Yes</label>
         </rules>
     </decisions>
-    <description>After a payment is recorded or its status changes, for example to Returned, re-checks automatic stop codes for the payer. One sync per payer per save.</description>
+    <description>After a payment is recorded or its status changes, for example to Returned, re-checks automatic stop codes for the payer. When the status changes, it first re-totals every fee the payment paid, because a Returned payment no longer counts toward a fee. One stop code sync per payer per save.</description>
     <environments>Default</environments>
+    <formulas>
+        <name>forB_StatusChanged</name>
+        <description>True when an existing payment's status changed, so the fees it paid need re-totalling.</description>
+        <dataType>Boolean</dataType>
+        <expression>NOT(ISNEW()) &amp;&amp; ISCHANGED({!$Record.Status__c})</expression>
+    </formulas>
     <interviewLabel>Record-Trigger: Payment After Save {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Record-Trigger: Payment After Save</label>
+    <loops>
+        <name>LoopThroughAllocations</name>
+        <label>Loop Through Allocations</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <collectionReference>GetPaymentAllocations</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <nextValueConnector>
+            <targetReference>SyncFeeAmountPaid</targetReference>
+        </nextValueConnector>
+        <noMoreValuesConnector>
+            <targetReference>GetHolderFirstRecordInSameSave</targetReference>
+        </noMoreValuesConnector>
+    </loops>
     <processMetadataValues>
         <name>BuilderType</name>
         <value>
@@ -46,6 +91,27 @@
         </value>
     </processMetadataValues>
     <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>GetPaymentAllocations</name>
+        <label>Get Payment Allocations</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>LoopThroughAllocations</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Payment__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <object>PaymentAllocation__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
     <recordLookups>
         <name>GetHolderFirstRecordInSameSave</name>
         <description>The holder's first record of this object in the same save, by Id. Only that record's run syncs, so a bulk save gives one sync per holder and no duplicate holds.</description>
@@ -81,7 +147,7 @@
         <locationX>0</locationX>
         <locationY>0</locationY>
         <connector>
-            <targetReference>GetHolderFirstRecordInSameSave</targetReference>
+            <targetReference>DidTheStatusChange</targetReference>
         </connector>
         <filterFormula>ISNEW() || ISCHANGED({!$Record.Status__c})</filterFormula>
         <object>Payment__c</object>
@@ -89,6 +155,22 @@
         <triggerType>RecordAfterSave</triggerType>
     </start>
     <status>Active</status>
+    <subflows>
+        <name>SyncFeeAmountPaid</name>
+        <label>Sync Fee Amount Paid</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>LoopThroughAllocations</targetReference>
+        </connector>
+        <flowName>SubflowFeeAmountPaidSync</flowName>
+        <inputAssignments>
+            <name>varT_FeeId</name>
+            <value>
+                <elementReference>LoopThroughAllocations.FeeItem__r.RegulatoryTrxnFeeId</elementReference>
+            </value>
+        </inputAssignments>
+    </subflows>
     <subflows>
         <name>SyncStopCodes</name>
         <label>Sync Stop Codes</label>

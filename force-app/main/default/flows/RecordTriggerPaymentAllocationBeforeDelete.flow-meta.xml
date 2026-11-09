@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>66.0</apiVersion>
+    <decisions>
+        <name>DoesItPayAFeeItem</name>
+        <label>Does The Allocation Pay A Fee Item?</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnectorLabel>No</defaultConnectorLabel>
+        <rules>
+            <name>Yes</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.FeeItem__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>SyncFeeAmountPaid</targetReference>
+            </connector>
+            <label>Yes</label>
+        </rules>
+    </decisions>
+    <description>Before a payment allocation is deleted, re-totals the fee it paid without it, so the fee's Amount Paid and Status drop back. Deleting several allocations on the same fee at once leaves the total over by the others; delete them one at a time.</description>
+    <environments>Default</environments>
+    <interviewLabel>Record-Trigger: Payment Allocation Before Delete {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Record-Trigger: Payment Allocation Before Delete</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>DoesItPayAFeeItem</targetReference>
+        </connector>
+        <object>PaymentAllocation__c</object>
+        <recordTriggerType>Delete</recordTriggerType>
+        <triggerType>RecordBeforeDelete</triggerType>
+    </start>
+    <status>Active</status>
+    <subflows>
+        <name>SyncFeeAmountPaid</name>
+        <label>Sync Fee Amount Paid</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <flowName>SubflowFeeAmountPaidSync</flowName>
+        <inputAssignments>
+            <name>varT_FeeId</name>
+            <value>
+                <elementReference>$Record.FeeItem__r.RegulatoryTrxnFeeId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>varT_ExcludedAllocationId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputAssignments>
+    </subflows>
+</Flow>
