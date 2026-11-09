@@ -929,16 +929,40 @@ typed name — built once as a reusable screen. No electronic signature product.
 
 ## 4. Case management and violations — Week 10
 
-`CM-01` `[SETTLED]` Email-to-Case and Web-to-Case intake, routing, assignment, prioritisation and
-status tracking. The legacy CLOSE Complaints workflow is retired.
+**As built (Phase 4).** A violation raises its own fee and, through the Phase 3 stop code rules,
+its own hold; payments clear it. Complaints arrive as Cases and become `PublicComplaint` records
+when staff triage them.
+
+| Kind | Name | Covers |
+|---|---|---|
+| Fields | `RegulatoryCodeViolation`: `Establishment__c`, `Practitioner__c`, `CitedParty__c`, `Case__c`; `RegulatoryTrxnFee.AmountPaid__c` | Who is cited and billed; how much of a fee is paid (`CM-02`, `CM-03`) |
+| Validation rules | `EstablishmentOrPractitionerRequired`, `CitedPartyMatchesAccount`, `DescriptionRequiredOtherViolationType` | A violation names a party, bills a named party, and explains an Other |
+| Reference data | Louisiana State Board of Cosmetology authority; placeholder `RegulatoryCode` and `ViolationType` records plus Other | Replaced when the violations list arrives |
+| Flow | Record-Trigger: Regulatory Code Violation After Save | On create: the `Violation` fee from `FeeSchedule`, billed to the cited party, due 15 days after the violation date; sets Compliance Due Date. Stops the save if the fee is missing from the schedule |
+| Flow | Subflow: Fee Amount Paid Sync; Record-Trigger: Payment Allocation After Save and Before Delete; Record-Trigger: Payment After Save (extended) | Totals allocations into Amount Paid and sets the fee Due, Partially Paid or Paid. Returned payments do not count |
+| Hold | Existing code 21 (Non Payment) | Opens when the violation fee passes its due date unpaid, ends when it is paid. Code 12 stays a manual hold |
+| Actions | New Violation on Case, business Account and Person Account; Record Complaint on Case | Staff capture; the Account actions pre-fill the party and Cited Party |
+| Flow | Screen Flow: Case Record Complaint | Creates the `PublicComplaint`, the `ComplaintCase` link and participants, sets Case Type Complaint and moves the Case to Complaint Intake |
+| Case setup | Queues Complaint Intake and General Inquiries; assignment rule `CaseRouting`; auto-response rule `CaseAcknowledgement` with two templates; Email-to-Case | Intake and routing (`CM-01`) |
+
+Known limits: deleting several payment allocations on one fee at once leaves its Amount Paid too
+high (delete them one at a time); a complainant becomes a participant only when the Case is linked
+to a Contact. The sandbox Email-to-Case address and acknowledgement sender are JourneyBlazers addresses; production
+needs LSBC mailboxes, forwarding and a verified LSBC sender (client questions).
+
+`CM-01` `[SETTLED]` Email-to-Case intake, routing, assignment, prioritisation and status tracking.
+The public complaint form is a guest screen flow on the portal (Phase 5) that creates a Case with
+Origin Web, in place of Web-to-Case. The legacy CLOSE Complaints workflow is retired.
 
 `CM-02` `[SETTLED]` **Violations are captured in Phase 1** against the establishment Account and
-the practitioner. Regulatory Code carries the statute, Violation Type the categorised picklist
-with an Other-with-explanation path, Regulatory Code Violation the violation itself.
+the practitioner. Regulatory Code carries the statute, the standard Violation Type object the
+category (its records, not a picklist, with an Other record that requires an explanation),
+Regulatory Code Violation the violation itself. Staff choose the cited party on each violation;
+the fee and any hold go to that party.
 
 `CM-03` `[SETTLED]` **The violation loop closes inside Phase 1.** A violation creates a $25
-Regulatory Transaction Fee with a 15-day clock; unpaid past 15 days raises a Record Alert; the
-hold blocks licence printing.
+Regulatory Transaction Fee with a 15-day clock; unpaid past 15 days raises a Record Alert (stop
+code 21, Non Payment); the hold blocks licence printing and ends when the fee is paid.
 
 `CM-04` `[SETTLED]` **Everything downstream of a violation is Phase 2** — inspection visits,
 enforcement actions, administrative hearings as records, facility grading.
@@ -1468,3 +1492,7 @@ the source.
 | 6 Nov 2026 | `BR-07`–`BR-09`, `BR-18` built: `FeeSchedule` decision matrix, `FeeLateCalculation`, `LicenseExpirationDate`, `FeeDuplicateLicense`, Subflow: Fee Renewal Assessment, and the Change Year action on fee items. `Contact.LastDuplicateLicenseDate__c` added. Placeholders and gaps listed under 2.2. |
 | 6 Nov 2026 | `DM-15` settled: state reciprocity exceptions are the `ReciprocityStateRule` decision matrix. Section 2 eligibility built: hours validation (`BR-11c`, `BR-13a`), `ApplicationPathExams`, and five eligibility expression sets. 5.1 notes how rules avoid the birthdate. Phase 3 complete; section 2 opens with an as-built summary. |
 | 9 Nov 2026 | Defect fixed: batched flow runs opened duplicate stop code holds (code 21 six times on one test holder). Each trigger and schedule now syncs once per holder per batch, and the sync ends duplicates, keeping the oldest. Schedules moved to 00:30–01:00 org time; the org runs on Pacific time, not Central. |
+| 9 Nov 2026 | `CM-02`: Violation Type uses the standard `ViolationType` object, not a picklist; an Other record requires an explanation. Staff choose the cited party (establishment or practitioner) per violation; the fee and hold go to that party. |
+| 9 Nov 2026 | `CM-03`: an unpaid violation fee opens the existing code 21 (Non Payment). Code 12 stays a manual hold. Payments set the fee's Amount Paid and Status through payment allocations; returned payments stop counting, and deleting an allocation re-totals the fee. |
+| 9 Nov 2026 | `CM-01`: Web-to-Case dropped; the public complaint form is a portal guest screen flow in Phase 5. Complaints become `PublicComplaint` records through the Record Complaint triage action on the Case. |
+| 9 Nov 2026 | Phase 4 built: violation capture and loop, payment allocation sync, Case queues, routing, acknowledgements, Email-to-Case and complaint triage. Section 4 opens with an as-built summary. |

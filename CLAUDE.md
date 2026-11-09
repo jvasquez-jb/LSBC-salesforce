@@ -66,7 +66,7 @@ you are working on before building, and section 9 for what the org actually prov
 | 1 | Data model (section 1), encrypted field list | Done |
 | 2 | Security (5.1), `OPEN-11` ACR sharing spike | Paused: awaiting Board feedback on `LSBC_Access_Matrix.xlsx` |
 | 3 | Business rules (section 2) | Done. Eligibility rules built, called from Phase 5 and 6 |
-| 4 | Cases and violations (section 4) | |
+| 4 | Cases and violations (section 4) | Done |
 | 5 | Portal (section 3) | |
 | 6 | Staff tools, reports, cutover (PT-15–17, DM-18c, section 5) | |
 
@@ -84,6 +84,13 @@ Raised by later phases while Phase 2 is paused. Pick these up when it resumes.
 6. Portal users need `BRECmtyRuntime` (Phase 5).
 7. History on `RegulatoryTrxnFeeItem` is not enabled, so Change Year notes the change in the item's
    Comments. Enable field history on `ForYear__c` if the object supports it (`SEC-05`).
+8. Who can create violations (`RegulatoryCodeViolation`) and run Record Complaint, and who can edit
+   Amount Paid (flow-set; keep it read-only for staff).
+9. `PublicComplaint` confidentiality: who sees the complainant on a complaint with
+   `IsReporterConfidential` ticked, and the object's org-wide default.
+10. Queue membership for Complaint Intake and General Inquiries (staff, not Jonathan). Members are
+    data (`GroupMember`), not in the queue metadata.
+11. Field history on violation `Status` and `PublicComplaint.IsReporterConfidential` (`SEC-05`).
 
 ## Org notes
 
@@ -131,5 +138,13 @@ Raised by later phases while Phase 2 is paused. Pick these up when it resumes.
 - Stop code test records in LSBC-Partial are named `StopCodeTest …` (a person, a salon, a school, and
   four Cosmetologist exams: national, practical, state and restoration).
   Reuse them; delete them before UAT data goes in.
+- Case intake (sandbox): Email-to-Case routing address `jvasquez@journeyblazers.com` (Origin Email);
+  test by emailing its Salesforce inbound address from another mailbox. Acknowledgements send from the
+  verified org-wide address `jvasquez+lsbc@journeyblazers.com`: Salesforce rejects the routing address
+  as a sender. Default Case owner is the General Inquiries queue. These are org settings, kept out of
+  `force-app`; production uses LSBC addresses. Deliverability must be All email to test acknowledgements.
+- Violations: the `FeeSchedule` `Violation` row must exist or a violation can't be saved. Violation
+  and complaint test records sit on the `StopCodeTest` accounts and Cases `RoutingTest …`,
+  `ComplaintTest …`, `E2CTest …`; delete them with the stop code test data.
 - `force-app` holds only metadata this project owns. A full org retrieve sits in `reference/`
   (ignored by git) for lookups. Copy a file into `force-app` only when we change it.
