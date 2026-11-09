@@ -24,17 +24,25 @@ Each requirement is tagged:
 
 ### Naming convention
 
-**No spaces or underscores in the readable part of any name we create.** The suffix Salesforce
-adds is not part of the readable name.
+Names follow the [CFPB Salesforce Naming Conventions](https://github.com/cfpb/salesforce-docs/blob/master/_pages/Salesforce-Naming-Conventions.md),
+and flows follow [Automation Champion's flow conventions](https://automationchampion.com/2021/11/09/naming-conventions-for-salesforce-flow/).
+Whole words, singular, and **no spaces or underscores in an API name**. The suffix Salesforce
+adds is not part of the readable name. The one exception is the type prefix on flow elements.
 
 | Thing | Form | Example |
 |---|---|---|
 | Custom field | `ReadablePart__c` | `ForYear__c`, `OriginatingState__c`, `ApplicationPath__c` |
 | Custom object, if one proves unavoidable | `ReadablePart__c` | `PaymentAllocation__c` |
 | Record type developer name | `ReadablePart` | `NewLicensure`, `Reciprocity`, `NewSchool` |
-| Flow | `AreaReadablePart` | `PortalIndividualApplication`, `AdminRecordDeposit` |
-| Decision matrix / rule | `AreaReadablePart` | `StopCodeEligibility`, `FeeLateCalculation` |
+| Flow label | Automation Champion pattern by flow type | `Record-Trigger: Business License After Save`, `Screen Flow: Account Add Stop Code`, `Subflow: Stop Code Sync`, `Business License Schedule: Expired And Lapsed Licenses` |
+| Flow API name | The label with spaces and punctuation removed | `RecordTriggerBusinessLicenseAfterSave`, `SubflowStopCodeSync` |
+| Flow element | Type prefix and underscore, then PascalCase | `varB_IsEligible`, `varR_Licenses`, `forD_NewPeriodEnd`; `Get Business License`, `Loop Through Licenses` |
+| Decision matrix / expression set | `AreaReadablePart` | `FeeSchedule`, `FeeLateCalculation`, `StopCodePerson` |
+| Validation rule | `FieldRuleDependency` | `TotalHoursMax192MonthlyHours` |
 | Permission set / custom permission | `ReadablePart` | `SchoolAdministrator`, `BoothRenterAccess` |
+
+There is one record-triggered flow per object per context (before save, after save). Later work
+adds to that flow rather than creating another.
 
 Standard object and field names are used exactly as Salesforce spells them — `Account`,
 `BusinessLicense`, `PersonContactId`, `RegulatoryTrxnFeeItem` — because this file has to work as a
@@ -219,7 +227,7 @@ against the licence" is this junction.
 | Course Offering | A school's approved offering of a programme | That school's approved hours (`ApprovedHours__c`). The standard object has no link to an Account, so `School__c` is a custom lookup limited to School Accounts |
 | `TrainingCourseParticipant` | Student enrolment and hours | `TotalHours`, `TotalCredits`, `StartDate` and `EndDate` are native. One record per student per month, bounded by the dates, so history is preserved rather than overwritten |
 | Person Education | Schooling history | Used in reciprocity review |
-| `Examination` | The catalogue | Eight fields — name, description, status. Light enough that one record per timed station costs nothing |
+| `Examination` | The catalogue | Eight fields — name, description, status. Light enough that one record per timed station costs nothing. Custom `ExamType__c` (National, Practical, State, Restoration) and `LicenseType__c` (lookup to `RegulatoryAuthorizationType`), added in Phase 3 so stop codes and eligibility can tell exams apart |
 | `PersonExamination` | One attempt at one station | `ExaminationDate`, `Score` as an integer, `Result`, and a verification block. Several rows per sitting give per-area scoring. Attempt number is custom |
 | Product | Fee codes as catalogue entries | Two-letter CLOSE code as external ID |
 | `RegulatoryTrxnFee` | What is owed | `ParentRecordId` is polymorphic across both application objects, `BusinessLicense`, `RegulatoryCodeViolation` and `Case`, so a fee attaches directly to a violation. `TotalFeeAmount` rolls up from the items; `Status` and `DueDate` are native |
@@ -270,7 +278,7 @@ Where they live, decided in Phase 1: CE providers, credential evaluation agencie
 diploma sources are `Organization` Accounts, told apart by `Account.Type`. A provider's or agency's
 approval for a given year is an `Accreditation` record (Type CE Provider Approval or Credential
 Evaluator Approval) with `EffectiveFrom` and `EffectiveTo`, so current and prior years sit side by
-side. State reciprocity exceptions are decided in Phase 3 (decision matrix or custom metadata).
+side. State reciprocity exceptions are the `ReciprocityStateRule` decision matrix (settled in Phase 3).
 Violation types and regulatory codes are Phase 4 reference data.
 
 `DM-16` `[OPEN]` CLOSE has a **Seminar module** — Maintain Seminar Details and Maintain Seminar
@@ -364,12 +372,40 @@ Deposit Number. A deposit is not only a finance artifact.
 BRE carries the decision logic; Flow carries orchestration. Rules expressed as decision matrices
 are readable and versioned, and the administrator can change a threshold without touching a flow.
 
+**As built (Phase 3).** Flows gather facts and write records; rules never query and never carry a
+price. Thresholds are named constants inside each expression set, amounts and lookup tables are
+decision matrices, and every rule was tested at its boundaries before any flow called it.
+
+| Kind | Name | Covers |
+|---|---|---|
+| Decision matrix | `FeeSchedule` | Fee amounts and codes (`BR-07`) |
+| Decision matrix | `ReciprocityStateRule` | States not accepted for reciprocity (`BR-16`, `DM-15`) |
+| Decision matrix | `ApplicationPathExams` | Exams and Board approval per reciprocity path (`BR-19`, `BR-23`) |
+| Expression set | `StopCodePerson`, `StopCodeSchool`, `StopCodeEstablishment` | The fourteen derived stop codes (`BR-02`) |
+| Expression set | `FeeLateCalculation`, `FeeDuplicateLicense`, `LicenseExpirationDate` | Late and restoration fees, duplicates, expiry (`BR-08`, `BR-18`, `DM-08a`) |
+| Expression set | `EligibilityStudentRegistration`, `EligibilityExamination`, `EligibilityReciprocity`, `EligibilityPermit`, `EligibilityInstructorCE` | Section 2.3 and 2.4 eligibility |
+| Flow | Subflow: Stop Code Sync, Subflow: Stop Code Print Check, Subflow: Fee Renewal Assessment | Orchestration the portal and staff tools call |
+| Flow | Eight record-triggered flows, four nightly schedules | Keep stop codes current |
+| Flow | Screen Flow: Account Add Stop Code, Screen Flow: Regulatory Transaction Fee Item Change Year | Staff actions Add Stop Code and Change Year |
+
+The eligibility rules are built but not yet called: the Phase 5 portal flows and Phase 6 staff
+intake call them. Inputs that need a decision before then: a state with no `ReciprocityStateRule`
+row is treated as accepted, and its own examination requirements are not yet recorded; the Regular
+and International reciprocity paths use the license type's exams until those requirements arrive.
+An existing master instructor keeps the status only while CE stays compliant (`BR-17a`, `OPEN-23`).
+
 ### 2.1 Stop codes
 
 `BR-01` `[SETTLED]` **A stop code is a numbered hold with a description, effective date and end
 date.** Active while the end date is blank; resolved once a date is entered. The licence stays
 valid and renewable throughout — only printing and mailing are withheld. The print routine
 checks that every stop code on a record carries an end date before producing a licence.
+
+> **How "no end date" is stored.** `RecordAlert.ValidUntilDate` is required, so an alert cannot be
+> saved with a blank end date. An open hold carries `ValidUntilDate` of 31 December 4000 (the
+> platform maximum) with `IsActive` true; ending it sets `ValidUntilDate` to the moment it ended and
+> `IsActive` false. A hold is live when `IsActive` is true and `ValidUntilDate` is in the future.
+> Staff are trained that 12/31/4000 means "no end date".
 
 > **A hold attaches to the holder, not the credential.** `RecordAlert` reaches Account, Contact,
 > `Case` and `IndividualApplication`, but not `BusinessLicense`. With Person Accounts that works —
@@ -396,6 +432,28 @@ today.
 | 20 | Needs re-registration | Six months without submitted hours |
 | 21 | Non Payment | Outstanding fee balance |
 | 31 | Restoration Exam Not Passed | Person Examination result |
+
+**When each derived code opens and ends** (settled in Phase 3 build):
+
+| Code | Opens when | Ends when |
+|---|---|---|
+| 1 | A `Payment__c` on the holder is marked Returned | Staff end it after verifying the repayment. The repaid fees are covered by code 21 |
+| 3 | A School has no Surety Bond `Accreditation` covering today | A covering bond is recorded |
+| 4 | A student has an open New Licensure application and approved hours are below the completion threshold | Hours reach the threshold |
+| 5 | The holder's Cosmetologist licence `PeriodEnd` is past (status not Revoked, Retired or Deceased) | `PeriodEnd` moves forward |
+| 6 | A Booth Rental Permit holder, or a person with an active Booth Renter ACR, holds no current Cosmetologist licence | A current licence exists |
+| 7 | An Instructor licence holder holds no current Cosmetologist licence | A current licence exists |
+| 8 | The latest attempt at an exam the licence type requires is a Fail | A Pass is recorded |
+| 9 | An Instructor licence holder holds no current Esthetician licence | A current licence exists |
+| 15 | A licence `PeriodEnd` is more than three years past | The licence is restored |
+| 16 | A Salon has no active Owner or Manager ACR whose person holds a current operator licence (`BR-22a`) | One is recorded |
+| 17 | An open licensure application needs an exam with no attempt on record | An attempt is recorded |
+| 20 | A student's most recent hours ended more than six months ago | New hours arrive |
+| 21 | A fee on the holder is Due or Partially Paid past its `DueDate` | It is Paid |
+| 31 | The latest Restoration exam attempt is a Fail | A Pass is recorded |
+
+Codes 7 and 9 follow this document: an instructor needs both licences. Whether that holds for every
+instructor discipline should be confirmed with LSBC.
 
 > The five prerequisite codes are the quiet win. A booth renter must hold a current cosmetology
 > licence, an instructor must hold both cosmetology and esthetician, a shop must have a licensed
@@ -483,6 +541,22 @@ circulate.
 `BR-08a` `[OPEN]` **A service charge applies to card payments.** Whether it applies to all card
 payments or only at the counter is unconfirmed, and it changes what the portal tells someone they
 owe against what they are charged. See `OPEN-33`.
+
+**As built (Phase 3).** Amounts live in the `FeeSchedule` decision matrix, keyed by fee name, with
+the fee code beside each where it is confirmed (`FH`, `FD`, `PO`); its rows are kept in
+`data/decisionMatrices/FeeSchedule.csv`. A price change is a new matrix version with a later start
+date. The rules never carry a price: `FeeLateCalculation` holds only the $465 cap and the 36-month
+restoration limit. Placeholders and gaps:
+
+| Item | State |
+|---|---|
+| Fee codes for every fee except `FH`, `FD`, `PO` | Blank until the code-table export arrives. `AC` is not mapped: whether it is the individual $35 renewal is unconfirmed |
+| Salon (business) renewal amount | Not stated. Renewal assessment stops with a message for a salon until a `Salon Renewal` row is added |
+| Records list request | No amount (`OPEN-30`), so no row |
+| Affidavit "first free, then $15 per licence" (`BR-26`) | No counter of prior affidavits in the model. Decide before the affidavit flow is built |
+| Duplicate licence once a year (`BR-18`) | Enforced over a rolling twelve months from `LastDuplicateLicenseDate__pc` |
+| Late years | Each passed anniversary of the paid-through date is one delinquent year; the renewal pays the current year, and each missed year carries a late fee until the cap |
+| `LicenseExpirationDate` output | Returns midnight UTC. Whoever writes it to `PeriodEnd` should set a Louisiana-local time so the date does not show as the evening before |
 
 `BR-09` `[SETTLED]` **A dedicated change-payment-year function is required.** CLOSE has one, with
 a warning not to use the reversal screen for it — the year gets corrected often enough to warrant
@@ -901,6 +975,19 @@ requirements. Core security model covers profiles, roles, permission sets and sh
 desk, finance, inspectors and leadership. An Inspector permission set group and role slot are
 reserved now.
 
+`SEC-01c` `[PROPOSED]` **The access matrix is kept in
+[LSBC_Access_Matrix.xlsx](LSBC_Access_Matrix.xlsx)**, not in this document. It is the working copy
+the Board reviews and the source the permission sets, groups and sharing rules are built from. In
+outline:
+
+| Layer | Shape |
+|---|---|
+| Profile | One profile, `LSBC Standard User`, cloned from Minimum Access. It grants nothing |
+| Role | One per desk (section 6), for record visibility up the hierarchy. `SystemAdministrator` for admins and IT, who also own portal accounts |
+| Permission sets | Small building blocks (`LicensingRead`, `PaymentEntry`, `AccommodationAccess`, …). Any that touch a Public Sector object is cloned from `PublicSectorAccessPSL`, so it carries the Public Sector Access licence |
+| Permission set groups | One per desk, combining building blocks. A person covering two desks gets two groups |
+| Sharing | Private by default. Sharing rules open records outward to a public group per desk |
+
 `SEC-02` `[SETTLED]` **Person Accounts constrain the sharing design.** Org-wide default for
 Contacts must be Controlled by Parent, or both Account and Contact set to Private.
 
@@ -944,6 +1031,10 @@ Considered and **not** encrypted:
 
 From now on, no formula, filter, list view, lookup filter or decision-matrix input may reference a
 field on the encrypted list.
+
+Rules that need the birthdate (birthday expiry, the age-16 check) never receive it. The calling flow
+reads `Birthdate` and passes only a birth month and day, or an age in whole years. Reading the field
+in Flow works under probabilistic encryption; filtering on it would not.
 
 `SEC-05` `[SETTLED]` **Standard field history tracking enabled deliberately** on licence status,
 exam results and hold status. Also on comment fields — CLOSE comment boxes have no edit lock and
@@ -1366,3 +1457,14 @@ the source.
 | 6 Nov 2026 | `BusinessLicenseStatus` gains Active alongside Retired and Deceased. |
 | 6 Nov 2026 | Person Account record type relabelled **Person** and given a description; developer name `PersonAccount` unchanged. |
 | 6 Nov 2026 | Metadata labels and API names use US spelling (License, Program, Check) to match the platform; this document keeps its own spelling. |
+| 6 Nov 2026 | `SEC-01c` added: the access matrix lives in `LSBC_Access_Matrix.xlsx`, first draft proposed. `ProgrammeManager` role renamed `ProgramManager`. |
+| 6 Nov 2026 | Naming convention adopts the CFPB conventions and Automation Champion's flow conventions. Flow labels carry the flow type; API names drop the punctuation; one record-triggered flow per object per context. |
+| 6 Nov 2026 | Phase 2 (security) paused pending Board feedback on the access matrix. Phase 3 (business rules) proceeds; rule flows run in system context so they do not depend on the access model. |
+| 6 Nov 2026 | `BR-01`: `RecordAlert.ValidUntilDate` is required, so an open hold carries 31 December 4000 with `IsActive` true; ending it sets the date to now and `IsActive` false. |
+| 6 Nov 2026 | `BR-02`: opening and ending conditions settled for the fourteen derived codes. Code 1 opens automatically and is ended by staff; code 4 opens only against an open licensure application; codes 7 and 9 both apply to every instructor, pending LSBC confirmation. |
+| 6 Nov 2026 | `Examination` gains `ExamType__c` and `LicenseType__c`; the standard object cannot otherwise tell a national exam from a practical, or one licence's exam from another's. |
+| 6 Nov 2026 | `BR-01`–`BR-03` built: Subflow: Stop Code Sync reconciles holds from the Stop Code rules; six after-save flows and four nightly schedules call it; Subflow: Stop Code Print Check answers whether a holder may print; staff add manual holds with the Add Stop Code action on Account. |
+| 6 Nov 2026 | Stop code sync also runs when an application opens or closes and when a fee's status changes. Add Stop Code placed on the business and Person Account layouts. |
+| 6 Nov 2026 | `BR-07`–`BR-09`, `BR-18` built: `FeeSchedule` decision matrix, `FeeLateCalculation`, `LicenseExpirationDate`, `FeeDuplicateLicense`, Subflow: Fee Renewal Assessment, and the Change Year action on fee items. `Contact.LastDuplicateLicenseDate__c` added. Placeholders and gaps listed under 2.2. |
+| 6 Nov 2026 | `DM-15` settled: state reciprocity exceptions are the `ReciprocityStateRule` decision matrix. Section 2 eligibility built: hours validation (`BR-11c`, `BR-13a`), `ApplicationPathExams`, and five eligibility expression sets. 5.1 notes how rules avoid the birthdate. Phase 3 complete; section 2 opens with an as-built summary. |
+| 9 Nov 2026 | Defect fixed: batched flow runs opened duplicate stop code holds (code 21 six times on one test holder). Each trigger and schedule now syncs once per holder per batch, and the sync ends duplicates, keeping the oldest. Schedules moved to 00:30–01:00 org time; the org runs on Pacific time, not Central. |

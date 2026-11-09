@@ -6,6 +6,16 @@ you are working on before building, and section 9 for what the org actually prov
 
 ## Working rules
 
+- At the end of each phase, update the admin guide, a Claude Doc titled "LSBC Salesforce Admin
+  Guide" (<https://claude.ai/artifact/3zfR5LEknYU6f9EebqB3xy>). It is written for a new admin: what
+  each object, field, rule and flow does, with a Mermaid diagram for each flow and branching rule,
+  and encrypted fields marked. No requirement IDs.
+- At the end of each phase, also add scripts to the UAT doc, "LSBC UAT Scripts"
+  (<https://claude.ai/artifact/Pv2nDG8sGtdwZsnnQTQgAG>). The build team and the Board run the same
+  scripts, so don't split them by tester. Each script has an ID, steps on named test records, the
+  expected result and a Result dropdown. Fails go in its Defect log. When the portal or staff tools
+  start calling a rule, add scripts that test it through the real screen.
+
 - Deploy straight to the `LSBC-Partial` sandbox (default org). No scratch orgs.
 - Requirement IDs (`DM-01`, `BR-04`, …) go in commit messages and Jira only. Never put them in
   metadata descriptions, help text, labels or anything an admin sees in Setup: a future admin
@@ -100,7 +110,18 @@ Raised by later phases while Phase 2 is paused. Pick these up when it resumes.
   `POST /services/data/v66.0/actions/custom/runDecisionMatrix/<Name>`. An unmatched input returns blank outputs.
 - Flow: an empty Text variable is null, and `CONTAINS(null, …)` is null, not false, so it fails an
   "equals false" check. Prefix the haystack: `CONTAINS(";" & {!varT_List}, …)`.
-- Stop code test records in LSBC-Partial are named `StopCodeTest …` (a person, a salon, a school).
+- Flow runs interviews for a batch of records together, element by element, so several records for
+  the same Account in one save or one scheduled run all read before any writes. Anything that
+  creates records per holder needs a gate: the stop code triggers and schedules get the holder's
+  first record (same save: same `LastModifiedDate`; schedules: same window), sorted by Id, and only
+  that record's run syncs. Flow can't filter `Id` with "less than". The sync subflow also ends
+  duplicate open holds, keeping the oldest.
+- The org time zone is America/Los_Angeles (Pacific), not Louisiana's Central. A scheduled flow's
+  start time is read in org time: the stop code schedules run 00:30–01:00 Pacific (02:30–03:00
+  Louisiana), so `TODAY()` is the same date in both zones. Whether to switch the org to
+  America/Chicago is Jonathan's call: it changes what "today" means everywhere.
+- Stop code test records in LSBC-Partial are named `StopCodeTest …` (a person, a salon, a school, and
+  four Cosmetologist exams: national, practical, state and restoration).
   Reuse them; delete them before UAT data goes in.
 - `force-app` holds only metadata this project owns. A full org retrieve sits in `reference/`
   (ignored by git) for lookups. Copy a file into `force-app` only when we change it.
