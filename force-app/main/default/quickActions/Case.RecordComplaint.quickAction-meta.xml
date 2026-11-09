@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QuickAction xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Turns a complaint that came in by email, form, phone or mail into a Public Complaint linked to this case, and moves the case to Complaint Intake.</description>
+    <flowDefinition>ScreenFlowCaseRecordComplaint</flowDefinition>
+    <label>Record Complaint</label>
+    <optionsCreateFeedItem>false</optionsCreateFeedItem>
+    <type>Flow</type>
+</QuickAction>
