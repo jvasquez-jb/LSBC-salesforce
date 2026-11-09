@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Automatic reply to someone who emails the Board. Confirms receipt and gives the reference number only; nothing from the message is repeated back.</description>
+    <encodingKey>UTF-8</encodingKey>
+    <name>Case Inquiry Acknowledgement</name>
+    <style>none</style>
+    <subject>We received your message (reference {!Case.CaseNumber})</subject>
+    <type>text</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

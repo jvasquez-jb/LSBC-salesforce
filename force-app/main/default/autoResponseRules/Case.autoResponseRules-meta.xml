@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AutoResponseRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <autoResponseRule>
+        <fullName>CaseAcknowledgement</fullName>
+        <active>true</active>
+        <ruleEntry>
+            <criteriaItems>
+                <field>Case.Type</field>
+                <operation>equals</operation>
+                <value>Complaint</value>
+            </criteriaItems>
+            <senderEmail>jvasquez+lsbc@journeyblazers.com</senderEmail>
+            <senderName>Louisiana State Board of Cosmetology</senderName>
+            <template>unfiled$public/CaseComplaintAcknowledgement</template>
+        </ruleEntry>
+        <ruleEntry>
+            <formula>true</formula>
+            <senderEmail>jvasquez+lsbc@journeyblazers.com</senderEmail>
+            <senderName>Louisiana State Board of Cosmetology</senderName>
+            <template>unfiled$public/CaseInquiryAcknowledgement</template>
+        </ruleEntry>
+    </autoResponseRule>
+</AutoResponseRules>
