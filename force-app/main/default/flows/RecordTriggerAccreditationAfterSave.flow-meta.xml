@@ -1,7 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>66.0</apiVersion>
-    <description>After a school surety bond is recorded or its dates change, re-checks automatic stop codes for the school.</description>
+    <decisions>
+        <name>IsThisTheFirstRecordForTheHolder</name>
+        <label>Is This The First Record For The Holder In This Save?</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnectorLabel>No, an earlier record syncs</defaultConnectorLabel>
+        <rules>
+            <name>First</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>GetHolderFirstRecordInSameSave.Id</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>$Record.Id</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>SyncStopCodes</targetReference>
+            </connector>
+            <label>Yes</label>
+        </rules>
+    </decisions>
+    <description>After a school surety bond is recorded or its dates change, re-checks automatic stop codes for the school. One sync per school per save.</description>
     <environments>Default</environments>
     <interviewLabel>Record-Trigger: Accreditation After Save {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Record-Trigger: Accreditation After Save</label>
@@ -24,11 +46,42 @@
         </value>
     </processMetadataValues>
     <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>GetHolderFirstRecordInSameSave</name>
+        <description>The holder's first record of this object in the same save, by Id. Only that record's run syncs, so a bulk save gives one sync per holder and no duplicate holds.</description>
+        <label>Get Holder First Record In Same Save</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>IsThisTheFirstRecordForTheHolder</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>AccountId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.AccountId</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>LastModifiedDate</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.LastModifiedDate</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Accreditation</object>
+        <sortField>Id</sortField>
+        <sortOrder>Asc</sortOrder>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
     <start>
         <locationX>0</locationX>
         <locationY>0</locationY>
         <connector>
-            <targetReference>SyncStopCodes</targetReference>
+            <targetReference>GetHolderFirstRecordInSameSave</targetReference>
         </connector>
         <filterFormula>ISPICKVAL({!$Record.Type}, &quot;Surety Bond&quot;) &amp;&amp; (ISNEW() || ISCHANGED({!$Record.EffectiveFrom}) || ISCHANGED({!$Record.EffectiveTo}) || ISCHANGED({!$Record.Type}))</filterFormula>
         <object>Accreditation</object>

@@ -18,18 +18,90 @@
                 </rightValue>
             </conditions>
             <connector>
+                <targetReference>GetHolderFirstRecord</targetReference>
+            </connector>
+            <label>Yes</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>IsThisTheHoldersFirstRecord</name>
+        <label>Is This The Holder's First Record?</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnectorLabel>No</defaultConnectorLabel>
+        <rules>
+            <name>First</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>GetHolderFirstRecord.Id</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>$Record.Id</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
                 <targetReference>SyncStopCodes</targetReference>
             </connector>
             <label>Yes</label>
         </rules>
     </decisions>
-    <description>Nightly. Re-checks stop codes for students whose hours entry ended six months ago in the last week. The sync uses the latest entry, so students with newer hours are unaffected.</description>
+    <description>Nightly. Re-checks stop codes for students whose hours entry ended six months ago in the last week. The sync uses the latest entry, so students with newer hours are unaffected. One sync per student.</description>
     <environments>Default</environments>
     <formulas>
         <name>forB_IsInWindow</name>
         <description>True when the date this schedule watches fell in the last seven days.</description>
         <dataType>Boolean</dataType>
         <expression>DATEVALUE({!$Record.EndDate}) &gt;= ADDMONTHS(TODAY(), -6) - 7 &amp;&amp; DATEVALUE({!$Record.EndDate}) &lt; ADDMONTHS(TODAY(), -6)</expression>
+    </formulas>
+    <formulas>
+        <name>forD_WindowStart</name>
+        <dataType>Date</dataType>
+        <expression>TODAY() - 7</expression>
+    </formulas>
+    <formulas>
+        <name>forD_WindowEnd</name>
+        <dataType>Date</dataType>
+        <expression>TODAY()</expression>
+    </formulas>
+    <formulas>
+        <name>forDT_WindowStart</name>
+        <dataType>DateTime</dataType>
+        <expression>DATETIMEVALUE(TODAY() - 7)</expression>
+    </formulas>
+    <formulas>
+        <name>forDT_WindowEnd</name>
+        <dataType>DateTime</dataType>
+        <expression>DATETIMEVALUE(TODAY())</expression>
+    </formulas>
+    <formulas>
+        <name>forD_LapseWindowStart</name>
+        <dataType>Date</dataType>
+        <expression>ADDMONTHS(TODAY(), -36) - 7</expression>
+    </formulas>
+    <formulas>
+        <name>forD_LapseWindowEnd</name>
+        <dataType>Date</dataType>
+        <expression>ADDMONTHS(TODAY(), -36)</expression>
+    </formulas>
+    <formulas>
+        <name>forDT_LapseWindowStart</name>
+        <dataType>DateTime</dataType>
+        <expression>DATETIMEVALUE(ADDMONTHS(TODAY(), -36) - 7)</expression>
+    </formulas>
+    <formulas>
+        <name>forDT_LapseWindowEnd</name>
+        <dataType>DateTime</dataType>
+        <expression>DATETIMEVALUE(ADDMONTHS(TODAY(), -36))</expression>
+    </formulas>
+    <formulas>
+        <name>forDT_StaleWindowStart</name>
+        <dataType>DateTime</dataType>
+        <expression>DATETIMEVALUE(ADDMONTHS(TODAY(), -6) - 7)</expression>
+    </formulas>
+    <formulas>
+        <name>forDT_StaleWindowEnd</name>
+        <dataType>DateTime</dataType>
+        <expression>DATETIMEVALUE(ADDMONTHS(TODAY(), -6))</expression>
     </formulas>
     <interviewLabel>Training Course Participant Schedule: Six Months Without Hours {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Training Course Participant Schedule: Six Months Without Hours</label>
@@ -52,6 +124,44 @@
         </value>
     </processMetadataValues>
     <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>GetHolderFirstRecord</name>
+        <description>The holder's first matching record in the window. Only that record's run syncs, so a holder with several records gets one sync and no duplicate holds.</description>
+        <label>Get Holder First Record</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>IsThisTheHoldersFirstRecord</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>ContactId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.ContactId</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>EndDate</field>
+            <operator>GreaterThanOrEqualTo</operator>
+            <value>
+                <elementReference>forDT_StaleWindowStart</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>EndDate</field>
+            <operator>LessThan</operator>
+            <value>
+                <elementReference>forDT_StaleWindowEnd</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>TrainingCourseParticipant</object>
+        <sortField>Id</sortField>
+        <sortOrder>Asc</sortOrder>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
     <start>
         <locationX>0</locationX>
         <locationY>0</locationY>
@@ -69,8 +179,8 @@
         <object>TrainingCourseParticipant</object>
         <schedule>
             <frequency>Daily</frequency>
-            <startDate>2026-11-08</startDate>
-            <startTime>06:20:00.000Z</startTime>
+            <startDate>2026-11-10</startDate>
+            <startTime>00:50:00.000Z</startTime>
         </schedule>
         <triggerType>Scheduled</triggerType>
     </start>

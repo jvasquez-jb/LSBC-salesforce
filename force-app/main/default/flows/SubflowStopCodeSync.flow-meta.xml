@@ -877,6 +877,28 @@
             <label>Yes, and it should end</label>
         </rules>
         <rules>
+            <name>Duplicate</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>LoopThroughOpenAlerts.RecordAlertCategoryId</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>LoopThroughCategories.Id</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>varN_OpenAlertCount</leftValueReference>
+                <operator>GreaterThanOrEqualTo</operator>
+                <rightValue>
+                    <numberValue>1</numberValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>SetEndedAlertFields</targetReference>
+            </connector>
+            <label>Yes, but an older one is already open</label>
+        </rules>
+        <rules>
             <name>KeepIt</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
@@ -924,7 +946,7 @@
             <label>Yes</label>
         </rules>
     </decisions>
-    <description>Works out which automatic stop codes apply to one Account (person, school or salon) using the Stop Code rules, then opens holds that should be open and ends automatic holds that no longer apply. Staff-set holds are never touched, and code 1 is ended by staff. Runs in system context so the result does not depend on who saved the record.</description>
+    <description>Works out which automatic stop codes apply to one Account (person, school or salon) using the Stop Code rules, then opens holds that should be open and ends automatic holds that no longer apply. Staff-set holds are never touched, and code 1 is ended by staff. If a code has more than one open hold, the extras are ended and the oldest kept. Runs in system context so the result does not depend on who saved the record.</description>
     <environments>Default</environments>
     <formulas>
         <name>forD_AsOfDate</name>
@@ -2410,6 +2432,7 @@
     </recordLookups>
     <recordLookups>
         <name>GetOpenAlerts</name>
+        <description>Oldest first, so when a code has more than one open hold the oldest is the one kept.</description>
         <label>Get Open Alerts</label>
         <locationX>0</locationX>
         <locationY>0</locationY>
@@ -2434,6 +2457,8 @@
         </filters>
         <getFirstRecordOnly>false</getFirstRecordOnly>
         <object>RecordAlert</object>
+        <sortField>CreatedDate</sortField>
+        <sortOrder>Asc</sortOrder>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordUpdates>

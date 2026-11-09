@@ -1,7 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>66.0</apiVersion>
-    <description>After a payment is recorded or its status changes, for example to Returned, re-checks automatic stop codes for the payer.</description>
+    <decisions>
+        <name>IsThisTheFirstRecordForTheHolder</name>
+        <label>Is This The First Record For The Holder In This Save?</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnectorLabel>No, an earlier record syncs</defaultConnectorLabel>
+        <rules>
+            <name>First</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>GetHolderFirstRecordInSameSave.Id</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>$Record.Id</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>SyncStopCodes</targetReference>
+            </connector>
+            <label>Yes</label>
+        </rules>
+    </decisions>
+    <description>After a payment is recorded or its status changes, for example to Returned, re-checks automatic stop codes for the payer. One sync per payer per save.</description>
     <environments>Default</environments>
     <interviewLabel>Record-Trigger: Payment After Save {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Record-Trigger: Payment After Save</label>
@@ -24,11 +46,42 @@
         </value>
     </processMetadataValues>
     <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>GetHolderFirstRecordInSameSave</name>
+        <description>The holder's first record of this object in the same save, by Id. Only that record's run syncs, so a bulk save gives one sync per holder and no duplicate holds.</description>
+        <label>Get Holder First Record In Same Save</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>IsThisTheFirstRecordForTheHolder</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Account__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Account__c</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>LastModifiedDate</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.LastModifiedDate</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Payment__c</object>
+        <sortField>Id</sortField>
+        <sortOrder>Asc</sortOrder>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
     <start>
         <locationX>0</locationX>
         <locationY>0</locationY>
         <connector>
-            <targetReference>SyncStopCodes</targetReference>
+            <targetReference>GetHolderFirstRecordInSameSave</targetReference>
         </connector>
         <filterFormula>ISNEW() || ISCHANGED({!$Record.Status__c})</filterFormula>
         <object>Payment__c</object>

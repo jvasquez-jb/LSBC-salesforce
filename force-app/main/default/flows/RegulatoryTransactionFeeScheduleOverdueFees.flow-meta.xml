@@ -18,18 +18,90 @@
                 </rightValue>
             </conditions>
             <connector>
+                <targetReference>GetHolderFirstRecord</targetReference>
+            </connector>
+            <label>Yes</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>IsThisTheHoldersFirstRecord</name>
+        <label>Is This The Holder's First Record?</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnectorLabel>No</defaultConnectorLabel>
+        <rules>
+            <name>First</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>GetHolderFirstRecord.Id</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>$Record.Id</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
                 <targetReference>SyncStopCodes</targetReference>
             </connector>
             <label>Yes</label>
         </rules>
     </decisions>
-    <description>Nightly. Re-checks stop codes for holders with a fee that fell overdue in the last week.</description>
+    <description>Nightly. Re-checks stop codes for holders with a fee that fell overdue in the last week. One sync per holder.</description>
     <environments>Default</environments>
     <formulas>
         <name>forB_IsInWindow</name>
         <description>True when the date this schedule watches fell in the last seven days.</description>
         <dataType>Boolean</dataType>
         <expression>DATEVALUE({!$Record.DueDate}) &gt;= TODAY() - 7 &amp;&amp; DATEVALUE({!$Record.DueDate}) &lt; TODAY()</expression>
+    </formulas>
+    <formulas>
+        <name>forD_WindowStart</name>
+        <dataType>Date</dataType>
+        <expression>TODAY() - 7</expression>
+    </formulas>
+    <formulas>
+        <name>forD_WindowEnd</name>
+        <dataType>Date</dataType>
+        <expression>TODAY()</expression>
+    </formulas>
+    <formulas>
+        <name>forDT_WindowStart</name>
+        <dataType>DateTime</dataType>
+        <expression>DATETIMEVALUE(TODAY() - 7)</expression>
+    </formulas>
+    <formulas>
+        <name>forDT_WindowEnd</name>
+        <dataType>DateTime</dataType>
+        <expression>DATETIMEVALUE(TODAY())</expression>
+    </formulas>
+    <formulas>
+        <name>forD_LapseWindowStart</name>
+        <dataType>Date</dataType>
+        <expression>ADDMONTHS(TODAY(), -36) - 7</expression>
+    </formulas>
+    <formulas>
+        <name>forD_LapseWindowEnd</name>
+        <dataType>Date</dataType>
+        <expression>ADDMONTHS(TODAY(), -36)</expression>
+    </formulas>
+    <formulas>
+        <name>forDT_LapseWindowStart</name>
+        <dataType>DateTime</dataType>
+        <expression>DATETIMEVALUE(ADDMONTHS(TODAY(), -36) - 7)</expression>
+    </formulas>
+    <formulas>
+        <name>forDT_LapseWindowEnd</name>
+        <dataType>DateTime</dataType>
+        <expression>DATETIMEVALUE(ADDMONTHS(TODAY(), -36))</expression>
+    </formulas>
+    <formulas>
+        <name>forDT_StaleWindowStart</name>
+        <dataType>DateTime</dataType>
+        <expression>DATETIMEVALUE(ADDMONTHS(TODAY(), -6) - 7)</expression>
+    </formulas>
+    <formulas>
+        <name>forDT_StaleWindowEnd</name>
+        <dataType>DateTime</dataType>
+        <expression>DATETIMEVALUE(ADDMONTHS(TODAY(), -6))</expression>
     </formulas>
     <interviewLabel>Regulatory Transaction Fee Schedule: Overdue Fees {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Regulatory Transaction Fee Schedule: Overdue Fees</label>
@@ -52,6 +124,58 @@
         </value>
     </processMetadataValues>
     <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>GetHolderFirstRecord</name>
+        <description>The holder's first matching record in the window. Only that record's run syncs, so a holder with several records gets one sync and no duplicate holds.</description>
+        <label>Get Holder First Record</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>IsThisTheHoldersFirstRecord</targetReference>
+        </connector>
+        <filterLogic>1 AND (2 OR 3) AND 4 AND 5</filterLogic>
+        <filters>
+            <field>AccountId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.AccountId</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Status</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>DUE</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Status</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>PARTIALLY_PAID</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>DueDate</field>
+            <operator>GreaterThanOrEqualTo</operator>
+            <value>
+                <elementReference>forDT_WindowStart</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>DueDate</field>
+            <operator>LessThan</operator>
+            <value>
+                <elementReference>forDT_WindowEnd</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>RegulatoryTrxnFee</object>
+        <sortField>Id</sortField>
+        <sortOrder>Asc</sortOrder>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
     <start>
         <locationX>0</locationX>
         <locationY>0</locationY>
@@ -76,8 +200,8 @@
         <object>RegulatoryTrxnFee</object>
         <schedule>
             <frequency>Daily</frequency>
-            <startDate>2026-11-08</startDate>
-            <startTime>06:30:00.000Z</startTime>
+            <startDate>2026-11-10</startDate>
+            <startTime>01:00:00.000Z</startTime>
         </schedule>
         <triggerType>Scheduled</triggerType>
     </start>

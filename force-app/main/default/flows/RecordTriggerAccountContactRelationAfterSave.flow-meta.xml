@@ -1,7 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>66.0</apiVersion>
-    <description>After a person is linked to an establishment, or their roles or active status change, re-checks automatic stop codes for both: the salon needs a licensed owner or manager, and a booth renter needs a current license.</description>
+    <decisions>
+        <name>IsThisTheFirstRecordForTheHolderForSalon</name>
+        <label>Is This The First Record For The Salon In This Save?</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>GetHolderFirstRecordInSameSaveForPerson</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>No, an earlier record syncs</defaultConnectorLabel>
+        <rules>
+            <name>FirstForSalon</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>GetHolderFirstRecordInSameSaveForSalon.Id</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>$Record.Id</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>SyncSalon</targetReference>
+            </connector>
+            <label>Yes</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>IsThisTheFirstRecordForTheHolderForPerson</name>
+        <label>Is This The First Record For The Person In This Save?</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnectorLabel>No, an earlier record syncs</defaultConnectorLabel>
+        <rules>
+            <name>FirstForPerson</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>GetHolderFirstRecordInSameSaveForPerson.Id</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>$Record.Id</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>SyncPerson</targetReference>
+            </connector>
+            <label>Yes</label>
+        </rules>
+    </decisions>
+    <description>After a person is linked to an establishment, or their roles or active status change, re-checks automatic stop codes for both: the salon needs a licensed owner or manager, and a booth renter needs a current license. One sync per salon and per person per save.</description>
     <environments>Default</environments>
     <interviewLabel>Record-Trigger: Account Contact Relation After Save {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Record-Trigger: Account Contact Relation After Save</label>
@@ -24,11 +71,73 @@
         </value>
     </processMetadataValues>
     <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>GetHolderFirstRecordInSameSaveForSalon</name>
+        <description>The holder's first record of this object in the same save, by Id. Only that record's run syncs, so a bulk save gives one sync per holder and no duplicate holds.</description>
+        <label>Get Holder First Record In Same Save For Salon</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>IsThisTheFirstRecordForTheHolderForSalon</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>AccountId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.AccountId</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>LastModifiedDate</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.LastModifiedDate</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>AccountContactRelation</object>
+        <sortField>Id</sortField>
+        <sortOrder>Asc</sortOrder>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>GetHolderFirstRecordInSameSaveForPerson</name>
+        <description>The holder's first record of this object in the same save, by Id. Only that record's run syncs, so a bulk save gives one sync per holder and no duplicate holds.</description>
+        <label>Get Holder First Record In Same Save For Person</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>IsThisTheFirstRecordForTheHolderForPerson</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>ContactId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.ContactId</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>LastModifiedDate</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.LastModifiedDate</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>AccountContactRelation</object>
+        <sortField>Id</sortField>
+        <sortOrder>Asc</sortOrder>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
     <start>
         <locationX>0</locationX>
         <locationY>0</locationY>
         <connector>
-            <targetReference>SyncSalon</targetReference>
+            <targetReference>GetHolderFirstRecordInSameSaveForSalon</targetReference>
         </connector>
         <filterFormula>ISNEW() || ISCHANGED({!$Record.Roles}) || ISCHANGED({!$Record.IsActive}) || ISCHANGED({!$Record.EndDate})</filterFormula>
         <object>AccountContactRelation</object>
@@ -42,7 +151,7 @@
         <locationX>0</locationX>
         <locationY>0</locationY>
         <connector>
-            <targetReference>SyncPerson</targetReference>
+            <targetReference>GetHolderFirstRecordInSameSaveForPerson</targetReference>
         </connector>
         <flowName>SubflowStopCodeSync</flowName>
         <inputAssignments>
