@@ -22,5 +22,29 @@
     "files": [
       "RegulatoryAuthorizationType.json"
     ]
+  },
+  {
+    "sobject": "RegulatoryAuthority",
+    "saveRefs": true,
+    "resolveRefs": false,
+    "files": [
+      "RegulatoryAuthority.json"
+    ]
+  },
+  {
+    "sobject": "RegulatoryCode",
+    "saveRefs": false,
+    "resolveRefs": true,
+    "files": [
+      "RegulatoryCode.json"
+    ]
+  },
+  {
+    "sobject": "ViolationType",
+    "saveRefs": false,
+    "resolveRefs": false,
+    "files": [
+      "ViolationType.json"
+    ]
   }
 ]

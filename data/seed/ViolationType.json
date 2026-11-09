@@ -1,0 +1,25 @@
+{
+  "records": [
+    {
+      "attributes": { "type": "ViolationType", "referenceId": "ViolationPlaceholder1" },
+      "Name": "PLACEHOLDER Violation 1",
+      "Type": "Paperwork",
+      "Severity": "Minor Violation",
+      "Description": "Placeholder until the chief inspector supplies the violations list. Type and severity are placeholders too."
+    },
+    {
+      "attributes": { "type": "ViolationType", "referenceId": "ViolationPlaceholder2" },
+      "Name": "PLACEHOLDER Violation 2",
+      "Type": "First Aid and Sanitation",
+      "Severity": "Minor Violation",
+      "Description": "Placeholder until the chief inspector supplies the violations list. Type and severity are placeholders too."
+    },
+    {
+      "attributes": { "type": "ViolationType", "referenceId": "ViolationOther" },
+      "Name": "Other",
+      "Type": "Other",
+      "Severity": "Minor Violation",
+      "Description": "Any violation not on the list. The violation's description must explain what was found."
+    }
+  ]
+}

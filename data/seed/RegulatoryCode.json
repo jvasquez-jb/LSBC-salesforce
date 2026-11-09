@@ -1,0 +1,22 @@
+{
+  "records": [
+    {
+      "attributes": { "type": "RegulatoryCode", "referenceId": "CodePlaceholder1" },
+      "Name": "PLACEHOLDER Regulatory Code 1",
+      "Subject": "PLACEHOLDER: replace with the citation from the laws and rules",
+      "Description": "Placeholder until the Board supplies the laws and rules as a list of citations. Do not use for real violations.",
+      "Type": "Section",
+      "EffectiveFrom": "2026-01-01",
+      "RegulatoryAuthorityId": "@AuthorityLSBC"
+    },
+    {
+      "attributes": { "type": "RegulatoryCode", "referenceId": "CodePlaceholder2" },
+      "Name": "PLACEHOLDER Regulatory Code 2",
+      "Subject": "PLACEHOLDER: replace with the citation from the laws and rules",
+      "Description": "Placeholder until the Board supplies the laws and rules as a list of citations. Do not use for real violations.",
+      "Type": "Section",
+      "EffectiveFrom": "2026-01-01",
+      "RegulatoryAuthorityId": "@AuthorityLSBC"
+    }
+  ]
+}
