@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EstablishmentOrPractitionerRequired</fullName>
+    <active>true</active>
+    <description>A violation must name the establishment, the practitioner, or both.</description>
+    <errorConditionFormula>ISBLANK(Establishment__c) &amp;&amp; ISBLANK(Practitioner__c)</errorConditionFormula>
+    <errorMessage>Enter the establishment, the practitioner, or both.</errorMessage>
+</ValidationRule>

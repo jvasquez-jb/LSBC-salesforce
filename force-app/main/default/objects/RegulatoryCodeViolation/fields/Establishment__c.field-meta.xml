@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Establishment__c</fullName>
+    <deleteConstraint>Restrict</deleteConstraint>
+    <description>The salon, school or other business where the violation was found. Only business accounts can be chosen.</description>
+    <inlineHelpText>The business where the violation was found.</inlineHelpText>
+    <label>Establishment</label>
+    <lookupFilter>
+        <active>true</active>
+        <errorMessage>Choose a business, not a person.</errorMessage>
+        <filterItems>
+            <field>Account.IsPersonAccount</field>
+            <operation>equals</operation>
+            <value>False</value>
+        </filterItems>
+        <isOptional>false</isOptional>
+    </lookupFilter>
+    <referenceTo>Account</referenceTo>
+    <relationshipLabel>Establishment Violations</relationshipLabel>
+    <relationshipName>EstablishmentViolations</relationshipName>
+    <required>false</required>
+    <type>Lookup</type>
+</CustomField>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DescriptionRequiredOtherViolationType</fullName>
+    <active>true</active>
+    <description>When the violation type is Other, the description must explain what was found.</description>
+    <errorConditionFormula>ViolationType.Name = &quot;Other&quot; &amp;&amp; ISBLANK(Description)</errorConditionFormula>
+    <errorDisplayField>Description</errorDisplayField>
+    <errorMessage>Describe the violation: the type is Other.</errorMessage>
+</ValidationRule>

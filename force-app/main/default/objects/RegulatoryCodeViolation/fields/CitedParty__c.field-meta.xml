@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CitedParty__c</fullName>
+    <description>Who is cited and pays the violation fee: the establishment or the practitioner. The fee, and the non-payment stop code if it goes unpaid, go to this party.</description>
+    <inlineHelpText>Who is billed the violation fee. If it is not paid within 15 days, this party gets a non-payment stop code.</inlineHelpText>
+    <label>Cited Party</label>
+    <required>false</required>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Establishment</fullName>
+                <default>false</default>
+                <label>Establishment</label>
+            </value>
+            <value>
+                <fullName>Practitioner</fullName>
+                <default>false</default>
+                <label>Practitioner</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

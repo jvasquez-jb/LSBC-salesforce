@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CitedPartyMatchesAccount</fullName>
+    <active>true</active>
+    <description>Cited Party is required, and the party chosen must be filled in, because the violation fee is billed to them.</description>
+    <errorConditionFormula>ISBLANK(TEXT(CitedParty__c))
+|| (ISPICKVAL(CitedParty__c, &quot;Establishment&quot;) &amp;&amp; ISBLANK(Establishment__c))
+|| (ISPICKVAL(CitedParty__c, &quot;Practitioner&quot;) &amp;&amp; ISBLANK(Practitioner__c))</errorConditionFormula>
+    <errorDisplayField>CitedParty__c</errorDisplayField>
+    <errorMessage>Choose who is cited, and fill in that party: the fee is billed to them.</errorMessage>
+</ValidationRule>
