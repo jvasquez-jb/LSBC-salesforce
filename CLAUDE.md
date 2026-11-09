@@ -15,6 +15,14 @@ you are working on before building, and section 9 for what the org actually prov
   scripts, so don't split them by tester. Each script has an ID, steps on named test records, the
   expected result and a Result dropdown. Fails go in its Defect log. When the portal or staff tools
   start calling a rule, add scripts that test it through the real screen.
+- At the end of each phase, update "LSBC Client Questions"
+  (<https://claude.ai/artifact/YatXF6tvuQRESxJ8VaDawj>): every question waiting on LSBC, the Board,
+  OTS or Salesforce, with who to ask, when it's needed and a Status dropdown. Add new questions as
+  they come up; close answered ones once the build and design reflect them.
+- Whenever an object, field or relationship changes, update "LSBC Data Model"
+  (<https://claude.ai/artifact/9Jz5Cz3thQrdYjRwFDTCfj>): one Mermaid ER diagram per area, showing
+  custom and key standard fields, encrypted fields marked, no requirement IDs. Mark planned fields
+  as planned until they deploy.
 
 - Deploy straight to the `LSBC-Partial` sandbox (default org). No scratch orgs.
 - Requirement IDs (`DM-01`, `BR-04`, …) go in commit messages and Jira only. Never put them in
