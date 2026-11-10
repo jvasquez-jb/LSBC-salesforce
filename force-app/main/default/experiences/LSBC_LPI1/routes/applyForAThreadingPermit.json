@@ -1,0 +1,12 @@
+{
+  "activeViewId": "c1af5087-c335-4982-a0ed-33882fa279e4",
+  "appPageId": "39740273-a4f0-4311-b732-31661924917d",
+  "configurationTags": [],
+  "devName": "applyForAThreadingPermit",
+  "id": "f6390a0e-5bf4-4b36-8e81-cbd63a04d047",
+  "label": "Apply for a Threading Permit",
+  "pageAccess": "RequiresLogin",
+  "routeType": "custom-threading-permit",
+  "type": "route",
+  "urlPrefix": "threading-permit"
+}

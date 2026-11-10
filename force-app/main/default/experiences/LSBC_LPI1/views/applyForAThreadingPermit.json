@@ -1,0 +1,70 @@
+{
+  "appPageId": "39740273-a4f0-4311-b732-31661924917d",
+  "componentName": "siteforce:sldsOneColLayout",
+  "dataProviders": [],
+  "id": "c1af5087-c335-4982-a0ed-33882fa279e4",
+  "label": "Apply for a Threading Permit",
+  "regions": [
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "richTextValue": "<!-- Page heading and one-line introduction -->\n<h1 class=\"lsbc-page-title\">Apply for a Threading Permit</h1>\n<p class=\"lsbc-page-intro\">Thread eyebrows and facial hair in Louisiana without a cosmetology or esthetics license.</p>"
+          },
+          "componentName": "forceCommunity:richTextInline",
+          "id": "11b34539-0173-48e2-9540-678d6e0d66a8",
+          "renderPriority": "NEUTRAL",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "17809c9a-c806-48a5-b9e0-90fbdd17877c",
+      "regionName": "header",
+      "type": "region"
+    },
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "flowArguments": "",
+            "flowName": "ScreenFlowIndividualApplicationThreadingPermit"
+          },
+          "componentName": "forceCommunity:flowCommunity",
+          "id": "750eae27-86fd-4459-8b21-3b78a0af3af8",
+          "renderPriority": "NEUTRAL",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "909dcc8c-5db0-42af-bff5-a640f0e4a944",
+      "regionName": "content",
+      "type": "region"
+    },
+    {
+      "id": "043c7b1e-5051-44ce-9f03-bfba82256722",
+      "regionName": "footer",
+      "type": "region"
+    },
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "customHeadTags": "",
+            "description": "",
+            "title": "Apply for a Threading Permit"
+          },
+          "componentName": "forceCommunity:seoAssistant",
+          "id": "8259fadf-8b46-4c90-88ca-500c88dce939",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "db7e5355-6339-4610-8d7e-db6864dff0fd",
+      "regionName": "sfdcHiddenRegion",
+      "type": "region"
+    }
+  ],
+  "themeLayoutType": "Inner",
+  "type": "view",
+  "viewType": "custom-threading-permit"
+}
