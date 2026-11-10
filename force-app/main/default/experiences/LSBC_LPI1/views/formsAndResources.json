@@ -1,58 +1,69 @@
 {
-  "appPageId" : "39740273-a4f0-4311-b732-31661924917d",
-  "componentName" : "siteforce:sldsOneColLayout",
-  "dataProviders" : [ ],
-  "id" : "84db49f0-5908-48a5-8af7-e1b75c79fc3e",
-  "label" : "Forms and Resources",
-  "regions" : [ {
-    "components" : [ {
-      "componentAttributes" : {
-        "richTextValue" : "<!-- Page heading and one-line introduction -->\n<h1 class=\"lsbc-page-title\">Forms and Resources</h1>\n<p class=\"lsbc-page-intro\">Applications, reference documents and the laws and rules.</p>"
-      },
-      "componentName" : "forceCommunity:richTextInline",
-      "id" : "7571b21e-42b2-4f1b-8dfb-dfc93c4adbe0",
-      "renderPriority" : "NEUTRAL",
-      "renditionMap" : { },
-      "type" : "component"
-    } ],
-    "id" : "3d017f89-62b4-404e-b537-aeb0c6720c68",
-    "regionName" : "header",
-    "type" : "region"
-  }, {
-    "components" : [ {
-      "componentAttributes" : {
-        "richTextValue" : "<!-- Forms and Resources: the Board's paper forms and reference documents.\n     Links point to the Board's website until the PDFs are hosted on the portal. -->\n<section class=\"lsbc-section\">\n  <p>Most applications can be completed online on this portal. The Board's paper forms and reference documents are below.</p>\n\n  <div class=\"lsbc-doclist\">\n    <div class=\"lsbc-doclist__item\">\n      <a href=\"https://www.lsbc.louisiana.gov\" target=\"_blank\" rel=\"noopener\">Cosmetology Laws and Rules</a>\n      <span>The Board's statute and rules book.</span>\n    </div>\n    <div class=\"lsbc-doclist__item\">\n      <a href=\"https://www.lsbc.louisiana.gov\" target=\"_blank\" rel=\"noopener\">License Renewal Form</a>\n      <span>Renew a license or permit, or request a duplicate. You can also do this online.</span>\n    </div>\n    <div class=\"lsbc-doclist__item\">\n      <a href=\"https://www.lsbc.louisiana.gov\" target=\"_blank\" rel=\"noopener\">Reciprocity Applications</a>\n      <span>Cosmetology, esthetician, manicurist and instructor packets, with the state-by-state requirements.</span>\n    </div>\n    <div class=\"lsbc-doclist__item\">\n      <a href=\"https://www.lsbc.louisiana.gov\" target=\"_blank\" rel=\"noopener\">Reciprocity - Military</a>\n    </div>\n    <div class=\"lsbc-doclist__item\">\n      <a href=\"https://www.lsbc.louisiana.gov\" target=\"_blank\" rel=\"noopener\">Foreign Reciprocity Application</a>\n      <span>With the approved credential evaluation agencies.</span>\n    </div>\n    <div class=\"lsbc-doclist__item\">\n      <a href=\"https://www.lsbc.louisiana.gov\" target=\"_blank\" rel=\"noopener\">Temporary Permit Application</a>\n    </div>\n    <div class=\"lsbc-doclist__item\">\n      <a href=\"https://www.lsbc.louisiana.gov\" target=\"_blank\" rel=\"noopener\">Threading Application</a>\n      <span>With the Facial Threading Study Guide.</span>\n    </div>\n    <div class=\"lsbc-doclist__item\">\n      <a href=\"https://www.lsbc.louisiana.gov\" target=\"_blank\" rel=\"noopener\">Request for Certification of Louisiana Licensure (Affidavit)</a>\n    </div>\n    <div class=\"lsbc-doclist__item\">\n      <a href=\"https://www.lsbc.louisiana.gov\" target=\"_blank\" rel=\"noopener\">Shop Application</a>\n    </div>\n    <div class=\"lsbc-doclist__item\">\n      <a href=\"https://www.lsbc.louisiana.gov\" target=\"_blank\" rel=\"noopener\">Threading and Alternative Hair Design Facility Application</a>\n    </div>\n    <div class=\"lsbc-doclist__item\">\n      <a href=\"https://www.lsbc.louisiana.gov\" target=\"_blank\" rel=\"noopener\">Requirements for Opening a New School</a>\n    </div>\n    <div class=\"lsbc-doclist__item\">\n      <a href=\"https://www.lsbc.louisiana.gov\" target=\"_blank\" rel=\"noopener\">School Forms</a>\n      <span>Enrollment, hours, termination, exam and accommodation forms for schools.</span>\n    </div>\n    <div class=\"lsbc-doclist__item\">\n      <a href=\"https://www.lsbc.louisiana.gov\" target=\"_blank\" rel=\"noopener\">Florida Transfer Requirements</a>\n    </div>\n    <div class=\"lsbc-doclist__item\">\n      <a href=\"https://www.lsbc.louisiana.gov\" target=\"_blank\" rel=\"noopener\">Booth Renters Information</a>\n      <span>Guidance on independent contractor status.</span>\n    </div>\n\n  </div>\n\n  <p>Approved continuing education providers are listed on the <a href=\"/LPI/s/ce-providers\">CE Providers</a> page.</p>\n</section>"
-      },
-      "componentName" : "forceCommunity:htmlBlock",
-      "id" : "91d59772-cdab-4ae4-bd8e-751a51107497",
-      "renderPriority" : "NEUTRAL",
-      "renditionMap" : { },
-      "type" : "component"
-    } ],
-    "id" : "43376f60-64b5-4159-bc75-0ccc78ae5540",
-    "regionName" : "content",
-    "type" : "region"
-  }, {
-    "id" : "3d767c15-1324-425b-9e2c-24718e2f69b0",
-    "regionName" : "footer",
-    "type" : "region"
-  }, {
-    "components" : [ {
-      "componentAttributes" : {
-        "customHeadTags" : "",
-        "description" : "",
-        "title" : "Forms and Resources"
-      },
-      "componentName" : "forceCommunity:seoAssistant",
-      "id" : "c1896d87-d2a4-49e6-85a3-6b0bc38d3abf",
-      "renditionMap" : { },
-      "type" : "component"
-    } ],
-    "id" : "478e1fcd-abf1-492f-9fba-14a69235666d",
-    "regionName" : "sfdcHiddenRegion",
-    "type" : "region"
-  } ],
-  "themeLayoutType" : "Inner",
-  "type" : "view",
-  "viewType" : "custom-forms-and-resources"
+  "appPageId": "39740273-a4f0-4311-b732-31661924917d",
+  "componentName": "siteforce:sldsOneColLayout",
+  "dataProviders": [],
+  "id": "84db49f0-5908-48a5-8af7-e1b75c79fc3e",
+  "label": "Forms and Resources",
+  "regions": [
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "richTextValue": "<!-- Page heading and one-line introduction -->\n<h1 class=\"lsbc-page-title\">Forms and Resources</h1>\n<p class=\"lsbc-page-intro\">Applications, reference documents and the laws and rules.</p>"
+          },
+          "componentName": "forceCommunity:richTextInline",
+          "id": "7571b21e-42b2-4f1b-8dfb-dfc93c4adbe0",
+          "renderPriority": "NEUTRAL",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "3d017f89-62b4-404e-b537-aeb0c6720c68",
+      "regionName": "header",
+      "type": "region"
+    },
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "richTextValue": "<!-- Forms and Resources: the Board's paper forms and reference documents.\n     Each link opens the PDF on the Board's website in a new tab. -->\n<section class=\"lsbc-section\">\n  <p>Most applications can be completed online on this portal. The Board's paper forms and reference documents are below.</p>\n\n  <div class=\"lsbc-doclist\">\n    <div class=\"lsbc-doclist__item\">\n      <a href=\"http://www.lsbc.louisiana.gov/pdfs/GoldBook.pdf\" target=\"_blank\" rel=\"noopener\">Cosmetology Laws and Rules</a>\n      <span>The Board's statute and rules book (the Gold Book).</span>\n    </div>\n    <div class=\"lsbc-doclist__item\">\n      <a href=\"http://www.lsbc.louisiana.gov/pdfs/LicenseRenewal.pdf\" target=\"_blank\" rel=\"noopener\">License Renewal Form</a>\n      <span>Renew a license or permit, or request a duplicate. You can also do this online.</span>\n    </div>\n    <div class=\"lsbc-doclist__item\">\n      <a href=\"http://www.lsbc.louisiana.gov/pdfs/ReciprocityCOS.pdf\" target=\"_blank\" rel=\"noopener\">Reciprocity Applications</a>\n      <span>Transfer an out-of-state license, with the state-by-state requirements. One packet per license:</span>\n      <span class=\"lsbc-doclist__sub\"><a href=\"http://www.lsbc.louisiana.gov/pdfs/ReciprocityCOS.pdf\" target=\"_blank\" rel=\"noopener\">Cosmetology</a> &middot; <a href=\"http://www.lsbc.louisiana.gov/pdfs/ReciprocityMAN.pdf\" target=\"_blank\" rel=\"noopener\">Manicurist</a> &middot; <a href=\"http://www.lsbc.louisiana.gov/pdfs/ReciprocityEST.pdf\" target=\"_blank\" rel=\"noopener\">Esthetician</a> &middot; <a href=\"http://www.lsbc.louisiana.gov/pdfs/ReciprocityINS.pdf\" target=\"_blank\" rel=\"noopener\">Instructor</a> &middot; <a href=\"http://www.lsbc.louisiana.gov/pdfs/ReciprocityRETAKE.pdf\" target=\"_blank\" rel=\"noopener\">Retake exam</a></span>\n    </div>\n    <div class=\"lsbc-doclist__item\">\n      <a href=\"http://www.lsbc.louisiana.gov/pdfs/reciprocity-Military.pdf\" target=\"_blank\" rel=\"noopener\">Reciprocity - Military</a>\n    </div>\n    <div class=\"lsbc-doclist__item\">\n      <a href=\"http://www.lsbc.louisiana.gov/pdfs/application_foreign_reciprocity.pdf\" target=\"_blank\" rel=\"noopener\">Foreign Reciprocity Application</a>\n      <span>With the approved credential evaluation agencies.</span>\n    </div>\n    <div class=\"lsbc-doclist__item\">\n      <a href=\"http://www.lsbc.louisiana.gov/pdfs/temppermit.pdf\" target=\"_blank\" rel=\"noopener\">Temporary Permit Application</a>\n    </div>\n    <div class=\"lsbc-doclist__item\">\n      <a href=\"http://www.lsbc.louisiana.gov/pdfs/Threading.pdf\" target=\"_blank\" rel=\"noopener\">Threading Application</a>\n      <span>With the Facial Threading Study Guide.</span>\n    </div>\n    <div class=\"lsbc-doclist__item\">\n      <a href=\"http://www.lsbc.louisiana.gov/pdfs/affidavit.pdf\" target=\"_blank\" rel=\"noopener\">Request for Certification of Louisiana Licensure (Affidavit)</a>\n    </div>\n    <div class=\"lsbc-doclist__item\">\n      <a href=\"http://www.lsbc.louisiana.gov/pdfs/LSBC_Shop_Application.pdf\" target=\"_blank\" rel=\"noopener\">Shop Application</a>\n    </div>\n    <div class=\"lsbc-doclist__item\">\n      <a href=\"http://www.lsbc.louisiana.gov/\" target=\"_blank\" rel=\"noopener\">Threading and Alternative Hair Design Facility Application</a>\n    </div>\n    <div class=\"lsbc-doclist__item\">\n      <a href=\"http://www.lsbc.louisiana.gov/pdfs/Checklist.pdf\" target=\"_blank\" rel=\"noopener\">Requirements for Opening a New School</a>\n    </div>\n    <div class=\"lsbc-doclist__item\">\n      <a href=\"http://www.lsbc.louisiana.gov/\" target=\"_blank\" rel=\"noopener\">School Forms</a>\n      <span>Enrollment, hours, termination, exam and accommodation forms for schools.</span>\n    </div>\n    <div class=\"lsbc-doclist__item\">\n      <a href=\"http://www.lsbc.louisiana.gov/pdfs/b.pdf\" target=\"_blank\" rel=\"noopener\">Florida Transfer Requirements</a>\n    </div>\n    <div class=\"lsbc-doclist__item\">\n      <a href=\"http://www.lsbc.louisiana.gov/pdfs/boothrenters_05_14_07.pdf\" target=\"_blank\" rel=\"noopener\">Booth Renters Information</a>\n      <span>Guidance on independent contractor status.</span>\n    </div>\n\n  </div>\n\n  <p>Approved continuing education providers are listed on the <a href=\"/LPI/s/ce-providers\">CE Providers</a> page.</p>\n</section>"
+          },
+          "componentName": "forceCommunity:htmlBlock",
+          "id": "91d59772-cdab-4ae4-bd8e-751a51107497",
+          "renderPriority": "NEUTRAL",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "43376f60-64b5-4159-bc75-0ccc78ae5540",
+      "regionName": "content",
+      "type": "region"
+    },
+    {
+      "id": "3d767c15-1324-425b-9e2c-24718e2f69b0",
+      "regionName": "footer",
+      "type": "region"
+    },
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "customHeadTags": "",
+            "description": "",
+            "title": "Forms and Resources"
+          },
+          "componentName": "forceCommunity:seoAssistant",
+          "id": "c1896d87-d2a4-49e6-85a3-6b0bc38d3abf",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "478e1fcd-abf1-492f-9fba-14a69235666d",
+      "regionName": "sfdcHiddenRegion",
+      "type": "region"
+    }
+  ],
+  "themeLayoutType": "Inner",
+  "type": "view",
+  "viewType": "custom-forms-and-resources"
 }
