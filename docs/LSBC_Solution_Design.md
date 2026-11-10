@@ -2,8 +2,9 @@
 
 **Client:** Louisiana State Board of Cosmetology
 **Engagement:** Phase 1 Foundation, Carahsoft SOW 66003598, NASPO LA 4400010663
-**Status:** Discovery complete and the scope readout accepted. Build is under way.
-**Last updated:** 6 November 2026
+**Status:** Built in the LSBC-Partial sandbox except security (section 5.1), which is paused for
+the Board's feedback on the access matrix. The portal is built and stays unpublished until March or April 2027.
+**Last updated:** 10 November 2026
 
 ---
 
@@ -103,14 +104,14 @@ schools, shops, booths and instructors.
 
 ### 0.3 Milestone map
 
-| Milestone | Week | Sections |
-|---|---|---|
-| Discovery complete | 3 | — |
-| Core data model and security | 6 | 1, 2 |
-| Experience Cloud portal — built and tested, not published | 9 | 3 |
-| Case management and violations | 10 | 4 |
-| UAT, training, staff go-live | 12 | 5 |
-| Public portal published | March or April 2027 | 3 |
+| Milestone | Week | Sections | Build status (10 Nov 2026) |
+|---|---|---|---|
+| Discovery complete | 3 | — | Done |
+| Core data model and security | 6 | 1, 2 | Data model and business rules built. Security paused for the Board's access-matrix feedback |
+| Experience Cloud portal — built and tested, not published | 9 | 3 | Built, except the School Administrator and Business Owner audiences and the 17 School Forms, which wait for security |
+| Case management and violations | 10 | 4 | Built |
+| UAT, training, staff go-live | 12 | 5 | Staff tools, reports and training guides built. Staff access waits for security; UAT not started |
+| Public portal published | March or April 2027 | 3 | Not published |
 
 ---
 
@@ -857,15 +858,19 @@ a deposit line to attach to several registrations and settle independently. The 
 users to create application records, is required for status tracking, and avoids exposing
 system-context code to anonymous traffic on an org holding PII.
 
-`PT-09` `[SETTLED]` **Registration is licence-number lookup with secondary matching.** A portal
-user must already hold an active licence; the portal does not create profiles for people the Board
-does not already know.
+`PT-09` `[SETTLED]` **Registration is licence-number lookup with secondary matching.** A licensee
+signs up by matching a licence they already hold.
 
 | Step | Behaviour |
 |---|---|
 | Look up | The applicant enters their licence or certification number |
-| Confirm | Secondary match questions on name and address, never the social security number |
+| Confirm | Secondary match questions on last or maiden name and ZIP, never the social security number |
 | No match | The applicant is directed to contact the Board rather than allowed to create a record |
+
+Extended in Phase 5: **someone new to the Board** (a reciprocity, permit or first-time applicant
+with no licence number) signs up on a second path with name, date of birth and contact details. A
+person account is created unless one with the same name and date of birth already exists. The
+duplicate check does not depend on encrypted fields.
 
 The social security number may be stored in Salesforce, encrypted and hidden, but is never used
 as an external lookup key. That distinction is the whole point of the design: the identifier the
@@ -1107,6 +1112,23 @@ at go-live, and an affected licensee's licence will print. See `OPEN-03`.
 ## 5. Security, cutover and training — Weeks 11 to 12
 
 ### 5.1 Security model
+
+**Build status: paused.** The permission sets, groups, org-wide defaults and sharing wait for the
+Board's feedback on the access matrix (`SEC-01c`), together with the `OPEN-11` spike. The later
+phases were built so they don't depend on this: rule flows run in system context, and only System
+Administrator can see the LSBC Licensing app so far. When security resumes, it also has to cover
+what the later phases left for it:
+
+| Area | Still to decide or grant |
+|---|---|
+| Staff tools | App, record page and Home page visibility. Run access to the staff actions: Record Payment, Refund, Generate Letter, Decide, End Stop Code, Mark Printed, New Application, Upload Documents. Field access for the payment, decision and print fields. Apex and Visualforce access for letters, and who edits Letter Templates |
+| Rules | Run Flow and rule-engine runtime for staff (confirm the licence covers it) and `BRECmtyRuntime` for portal users. Confirm that system-context rule flows are acceptable under private-by-default |
+| Stop codes and violations | Who adds and ends manual stop codes, who creates violations and runs Record Complaint. Amount Paid stays read-only (set by flow) |
+| Complaints | Who sees the complainant when the reporter is confidential, and the org-wide default for `PublicComplaint`. Queue members for Complaint Intake and General Inquiries |
+| Portal | The School Administrator and Business Owner audiences over Account Contact Relations, with the 17 School Forms. Staff access to portal submissions and to establishments the portal creates, and whether those move to an LSBC owner once approved |
+| Field history (`SEC-05`) | `RecordAlert` Valid Until and Active, violation Status, `PublicComplaint` reporter confidentiality, and the fee item's year if the object supports it |
+| Reports | Sharing for the LSBC Finance and LSBC Operations folders. The dashboard runs as the viewer |
+| Refunds | Whether the refund verifier must be a different person from the requester |
 
 `SEC-01a` `[SETTLED]` **Private by default, with sharing opened deliberately.** Of the three
 options — public read/write, public read-only, and private with sharing rules — the Board chose
@@ -1481,10 +1503,10 @@ more than leaving a door open.
 | `OPEN-18` | Place of business and facility grading | Both to a later phase. The Board is taking each to counsel for the spring legislative package |
 | `OPEN-23` | Master instructor history | Existing master instructors accepted as they stand at go-live; tracking starts fresh |
 | `OPEN-07` | The paper and microfilm archive | The archive is sized: millions of records, billions of pages, hundreds of filing cabinets, 104 years. Enough to brief vendors |
-| `OPEN-09` | Identity matching at registration | Registration is licence-number lookup with secondary matching on name and address. A portal user must already hold an active licence. The social security number may be stored encrypted but is never a lookup key |
+| `OPEN-09` | Identity matching at registration | Registration is licence-number lookup with secondary matching on name and address. The social security number may be stored encrypted but is never a lookup key. Extended in Phase 5 with a second path for people new to the Board (`PT-09`) |
 | `OPEN-34` | Who sees what | Private by default. Users are segmented into named groups and access is granted outward, not restricted inward |
 | `OPEN-35` | One platform, or several | One platform. The org is dedicated to the Board, not shared with other Louisiana boards |
-| `OPEN-36` | Portal sign-up | Settled with `OPEN-09` — licence number, then name and address |
+| `OPEN-36` | Portal sign-up | Settled with `OPEN-09` — licence number, then name and ZIP; people new to the Board sign up with name, date of birth and contact details |
 | `OPEN-27` | Operator licence renewal cycle | Annual, by legislative requirement. A three-year lapse triggers a restoration examination |
 | `OPEN-32` | `ApplicationForm` as primary or secondary | Secondary. It is grant-and-benefit shaped — Lead, Opportunity, Budget and Program lookups, a scoring model, no licence type or licence link. The two application objects stay primary |
 | `OPEN-37` | Holds attach to the holder, not the licence | Accepted. One `RecordAlert` per person or establishment, checked by the print routine. To be shown to the Board for feedback; a change would mean a custom lookup from `RecordAlert` to `BusinessLicense` |
@@ -1492,8 +1514,9 @@ more than leaving a door open.
 
 **The shape of what remains.** Twenty-one open, and the build is under way.
 
-**One holds up the Week 6 data model and is ours to settle:** `OPEN-11`, the sharing spike
-against Account Contact Relation.
+**One holds up security and is ours to settle:** `OPEN-11`, the sharing spike against Account
+Contact Relation. The data model went ahead without it. It now holds up the School Administrator
+and Business Owner portal audiences, and it is picked up when security resumes (5.1).
 
 **Two are with the Board and have dates:** `OPEN-02`, cheques and money orders, at the December
 board meeting; and freelance operators without a fixed salon, which needs board rules or
@@ -1609,8 +1632,6 @@ the source.
 | 6 Nov 2026 | `SEC-04` encrypted field list drafted in 5.1. |
 | 6 Nov 2026 | `DM-05`, `DM-06`, `BR-04` built ahead of LSBC confirmation; still marked PROPOSED. |
 | 6 Nov 2026 | Person-level fields (maiden name, legacy certification number, social security number and card, duplicate licence count) live on **Contact** and surface on the Person Account as `__pc`. Account custom fields are for business accounts. |
-| 6 Nov 2026 | Parish is one global value set, `Parish` (64 parishes plus Out of state), used by `Account.Parish__c` for business addresses and `Contact.HomeParish__c` for home addresses. |
-| 6 Nov 2026 | `BusinessLicenseStatus` gains Active alongside Retired and Deceased. |
 | 6 Nov 2026 | Parish is the global value set `Parish` (64 parishes plus Out of state), used by `Account.Parish__c` for business addresses and `Contact.HomeParish__c` for home addresses. Picklists shared across objects are global value sets. |
 | 6 Nov 2026 | `BusinessLicenseStatus` gains Active alongside Retired and Deceased. |
 | 6 Nov 2026 | Person Account record type relabelled **Person** and given a description; developer name `PersonAccount` unchanged. |
@@ -1651,3 +1672,4 @@ the source.
 | 10 Nov 2026 | Staff work queues: list views Applications Awaiting Review (both application objects), Open Stop Codes, Payments Received This Week (in place of Payments by Deposit) and the LSBC Licensing Home page that shows them with Licenses Ready to Print. |
 | 10 Nov 2026 | Staff reports built: LSBC Operations folder (seven reports on six new report types) and the LSBC Operations dashboard, shown to each viewer with their own access and placed on the LSBC Licensing Home page. |
 | 10 Nov 2026 | `CUT-03` as built: five desk training guides; Phase 6 closed. Staff access to the Phase 6 tools is on the Phase 2 list. |
+| 10 Nov 2026 | Status brought current after Phase 6: header, milestone build status, a 5.1 note listing what paused security still owes the later phases, `PT-09` and `OPEN-09`/`OPEN-36` describe the new-to-the-Board sign-up path, and `OPEN-11` now holds up security rather than the data model. Duplicate change log rows removed. |
