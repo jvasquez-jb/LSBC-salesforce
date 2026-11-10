@@ -14,7 +14,24 @@
                             <value>Account.AddStopCode</value>
                         </valueListItems>
                         <valueListItems>
+                            <value>Account.NewViolationPractitioner</value>
+                            <visibilityRule>
+                                <criteria>
+                                    <leftValue>{!Record.IsPersonAccount}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>true</rightValue>
+                                </criteria>
+                            </visibilityRule>
+                        </valueListItems>
+                        <valueListItems>
                             <value>Account.NewViolationEstablishment</value>
+                            <visibilityRule>
+                                <criteria>
+                                    <leftValue>{!Record.IsPersonAccount}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>false</rightValue>
+                                </criteria>
+                            </visibilityRule>
                         </valueListItems>
                     </valueList>
                 </componentInstanceProperties>
