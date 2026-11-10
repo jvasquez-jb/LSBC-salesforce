@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>RefundAmountMaxUnappliedAmount</fullName>
+    <active>true</active>
+    <description>A refund can only return money that was never applied to a fee: it must be more than zero and no more than the amount less what is applied. Money already applied has to be taken off the fee first.</description>
+    <errorConditionFormula>NOT(ISBLANK(RefundAmount__c)) &amp;&amp; (RefundAmount__c &lt;= 0 || RefundAmount__c &gt; Amount__c - BLANKVALUE(AppliedAmount__c, 0))</errorConditionFormula>
+    <errorDisplayField>RefundAmount__c</errorDisplayField>
+    <errorMessage>The refund must be more than zero and can't be more than the payment's unapplied amount.</errorMessage>
+</ValidationRule>

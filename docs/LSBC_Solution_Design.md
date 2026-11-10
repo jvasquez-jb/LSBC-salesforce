@@ -352,6 +352,14 @@ against the fee item it reverses, in the licence year it was originally applied 
 
 The accounting entry is a fourth step, performed in QuickBooks, and sits outside this platform.
 
+As built (Phase 6): staff run **Refund** on the payment, which shows the step the refund has reached. A
+request takes the amount, up to what is not applied to fees, and the requesting department. The
+front desk then verifies or cancels it, and finally enters the refund check number and date, which
+sets the payment's Status to Refunded. Once refunded, the refund comes off the payment's Unapplied
+Amount. Two validation rules hold this outside the action: the refund can't be more than the
+unapplied money, and a Refunded refund needs its check number and date. Refunding money already
+applied to a fee is a client question.
+
 `DM-18c` `[SETTLED]` **Two reports audit refunds**, and the Board has adopted them as the audit
 method: an overpayment report and a refund reconciliation report, both drawing on the refund and
 the refund request. Both are Phase 1 deliverables.
@@ -1567,3 +1575,4 @@ the source.
 | 10 Nov 2026 | Facility tax ID stored on a new `Account.TaxIdentificationNumber__c`: `BusinessProfile` has no tax field in this org. |
 | 10 Nov 2026 | Portal screen flows carry plain labels (shown to applicants in the Save for later dialog); their API names follow the naming convention. |
 | 10 Nov 2026 | `DM-18a` revised: the payment ledger covers every fee. Staff record mailed payments with Record Payment on the Account; accepting a PayStar receipt creates the payment. No cash, no deposit number (`DM-19` note). |
+| 10 Nov 2026 | `DM-18b` as built: a Refund action on the payment steps through request, verify and refund. Unapplied Amount now subtracts a completed refund. Refunds of applied money raised as a client question. |

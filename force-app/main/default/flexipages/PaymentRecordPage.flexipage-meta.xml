@@ -8,6 +8,9 @@
                     <name>actionNames</name>
                     <valueList>
                         <valueListItems>
+                            <value>Payment__c.Refund</value>
+                        </valueListItems>
+                        <valueListItems>
                             <value>Edit</value>
                         </valueListItems>
                     </valueList>

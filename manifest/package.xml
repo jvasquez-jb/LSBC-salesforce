@@ -373,6 +373,7 @@
         <members>ScreenFlowIndividualApplicationRetake</members>
         <members>ScreenFlowIndividualApplicationTemporaryPermit</members>
         <members>ScreenFlowIndividualApplicationThreadingPermit</members>
+        <members>ScreenFlowPaymentRefund</members>
         <members>ScreenFlowRegulatoryTransactionFeeItemChangeYear</members>
         <members>SubflowAccommodationRequest</members>
         <members>SubflowApplicantDetails</members>
@@ -461,6 +462,7 @@
         <members>Account.RecordPayment</members>
         <members>Case.NewViolation</members>
         <members>Case.RecordComplaint</members>
+        <members>Payment__c.Refund</members>
         <members>RegulatoryTrxnFeeItem.ChangeYear</members>
         <name>QuickAction</name>
     </types>
@@ -574,6 +576,8 @@
     </types>
     <types>
         <members>BusinessLicense.StatusDraftOutOfStateLicense</members>
+        <members>Payment__c.RefundAmountMaxUnappliedAmount</members>
+        <members>Payment__c.RefundCheckNumberRequiredRefunded</members>
         <members>RecordAlert.ValidUntilDateNotBeforeEffectiveDate</members>
         <members>RegulatoryCodeViolation.CitedPartyMatchesAccount</members>
         <members>RegulatoryCodeViolation.DescriptionRequiredOtherViolationType</members>

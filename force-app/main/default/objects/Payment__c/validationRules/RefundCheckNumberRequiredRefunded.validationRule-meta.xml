@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>RefundCheckNumberRequiredRefunded</fullName>
+    <active>true</active>
+    <description>A refund marked Refunded must say which check was sent and when, for the refund reconciliation report.</description>
+    <errorConditionFormula>ISPICKVAL(RefundStatus__c, &quot;Refunded&quot;) &amp;&amp; (ISBLANK(RefundCheckNumber__c) || ISBLANK(RefundedDate__c))</errorConditionFormula>
+    <errorDisplayField>RefundCheckNumber__c</errorDisplayField>
+    <errorMessage>Enter the refund check number and refunded date.</errorMessage>
+</ValidationRule>
