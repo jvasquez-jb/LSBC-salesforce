@@ -28,6 +28,13 @@ you are working on before building, and section 9 for what the org actually prov
   (<https://claude.ai/artifact/9Jz5Cz3thQrdYjRwFDTCfj>): one Mermaid ER diagram per area, showing
   custom and key standard fields, encrypted fields marked, no requirement IDs. Mark planned fields
   as planned until they deploy.
+- With every deployable change (each commit that touches `force-app`, `data/` or `scripts/`), update
+  "LSBC Deployment Manifest" (<https://claude.ai/artifact/XfhVuAzpXfoDxYPsR2SU5X>), which Jonathan
+  deploys from with Gearset: its metadata-by-phase table, data to load, post-deployment steps and a
+  dated change log row. Regenerate `manifest/package.xml`
+  (`sf project generate manifest --source-dir force-app --name manifest/package.xml --output-dir .`)
+  in the same commit. Any sandbox-specific value added to metadata (a user, an email address, a
+  status) goes in its "before deploying to production" list.
 
 - Deploy straight to the `LSBC-Partial` sandbox (default org). No scratch orgs.
 - Requirement IDs (`DM-01`, `BR-04`, …) go in commit messages and Jira only. Never put them in
