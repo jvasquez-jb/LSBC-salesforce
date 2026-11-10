@@ -1,0 +1,12 @@
+{
+  "activeViewId": "7892231d-1acc-43d9-ba64-dae37c7f29ed",
+  "appPageId": "39740273-a4f0-4311-b732-31661924917d",
+  "configurationTags": [],
+  "devName": "Apply_For_Reciprocity",
+  "id": "7d1950bc-218b-4630-b208-f07265c2f963",
+  "label": "Apply for Reciprocity",
+  "pageAccess": "RequiresLogin",
+  "routeType": "custom-apply-for-reciprocity",
+  "type": "route",
+  "urlPrefix": "apply-reciprocity"
+}

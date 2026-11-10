@@ -1,0 +1,70 @@
+{
+  "appPageId": "39740273-a4f0-4311-b732-31661924917d",
+  "componentName": "siteforce:sldsOneColLayout",
+  "dataProviders": [],
+  "id": "7892231d-1acc-43d9-ba64-dae37c7f29ed",
+  "label": "Apply for Reciprocity",
+  "regions": [
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "richTextValue": "<!-- Page heading and one-line introduction -->\n<h1 class=\"lsbc-page-title\">Apply for Reciprocity</h1>\n<p class=\"lsbc-page-intro\">Transfer your license from another state or country to Louisiana.</p>"
+          },
+          "componentName": "forceCommunity:richTextInline",
+          "id": "09779ec9-3ac4-48f5-a707-9c407489543b",
+          "renderPriority": "NEUTRAL",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "d8570b13-507e-4bc3-b4c6-000455198646",
+      "regionName": "header",
+      "type": "region"
+    },
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "flowArguments": "",
+            "flowName": "ScreenFlowIndividualApplicationReciprocity"
+          },
+          "componentName": "forceCommunity:flowCommunity",
+          "id": "1e279ff5-d7b2-4c5c-b266-e405b9fd13a1",
+          "renderPriority": "NEUTRAL",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "6048324e-ab69-4e55-91a4-7e5616079335",
+      "regionName": "content",
+      "type": "region"
+    },
+    {
+      "id": "81306130-d217-446d-98de-b28256bb8dd0",
+      "regionName": "footer",
+      "type": "region"
+    },
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "customHeadTags": "",
+            "description": "",
+            "title": "Apply for Reciprocity"
+          },
+          "componentName": "forceCommunity:seoAssistant",
+          "id": "f400ba9b-8d92-4184-844f-9c20ce4215d7",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "fac93901-97bc-4719-9ae8-109965ffac33",
+      "regionName": "sfdcHiddenRegion",
+      "type": "region"
+    }
+  ],
+  "themeLayoutType": "Inner",
+  "type": "view",
+  "viewType": "custom-apply-for-reciprocity"
+}
