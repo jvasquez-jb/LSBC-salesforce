@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>Payment__c$Name</field>
+    </columns>
+    <columns>
+        <field>Payment__c$Account__c</field>
+    </columns>
+    <columns>
+        <field>Payment__c$PayerName__c</field>
+    </columns>
+    <columns>
+        <field>Payment__c$ExternalReference__c</field>
+    </columns>
+    <columns>
+        <field>Payment__c$Status__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Payment__c$Amount__c</field>
+    </columns>
+    <columns>
+        <field>Payment__c$AppliedAmount__c</field>
+    </columns>
+    <columns>
+        <field>Payment__c$UnappliedAmount__c</field>
+    </columns>
+    <description>Money received each day, by method, this month unless the date range is changed. Returned payments show with their status so they can be taken off the day they bounced.</description>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Payment__c$ReceivedDate__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Payment__c$Method__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Payments by Received Date</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Payments__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>Payment__c$ReceivedDate__c</dateColumn>
+        <interval>INTERVAL_THISMONTH</interval>
+    </timeFrameFilter>
+</Report>

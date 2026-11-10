@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>Payment__c$Name</field>
+    </columns>
+    <columns>
+        <field>Payment__c$Account__c</field>
+    </columns>
+    <columns>
+        <field>Payment__c$ReceivedDate__c</field>
+    </columns>
+    <columns>
+        <field>Payment__c.Allocations__r$Name</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Payment__c.Allocations__r$Amount__c</field>
+    </columns>
+    <description>Money applied to fees, by the license year it was applied to and the fee item. Returned payments are left out.</description>
+    <filter>
+        <criteriaItems>
+            <column>Payment__c$Status__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>notEqual</operator>
+            <value>Returned</value>
+        </criteriaItems>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Payment__c.Allocations__r$ForYear__c</field>
+        <sortOrder>Desc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Payment__c.Allocations__r$FeeItem__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Payments Applied by License Year</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>PaymentsWithAllocations__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>Payment__c$ReceivedDate__c</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

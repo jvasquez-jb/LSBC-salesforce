@@ -512,6 +512,19 @@
         <name>RecordType</name>
     </types>
     <types>
+        <members>LSBCFinance/</members>
+        <members>LSBCFinance/Overpayments</members>
+        <members>LSBCFinance/PaymentsAppliedByLicenseYear</members>
+        <members>LSBCFinance/PaymentsByReceivedDate</members>
+        <members>LSBCFinance/RefundReconciliation</members>
+        <name>Report</name>
+    </types>
+    <types>
+        <members>Payments</members>
+        <members>PaymentsWithAllocations</members>
+        <name>ReportType</name>
+    </types>
+    <types>
         <members>ChiefInspector</members>
         <members>ComplianceOfficer</members>
         <members>ExecutiveDirector</members>

@@ -364,6 +364,13 @@ applied to a fee is a client question.
 method: an overpayment report and a refund reconciliation report, both drawing on the refund and
 the refund request. Both are Phase 1 deliverables.
 
+As built (Phase 6): the LSBC Finance report folder holds **Overpayments** (payments with money not
+applied to a fee, or a refund requested or verified but not sent; returned payments left out) and
+**Refund Reconciliation** (every refund by status, with requester, verifier, check number and
+date). Two more support the ledger: **Payments by Received Date** (daily totals by method, in place
+of deposit totals, since there are no deposit numbers) and **Payments Applied by License Year**.
+They use two report types, Payments (one row per payment) and Payments with Allocations.
+
 `DM-18a` `[SETTLED]` **Built to be retired, now covering every fee** (revised 10 Nov 2026). The
 ledger was first scoped to violations. Phase 6 extends it to all money LSBC receives, because staff
 have no other way to record a mailed renewal check. Nothing in the objects changed: an allocation
@@ -1576,3 +1583,4 @@ the source.
 | 10 Nov 2026 | Portal screen flows carry plain labels (shown to applicants in the Save for later dialog); their API names follow the naming convention. |
 | 10 Nov 2026 | `DM-18a` revised: the payment ledger covers every fee. Staff record mailed payments with Record Payment on the Account; accepting a PayStar receipt creates the payment. No cash, no deposit number (`DM-19` note). |
 | 10 Nov 2026 | `DM-18b` as built: a Refund action on the payment steps through request, verify and refund. Unapplied Amount now subtracts a completed refund. Refunds of applied money raised as a client question. |
+| 10 Nov 2026 | `DM-18c` as built: LSBC Finance reports Overpayments, Refund Reconciliation, Payments by Received Date and Payments Applied by License Year. |
