@@ -345,6 +345,7 @@
         <members>CourseOfferingRecordPage</members>
         <members>DocumentChecklistItemRecordPage</members>
         <members>IndividualApplicationRecordPage</members>
+        <members>LSBCLicensingHomePage</members>
         <members>LSBCLicensingUtilityBar</members>
         <members>PaymentAllocationRecordPage</members>
         <members>PaymentRecordPage</members>
@@ -454,6 +455,10 @@
     </types>
     <types>
         <members>BusinessLicense.LicensesReadyToPrint</members>
+        <members>BusinessLicenseApplication.ApplicationsAwaitingReview</members>
+        <members>IndividualApplication.ApplicationsAwaitingReview</members>
+        <members>Payment__c.PaymentsReceivedThisWeek</members>
+        <members>RecordAlert.OpenStopCodes</members>
         <name>ListView</name>
     </types>
     <types>

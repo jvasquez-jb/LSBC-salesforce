@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OpenStopCodes</fullName>
+    <columns>Subject</columns>
+    <columns>What</columns>
+    <columns>Severity</columns>
+    <columns>EffectiveDate</columns>
+    <columns>ValidUntilDate</columns>
+    <columns>Description</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>IsActive</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <label>Open Stop Codes</label>
+</ListView>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ApplicationsAwaitingReview</fullName>
+    <columns>Name</columns>
+    <columns>Account</columns>
+    <columns>LicenseType</columns>
+    <columns>ApplicationType</columns>
+    <columns>Status</columns>
+    <columns>AppliedDate</columns>
+    <columns>WasReturned</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Status</field>
+        <operation>equals</operation>
+        <value>Submitted,Application Accepted,In Review,Inspection Phase</value>
+    </filters>
+    <label>Applications Awaiting Review</label>
+</ListView>

@@ -1637,3 +1637,4 @@ the source.
 | 10 Nov 2026 | Review and decide built: Decide on both application objects; End Stop Code with the name change. Eligibility rules are not re-run at Decide. A refused business application is Canceled until a Denied status is added. |
 | 10 Nov 2026 | Print queue built: Ready to Print formula, Licenses Ready to Print list view and Mark Printed list button, which skips licences whose holder has an active stop code. |
 | 10 Nov 2026 | `PT-15` as built: New Application runs the portal forms for a person as staff; Upload Documents on applications, including documents sent to the Board. |
+| 10 Nov 2026 | Staff work queues: list views Applications Awaiting Review (both application objects), Open Stop Codes, Payments Received This Week (in place of Payments by Deposit) and the LSBC Licensing Home page that shows them with Licenses Ready to Print. |
