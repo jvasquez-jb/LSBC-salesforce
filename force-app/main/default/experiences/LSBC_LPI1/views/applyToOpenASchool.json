@@ -1,0 +1,70 @@
+{
+  "appPageId": "39740273-a4f0-4311-b732-31661924917d",
+  "componentName": "siteforce:sldsOneColLayout",
+  "dataProviders": [],
+  "id": "568cafb8-4372-4c32-bc9e-25b03bae4405",
+  "label": "Apply to Open a School",
+  "regions": [
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "richTextValue": "<!-- Page heading and one-line introduction -->\n<h1 class=\"lsbc-page-title\">Apply to Open a School</h1>\n<p class=\"lsbc-page-intro\">Start the Board's approval to open a cosmetology school.</p>"
+          },
+          "componentName": "forceCommunity:richTextInline",
+          "id": "7225fc4c-1c13-4546-aeed-c879cf87b400",
+          "renderPriority": "NEUTRAL",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "555f4c95-cb28-4fba-85ee-5f083b8b4110",
+      "regionName": "header",
+      "type": "region"
+    },
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "flowArguments": "",
+            "flowName": "ScreenFlowBusinessLicenseApplicationSchool"
+          },
+          "componentName": "forceCommunity:flowCommunity",
+          "id": "09df3b35-461a-4acd-a20a-21f524dfa15a",
+          "renderPriority": "NEUTRAL",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "fd36f149-7a97-4f4c-98c3-2bd78ce7a61a",
+      "regionName": "content",
+      "type": "region"
+    },
+    {
+      "id": "6db4fe7f-4c5d-4e35-85ac-fbc5812eaf05",
+      "regionName": "footer",
+      "type": "region"
+    },
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "customHeadTags": "",
+            "description": "",
+            "title": "Apply to Open a School"
+          },
+          "componentName": "forceCommunity:seoAssistant",
+          "id": "960fe61f-6631-43fd-bd26-533b321f62fe",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "ebe462ca-f227-4cdf-954c-93699c11c43f",
+      "regionName": "sfdcHiddenRegion",
+      "type": "region"
+    }
+  ],
+  "themeLayoutType": "Inner",
+  "type": "view",
+  "viewType": "custom-new-school"
+}

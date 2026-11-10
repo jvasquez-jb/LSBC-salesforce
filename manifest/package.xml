@@ -330,10 +330,12 @@
         <members>ScreenFlowAccountSchoolDirectory</members>
         <members>ScreenFlowAccreditationCEProviderList</members>
         <members>ScreenFlowBusinessLicenseApplicationFacility</members>
+        <members>ScreenFlowBusinessLicenseApplicationSchool</members>
         <members>ScreenFlowBusinessLicenseApplicationShop</members>
         <members>ScreenFlowBusinessLicensePublicSearch</members>
         <members>ScreenFlowCasePublicComplaint</members>
         <members>ScreenFlowCaseRecordComplaint</members>
+        <members>ScreenFlowDocumentChecklistItemUpload</members>
         <members>ScreenFlowIndividualApplicationAffidavit</members>
         <members>ScreenFlowIndividualApplicationReciprocity</members>
         <members>ScreenFlowIndividualApplicationRenewal</members>

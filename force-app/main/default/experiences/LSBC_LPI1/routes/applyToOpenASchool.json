@@ -1,0 +1,12 @@
+{
+  "activeViewId": "568cafb8-4372-4c32-bc9e-25b03bae4405",
+  "appPageId": "39740273-a4f0-4311-b732-31661924917d",
+  "configurationTags": [],
+  "devName": "applyToOpenASchool",
+  "id": "810f23a0-9e0f-4a81-9853-f56260db91d2",
+  "label": "Apply to Open a School",
+  "pageAccess": "RequiresLogin",
+  "routeType": "custom-new-school",
+  "type": "route",
+  "urlPrefix": "new-school"
+}

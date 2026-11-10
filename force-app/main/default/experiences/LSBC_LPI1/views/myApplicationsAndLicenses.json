@@ -37,6 +37,17 @@
         },
         {
           "componentAttributes": {
+            "flowArguments": "",
+            "flowName": "ScreenFlowDocumentChecklistItemUpload"
+          },
+          "componentName": "forceCommunity:flowCommunity",
+          "id": "4c47be90-fa7c-4a60-aa42-771df43d5773",
+          "renderPriority": "NEUTRAL",
+          "renditionMap": {},
+          "type": "component"
+        },
+        {
+          "componentAttributes": {
             "tabsetConfig": {
               "UUID": "e9531ba6-e6a2-4fd3-9ac9-8d6ab6f5acf3",
               "activeTab": "submittedApps",
