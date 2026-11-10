@@ -19,6 +19,11 @@ you are working on before building, and section 9 for what the org actually prov
   (<https://claude.ai/artifact/YatXF6tvuQRESxJ8VaDawj>): every question waiting on LSBC, the Board,
   OTS or Salesforce, with who to ask, when it's needed and a Status dropdown. Add new questions as
   they come up; close answered ones once the build and design reflect them.
+- Portal forms match LSBC's paper PDFs in `docs/` section by section. "LSBC Application Form Field
+  Mapping" (<https://claude.ai/artifact/6sUaehTcvisoaMyeu822Rf>) maps every PDF field to its
+  Salesforce field, for the Board. Update it whenever a form's field or mapping changes; the Board
+  approves new form fields from it. Signatures are a certification checkbox, typed name and
+  timestamp, never DocuSign or another e-signature product.
 - Whenever an object, field or relationship changes, update "LSBC Data Model"
   (<https://claude.ai/artifact/9Jz5Cz3thQrdYjRwFDTCfj>): one Mermaid ER diagram per area, showing
   custom and key standard fields, encrypted fields marked, no requirement IDs. Mark planned fields

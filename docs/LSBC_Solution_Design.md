@@ -925,6 +925,24 @@ individually. The portal has to account for all of them.
 `PT-19` `[SETTLED]` **Every application carries a certification block** — checkbox, timestamp,
 typed name — built once as a reusable screen. No electronic signature product.
 
+> **Confirmed by LSBC, November 2026:** a certification checkbox that the applicant has checked
+> the information is correct, in place of DocuSign or any other e-signature. Every signature line
+> on the paper forms becomes this step, showing the form's own attestation wording. Forms with no
+> signature line get it too. A notarised form is still uploaded, unless the Board accepts the
+> certification step in its place (client question).
+
+`PT-23` `[SETTLED]` **Portal forms match LSBC's paper PDFs** (in `docs/`): the same sections in
+the same order, labels and choices as printed, attestations verbatim, enclosures as checklist
+items worded as printed. Details the Board already holds are filled in from the person's record,
+not retyped. Every PDF field and where it is stored is in the "LSBC Application Form Field
+Mapping" doc, which the Board approves before new fields are built. Forms are Screen Flows, not
+OmniScripts (`PR-02`, `PR-03`).
+
+`PT-24` `[SETTLED]` **Portal look.** The layout follows the help.hulu.com help centre (dark hero
+with one large search, popular tasks, a topic tile grid, a "Need more help?" band, a dark footer)
+in LSBC's colours and imagery: the wordmark navy, the seal's blue and gold, the Facebook cover
+banner and the seal. Reference images are in `docs/branding/`.
+
 ---
 
 ## 4. Case management and violations — Week 10
@@ -1496,3 +1514,6 @@ the source.
 | 9 Nov 2026 | `CM-03`: an unpaid violation fee opens the existing code 21 (Non Payment). Code 12 stays a manual hold. Payments set the fee's Amount Paid and Status through payment allocations; returned payments stop counting, and deleting an allocation re-totals the fee. |
 | 9 Nov 2026 | `CM-01`: Web-to-Case dropped; the public complaint form is a portal guest screen flow in Phase 5. Complaints become `PublicComplaint` records through the Record Complaint triage action on the Case. |
 | 9 Nov 2026 | Phase 4 built: violation capture and loop, payment allocation sync, Case queues, routing, acknowledgements, Email-to-Case and complaint triage. Section 4 opens with an as-built summary. |
+| 9 Nov 2026 | `PT-19` confirmed by LSBC: a certification checkbox, typed name and timestamp in place of DocuSign or any e-signature. Notarised forms are still uploaded unless the Board decides otherwise. |
+| 9 Nov 2026 | `PT-23` added: portal forms match LSBC's 15 application PDFs section by section, as Screen Flows. The "LSBC Application Form Field Mapping" doc maps every PDF field; 20 new fields are proposed there for Board approval. The School Forms packet (17 forms) is mapped and built with the school portal. |
+| 9 Nov 2026 | `PT-24` added: the portal follows the help.hulu.com help-centre layout in LSBC's branding (Facebook cover banner and seal, in `docs/branding/`). |
