@@ -148,7 +148,7 @@ Raised by later phases while Phase 2 is paused. Pick these up when it resumes.
   four Cosmetologist exams: national, practical, state and restoration).
   Reuse them; delete them before UAT data goes in. Phase 5 added `StopCodeTest Registrant`,
   `Registrant Two`/`Three` (signed up, with portal logins), `Registrant Four`/`Five` (left for UAT
-  sign-up), `StopCodeTest Trigger`, `StopCodeTest CE Provider Current/Prior/Expired` and the Draft
+  sign-up), `StopCodeTest Registrant Six` (signed up as new to the Board, no license), `StopCodeTest Trigger`, `StopCodeTest CE Provider Current/Prior/Expired` and the Draft
   `StopCodeTest Texas License`. Portal test logins (`stopcodetest.portal@lsbc-partial.test`,
   `stopcodetest.trigger@…`, `jvasquez+lsbcreg*@journeyblazers.com`) can't be deleted: deactivate them.
 - Case intake (sandbox): Email-to-Case routing address `jvasquez@journeyblazers.com` (Origin Email);
@@ -165,6 +165,10 @@ Raised by later phases while Phase 2 is paused. Pick these up when it resumes.
   in its flow access. Images in HTML blocks use `/sfsites/c/resource/<StaticResourceName>`, one
   static resource per image: the block prefixes the page path (`/LPI/s`), so `/LPI/...` doubles.
   Check the published site with headless Chrome (`--dump-dom`, `--screenshot`) after publishing.
+- Sign up has two paths: a licensee (license number, last name, ZIP) or someone new to the Board
+  (name, date of birth, contact details; a person account is created unless one with the same name and
+  date of birth exists). Guest-created accounts belong to the site's guest record default owner, who must
+  have a role for the portal login to be created: in production that has to be an LSBC user with a role.
 - Portal users get the permission set group `PortalLicenseeAccess` (`PortalLicensee` +
   managed `force__DocumentChecklist`), assigned by `RecordTriggerUserAfterSave`. Without
   Document Checklist, a portal file upload to a checklist item fails ("insufficient access rights

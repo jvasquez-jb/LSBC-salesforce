@@ -1,48 +1,80 @@
 {
-  "appPageId" : "eb71a4cd-0b71-4827-bd94-e3026130d09b",
-  "componentName" : "siteforce:sldsOneColLayout",
-  "dataProviders" : [ ],
-  "id" : "6052b1d3-3b0f-4643-8387-32d9a1ec262c",
-  "label" : "Login Error",
-  "regions" : [ {
-    "id" : "193b84ed-c6a2-46cc-bf74-1c3013c1dbe1",
-    "regionName" : "header",
-    "type" : "region"
-  }, {
-    "components" : [ {
-      "componentAttributes" : {
-        "richTextValue" : "<div style=\"text-align: center;\">Invalid Page</div>"
-      },
-      "componentName" : "forceCommunity:richTextInline",
-      "id" : "5645e10b-5dbc-48b5-ba93-89db4986bcc5",
-      "renderPriority" : "NEUTRAL",
-      "renditionMap" : { },
-      "type" : "component"
-    } ],
-    "id" : "fbcc669c-0812-4cae-b6b0-41391c367ab5",
-    "regionName" : "content",
-    "type" : "region"
-  }, {
-    "id" : "fe609eab-a63f-4d75-a32a-0121a85de4e6",
-    "regionName" : "footer",
-    "type" : "region"
-  }, {
-    "components" : [ {
-      "componentAttributes" : {
-        "customHeadTags" : "",
-        "description" : "",
-        "title" : "Login Error"
-      },
-      "componentName" : "forceCommunity:seoAssistant",
-      "id" : "bdb9b62b-665d-4814-ba77-0f72c8ba83f0",
-      "renditionMap" : { },
-      "type" : "component"
-    } ],
-    "id" : "bf2edb9c-52b7-41c0-a353-910a5b83f0e6",
-    "regionName" : "sfdcHiddenRegion",
-    "type" : "region"
-  } ],
-  "themeLayoutType" : "Login",
-  "type" : "view",
-  "viewType" : "login-error"
+  "appPageId": "eb71a4cd-0b71-4827-bd94-e3026130d09b",
+  "componentName": "siteforce:sldsOneColLayout",
+  "dataProviders": [],
+  "id": "6052b1d3-3b0f-4643-8387-32d9a1ec262c",
+  "label": "Login Error",
+  "regions": [
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "richTextValue": "<!-- Login header: LSBC wordmark on navy, linking back to the portal home -->\n<div class=\"lsbc-login-header\">\n  <a href=\"/LPI/s/\" aria-label=\"LSBC licensing portal home\">\n    <img class=\"lsbc-login-header__logo\" src=\"/sfsites/c/resource/PortalLogoWhite\" alt=\"Louisiana State Board of Cosmetology\">\n  </a>\n</div>"
+          },
+          "componentName": "forceCommunity:htmlBlock",
+          "id": "b5a86198-c2eb-4e08-a613-f72380fb478b",
+          "renderPriority": "NEUTRAL",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "1d1d6484-d5b4-4794-90d8-e788341cf4f5",
+      "regionName": "header",
+      "type": "region"
+    },
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "richTextValue": "<!-- Heading: seal, title and one line -->\n<div class=\"lsbc-login-intro\">\n  <img class=\"lsbc-login-intro__seal\" src=\"/sfsites/c/resource/PortalSeal\" alt=\"\">\n  <h1>Something went wrong</h1>\n  <p>We couldn't log you in. Try again, or reset your password.</p>\n</div>"
+          },
+          "componentName": "forceCommunity:htmlBlock",
+          "id": "004ec7a6-bd25-4126-b281-bbd858a59c20",
+          "renderPriority": "NEUTRAL",
+          "renditionMap": {},
+          "type": "component"
+        },
+        {
+          "componentAttributes": {
+            "richTextValue": "<!-- Help under the form -->\n<div class=\"lsbc-login-help\">\n  <p><a href=\"/LPI/s/login/\">Back to log in</a></p>\n  <p>Trouble logging in? Call the Board at <a href=\"tel:+12257563404\">225-756-3404</a>.</p>\n  <p class=\"lsbc-login-help__address\">Louisiana State Board of Cosmetology &middot; 11622 Sunbelt Court, Baton Rouge, Louisiana 70809</p>\n</div>"
+          },
+          "componentName": "forceCommunity:htmlBlock",
+          "id": "8fd5936b-148d-4c1b-86ee-59214fdfe5b1",
+          "renderPriority": "NEUTRAL",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "a85dd9b5-f6ea-466e-ad0f-bd01af87c4a1",
+      "regionName": "content",
+      "type": "region"
+    },
+    {
+      "components": [],
+      "id": "f66c6596-62f8-4599-93fd-9365b97f4a58",
+      "regionName": "footer",
+      "type": "region"
+    },
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "customHeadTags": "",
+            "description": "",
+            "title": "Login Error"
+          },
+          "componentName": "forceCommunity:seoAssistant",
+          "id": "bdb9b62b-665d-4814-ba77-0f72c8ba83f0",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "bf2edb9c-52b7-41c0-a353-910a5b83f0e6",
+      "regionName": "sfdcHiddenRegion",
+      "type": "region"
+    }
+  ],
+  "themeLayoutType": "Login",
+  "type": "view",
+  "viewType": "login-error"
 }

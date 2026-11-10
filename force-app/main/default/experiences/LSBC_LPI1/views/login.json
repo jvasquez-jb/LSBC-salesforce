@@ -1,74 +1,97 @@
 {
-  "appPageId" : "eb71a4cd-0b71-4827-bd94-e3026130d09b",
-  "componentName" : "siteforce:sldsOneColLayout",
-  "dataProviders" : [ ],
-  "id" : "0a082b5a-55ee-4d24-baaa-93aaeb487285",
-  "label" : "Login",
-  "regions" : [ {
-    "components" : [ {
-      "componentAttributes" : { },
-      "componentName" : "salesforceIdentity:communityLogo2",
-      "id" : "d58721f5-9d8a-4088-b513-9bc57e4747de",
-      "renderPriority" : "NEUTRAL",
-      "renditionMap" : { },
-      "type" : "component"
-    }, {
-      "componentAttributes" : {
-        "forgotPasswordLabel" : "Forgot your password?",
-        "forgotPasswordUrl" : "/ForgotPassword",
-        "loginButtonLabel" : "Log in",
-        "passwordLabel" : "Password",
-        "selfRegisterLabel" : "Not a member?",
-        "selfRegisterUrl" : "/SelfRegister",
-        "startUrl" : "",
-        "usernameLabel" : "Username"
-      },
-      "componentName" : "salesforceIdentity:loginForm2",
-      "id" : "754bed4e-8caa-4cc5-adaf-bee90595ef1f",
-      "renderPriority" : "NEUTRAL",
-      "renditionMap" : { },
-      "type" : "component"
-    }, {
-      "componentAttributes" : {
-        "headerText" : "",
-        "showHeader" : false,
-        "useCommunityDomainSso" : true
-      },
-      "componentName" : "salesforceIdentity:socialLogin2",
-      "id" : "70a4f46f-5085-4b8c-aba5-42de90752a96",
-      "renderPriority" : "NEUTRAL",
-      "renditionMap" : { },
-      "type" : "component"
-    }, {
-      "componentAttributes" : {
-        "employeeLoginLinkLabel" : "Are you an employee? Login here"
-      },
-      "componentName" : "salesforceIdentity:employeeLoginLink2",
-      "id" : "38e30a5c-1829-46a0-8f24-d5765f959fe0",
-      "renderPriority" : "NEUTRAL",
-      "renditionMap" : { },
-      "type" : "component"
-    } ],
-    "id" : "4d015cb2-b266-468a-9788-4b3c11286dfd",
-    "regionName" : "content",
-    "type" : "region"
-  }, {
-    "components" : [ {
-      "componentAttributes" : {
-        "customHeadTags" : "",
-        "description" : "",
-        "title" : "Login"
-      },
-      "componentName" : "forceCommunity:seoAssistant",
-      "id" : "58e662dd-07ee-495c-9582-547db2b9f174",
-      "renditionMap" : { },
-      "type" : "component"
-    } ],
-    "id" : "17d0fd31-df1c-4a7b-8bfe-2959a28f33e6",
-    "regionName" : "sfdcHiddenRegion",
-    "type" : "region"
-  } ],
-  "themeLayoutType" : "Login",
-  "type" : "view",
-  "viewType" : "login-home"
+  "appPageId": "eb71a4cd-0b71-4827-bd94-e3026130d09b",
+  "componentName": "siteforce:sldsOneColLayout",
+  "dataProviders": [],
+  "id": "0a082b5a-55ee-4d24-baaa-93aaeb487285",
+  "label": "Login",
+  "regions": [
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "richTextValue": "<!-- Login header: LSBC wordmark on navy, linking back to the portal home -->\n<div class=\"lsbc-login-header\">\n  <a href=\"/LPI/s/\" aria-label=\"LSBC licensing portal home\">\n    <img class=\"lsbc-login-header__logo\" src=\"/sfsites/c/resource/PortalLogoWhite\" alt=\"Louisiana State Board of Cosmetology\">\n  </a>\n</div>"
+          },
+          "componentName": "forceCommunity:htmlBlock",
+          "id": "28209d80-1d0c-44bd-b255-8ba22f1cf1c2",
+          "renderPriority": "NEUTRAL",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "aa7789ae-cf35-4357-b874-a14c2cab83f1",
+      "regionName": "header",
+      "type": "region"
+    },
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "richTextValue": "<!-- Login heading: seal, title and one line -->\n<div class=\"lsbc-login-intro\">\n  <img class=\"lsbc-login-intro__seal\" src=\"/sfsites/c/resource/PortalSeal\" alt=\"\">\n  <h1>Log in</h1>\n  <p>to the LSBC licensing portal to renew, apply and pay online.</p>\n</div>"
+          },
+          "componentName": "forceCommunity:htmlBlock",
+          "id": "0b8333fa-d9f2-4313-8087-761a14bb2b6c",
+          "renderPriority": "NEUTRAL",
+          "renditionMap": {},
+          "type": "component"
+        },
+        {
+          "componentAttributes": {
+            "forgotPasswordLabel": "Forgot your password?",
+            "forgotPasswordUrl": "/ForgotPassword",
+            "loginButtonLabel": "Log in",
+            "passwordLabel": "Password",
+            "selfRegisterLabel": "New to the portal? Sign up",
+            "selfRegisterUrl": "/LPI/s/sign-up",
+            "startUrl": "",
+            "usernameLabel": "Email address"
+          },
+          "componentName": "salesforceIdentity:loginForm2",
+          "id": "754bed4e-8caa-4cc5-adaf-bee90595ef1f",
+          "renderPriority": "NEUTRAL",
+          "renditionMap": {},
+          "type": "component"
+        },
+        {
+          "componentAttributes": {
+            "richTextValue": "<!-- Help under the form -->\n<div class=\"lsbc-login-help\">\n  <p>Trouble logging in? Call the Board at <a href=\"tel:+12257563404\">225-756-3404</a>.</p>\n  <p><a href=\"/LPI/s/\">Back to the portal home</a></p>\n  <p class=\"lsbc-login-help__address\">Louisiana State Board of Cosmetology &middot; 11622 Sunbelt Court, Baton Rouge, Louisiana 70809</p>\n</div>"
+          },
+          "componentName": "forceCommunity:htmlBlock",
+          "id": "1936a06d-cf80-4444-8e3d-fe1360ec4a2e",
+          "renderPriority": "NEUTRAL",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "4d015cb2-b266-468a-9788-4b3c11286dfd",
+      "regionName": "content",
+      "type": "region"
+    },
+    {
+      "components": [],
+      "id": "cdef4c32-a527-4f74-ae13-0e1fa6240a6b",
+      "regionName": "footer",
+      "type": "region"
+    },
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "customHeadTags": "",
+            "description": "",
+            "title": "Login"
+          },
+          "componentName": "forceCommunity:seoAssistant",
+          "id": "58e662dd-07ee-495c-9582-547db2b9f174",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "17d0fd31-df1c-4a7b-8bfe-2959a28f33e6",
+      "regionName": "sfdcHiddenRegion",
+      "type": "region"
+    }
+  ],
+  "themeLayoutType": "Login",
+  "type": "view",
+  "viewType": "login-home"
 }
