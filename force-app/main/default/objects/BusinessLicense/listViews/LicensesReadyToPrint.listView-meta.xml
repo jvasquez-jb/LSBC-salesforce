@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LicensesReadyToPrint</fullName>
+    <columns>Name</columns>
+    <columns>Identifier</columns>
+    <columns>Account</columns>
+    <columns>RegulatoryAuthorizationType</columns>
+    <columns>Status</columns>
+    <columns>PeriodEnd</columns>
+    <columns>PrintRequestedDate__c</columns>
+    <columns>PrintedDate__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>IsReadyToPrint__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <label>Licenses Ready to Print</label>
+</ListView>

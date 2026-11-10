@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MarkPrinted</fullName>
+    <availability>online</availability>
+    <description>On the Licenses Ready to Print list view: marks the ticked licenses printed today, skipping any whose holder has an active stop code. Runs Screen Flow: Business License Mark Printed, which receives the ticked licenses as ids.</description>
+    <displayType>massActionButton</displayType>
+    <encodingKey>UTF-8</encodingKey>
+    <linkType>url</linkType>
+    <masterLabel>Mark Printed</masterLabel>
+    <openType>replace</openType>
+    <protected>false</protected>
+    <requireRowSelection>true</requireRowSelection>
+    <url>/flow/ScreenFlowBusinessLicenseMarkPrinted?retURL=/lightning/o/BusinessLicense/list?filterName=LicensesReadyToPrint</url>
+</WebLink>

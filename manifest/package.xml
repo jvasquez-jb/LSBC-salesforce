@@ -59,6 +59,7 @@
         <members>ApplicationDocumentRequirement__mdt.SortOrder__c</members>
         <members>BusinessLicense.ConsecutiveCEUCycles__c</members>
         <members>BusinessLicense.IsMasterInstructor__c</members>
+        <members>BusinessLicense.IsReadyToPrint__c</members>
         <members>BusinessLicense.LastCEUDate__c</members>
         <members>BusinessLicense.PrintRequestedDate__c</members>
         <members>BusinessLicense.PrintedDate__c</members>
@@ -240,6 +241,7 @@
     </types>
     <types>
         <members>ApplicationDocumentRequirement__mdt</members>
+        <members>BusinessLicense</members>
         <members>LetterTemplate__mdt</members>
         <members>PaymentAllocation__c</members>
         <members>Payment__c</members>
@@ -382,6 +384,7 @@
         <members>ScreenFlowBusinessLicenseApplicationFacility</members>
         <members>ScreenFlowBusinessLicenseApplicationSchool</members>
         <members>ScreenFlowBusinessLicenseApplicationShop</members>
+        <members>ScreenFlowBusinessLicenseMarkPrinted</members>
         <members>ScreenFlowBusinessLicensePublicSearch</members>
         <members>ScreenFlowCasePublicComplaint</members>
         <members>ScreenFlowCaseRecordComplaint</members>
@@ -447,6 +450,10 @@
     <types>
         <members>documentChecklistUpload</members>
         <name>LightningComponentBundle</name>
+    </types>
+    <types>
+        <members>BusinessLicense.LicensesReadyToPrint</members>
+        <name>ListView</name>
     </types>
     <types>
         <members>Default_User_Profile_Menu</members>
@@ -627,6 +634,10 @@
         <members>TrainingCourseParticipant.TotalHoursMax192MonthlyHours</members>
         <members>TrainingCourseParticipant.TotalHoursNegativeOnlyRelinquished</members>
         <name>ValidationRule</name>
+    </types>
+    <types>
+        <members>BusinessLicense.MarkPrinted</members>
+        <name>WebLink</name>
     </types>
     <version>68.0</version>
 </Package>

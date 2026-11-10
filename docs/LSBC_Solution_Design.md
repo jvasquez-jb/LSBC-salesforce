@@ -958,6 +958,14 @@ and the holder's active stop codes. Staff then approve, return or refuse:
 - **Refuse** sets an individual application to Denied. Business License Application Status has no
   Denied value, so a refused business application is Canceled, with the reason saved.
 
+**Print queue (Phase 6).** Approval, renewal and a duplicate set the licence's Print Requested Date.
+The **Licenses Ready to Print** list view shows every licence with Ready to Print ticked (requested
+and not printed since; a formula, because a list view cannot compare two dates). Staff print, tick
+the licences and click **Mark Printed**: each holder is checked with `SubflowStopCodePrintCheck`, a
+licence whose holder has an active stop code is skipped and stays in the list, and the rest get
+today's Printed Date. The printed licence itself (LSBC's three-part stock) waits for its layout from
+LSBC.
+
 ### 3.5 Where components are used
 
 `PT-18` `[SETTLED]` Flow carries the forms. LWCs only where Flow cannot do the job:
@@ -1617,3 +1625,4 @@ the source.
 | 10 Nov 2026 | `DM-18c` as built: LSBC Finance reports Overpayments, Refund Reconciliation, Payments by Received Date and Payments Applied by License Year. |
 | 10 Nov 2026 | `PT-16` as built: Generate Letter with Letter Template custom metadata and a Visualforce PDF on letterhead; four starter letters with placeholder wording. |
 | 10 Nov 2026 | Review and decide built: Decide on both application objects; End Stop Code with the name change. Eligibility rules are not re-run at Decide. A refused business application is Canceled until a Denied status is added. |
+| 10 Nov 2026 | Print queue built: Ready to Print formula, Licenses Ready to Print list view and Mark Printed list button, which skips licences whose holder has an active stop code. |
