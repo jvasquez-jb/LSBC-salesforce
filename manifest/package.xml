@@ -30,6 +30,7 @@
     <types>
         <members>Account.MaximumStudentCapacity__c</members>
         <members>Account.Parish__c</members>
+        <members>Account.TaxIdentificationNumber__c</members>
         <members>Accreditation.BondAmount__c</members>
         <members>Accreditation.Underwriter__c</members>
         <members>ApplicationDocumentRequirement__mdt.ApplicationPath__c</members>
@@ -328,6 +329,7 @@
         <members>ScreenFlowAccountPortalRegistration</members>
         <members>ScreenFlowAccountSchoolDirectory</members>
         <members>ScreenFlowAccreditationCEProviderList</members>
+        <members>ScreenFlowBusinessLicenseApplicationFacility</members>
         <members>ScreenFlowBusinessLicenseApplicationShop</members>
         <members>ScreenFlowBusinessLicensePublicSearch</members>
         <members>ScreenFlowCasePublicComplaint</members>

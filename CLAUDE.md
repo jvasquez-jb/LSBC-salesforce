@@ -158,7 +158,7 @@ Raised by later phases while Phase 2 is paused. Pick these up when it resumes.
   four Cosmetologist exams: national, practical, state and restoration).
   Reuse them; delete them before UAT data goes in. Phase 5 added `StopCodeTest Registrant`,
   `Registrant Two`/`Three` (signed up, with portal logins), `Registrant Four`/`Five` (left for UAT
-  sign-up), `StopCodeTest Registrant Six` (signed up as new to the Board, no license), the establishment `StopCodeTest Portal Salon` (from the portal shop application), `StopCodeTest Trigger`, `StopCodeTest CE Provider Current/Prior/Expired` and the Draft
+  sign-up), `StopCodeTest Registrant Six` (signed up as new to the Board, no license), the establishments `StopCodeTest Portal Salon` and `StopCodeTest Braid Studio` (from the portal shop and facility applications), `StopCodeTest Trigger`, `StopCodeTest CE Provider Current/Prior/Expired` and the Draft
   `StopCodeTest Texas License`. Portal test logins (`stopcodetest.portal@lsbc-partial.test`,
   `stopcodetest.trigger@…`, `jvasquez+lsbcreg*@journeyblazers.com`) can't be deleted: deactivate them.
 - Case intake (sandbox): Email-to-Case routing address `jvasquez@journeyblazers.com` (Origin Email);

@@ -1,0 +1,70 @@
+{
+  "appPageId": "39740273-a4f0-4311-b732-31661924917d",
+  "componentName": "siteforce:sldsOneColLayout",
+  "dataProviders": [],
+  "id": "70233bf3-9bd6-463d-bf15-0316dead6f80",
+  "label": "Apply for a Facility License",
+  "regions": [
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "richTextValue": "<!-- Page heading and one-line introduction -->\n<h1 class=\"lsbc-page-title\">Apply for a Facility License</h1>\n<p class=\"lsbc-page-intro\">Open a threading or alternative hair design facility.</p>"
+          },
+          "componentName": "forceCommunity:richTextInline",
+          "id": "3c711ad9-440b-46f6-8afe-9a38317d30a6",
+          "renderPriority": "NEUTRAL",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "dab382fb-ba64-48ff-8111-39b0eb38b531",
+      "regionName": "header",
+      "type": "region"
+    },
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "flowArguments": "",
+            "flowName": "ScreenFlowBusinessLicenseApplicationFacility"
+          },
+          "componentName": "forceCommunity:flowCommunity",
+          "id": "602b0454-a27d-4ee4-9c7b-56890e9661c8",
+          "renderPriority": "NEUTRAL",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "2433d908-5dee-422e-9e16-66869fb3fec7",
+      "regionName": "content",
+      "type": "region"
+    },
+    {
+      "id": "2934d829-862e-4067-b6ab-cfd82d8b8549",
+      "regionName": "footer",
+      "type": "region"
+    },
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "customHeadTags": "",
+            "description": "",
+            "title": "Apply for a Facility License"
+          },
+          "componentName": "forceCommunity:seoAssistant",
+          "id": "d7c76163-4452-4f05-9c18-e895dac3b94f",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "7d1d5921-b352-4ca0-bc7c-c2bec933c5f0",
+      "regionName": "sfdcHiddenRegion",
+      "type": "region"
+    }
+  ],
+  "themeLayoutType": "Inner",
+  "type": "view",
+  "viewType": "custom-facility-application"
+}
