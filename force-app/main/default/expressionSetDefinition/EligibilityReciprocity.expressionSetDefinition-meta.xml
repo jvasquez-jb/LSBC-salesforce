@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ExpressionSetDefinition xmlns="http://soap.sforce.com/2006/04/metadata">
-    <description>Decides which examinations a reciprocity applicant may take on their hours, and whether an hour shortfall goes to the Board because they hold an active out-of-state license.</description>
+    <description>Decides which examinations a reciprocity applicant takes. Version 2 uses the state tables (Reciprocity State Exams); version 1, inactive, used documented hours.</description>
     <executionScale>Low</executionScale>
     <label>Eligibility Reciprocity</label>
     <processType>Bre</processType>
@@ -13,7 +13,7 @@
         <rank>1</rank>
         <shouldShowExplExternally>false</shouldShowExplExternally>
         <startDate>2026-01-01T00:00:00.000Z</startDate>
-        <status>Active</status>
+        <status>Inactive</status>
         <versionNumber>1</versionNumber>
         <steps>
             <actionType>AssignParameterValues</actionType>
@@ -163,6 +163,229 @@
             <collection>false</collection>
             <dataType>Boolean</dataType>
             <description>Short on hours but licensed elsewhere, so the Board decides instead of a block.</description>
+            <input>false</input>
+            <name>NeedsBoardReview</name>
+            <output>true</output>
+            <resultStep>SetNeedsBoardReview</resultStep>
+            <type>Variable</type>
+        </variables>
+    </versions>
+    <versions>
+        <fullName>EligibilityReciprocity_V2</fullName>
+        <description>Which examinations a reciprocity applicant takes, from the state table row (Reciprocity State Exams) for the state that first licensed them and the date of that first license.</description>
+        <expressionSetDefinition>EligibilityReciprocity</expressionSetDefinition>
+        <label>Eligibility Reciprocity V2</label>
+        <rank>2</rank>
+        <shouldShowExplExternally>false</shouldShowExplExternally>
+        <startDate>2026-11-10T00:00:00.000Z</startDate>
+        <status>Active</status>
+        <versionNumber>2</versionNumber>
+        <steps>
+            <actionType>AssignParameterValues</actionType>
+            <assignment>
+                <assignedParameter>Outcome</assignedParameter>
+                <expression>IF(ISBLANK(FirstCutoffDate) || ISBLANK(InitialLicenseDate), "Call Office", IF((YEAR(InitialLicenseDate) * 10000 + MONTH(InitialLicenseDate) * 100 + DAY(InitialLicenseDate)) &lt; FirstCutoffDate, BeforeOutcome, IF((YEAR(InitialLicenseDate) * 10000 + MONTH(InitialLicenseDate) * 100 + DAY(InitialLicenseDate)) &gt; SecondCutoffDate, AfterOutcome, BetweenOutcome)))</expression>
+            </assignment>
+            <description>The outcome for the window the first license date falls in: before the first cut-off, after the second, or between. No row for the state, or no date, goes to the office.</description>
+            <label>Set Outcome</label>
+            <name>SetOutcome</name>
+            <resultIncluded>true</resultIncluded>
+            <sequenceNumber>1</sequenceNumber>
+            <shouldExposExecPathMsgOnly>true</shouldExposExecPathMsgOnly>
+            <shouldExposeConditionDetails>false</shouldExposeConditionDetails>
+            <shouldShowExplExternally>false</shouldShowExplExternally>
+            <stepType>BusinessKnowledgeModel</stepType>
+        </steps>
+        <steps>
+            <actionType>AssignParameterValues</actionType>
+            <assignment>
+                <assignedParameter>RequiresStateExam</assignedParameter>
+                <expression>Outcome == "State" || Outcome == "State;National" || Outcome == "State;Practical" || Outcome == "State;National;Practical"</expression>
+            </assignment>
+            <description>The outcome lists the state examination.</description>
+            <label>Set Requires State Exam</label>
+            <name>SetRequiresStateExam</name>
+            <resultIncluded>true</resultIncluded>
+            <sequenceNumber>2</sequenceNumber>
+            <shouldExposExecPathMsgOnly>true</shouldExposExecPathMsgOnly>
+            <shouldExposeConditionDetails>false</shouldExposeConditionDetails>
+            <shouldShowExplExternally>false</shouldShowExplExternally>
+            <stepType>BusinessKnowledgeModel</stepType>
+        </steps>
+        <steps>
+            <actionType>AssignParameterValues</actionType>
+            <assignment>
+                <assignedParameter>RequiresNationalExam</assignedParameter>
+                <expression>Outcome == "State;National" || Outcome == "State;National;Practical"</expression>
+            </assignment>
+            <description>The outcome lists the national (NIC) examination.</description>
+            <label>Set Requires National Exam</label>
+            <name>SetRequiresNationalExam</name>
+            <resultIncluded>true</resultIncluded>
+            <sequenceNumber>3</sequenceNumber>
+            <shouldExposExecPathMsgOnly>true</shouldExposExecPathMsgOnly>
+            <shouldExposeConditionDetails>false</shouldExposeConditionDetails>
+            <shouldShowExplExternally>false</shouldShowExplExternally>
+            <stepType>BusinessKnowledgeModel</stepType>
+        </steps>
+        <steps>
+            <actionType>AssignParameterValues</actionType>
+            <assignment>
+                <assignedParameter>RequiresPracticalExam</assignedParameter>
+                <expression>Outcome == "State;Practical" || Outcome == "State;National;Practical"</expression>
+            </assignment>
+            <description>The outcome lists the practical examination.</description>
+            <label>Set Requires Practical Exam</label>
+            <name>SetRequiresPracticalExam</name>
+            <resultIncluded>true</resultIncluded>
+            <sequenceNumber>4</sequenceNumber>
+            <shouldExposExecPathMsgOnly>true</shouldExposExecPathMsgOnly>
+            <shouldExposeConditionDetails>false</shouldExposeConditionDetails>
+            <shouldShowExplExternally>false</shouldShowExplExternally>
+            <stepType>BusinessKnowledgeModel</stepType>
+        </steps>
+        <steps>
+            <actionType>AssignParameterValues</actionType>
+            <assignment>
+                <assignedParameter>CannotTransfer</assignedParameter>
+                <expression>Outcome == "Cannot Transfer"</expression>
+            </assignment>
+            <description>The license cannot be transferred to Louisiana.</description>
+            <label>Set Cannot Transfer</label>
+            <name>SetCannotTransfer</name>
+            <resultIncluded>true</resultIncluded>
+            <sequenceNumber>5</sequenceNumber>
+            <shouldExposExecPathMsgOnly>true</shouldExposExecPathMsgOnly>
+            <shouldExposeConditionDetails>false</shouldExposeConditionDetails>
+            <shouldShowExplExternally>false</shouldShowExplExternally>
+            <stepType>BusinessKnowledgeModel</stepType>
+        </steps>
+        <steps>
+            <actionType>AssignParameterValues</actionType>
+            <assignment>
+                <assignedParameter>NeedsBoardReview</assignedParameter>
+                <expression>Outcome != "Cannot Transfer" &amp;&amp; Outcome != "State" &amp;&amp; Outcome != "State;National" &amp;&amp; Outcome != "State;Practical" &amp;&amp; Outcome != "State;National;Practical"</expression>
+            </assignment>
+            <description>Call Office, Not Applicable, or no row for the state: staff decide.</description>
+            <label>Set Needs Board Review</label>
+            <name>SetNeedsBoardReview</name>
+            <resultIncluded>true</resultIncluded>
+            <sequenceNumber>6</sequenceNumber>
+            <shouldExposExecPathMsgOnly>true</shouldExposExecPathMsgOnly>
+            <shouldExposeConditionDetails>false</shouldExposeConditionDetails>
+            <shouldShowExplExternally>false</shouldShowExplExternally>
+            <stepType>BusinessKnowledgeModel</stepType>
+        </steps>
+        <variables>
+            <collection>false</collection>
+            <dataType>Date</dataType>
+            <description>When the applicant was first licensed in that state.</description>
+            <input>true</input>
+            <name>InitialLicenseDate</name>
+            <output>false</output>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Numeric</dataType>
+            <decimalPlaces>0</decimalPlaces>
+            <description>From Reciprocity State Exams (YYYYMMDD).</description>
+            <input>true</input>
+            <name>FirstCutoffDate</name>
+            <output>false</output>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Numeric</dataType>
+            <decimalPlaces>0</decimalPlaces>
+            <description>From Reciprocity State Exams (YYYYMMDD).</description>
+            <input>true</input>
+            <name>SecondCutoffDate</name>
+            <output>false</output>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Text</dataType>
+            <description>From Reciprocity State Exams.</description>
+            <input>true</input>
+            <name>BeforeOutcome</name>
+            <output>false</output>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Text</dataType>
+            <description>From Reciprocity State Exams.</description>
+            <input>true</input>
+            <name>BetweenOutcome</name>
+            <output>false</output>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Text</dataType>
+            <description>From Reciprocity State Exams.</description>
+            <input>true</input>
+            <name>AfterOutcome</name>
+            <output>false</output>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Text</dataType>
+            <description>The outcome that applies: the exams (State, National, Practical) or Call Office, Cannot Transfer, Not Applicable.</description>
+            <input>false</input>
+            <name>Outcome</name>
+            <output>true</output>
+            <resultStep>SetOutcome</resultStep>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Boolean</dataType>
+            <description>The outcome lists the state examination.</description>
+            <input>false</input>
+            <name>RequiresStateExam</name>
+            <output>true</output>
+            <resultStep>SetRequiresStateExam</resultStep>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Boolean</dataType>
+            <description>The outcome lists the national (NIC) examination.</description>
+            <input>false</input>
+            <name>RequiresNationalExam</name>
+            <output>true</output>
+            <resultStep>SetRequiresNationalExam</resultStep>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Boolean</dataType>
+            <description>The outcome lists the practical examination.</description>
+            <input>false</input>
+            <name>RequiresPracticalExam</name>
+            <output>true</output>
+            <resultStep>SetRequiresPracticalExam</resultStep>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Boolean</dataType>
+            <description>The license cannot be transferred to Louisiana.</description>
+            <input>false</input>
+            <name>CannotTransfer</name>
+            <output>true</output>
+            <resultStep>SetCannotTransfer</resultStep>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Boolean</dataType>
+            <description>Call Office, Not Applicable, or no row for the state: staff decide.</description>
             <input>false</input>
             <name>NeedsBoardReview</name>
             <output>true</output>

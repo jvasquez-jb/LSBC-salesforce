@@ -54,3 +54,4 @@ reference/
 docs/*.pdf
 # Binary site bundle; the ExperienceBundle under experiences/ is the source
 force-app/main/default/siteDotComSites/
+dm_rows.tmp.json
