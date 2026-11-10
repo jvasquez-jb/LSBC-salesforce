@@ -142,7 +142,11 @@ Raised by later phases while Phase 2 is paused. Pick these up when it resumes.
   America/Chicago is Jonathan's call: it changes what "today" means everywhere.
 - Stop code test records in LSBC-Partial are named `StopCodeTest …` (a person, a salon, a school, and
   four Cosmetologist exams: national, practical, state and restoration).
-  Reuse them; delete them before UAT data goes in.
+  Reuse them; delete them before UAT data goes in. Phase 5 added `StopCodeTest Registrant`,
+  `Registrant Two`/`Three` (signed up, with portal logins), `Registrant Four`/`Five` (left for UAT
+  sign-up), `StopCodeTest Trigger`, `StopCodeTest CE Provider Current/Prior/Expired` and the Draft
+  `StopCodeTest Texas License`. Portal test logins (`stopcodetest.portal@lsbc-partial.test`,
+  `stopcodetest.trigger@…`, `jvasquez+lsbcreg*@journeyblazers.com`) can't be deleted: deactivate them.
 - Case intake (sandbox): Email-to-Case routing address `jvasquez@journeyblazers.com` (Origin Email);
   test by emailing its Salesforce inbound address from another mailbox. Acknowledgements send from the
   verified org-wide address `jvasquez+lsbc@journeyblazers.com`: Salesforce rejects the routing address
