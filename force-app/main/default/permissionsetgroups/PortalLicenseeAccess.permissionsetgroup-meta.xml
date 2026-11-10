@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSetGroup xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Everything a licensee needs on the portal; assigned when a portal login is created. Portal Licensee: their own records and the forms. Document Checklist: uploading documents and receipts.</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Portal Licensee Access</label>
+    <permissionSets>PortalLicensee</permissionSets>
+    <permissionSets>force__DocumentChecklist</permissionSets>
+    <status>Updated</status>
+</PermissionSetGroup>

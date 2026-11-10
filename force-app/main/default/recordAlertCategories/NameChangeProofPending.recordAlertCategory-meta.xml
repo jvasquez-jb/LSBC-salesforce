@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordAlertCategory xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Set when a licensee reports a name change on a portal renewal; staff end it once proof of the new name is accepted. Until then the holder's licenses are not printed or mailed; they stay valid.</description>
+    <masterLabel>Name Change Proof Pending</masterLabel>
+    <severity>Error</severity>
+</RecordAlertCategory>
