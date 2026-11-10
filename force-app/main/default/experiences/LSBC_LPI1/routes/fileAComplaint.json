@@ -1,0 +1,12 @@
+{
+  "activeViewId" : "54b5eff1-5b5c-46ed-86c7-9cddfe941914",
+  "appPageId" : "39740273-a4f0-4311-b732-31661924917d",
+  "configurationTags" : [ ],
+  "devName" : "Report_A_Business",
+  "id" : "f699fa7d-f28d-44b9-a26c-b8a6769dd3fc",
+  "label" : "File a Complaint",
+  "pageAccess" : "UseParent",
+  "routeType" : "report-a-business",
+  "type" : "route",
+  "urlPrefix" : "file-a-complaint"
+}

@@ -1,0 +1,12 @@
+{
+  "activeViewId" : "549f0b24-4a41-43f0-aeb6-b9c3ed4bf98a",
+  "appPageId" : "39740273-a4f0-4311-b732-31661924917d",
+  "configurationTags" : [ ],
+  "devName" : "Top_Articles",
+  "id" : "9f60c485-af20-41b8-b0f4-25607121fce4",
+  "label" : "Top Articles",
+  "pageAccess" : "UseParent",
+  "routeType" : "top-articles",
+  "type" : "route",
+  "urlPrefix" : "toparticles"
+}

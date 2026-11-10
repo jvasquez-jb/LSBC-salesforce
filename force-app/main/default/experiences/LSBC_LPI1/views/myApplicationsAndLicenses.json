@@ -1,0 +1,190 @@
+{
+  "appPageId" : "39740273-a4f0-4311-b732-31661924917d",
+  "componentName" : "siteforce:sldsOneColLayout",
+  "dataProviders" : [ ],
+  "id" : "bc3a351f-4fc9-48c2-9489-ed9200bef9e6",
+  "label" : "My Applications and Licenses",
+  "regions" : [ {
+    "components" : [ {
+      "componentAttributes" : {
+        "richTextValue" : "<h1>    <span style=\"color: #2D2D2D;font-size: 21px;\">View the Status of a License or Permit</span>   </h1><div class=\"slds-text-body_regular slds-m-top_large slds-p-bottom_x-large\">View submitted license or permit applications, draft applications, and issued licenses and permits.</div>"
+      },
+      "componentName" : "forceCommunity:richTextInline",
+      "id" : "48a2720b-d660-47ea-a8bb-d6a0f0c7e779",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "79e9abb3-4798-4cac-99b7-9e6155fbc32b",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "tabsetConfig" : {
+          "UUID" : "e9531ba6-e6a2-4fd3-9ac9-8d6ab6f5acf3",
+          "activeTab" : "submittedApps",
+          "tabs" : [ {
+            "UUID" : "38c8a3ed-0c9a-4d03-b85d-3ce152525451",
+            "allowGuestUser" : false,
+            "locked" : false,
+            "seedComponents" : [ {
+              "attributes" : {
+                "enableInlineEdit" : "false",
+                "filterName" : "MySubmittedApplicationForms",
+                "layout" : "FULL",
+                "scope" : "ApplicationForm",
+                "showActionBar" : "false",
+                "showChartsPanel" : "false",
+                "showPinnedList" : "false"
+              },
+              "fqn" : "forceCommunity:objectHome"
+            } ],
+            "tabKey" : "submittedApps",
+            "tabName" : "My Submitted Applications"
+          }, {
+            "UUID" : "afc87761-560d-47c0-b8d4-01a1fade33dc",
+            "allowGuestUser" : false,
+            "locked" : false,
+            "seedComponents" : [ {
+              "attributes" : {
+                "enableInlineEdit" : "false",
+                "filterName" : "MyReturnedApplicationForms",
+                "layout" : "FULL",
+                "scope" : "ApplicationForm",
+                "showActionBar" : "false",
+                "showChartsPanel" : "false",
+                "showPinnedList" : "false"
+              },
+              "fqn" : "forceCommunity:objectHome"
+            } ],
+            "tabKey" : "returnedApps",
+            "tabName" : "My Returned Applications"
+          }, {
+            "UUID" : "77fd6499-823b-4124-ab5c-f699a6736e91",
+            "allowGuestUser" : false,
+            "locked" : false,
+            "seedComponents" : [ {
+              "attributes" : {
+                "enableInlineEdit" : "false",
+                "filterName" : "DraftPreliminaryApplicationRef",
+                "layout" : "FULL",
+                "scope" : "PreliminaryApplicationRef",
+                "showActionBar" : "false",
+                "showChartsPanel" : "false",
+                "showPinnedList" : "false"
+              },
+              "fqn" : "forceCommunity:objectHome"
+            } ],
+            "tabKey" : "draftApps",
+            "tabName" : "My Draft Applications"
+          } ],
+          "useOverflowMenu" : false
+        }
+      },
+      "componentName" : "forceCommunity:tabLayout",
+      "id" : "e9531ba6-e6a2-4fd3-9ac9-8d6ab6f5acf3",
+      "regions" : [ {
+        "components" : [ {
+          "componentAttributes" : {
+            "enableInlineEdit" : false,
+            "filterName" : "MySubmittedApplicationForms",
+            "layout" : "FULL",
+            "pageSize" : 25,
+            "scope" : "ApplicationForm",
+            "showActionBar" : false,
+            "showChartsPanel" : false,
+            "showDisplay" : "showall",
+            "showFilterPanel" : true,
+            "showImageIcon" : true,
+            "showManualRefreshButton" : true,
+            "showObjectName" : true,
+            "showPinnedList" : false,
+            "showSearchBar" : true
+          },
+          "componentName" : "forceCommunity:objectHome",
+          "id" : "2739b77a-904d-4611-ba88-5201b8b91a32",
+          "renderPriority" : "NEUTRAL",
+          "renditionMap" : { },
+          "type" : "component"
+        } ],
+        "id" : "38c8a3ed-0c9a-4d03-b85d-3ce152525451",
+        "regionLabel" : "My Submitted Applications",
+        "regionName" : "submittedApps",
+        "renditionMap" : { },
+        "type" : "region"
+      }, {
+        "components" : [ {
+          "componentAttributes" : {
+            "enableInlineEdit" : false,
+            "filterName" : "MyReturnedApplicationForms",
+            "layout" : "FULL",
+            "pageSize" : 25,
+            "scope" : "ApplicationForm",
+            "showActionBar" : false,
+            "showChartsPanel" : false,
+            "showDisplay" : "showall",
+            "showFilterPanel" : true,
+            "showImageIcon" : true,
+            "showManualRefreshButton" : true,
+            "showObjectName" : true,
+            "showPinnedList" : false,
+            "showSearchBar" : true
+          },
+          "componentName" : "forceCommunity:objectHome",
+          "id" : "9ceb6f00-5776-4a00-a803-d0c8b430b5b8",
+          "renderPriority" : "NEUTRAL",
+          "renditionMap" : { },
+          "type" : "component"
+        } ],
+        "id" : "afc87761-560d-47c0-b8d4-01a1fade33dc",
+        "regionLabel" : "My Returned Applications",
+        "regionName" : "returnedApps",
+        "renditionMap" : { },
+        "type" : "region"
+      }, {
+        "components" : [ {
+          "componentAttributes" : {
+            "enableInlineEdit" : false,
+            "filterName" : "DraftPreliminaryApplicationRef",
+            "layout" : "FULL",
+            "pageSize" : 25,
+            "scope" : "PreliminaryApplicationRef",
+            "showActionBar" : false,
+            "showChartsPanel" : false,
+            "showDisplay" : "showall",
+            "showFilterPanel" : true,
+            "showImageIcon" : true,
+            "showManualRefreshButton" : true,
+            "showObjectName" : true,
+            "showPinnedList" : false,
+            "showSearchBar" : true
+          },
+          "componentName" : "forceCommunity:objectHome",
+          "id" : "93f11dcd-dece-4c6e-b4a2-29c8a2dea547",
+          "renderPriority" : "NEUTRAL",
+          "renditionMap" : { },
+          "type" : "component"
+        } ],
+        "id" : "77fd6499-823b-4124-ab5c-f699a6736e91",
+        "regionLabel" : "My Draft Applications",
+        "regionName" : "draftApps",
+        "renditionMap" : { },
+        "type" : "region"
+      } ],
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "8ccc70ef-930d-4bad-aacf-77c127ec4917",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "id" : "c930087a-652c-449c-9b09-739dcda6295f",
+    "regionName" : "footer",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "my-application-licenses"
+}

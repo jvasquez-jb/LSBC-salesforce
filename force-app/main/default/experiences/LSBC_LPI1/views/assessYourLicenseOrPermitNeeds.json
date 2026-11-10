@@ -1,0 +1,59 @@
+{
+  "appPageId" : "39740273-a4f0-4311-b732-31661924917d",
+  "componentName" : "siteforce:sldsOneColLayout",
+  "dataProviders" : [ ],
+  "id" : "61148b7c-70e2-4dbc-9349-39482b688d6b",
+  "label" : "Assess your License or Permit Needs",
+  "regions" : [ {
+    "components" : [ {
+      "componentAttributes" : {
+        "richTextValue" : "<h1>    <span style=\"color: #2D2D2D;font-size: 21px;\">Assess Your License or Permit Needs</span>   </h1><div class=\"slds-text-body_regular slds-m-top_large slds-p-bottom_x-large\">Decide which licenses and permits you need for your business or profession.</div>"
+      },
+      "componentName" : "forceCommunity:richTextInline",
+      "id" : "08771f96-a87d-4979-bad8-1bccc1b333c9",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "f96097dd-9fe7-436f-9463-1f8aacb13921",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "flowArguments" : "",
+        "flowName" : "pss_lpi__Prescreening"
+      },
+      "componentName" : "forceCommunity:flowCommunity",
+      "id" : "f7a11234-7ca6-437c-bb3c-a95123a50e56",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "323f381c-ab0a-49ee-a73d-08f2f382ed4e",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "id" : "156b2a7e-3c79-47e5-b1eb-abab927c4b69",
+    "regionName" : "footer",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "",
+        "title" : "Assess your License or Permit Needs"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "4ac29661-d7bb-42a8-9d04-d638b7f3d458",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "46cc245e-935a-40b0-a699-1ca411d38889",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "pre-screening"
+}

@@ -49,3 +49,8 @@ $RECYCLE.BIN/
 
 # Full org retrieve kept locally for reference; not owned by this project
 reference/
+
+# LSBC source PDFs (large; kept locally, listed in the form field mapping doc)
+docs/*.pdf
+# Binary site bundle; the ExperienceBundle under experiences/ is the source
+force-app/main/default/siteDotComSites/

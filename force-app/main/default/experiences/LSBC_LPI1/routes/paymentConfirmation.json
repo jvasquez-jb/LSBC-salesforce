@@ -1,0 +1,12 @@
+{
+  "activeViewId" : "f6874875-c9b4-4c59-aa4d-8b6e254cc71a",
+  "appPageId" : "39740273-a4f0-4311-b732-31661924917d",
+  "configurationTags" : [ ],
+  "devName" : "View_Post_Payment_Landing",
+  "id" : "cd1fa997-0b36-4d05-a48f-a3b4a080284e",
+  "label" : "Payment Confirmation",
+  "pageAccess" : "UseParent",
+  "routeType" : "post-payment-landing",
+  "type" : "route",
+  "urlPrefix" : "post-payment-landing"
+}

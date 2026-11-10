@@ -1,0 +1,11 @@
+{
+  "activeViewId" : "2731f1d6-6a0d-4861-ba91-6673d9895145",
+  "appPageId" : "39740273-a4f0-4311-b732-31661924917d",
+  "configurationTags" : [ ],
+  "devName" : "View_Fees",
+  "id" : "b9fbbf6e-dbc0-4a22-9d27-cb73cf2c7d6b",
+  "label" : "Pending Payments: Regulatory Transaction Fees",
+  "routeType" : "view-fees",
+  "type" : "route",
+  "urlPrefix" : "view-fees"
+}
