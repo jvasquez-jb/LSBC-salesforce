@@ -12,6 +12,7 @@
 .lsbc-row__upload { flex: 0 0 auto; }
 .lsbc-badge { display: inline-block; margin-left: .5rem; padding: 0 .5rem; border-radius: 1rem; font-size: .75rem; font-weight: 600; background: #F3F3F3; color: #3E3E3C; vertical-align: middle; }
 .lsbc-badge_required { background: #051E5F; color: #fff; }
+.lsbc-badge_board { background: #F9EEDA; color: #5C4A12; }
 .lsbc-status { font-size: .875rem; margin: 0; color: #3E3E3C; }
 .lsbc-status_pending { color: #1F4E9C; }
 .lsbc-status_accepted { color: #2E7D32; }

@@ -14,7 +14,7 @@ private class DocumentChecklistUploadControllerTest {
         DocumentCategory identity = [SELECT Id FROM DocumentCategory WHERE DeveloperName = 'Identity'];
         DocumentChecklistItem receipt = new DocumentChecklistItem(Name = 'Payment Receipt', ParentRecordId = app.Id, DocumentCategoryId = payment.Id, Status = 'New');
         DocumentChecklistItem photo = new DocumentChecklistItem(Name = 'Passport Photo', ParentRecordId = app.Id, DocumentCategoryId = identity.Id, Status = 'New', IsRequired = true);
-        DocumentChecklistItem other = new DocumentChecklistItem(Name = 'Letter', ParentRecordId = app.Id, Status = 'New');
+        DocumentChecklistItem other = new DocumentChecklistItem(Name = 'Letter', ParentRecordId = app.Id, Status = 'New', IsSentToBoard__c = true);
         insert new List<DocumentChecklistItem>{ receipt, photo, other };
         insert new ContentVersion(Title = 'photo', PathOnClient = 'photo.png', VersionData = Blob.valueOf('x'), FirstPublishLocationId = photo.Id);
 
@@ -34,7 +34,7 @@ private class DocumentChecklistUploadControllerTest {
                 Assert.areEqual(new List<String>{ 'photo.png' }, i.fileNames);
                 Assert.isTrue(i.isRequired);
             }
-            if (i.id == other.Id) Assert.areEqual('Other Documents', i.category, 'An item with no category is grouped under Other Documents');
+            if (i.id == other.Id) { Assert.areEqual('Other Documents', i.category, 'An item with no category is grouped under Other Documents'); Assert.isTrue(i.isSentToBoard, 'Sent to the Board comes through'); }
         }
     }
 }

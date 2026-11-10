@@ -10,6 +10,9 @@ const STATUS_TEXT = {
     Rejected: 'Returned by the Board'
 };
 
+// Documents that reach the Board by mail or straight from another state or company: no upload here.
+const SENT_TO_BOARD_TEXT = 'Not uploaded here: send it to the Board as the instruction says. Staff add it when it arrives, and you can submit without it.';
+
 export default class DocumentChecklistUpload extends LightningElement {
     @api applicationId;
     @api includeCategories;
@@ -46,14 +49,15 @@ export default class DocumentChecklistUpload extends LightningElement {
                 if (!byCategory.has(item.category)) byCategory.set(item.category, []);
                 const justUploaded = uploaded.has(item.id);
                 const shownStatus = justUploaded && item.status !== 'Accepted' ? 'Pending' : item.status;
+                const sentToBoard = item.isSentToBoard && item.status === 'New' && !(item.fileNames && item.fileNames.length);
                 byCategory.get(item.category).push({
                     ...item,
-                    requiredText: item.isRequired ? 'Required' : 'Optional',
-                    requiredClass: item.isRequired ? 'lsbc-badge lsbc-badge_required' : 'lsbc-badge',
-                    statusText: STATUS_TEXT[shownStatus] || shownStatus,
+                    requiredText: item.isSentToBoard ? 'Sent to the Board' : item.isRequired ? 'Required' : 'Optional',
+                    requiredClass: item.isSentToBoard ? 'lsbc-badge lsbc-badge_board' : item.isRequired ? 'lsbc-badge lsbc-badge_required' : 'lsbc-badge',
+                    statusText: sentToBoard ? SENT_TO_BOARD_TEXT : STATUS_TEXT[shownStatus] || shownStatus,
                     statusClass: 'lsbc-status lsbc-status_' + (shownStatus || 'New').toLowerCase(),
                     isReturned: shownStatus === 'Rejected' && !!item.comments,
-                    canUpload: item.status !== 'Accepted',
+                    canUpload: item.status !== 'Accepted' && !item.isSentToBoard,
                     hasFiles: item.fileNames && item.fileNames.length > 0,
                     filesText: (item.fileNames || []).join(', ')
                 });

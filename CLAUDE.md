@@ -43,6 +43,10 @@ you are working on before building, and section 9 for what the org actually prov
     `Screen Flow: Account Add Stop Code`, `Subflow: Stop Code Sync`,
     `Business License Schedule: Expired And Lapsed Licenses`.
     One record-triggered flow per object per context; later phases add to it.
+    Exception: portal screen flows show their label to applicants (the Save for later dialog, saved
+    and error messages), so their label is plain ("License Renewal", "Sign Up") and the convention
+    label opens their description; the API name still follows the convention. The map is
+    `PORTAL_LABELS` in `flowkit.py`.
   - Flow elements use the article's prefixes, the one sanctioned underscore: `varB_`, `varT_`,
     `varR_`, `forD_`, `textT_`, `choice_`, screen-initial components (`ASC_Category`). Elements read
     `Get <Object>`, `Set <Field> to value`, `Loop Through <Objects>`; decisions are questions.
@@ -168,7 +172,9 @@ Raised by later phases while Phase 2 is paused. Pick these up when it resumes.
 - Document checklist items: `IsRequired` can only be set on create (replace the item to change it),
   and `AccountId` can't be set at all. Each item is filed under its document type's
   `DocumentCategory` (links in `documentCategoryDocumentTypes/`). Portal uploads go through the
-  `documentChecklistUpload` LWC in `Subflow: Document Checklist Upload`. A file can't be deleted while
+  `documentChecklistUpload` LWC in `Subflow: Document Checklist Upload`. Documents that reach the Board by mail
+  or straight from another state or company are flagged `IsSentToBoard__c` (on the requirement settings, copied
+  to the item): the portal shows them without an upload and doesn't wait for them; staff upload them on arrival. A file can't be deleted while
   it is linked to a checklist item, nor the item while it has a file: delete the
   `ContentDocumentLink` first (`scripts/apex/DeleteRegistrantThreeTestApplications.apex`).
 - Portal forms write nothing to the application objects until the applicant certifies. Each form

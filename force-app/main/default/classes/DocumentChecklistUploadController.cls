@@ -14,6 +14,7 @@ public with sharing class DocumentChecklistUploadController {
         @AuraEnabled public String status;
         @AuraEnabled public String comments;
         @AuraEnabled public String category;
+        @AuraEnabled public Boolean isSentToBoard;
         @AuraEnabled public List<String> fileNames = new List<String>();
     }
 
@@ -28,7 +29,7 @@ public with sharing class DocumentChecklistUploadController {
         Set<String> exclude = toSet(excludeCategories);
         Map<Id, Item> items = new Map<Id, Item>();
         for (DocumentChecklistItem d : [
-                SELECT Id, Name, Instruction, IsRequired, Status, Comments,
+                SELECT Id, Name, Instruction, IsRequired, Status, Comments, IsSentToBoard__c,
                        DocumentCategory.DeveloperName, DocumentCategory.MasterLabel
                 FROM DocumentChecklistItem
                 WHERE ParentRecordId = :applicationId
@@ -43,6 +44,7 @@ public with sharing class DocumentChecklistUploadController {
             i.isRequired = d.IsRequired;
             i.status = d.Status;
             i.comments = d.Comments;
+            i.isSentToBoard = d.IsSentToBoard__c;
             i.category = d.DocumentCategory?.MasterLabel == null ? 'Other Documents' : d.DocumentCategory.MasterLabel;
             items.put(i.id, i);
         }

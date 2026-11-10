@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IsSentToBoard__c</fullName>
+    <description>Ticked when the document reaches the Board by mail or directly from another state or an evaluation company, so the applicant can't upload it. The portal lets them submit without it; staff upload it when it arrives. Copied from the Application Document Requirement settings when the checklist is made.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The applicant can't upload this document. Upload it when it arrives.</inlineHelpText>
+    <label>Sent to the Board</label>
+    <defaultValue>false</defaultValue>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

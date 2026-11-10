@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IsSentToBoard__c</fullName>
+    <description>Ticked for documents the applicant can't upload because the form says they reach the Board another way: mailed originals, or sent directly by another state or an evaluation company. The applicant can submit without them; staff upload the document when it arrives.</description>
+    <externalId>false</externalId>
+    <fieldManageability>DeveloperControlled</fieldManageability>
+    <label>Sent to the Board</label>
+    <defaultValue>false</defaultValue>
+    <type>Checkbox</type>
+</CustomField>
