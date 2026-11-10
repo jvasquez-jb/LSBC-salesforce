@@ -1,0 +1,70 @@
+{
+  "appPageId": "39740273-a4f0-4311-b732-31661924917d",
+  "componentName": "siteforce:sldsOneColLayout",
+  "dataProviders": [],
+  "id": "8c506e84-27c4-4792-b440-93679ab488f1",
+  "label": "Sign Up",
+  "regions": [
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "richTextValue": "<!-- Page heading and one-line introduction -->\n<h1 class=\"lsbc-page-title\">Sign Up</h1>\n<p class=\"lsbc-page-intro\">Already licensed in Louisiana? Sign up to renew, apply and pay online.</p>"
+          },
+          "componentName": "forceCommunity:richTextInline",
+          "id": "6849f7e6-f7e7-4cc0-a6d5-c4f0a7afbfad",
+          "renderPriority": "NEUTRAL",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "3e097e4d-62d1-46bd-b817-a24890f07b01",
+      "regionName": "header",
+      "type": "region"
+    },
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "flowArguments": "",
+            "flowName": "ScreenFlowAccountPortalRegistration"
+          },
+          "componentName": "forceCommunity:flowCommunity",
+          "id": "c542f12b-5d62-4723-b140-2a5553c26257",
+          "renderPriority": "NEUTRAL",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "70454e8b-d937-4cf0-bd76-ecd404c1ebbd",
+      "regionName": "content",
+      "type": "region"
+    },
+    {
+      "id": "c8d12208-7261-4c13-9135-210fc3da3251",
+      "regionName": "footer",
+      "type": "region"
+    },
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "customHeadTags": "",
+            "description": "",
+            "title": "Sign Up"
+          },
+          "componentName": "forceCommunity:seoAssistant",
+          "id": "3907e914-fdcd-4f2e-a3e0-bef7878e679c",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "e644a088-8804-4e13-8371-16c4df7a2603",
+      "regionName": "sfdcHiddenRegion",
+      "type": "region"
+    }
+  ],
+  "themeLayoutType": "Inner",
+  "type": "view",
+  "viewType": "custom-sign-up"
+}

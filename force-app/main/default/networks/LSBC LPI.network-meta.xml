@@ -50,7 +50,8 @@
     <newSenderAddress>jvasquez@journeyblazers.com.invalid</newSenderAddress>
     <picassoSite>LSBC_LPI1</picassoSite>
     <secondaryEmailSenderEnabled>false</secondaryEmailSenderEnabled>
-    <selfRegistration>false</selfRegistration>
+    <selfRegProfile>LSBC Portal User</selfRegProfile>
+    <selfRegistration>true</selfRegistration>
     <sendWelcomeEmail>true</sendWelcomeEmail>
     <site>LSBC_LPI</site>
     <siteArchiveStatus>NotArchived</siteArchiveStatus>

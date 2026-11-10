@@ -2,6 +2,14 @@
 <Profile xmlns="http://soap.sforce.com/2006/04/metadata">
     <custom>true</custom>
     <description>Guest (public) user of the LSBC portal. Grants no object or field access: the public search and complaint flows run in system context and are granted to this profile one by one.</description>
+    <classAccesses>
+        <apexClass>PortalUserRegistration</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <flowAccesses>
+        <enabled>true</enabled>
+        <flow>ScreenFlowAccountPortalRegistration</flow>
+    </flowAccesses>
     <flowAccesses>
         <enabled>true</enabled>
         <flow>ScreenFlowAccountSchoolDirectory</flow>
