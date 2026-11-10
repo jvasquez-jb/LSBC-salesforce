@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Return Letter</label>
+    <protected>false</protected>
+    <values>
+        <field>AppliesTo__c</field>
+        <value xsi:type="xsd:string">IndividualApplication;BusinessLicenseApplication</value>
+    </values>
+    <values>
+        <field>Body__c</field>
+        <value xsi:type="xsd:string">Dear {{Name}},
+
+We received your application {{ApplicationNumber}}, but we cannot process it yet. The following documents are missing or could not be accepted:
+
+{{MissingItems}}
+
+{{Details}}
+
+Please send the items listed above. You can upload them through the LSBC portal under My Applications, or mail them to the Board with a copy of this letter.
+
+Sincerely,
+
+Licensing Division
+Louisiana State Board of Cosmetology</value>
+    </values>
+    <values>
+        <field>Heading__c</field>
+        <value xsi:type="xsd:string">Your application {{ApplicationNumber}} is incomplete</value>
+    </values>
+</CustomMetadata>

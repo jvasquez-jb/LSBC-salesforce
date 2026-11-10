@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Affidavit Certification</label>
+    <protected>false</protected>
+    <values>
+        <field>AppliesTo__c</field>
+        <value xsi:type="xsd:string">Account;IndividualApplication</value>
+    </values>
+    <values>
+        <field>Body__c</field>
+        <value xsi:type="xsd:string">Dear {{Name}},
+
+The Board has received and reviewed your affidavit {{ApplicationNumber}}.
+
+{{Details}}
+
+Please keep this letter with your records.
+
+Sincerely,
+
+Licensing Division
+Louisiana State Board of Cosmetology</value>
+    </values>
+    <values>
+        <field>Heading__c</field>
+        <value xsi:type="xsd:string">Certification of your affidavit</value>
+    </values>
+</CustomMetadata>

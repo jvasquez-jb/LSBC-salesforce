@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Returned Payment</label>
+    <protected>false</protected>
+    <values>
+        <field>AppliesTo__c</field>
+        <value xsi:type="xsd:string">Account</value>
+    </values>
+    <values>
+        <field>Body__c</field>
+        <value xsi:type="xsd:string">Dear {{Name}},
+
+Your payment to the Board was returned unpaid by your bank.
+
+{{Details}}
+
+Please send a replacement payment by cashier's check or money order. Until it is received, the fees it covered remain due.
+
+Sincerely,
+
+Licensing Division
+Louisiana State Board of Cosmetology</value>
+    </values>
+    <values>
+        <field>Heading__c</field>
+        <value xsi:type="xsd:string">Your payment was returned</value>
+    </values>
+</CustomMetadata>

@@ -924,6 +924,16 @@ continues to receive payments, address changes, returns and paper forms after go
 The current character limit produces letters the Executive Director has called unprofessional.
 Named sponsor on the renewal desk.
 
+As built (Phase 6): **Generate Letter** on an Account, Individual Application or Business License
+Application lets staff pick a letter and type any details, then saves a PDF on LSBC letterhead in
+the record's Files. The wording lives in Letter Template custom metadata, which an admin edits in
+Setup without a deployment: a heading, a body with merge fields (`{{Name}}`, `{{Date}}`,
+`{{ApplicationNumber}}`, `{{MissingItems}}`, `{{BalanceDue}}`, `{{Details}}`) and the objects it
+applies to. There is no character limit. A Visualforce page renders the PDF because the org has no
+internal Document Generation runtime; its Apex only lays the letter out. Four starter letters (return,
+balance due, returned payment, affidavit certification) carry placeholder wording, and the
+letterhead's address, phone and website are placeholders, both until LSBC supplies them.
+
 `PT-17` `[SETTLED]` **Name change at renewal sets a stop code** requiring proof before printing —
 deliberately, so the licensee is not charged a $25 duplicate fee later. Preserve as designed.
 
@@ -1584,3 +1594,4 @@ the source.
 | 10 Nov 2026 | `DM-18a` revised: the payment ledger covers every fee. Staff record mailed payments with Record Payment on the Account; accepting a PayStar receipt creates the payment. No cash, no deposit number (`DM-19` note). |
 | 10 Nov 2026 | `DM-18b` as built: a Refund action on the payment steps through request, verify and refund. Unapplied Amount now subtracts a completed refund. Refunds of applied money raised as a client question. |
 | 10 Nov 2026 | `DM-18c` as built: LSBC Finance reports Overpayments, Refund Reconciliation, Payments by Received Date and Payments Applied by License Year. |
+| 10 Nov 2026 | `PT-16` as built: Generate Letter with Letter Template custom metadata and a Visualforce PDF on letterhead; four starter letters with placeholder wording. |

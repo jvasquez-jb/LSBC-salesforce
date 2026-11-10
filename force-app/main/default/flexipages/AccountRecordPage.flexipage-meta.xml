@@ -14,6 +14,9 @@
                             <value>Account.RecordPayment</value>
                         </valueListItems>
                         <valueListItems>
+                            <value>Account.GenerateLetter</value>
+                        </valueListItems>
+                        <valueListItems>
                             <value>Account.AddStopCode</value>
                         </valueListItems>
                         <valueListItems>

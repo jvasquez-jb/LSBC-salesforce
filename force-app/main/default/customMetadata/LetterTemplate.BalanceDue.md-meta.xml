@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Balance Due</label>
+    <protected>false</protected>
+    <values>
+        <field>AppliesTo__c</field>
+        <value xsi:type="xsd:string">Account;IndividualApplication;BusinessLicenseApplication</value>
+    </values>
+    <values>
+        <field>Body__c</field>
+        <value xsi:type="xsd:string">Dear {{Name}},
+
+Our records show a balance of {{BalanceDue}} due to the Board as of {{Date}}.
+
+{{Details}}
+
+Please pay the balance online through the LSBC portal, or mail a check or money order payable to the Louisiana State Board of Cosmetology with a copy of this letter. Your license cannot be printed or renewed until the balance is paid.
+
+Sincerely,
+
+Licensing Division
+Louisiana State Board of Cosmetology</value>
+    </values>
+    <values>
+        <field>Heading__c</field>
+        <value xsi:type="xsd:string">Balance due on your account</value>
+    </values>
+</CustomMetadata>

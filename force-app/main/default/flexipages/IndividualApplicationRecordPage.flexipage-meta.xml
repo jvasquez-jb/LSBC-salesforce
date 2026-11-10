@@ -10,6 +10,9 @@
                         <valueListItems>
                             <value>EditIARecord</value>
                         </valueListItems>
+                        <valueListItems>
+                            <value>IndividualApplication.GenerateLetter</value>
+                        </valueListItems>
                     </valueList>
                 </componentInstanceProperties>
                 <componentInstanceProperties>

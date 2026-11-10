@@ -3,9 +3,16 @@
     <types>
         <members>DocumentChecklistUploadController</members>
         <members>DocumentChecklistUploadControllerTest</members>
+        <members>LetterPdfController</members>
+        <members>LetterPdfControllerTest</members>
+        <members>LetterPdfSaveAction</members>
         <members>PortalUserRegistration</members>
         <members>PortalUserRegistrationTest</members>
         <name>ApexClass</name>
+    </types>
+    <types>
+        <members>LetterPdf</members>
+        <name>ApexPage</name>
     </types>
     <types>
         <members>Case.CaseRouting</members>
@@ -104,6 +111,9 @@
         <members>IndividualApplication.TookHandsOnPractical__c</members>
         <members>IndividualApplication.TuesdayHours__c</members>
         <members>IndividualApplication.WednesdayHours__c</members>
+        <members>LetterTemplate__mdt.AppliesTo__c</members>
+        <members>LetterTemplate__mdt.Body__c</members>
+        <members>LetterTemplate__mdt.Heading__c</members>
         <members>PaymentAllocation__c.Amount__c</members>
         <members>PaymentAllocation__c.FeeItem__c</members>
         <members>PaymentAllocation__c.ForYear__c</members>
@@ -218,10 +228,15 @@
         <members>ApplicationDocumentRequirement.ThreadingDriversLicenseOrStateId</members>
         <members>ApplicationDocumentRequirement.ThreadingPaymentReceipt</members>
         <members>ApplicationDocumentRequirement.ThreadingSocialSecurityCard</members>
+        <members>LetterTemplate.AffidavitCertification</members>
+        <members>LetterTemplate.BalanceDue</members>
+        <members>LetterTemplate.ReturnLetter</members>
+        <members>LetterTemplate.ReturnedPayment</members>
         <name>CustomMetadata</name>
     </types>
     <types>
         <members>ApplicationDocumentRequirement__mdt</members>
+        <members>LetterTemplate__mdt</members>
         <members>PaymentAllocation__c</members>
         <members>Payment__c</members>
         <name>CustomObject</name>
@@ -373,6 +388,7 @@
         <members>ScreenFlowIndividualApplicationRetake</members>
         <members>ScreenFlowIndividualApplicationTemporaryPermit</members>
         <members>ScreenFlowIndividualApplicationThreadingPermit</members>
+        <members>ScreenFlowLetterGenerate</members>
         <members>ScreenFlowPaymentRefund</members>
         <members>ScreenFlowRegulatoryTransactionFeeItemChangeYear</members>
         <members>SubflowAccommodationRequest</members>
@@ -457,11 +473,14 @@
     </types>
     <types>
         <members>Account.AddStopCode</members>
+        <members>Account.GenerateLetter</members>
         <members>Account.NewViolationEstablishment</members>
         <members>Account.NewViolationPractitioner</members>
         <members>Account.RecordPayment</members>
+        <members>BusinessLicenseApplication.GenerateLetter</members>
         <members>Case.NewViolation</members>
         <members>Case.RecordComplaint</members>
+        <members>IndividualApplication.GenerateLetter</members>
         <members>Payment__c.Refund</members>
         <members>RegulatoryTrxnFeeItem.ChangeYear</members>
         <name>QuickAction</name>
