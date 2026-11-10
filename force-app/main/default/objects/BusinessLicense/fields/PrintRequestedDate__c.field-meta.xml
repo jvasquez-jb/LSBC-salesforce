@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PrintRequestedDate__c</fullName>
+    <description>When the license was last approved, renewed or replaced and so needs printing. Set by Decide. A license is waiting to print while this is later than its Printed Date, or Printed Date is blank.</description>
+    <inlineHelpText>Set when the license is approved, renewed or a duplicate is issued.</inlineHelpText>
+    <label>Print Requested Date</label>
+    <required>false</required>
+    <type>Date</type>
+</CustomField>

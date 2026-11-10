@@ -937,6 +937,27 @@ letterhead's address, phone and website are placeholders, both until LSBC suppli
 `PT-17` `[SETTLED]` **Name change at renewal sets a stop code** requiring proof before printing —
 deliberately, so the licensee is not charged a $25 duplicate fee later. Preserve as designed.
 
+As built (Phase 6): **End Stop Code** on the stop code shows the new name the licensee reported (read
+from the stop code's description) as first and last name. Staff check it against the proof, and the
+person's name is changed as the stop code ends. Any other stop code is simply ended; the screen warns
+that one the system set comes back at the next check unless its cause is fixed.
+
+**Review and decide (Phase 6).** **Decide** on an Individual Application or Business License
+Application shows what stands in the way: required documents not yet accepted, fees not fully paid,
+and the holder's active stop codes. Staff then approve, return or refuse:
+
+- **Approve** is allowed only when every required document is accepted and the fees are paid.
+  A new application creates the licence with the number staff enter (numbering is a client
+  question). A renewal moves the licence's expiration on from its current date, or from today if it
+  has passed, and adds one to Renewal Count. The expiration comes from `LicenseExpirationDate`; a
+  licence that expires on the holder's birthday needs a date of birth first. Approval marks the
+  licence ready to print (Print Requested Date) and the application Approved. Eligibility rules are
+  not run again: the portal forms run them before an applicant can submit.
+- **Return** records the return reason and the note (Decision Reason), ticks Was Returned, and can
+  create the return letter at once.
+- **Refuse** sets an individual application to Denied. Business License Application Status has no
+  Denied value, so a refused business application is Canceled, with the reason saved.
+
 ### 3.5 Where components are used
 
 `PT-18` `[SETTLED]` Flow carries the forms. LWCs only where Flow cannot do the job:
@@ -1595,3 +1616,4 @@ the source.
 | 10 Nov 2026 | `DM-18b` as built: a Refund action on the payment steps through request, verify and refund. Unapplied Amount now subtracts a completed refund. Refunds of applied money raised as a client question. |
 | 10 Nov 2026 | `DM-18c` as built: LSBC Finance reports Overpayments, Refund Reconciliation, Payments by Received Date and Payments Applied by License Year. |
 | 10 Nov 2026 | `PT-16` as built: Generate Letter with Letter Template custom metadata and a Visualforce PDF on letterhead; four starter letters with placeholder wording. |
+| 10 Nov 2026 | Review and decide built: Decide on both application objects; End Stop Code with the name change. Eligibility rules are not re-run at Decide. A refused business application is Canceled until a Denied status is added. |

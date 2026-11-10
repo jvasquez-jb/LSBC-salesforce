@@ -3,6 +3,26 @@
     <description>Enables user access to all Public Sector objects and features.</description>
     <fieldPermissions>
         <editable>true</editable>
+        <field>BusinessLicense.PrintRequestedDate__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>BusinessLicense.PrintedDate__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>BusinessLicenseApplication.DecisionReason__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>IndividualApplication.DecisionReason__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Account.MaximumStudentCapacity__c</field>
         <readable>true</readable>
     </fieldPermissions>

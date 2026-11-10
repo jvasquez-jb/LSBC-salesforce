@@ -8,6 +8,9 @@
                     <name>actionNames</name>
                     <valueList>
                         <valueListItems>
+                            <value>IndividualApplication.Decide</value>
+                        </valueListItems>
+                        <valueListItems>
                             <value>EditIARecord</value>
                         </valueListItems>
                         <valueListItems>

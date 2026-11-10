@@ -8,6 +8,9 @@
                     <name>actionNames</name>
                     <valueList>
                         <valueListItems>
+                            <value>BusinessLicenseApplication.Decide</value>
+                        </valueListItems>
+                        <valueListItems>
                             <value>EditRecord</value>
                         </valueListItems>
                         <valueListItems>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QuickAction xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Ends the stop code so the holder's licenses can print. For a name change, confirms the new name first.</description>
+    <flowDefinition>ScreenFlowRecordAlertEndStopCode</flowDefinition>
+    <label>End Stop Code</label>
+    <optionsCreateFeedItem>false</optionsCreateFeedItem>
+    <type>Flow</type>
+</QuickAction>

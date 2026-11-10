@@ -36,6 +36,18 @@
                 <field>Status</field>
             </layoutItems>
             <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>WasReturned</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>ReturnReason__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>DecisionReason__c</field>
+            </layoutItems>
+            <layoutItems>
                 <behavior>Edit</behavior>
                 <field>ParentApplicationId</field>
             </layoutItems>

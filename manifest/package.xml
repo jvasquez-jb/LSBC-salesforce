@@ -60,9 +60,12 @@
         <members>BusinessLicense.ConsecutiveCEUCycles__c</members>
         <members>BusinessLicense.IsMasterInstructor__c</members>
         <members>BusinessLicense.LastCEUDate__c</members>
+        <members>BusinessLicense.PrintRequestedDate__c</members>
+        <members>BusinessLicense.PrintedDate__c</members>
         <members>BusinessLicense.RenewalCount__c</members>
         <members>BusinessLicenseApplication.CertifiedDateTime__c</members>
         <members>BusinessLicenseApplication.CertifiedName__c</members>
+        <members>BusinessLicenseApplication.DecisionReason__c</members>
         <members>BusinessLicenseApplication.DirectionsToLocation__c</members>
         <members>BusinessLicenseApplication.IsCertified__c</members>
         <members>BusinessLicenseApplication.IsPremisesLeased__c</members>
@@ -87,6 +90,7 @@
         <members>IndividualApplication.CertifiedDateTime__c</members>
         <members>IndividualApplication.CertifiedName__c</members>
         <members>IndividualApplication.CourseOffering__c</members>
+        <members>IndividualApplication.DecisionReason__c</members>
         <members>IndividualApplication.DisclosureExplanation__c</members>
         <members>IndividualApplication.EvaluationAgency__c</members>
         <members>IndividualApplication.EventEndDate__c</members>
@@ -374,6 +378,7 @@
         <members>ScreenFlowAccountRecordPayment</members>
         <members>ScreenFlowAccountSchoolDirectory</members>
         <members>ScreenFlowAccreditationCEProviderList</members>
+        <members>ScreenFlowBusinessLicenseApplicationDecide</members>
         <members>ScreenFlowBusinessLicenseApplicationFacility</members>
         <members>ScreenFlowBusinessLicenseApplicationSchool</members>
         <members>ScreenFlowBusinessLicenseApplicationShop</members>
@@ -382,6 +387,7 @@
         <members>ScreenFlowCaseRecordComplaint</members>
         <members>ScreenFlowDocumentChecklistItemUpload</members>
         <members>ScreenFlowIndividualApplicationAffidavit</members>
+        <members>ScreenFlowIndividualApplicationDecide</members>
         <members>ScreenFlowIndividualApplicationReciprocity</members>
         <members>ScreenFlowIndividualApplicationRenewal</members>
         <members>ScreenFlowIndividualApplicationResume</members>
@@ -390,6 +396,7 @@
         <members>ScreenFlowIndividualApplicationThreadingPermit</members>
         <members>ScreenFlowLetterGenerate</members>
         <members>ScreenFlowPaymentRefund</members>
+        <members>ScreenFlowRecordAlertEndStopCode</members>
         <members>ScreenFlowRegulatoryTransactionFeeItemChangeYear</members>
         <members>SubflowAccommodationRequest</members>
         <members>SubflowApplicantDetails</members>
@@ -477,11 +484,14 @@
         <members>Account.NewViolationEstablishment</members>
         <members>Account.NewViolationPractitioner</members>
         <members>Account.RecordPayment</members>
+        <members>BusinessLicenseApplication.Decide</members>
         <members>BusinessLicenseApplication.GenerateLetter</members>
         <members>Case.NewViolation</members>
         <members>Case.RecordComplaint</members>
+        <members>IndividualApplication.Decide</members>
         <members>IndividualApplication.GenerateLetter</members>
         <members>Payment__c.Refund</members>
+        <members>RecordAlert.EndStopCode</members>
         <members>RegulatoryTrxnFeeItem.ChangeYear</members>
         <name>QuickAction</name>
     </types>

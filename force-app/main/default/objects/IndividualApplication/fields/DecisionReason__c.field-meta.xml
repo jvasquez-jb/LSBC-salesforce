@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DecisionReason__c</fullName>
+    <description>Why staff returned or refused the application, as entered in Decide. Printed in the return letter's details.</description>
+    <inlineHelpText>Set by Decide when the application is returned or refused.</inlineHelpText>
+    <label>Decision Reason</label>
+    <length>5000</length>
+    <type>LongTextArea</type>
+    <visibleLines>4</visibleLines>
+</CustomField>
