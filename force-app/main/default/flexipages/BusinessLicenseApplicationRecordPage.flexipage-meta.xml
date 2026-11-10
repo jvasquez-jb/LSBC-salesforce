@@ -11,6 +11,9 @@
                             <value>BusinessLicenseApplication.Decide</value>
                         </valueListItems>
                         <valueListItems>
+                            <value>BusinessLicenseApplication.UploadDocuments</value>
+                        </valueListItems>
+                        <valueListItems>
                             <value>EditRecord</value>
                         </valueListItems>
                         <valueListItems>

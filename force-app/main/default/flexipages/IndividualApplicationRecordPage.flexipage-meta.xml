@@ -11,6 +11,9 @@
                             <value>IndividualApplication.Decide</value>
                         </valueListItems>
                         <valueListItems>
+                            <value>IndividualApplication.UploadDocuments</value>
+                        </valueListItems>
+                        <valueListItems>
                             <value>EditIARecord</value>
                         </valueListItems>
                         <valueListItems>

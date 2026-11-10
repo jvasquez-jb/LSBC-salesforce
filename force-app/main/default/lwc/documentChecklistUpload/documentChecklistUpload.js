@@ -18,6 +18,8 @@ export default class DocumentChecklistUpload extends LightningElement {
     @api includeCategories;
     @api excludeCategories;
     @api uploadedItemIds = [];
+    // Staff entering a paper application can upload documents that are sent to the Board. Off on the portal.
+    @api allowSentToBoard = false;
 
     @track groups = [];
     loading = true;
@@ -49,7 +51,7 @@ export default class DocumentChecklistUpload extends LightningElement {
                 if (!byCategory.has(item.category)) byCategory.set(item.category, []);
                 const justUploaded = uploaded.has(item.id);
                 const shownStatus = justUploaded && item.status !== 'Accepted' ? 'Pending' : item.status;
-                const sentToBoard = item.isSentToBoard && item.status === 'New' && !(item.fileNames && item.fileNames.length);
+                const sentToBoard = item.isSentToBoard && !this.allowSentToBoard && item.status === 'New' && !(item.fileNames && item.fileNames.length);
                 byCategory.get(item.category).push({
                     ...item,
                     requiredText: item.isSentToBoard ? 'Sent to the Board' : item.isRequired ? 'Required' : 'Optional',
@@ -57,7 +59,7 @@ export default class DocumentChecklistUpload extends LightningElement {
                     statusText: sentToBoard ? SENT_TO_BOARD_TEXT : STATUS_TEXT[shownStatus] || shownStatus,
                     statusClass: 'lsbc-status lsbc-status_' + (shownStatus || 'New').toLowerCase(),
                     isReturned: shownStatus === 'Rejected' && !!item.comments,
-                    canUpload: item.status !== 'Accepted' && !item.isSentToBoard,
+                    canUpload: item.status !== 'Accepted' && (!item.isSentToBoard || this.allowSentToBoard),
                     hasFiles: item.fileNames && item.fileNames.length > 0,
                     filesText: (item.fileNames || []).join(', ')
                 });

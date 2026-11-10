@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QuickAction xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Enter a paper application for this person using the same form as the portal.</description>
+    <flowDefinition>ScreenFlowAccountNewApplication</flowDefinition>
+    <label>New Application</label>
+    <optionsCreateFeedItem>false</optionsCreateFeedItem>
+    <type>Flow</type>
+</QuickAction>

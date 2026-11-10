@@ -920,6 +920,16 @@ rather than the system recognising the prefix. Derive it.
 behalf, record a deposit, and attach a scanned document to the right record. The mailroom
 continues to receive payments, address changes, returns and paper forms after go-live.
 
+As built (Phase 6): **New Application** on a Person Account opens any of the nine portal forms with
+that person as the applicant (the forms take a `recordId` input; blank on the portal, where the
+applicant is the signed-in user). The form saves the application, checklist and fees exactly as on
+the portal. Staff tick the certification and type the name as the applicant signed the paper form.
+At the pay step they see the fees and record the payment afterwards with **Record Payment**
+(`DM-18a`). Shop, facility and school forms are entered on the owner's or director's person
+account. **Upload Documents** on an application opens its checklist for scanned and mailed
+documents, including those marked Sent to the Board, which the portal does not let applicants
+upload. Deposits are recorded per payment; there is no deposit number (`DM-19` note).
+
 `PT-16` `[SETTLED]` **A standardised letter template with fillable fields** for dates and amounts.
 The current character limit produces letters the Executive Director has called unprofessional.
 Named sponsor on the renewal desk.
@@ -1626,3 +1636,4 @@ the source.
 | 10 Nov 2026 | `PT-16` as built: Generate Letter with Letter Template custom metadata and a Visualforce PDF on letterhead; four starter letters with placeholder wording. |
 | 10 Nov 2026 | Review and decide built: Decide on both application objects; End Stop Code with the name change. Eligibility rules are not re-run at Decide. A refused business application is Canceled until a Denied status is added. |
 | 10 Nov 2026 | Print queue built: Ready to Print formula, Licenses Ready to Print list view and Mark Printed list button, which skips licences whose holder has an active stop code. |
+| 10 Nov 2026 | `PT-15` as built: New Application runs the portal forms for a person as staff; Upload Documents on applications, including documents sent to the Board. |

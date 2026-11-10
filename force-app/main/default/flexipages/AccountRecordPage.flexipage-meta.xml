@@ -11,6 +11,16 @@
                             <value>Edit</value>
                         </valueListItems>
                         <valueListItems>
+                            <value>Account.NewApplication</value>
+                            <visibilityRule>
+                                <criteria>
+                                    <leftValue>{!Record.IsPersonAccount}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>true</rightValue>
+                                </criteria>
+                            </visibilityRule>
+                        </valueListItems>
+                        <valueListItems>
                             <value>Account.RecordPayment</value>
                         </valueListItems>
                         <valueListItems>

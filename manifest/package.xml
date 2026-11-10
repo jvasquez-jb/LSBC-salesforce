@@ -376,6 +376,7 @@
         <members>RecordTriggerUserAfterSave</members>
         <members>RegulatoryTransactionFeeScheduleOverdueFees</members>
         <members>ScreenFlowAccountAddStopCode</members>
+        <members>ScreenFlowAccountNewApplication</members>
         <members>ScreenFlowAccountPortalRegistration</members>
         <members>ScreenFlowAccountRecordPayment</members>
         <members>ScreenFlowAccountSchoolDirectory</members>
@@ -488,15 +489,18 @@
     <types>
         <members>Account.AddStopCode</members>
         <members>Account.GenerateLetter</members>
+        <members>Account.NewApplication</members>
         <members>Account.NewViolationEstablishment</members>
         <members>Account.NewViolationPractitioner</members>
         <members>Account.RecordPayment</members>
         <members>BusinessLicenseApplication.Decide</members>
         <members>BusinessLicenseApplication.GenerateLetter</members>
+        <members>BusinessLicenseApplication.UploadDocuments</members>
         <members>Case.NewViolation</members>
         <members>Case.RecordComplaint</members>
         <members>IndividualApplication.Decide</members>
         <members>IndividualApplication.GenerateLetter</members>
+        <members>IndividualApplication.UploadDocuments</members>
         <members>Payment__c.Refund</members>
         <members>RecordAlert.EndStopCode</members>
         <members>RegulatoryTrxnFeeItem.ChangeYear</members>

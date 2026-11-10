@@ -12,6 +12,7 @@
             <property name="applicationId" type="String" label="Application Id" role="inputOnly" required="true" description="The Individual Application or Business License Application whose checklist to show."/>
             <property name="includeCategories" type="String" label="Show Only Categories" role="inputOnly" description="Comma-separated category developer names to show, for example Payment. Blank shows every category."/>
             <property name="excludeCategories" type="String" label="Leave Out Categories" role="inputOnly" description="Comma-separated category developer names to leave out, for example Payment."/>
+            <property name="allowSentToBoard" type="Boolean" label="Allow Sent to the Board Uploads" role="inputOnly" default="false" description="True when staff use the screen, so documents sent to the Board by mail or another state can be uploaded when they arrive."/>
             <property name="uploadedItemIds" type="String[]" label="Uploaded Item Ids" role="outputOnly" description="Checklist items that had a file attached on this screen."/>
         </targetConfig>
     </targetConfigs>

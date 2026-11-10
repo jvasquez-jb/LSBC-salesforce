@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QuickAction xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Upload scanned or mailed documents to this application's checklist, including documents sent to the Board.</description>
+    <flowDefinition>ScreenFlowDocumentChecklistItemUpload</flowDefinition>
+    <label>Upload Documents</label>
+    <optionsCreateFeedItem>false</optionsCreateFeedItem>
+    <type>Flow</type>
+</QuickAction>
