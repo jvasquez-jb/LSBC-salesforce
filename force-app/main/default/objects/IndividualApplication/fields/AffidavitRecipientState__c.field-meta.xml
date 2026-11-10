@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AffidavitRecipientState__c</fullName>
+    <required>false</required>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetName>State</valueSetName>
+    </valueSet>
+    <description>The state board that should receive the certification of Louisiana licensure. When blank, the certification is mailed to the affidavit mailing address.</description>
+    <inlineHelpText>Choose the state that needs the certification.</inlineHelpText>
+    <label>Affidavit Recipient State</label>
+</CustomField>

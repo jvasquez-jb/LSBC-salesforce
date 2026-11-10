@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EvaluationAgency__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <lookupFilter>
+        <active>true</active>
+        <filterItems>
+            <field>Account.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Organization</value>
+        </filterItems>
+        <isOptional>false</isOptional>
+    </lookupFilter>
+    <referenceTo>Account</referenceTo>
+    <relationshipLabel>Evaluated Applications</relationshipLabel>
+    <relationshipName>EvaluatedApplications</relationshipName>
+    <required>false</required>
+    <type>Lookup</type>
+    <description>The approved credential evaluation agency that evaluated a foreign applicant's license and education.</description>
+    <inlineHelpText>Only organization accounts can be chosen.</inlineHelpText>
+    <label>Evaluation Agency</label>
+</CustomField>

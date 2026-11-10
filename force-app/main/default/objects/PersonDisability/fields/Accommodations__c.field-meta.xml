@@ -50,6 +50,16 @@
                 <default>false</default>
                 <label>Separate Testing Area</label>
             </value>
+            <value>
+                <fullName>Large Print Test</fullName>
+                <default>false</default>
+                <label>Large Print Test</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
     <visibleLines>5</visibleLines>

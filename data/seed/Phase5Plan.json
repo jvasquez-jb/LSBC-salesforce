@@ -1,0 +1,26 @@
+[
+  {
+    "sobject": "BusinessType",
+    "saveRefs": false,
+    "resolveRefs": false,
+    "files": [
+      "BusinessType.json"
+    ]
+  },
+  {
+    "sobject": "RegulatoryAuthorizationType",
+    "saveRefs": false,
+    "resolveRefs": false,
+    "files": [
+      "RegulatoryAuthorizationTypeFacility.json"
+    ]
+  },
+  {
+    "sobject": "DocumentType",
+    "saveRefs": false,
+    "resolveRefs": false,
+    "files": [
+      "DocumentType.json"
+    ]
+  }
+]

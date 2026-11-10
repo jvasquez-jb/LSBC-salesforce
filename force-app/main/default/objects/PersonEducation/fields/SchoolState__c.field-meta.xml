@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SchoolState__c</fullName>
+    <required>false</required>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetName>State</valueSetName>
+    </valueSet>
+    <description>The state of the school the person attended.</description>
+    <inlineHelpText>State where the school is.</inlineHelpText>
+    <label>School State</label>
+</CustomField>

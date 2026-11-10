@@ -1,0 +1,345 @@
+{
+  "records": [
+    {
+      "attributes": {
+        "type": "DocumentType",
+        "referenceId": "PassportPhoto"
+      },
+      "DeveloperName": "PassportPhoto",
+      "MasterLabel": "Passport Photo",
+      "Description": "A current color photo, passport size.",
+      "IsActive": true,
+      "Language": "en_US"
+    },
+    {
+      "attributes": {
+        "type": "DocumentType",
+        "referenceId": "DriversLicenseOrStateId"
+      },
+      "DeveloperName": "DriversLicenseOrStateId",
+      "MasterLabel": "Driver's License or State ID",
+      "Description": "A copy of a current driver's license or state-issued ID card. Passports and immigration cards are not accepted.",
+      "IsActive": true,
+      "Language": "en_US"
+    },
+    {
+      "attributes": {
+        "type": "DocumentType",
+        "referenceId": "SocialSecurityCard"
+      },
+      "DeveloperName": "SocialSecurityCard",
+      "MasterLabel": "Social Security Card",
+      "Description": "A copy of the social security card.",
+      "IsActive": true,
+      "Language": "en_US"
+    },
+    {
+      "attributes": {
+        "type": "DocumentType",
+        "referenceId": "MilitaryId"
+      },
+      "DeveloperName": "MilitaryId",
+      "MasterLabel": "Military ID",
+      "Description": "A copy of the applicant's military ID.",
+      "IsActive": true,
+      "Language": "en_US"
+    },
+    {
+      "attributes": {
+        "type": "DocumentType",
+        "referenceId": "OriginalOutOfStateLicense"
+      },
+      "DeveloperName": "OriginalOutOfStateLicense",
+      "MasterLabel": "Original Out-of-State License",
+      "Description": "The current original license from another state. A license printed from the issuing state's website counts as an original.",
+      "IsActive": true,
+      "Language": "en_US"
+    },
+    {
+      "attributes": {
+        "type": "DocumentType",
+        "referenceId": "OutOfStateLicenseCopy"
+      },
+      "DeveloperName": "OutOfStateLicenseCopy",
+      "MasterLabel": "Out-of-State License Copy",
+      "Description": "A copy of the current license from another state.",
+      "IsActive": true,
+      "Language": "en_US"
+    },
+    {
+      "attributes": {
+        "type": "DocumentType",
+        "referenceId": "CertificationOfLicensure"
+      },
+      "DeveloperName": "CertificationOfLicensure",
+      "MasterLabel": "Certification of Licensure",
+      "Description": "Certification of licensure sent directly to the Board by another state's board, unopened. Staff mark it received.",
+      "IsActive": true,
+      "Language": "en_US"
+    },
+    {
+      "attributes": {
+        "type": "DocumentType",
+        "referenceId": "NicScoreSheet"
+      },
+      "DeveloperName": "NicScoreSheet",
+      "MasterLabel": "NIC Score Sheet",
+      "Description": "A copy of the national (NIC) exam score, only if the national exam was already passed.",
+      "IsActive": true,
+      "Language": "en_US"
+    },
+    {
+      "attributes": {
+        "type": "DocumentType",
+        "referenceId": "CourtRecordsAndExplanation"
+      },
+      "DeveloperName": "CourtRecordsAndExplanation",
+      "MasterLabel": "Court Records and Explanation",
+      "Description": "An explanation and records showing court-directed obligations were met. Needed when a disclosure question is answered Yes.",
+      "IsActive": true,
+      "Language": "en_US"
+    },
+    {
+      "attributes": {
+        "type": "DocumentType",
+        "referenceId": "OriginalForeignLicense"
+      },
+      "DeveloperName": "OriginalForeignLicense",
+      "MasterLabel": "Original Foreign License",
+      "Description": "The original current license from outside the United States.",
+      "IsActive": true,
+      "Language": "en_US"
+    },
+    {
+      "attributes": {
+        "type": "DocumentType",
+        "referenceId": "ProfessionalCredentialEvaluation"
+      },
+      "DeveloperName": "ProfessionalCredentialEvaluation",
+      "MasterLabel": "Professional Credential Evaluation",
+      "Description": "An original professional evaluation of the foreign license from an approved agency, sent by the agency.",
+      "IsActive": true,
+      "Language": "en_US"
+    },
+    {
+      "attributes": {
+        "type": "DocumentType",
+        "referenceId": "ProofOfEducation"
+      },
+      "DeveloperName": "ProofOfEducation",
+      "MasterLabel": "Proof of Education",
+      "Description": "Proof of completing the 10th grade, a high school diploma or a GED.",
+      "IsActive": true,
+      "Language": "en_US"
+    },
+    {
+      "attributes": {
+        "type": "DocumentType",
+        "referenceId": "GeneralEducationEvaluation"
+      },
+      "DeveloperName": "GeneralEducationEvaluation",
+      "MasterLabel": "General Education Evaluation",
+      "Description": "An original general evaluation of foreign high school education from an approved agency.",
+      "IsActive": true,
+      "Language": "en_US"
+    },
+    {
+      "attributes": {
+        "type": "DocumentType",
+        "referenceId": "PaymentReceipt"
+      },
+      "DeveloperName": "PaymentReceipt",
+      "MasterLabel": "Payment Receipt",
+      "Description": "The receipt for the fee paid.",
+      "IsActive": true,
+      "Language": "en_US"
+    },
+    {
+      "attributes": {
+        "type": "DocumentType",
+        "referenceId": "EventInformation"
+      },
+      "DeveloperName": "EventInformation",
+      "MasterLabel": "Event Information",
+      "Description": "Information about the events and dates the temporary permit is for.",
+      "IsActive": true,
+      "Language": "en_US"
+    },
+    {
+      "attributes": {
+        "type": "DocumentType",
+        "referenceId": "OperatorLicense"
+      },
+      "DeveloperName": "OperatorLicense",
+      "MasterLabel": "Operator License",
+      "Description": "A copy of the owner's operator license.",
+      "IsActive": true,
+      "Language": "en_US"
+    },
+    {
+      "attributes": {
+        "type": "DocumentType",
+        "referenceId": "LocalOccupationalLicense"
+      },
+      "DeveloperName": "LocalOccupationalLicense",
+      "MasterLabel": "Local Occupational License",
+      "Description": "The occupational license from the city or parish, where one is required.",
+      "IsActive": true,
+      "Language": "en_US"
+    },
+    {
+      "attributes": {
+        "type": "DocumentType",
+        "referenceId": "LetterOfIntent"
+      },
+      "DeveloperName": "LetterOfIntent",
+      "MasterLabel": "Letter of Intent",
+      "Description": "Written notice to the Board of the intent to open a school.",
+      "IsActive": true,
+      "Language": "en_US"
+    },
+    {
+      "attributes": {
+        "type": "DocumentType",
+        "referenceId": "BusinessPlan"
+      },
+      "DeveloperName": "BusinessPlan",
+      "MasterLabel": "Business Plan",
+      "Description": "A two-year business plan for the new school.",
+      "IsActive": true,
+      "Language": "en_US"
+    },
+    {
+      "attributes": {
+        "type": "DocumentType",
+        "referenceId": "FinancialStatements"
+      },
+      "DeveloperName": "FinancialStatements",
+      "MasterLabel": "Financial Statements",
+      "Description": "Financial statements with a profit and loss statement and a three-year forecast, from a bank or CPA, completed within 60 days.",
+      "IsActive": true,
+      "Language": "en_US"
+    },
+    {
+      "attributes": {
+        "type": "DocumentType",
+        "referenceId": "FloorPlan"
+      },
+      "DeveloperName": "FloorPlan",
+      "MasterLabel": "Floor Plan",
+      "Description": "A detailed floor plan drawn to scale, with classrooms, equipment, outlets, ventilation, plumbing, lighting, entrances, exits and square footage.",
+      "IsActive": true,
+      "Language": "en_US"
+    },
+    {
+      "attributes": {
+        "type": "DocumentType",
+        "referenceId": "PremisesInspectionReport"
+      },
+      "DeveloperName": "PremisesInspectionReport",
+      "MasterLabel": "Premises Inspection Report",
+      "Description": "The Board's inspection report confirming the floor space is adequate. Added by staff.",
+      "IsActive": true,
+      "Language": "en_US"
+    },
+    {
+      "attributes": {
+        "type": "DocumentType",
+        "referenceId": "Lease"
+      },
+      "DeveloperName": "Lease",
+      "MasterLabel": "Lease",
+      "Description": "A copy of the lease, if the property or building is leased.",
+      "IsActive": true,
+      "Language": "en_US"
+    },
+    {
+      "attributes": {
+        "type": "DocumentType",
+        "referenceId": "FireSafetyReport"
+      },
+      "DeveloperName": "FireSafetyReport",
+      "MasterLabel": "Fire Safety Report",
+      "Description": "A report from the local fire safety inspector that fire safety requirements are met.",
+      "IsActive": true,
+      "Language": "en_US"
+    },
+    {
+      "attributes": {
+        "type": "DocumentType",
+        "referenceId": "NotarizedTeacherStatement"
+      },
+      "DeveloperName": "NotarizedTeacherStatement",
+      "MasterLabel": "Notarized Teacher Statement",
+      "Description": "A notarized statement from each registered teacher agreeing to teach at the school.",
+      "IsActive": true,
+      "Language": "en_US"
+    },
+    {
+      "attributes": {
+        "type": "DocumentType",
+        "referenceId": "Curriculum"
+      },
+      "DeveloperName": "Curriculum",
+      "MasterLabel": "Curriculum",
+      "Description": "The proposed curriculum or curriculums.",
+      "IsActive": true,
+      "Language": "en_US"
+    },
+    {
+      "attributes": {
+        "type": "DocumentType",
+        "referenceId": "DailySchedule"
+      },
+      "DeveloperName": "DailySchedule",
+      "MasterLabel": "Daily Schedule",
+      "Description": "The daily schedule for the course of study.",
+      "IsActive": true,
+      "Language": "en_US"
+    },
+    {
+      "attributes": {
+        "type": "DocumentType",
+        "referenceId": "EnrollmentContract"
+      },
+      "DeveloperName": "EnrollmentContract",
+      "MasterLabel": "Enrollment Contract",
+      "Description": "A true copy of the proposed student enrollment contract.",
+      "IsActive": true,
+      "Language": "en_US"
+    },
+    {
+      "attributes": {
+        "type": "DocumentType",
+        "referenceId": "SuretyBond"
+      },
+      "DeveloperName": "SuretyBond",
+      "MasterLabel": "Surety Bond",
+      "Description": "A $30,000 surety bond in favor of the State of Louisiana.",
+      "IsActive": true,
+      "Language": "en_US"
+    },
+    {
+      "attributes": {
+        "type": "DocumentType",
+        "referenceId": "ProofOfNameChange"
+      },
+      "DeveloperName": "ProofOfNameChange",
+      "MasterLabel": "Proof of Name Change",
+      "Description": "Proof of a legal name change, such as a marriage certificate or court order.",
+      "IsActive": true,
+      "Language": "en_US"
+    },
+    {
+      "attributes": {
+        "type": "DocumentType",
+        "referenceId": "DisabilityDocumentation"
+      },
+      "DeveloperName": "DisabilityDocumentation",
+      "MasterLabel": "Documentation for Disability Related Needs",
+      "Description": "Documentation from a professional, or of accommodations provided in another test, supporting an accommodation request.",
+      "IsActive": true,
+      "Language": "en_US"
+    }
+  ]
+}

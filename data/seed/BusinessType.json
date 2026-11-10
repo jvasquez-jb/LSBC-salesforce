@@ -1,0 +1,40 @@
+{
+  "records": [
+    {
+      "attributes": {
+        "type": "BusinessType",
+        "referenceId": "CosmetologySalon"
+      },
+      "Name": "Cosmetology Salon",
+      "AuthorizationActivityType": "Business",
+      "Description": "Salon type chosen on the shop application."
+    },
+    {
+      "attributes": {
+        "type": "BusinessType",
+        "referenceId": "ManicuringSalon"
+      },
+      "Name": "Manicuring Salon",
+      "AuthorizationActivityType": "Business",
+      "Description": "Salon type chosen on the shop application."
+    },
+    {
+      "attributes": {
+        "type": "BusinessType",
+        "referenceId": "EstheticsSalon"
+      },
+      "Name": "Esthetics Salon",
+      "AuthorizationActivityType": "Business",
+      "Description": "Salon type chosen on the shop application."
+    },
+    {
+      "attributes": {
+        "type": "BusinessType",
+        "referenceId": "HomeCareSalon"
+      },
+      "Name": "Home Care Salon",
+      "AuthorizationActivityType": "Business",
+      "Description": "Salon type chosen on the shop application."
+    }
+  ]
+}

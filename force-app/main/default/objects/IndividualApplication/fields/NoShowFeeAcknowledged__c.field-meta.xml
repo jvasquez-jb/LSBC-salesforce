@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>NoShowFeeAcknowledged__c</fullName>
+    <defaultValue>false</defaultValue>
+    <type>Checkbox</type>
+    <description>The applicant acknowledged that missing a scheduled exam without seven days' notice, or 24 hours in an emergency, means an administrative fee on reapplication.</description>
+    <inlineHelpText>Ticked when the applicant accepts the no-show statement printed on the form.</inlineHelpText>
+    <label>No-Show Fee Acknowledged</label>
+</CustomField>

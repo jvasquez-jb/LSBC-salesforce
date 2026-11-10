@@ -1,0 +1,26 @@
+{
+  "records": [
+    {
+      "attributes": {
+        "type": "RegulatoryAuthorizationType",
+        "referenceId": "TypeThreadingFacility"
+      },
+      "Name": "Threading Facility",
+      "RegulatoryAuthCategory": "License",
+      "ExpirationBasis__c": "January 31",
+      "TermLength__c": 12,
+      "DurationType": "Month"
+    },
+    {
+      "attributes": {
+        "type": "RegulatoryAuthorizationType",
+        "referenceId": "TypeAlternativeHairDesignFacility"
+      },
+      "Name": "Alternative Hair Design Facility",
+      "RegulatoryAuthCategory": "License",
+      "ExpirationBasis__c": "January 31",
+      "TermLength__c": 12,
+      "DurationType": "Month"
+    }
+  ]
+}

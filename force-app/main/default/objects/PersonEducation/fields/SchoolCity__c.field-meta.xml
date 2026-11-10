@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SchoolCity__c</fullName>
+    <length>80</length>
+    <required>false</required>
+    <type>Text</type>
+    <description>The city of the school the person attended. Schools outside Louisiana are not accounts, so the location is kept here.</description>
+    <inlineHelpText>City where the school is.</inlineHelpText>
+    <label>School City</label>
+</CustomField>

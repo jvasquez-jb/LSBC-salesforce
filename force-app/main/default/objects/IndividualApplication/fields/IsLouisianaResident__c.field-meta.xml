@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IsLouisianaResident__c</fullName>
+    <defaultValue>false</defaultValue>
+    <type>Checkbox</type>
+    <description>Ticked when the applicant holds a Louisiana driver's license or state ID. Sets the resident or non-resident fee on a foreign reciprocity application.</description>
+    <inlineHelpText>Tick if the applicant's ID was issued by Louisiana.</inlineHelpText>
+    <label>Louisiana Resident</label>
+</CustomField>

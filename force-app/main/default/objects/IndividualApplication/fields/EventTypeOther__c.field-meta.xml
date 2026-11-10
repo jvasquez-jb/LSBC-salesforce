@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EventTypeOther__c</fullName>
+    <length>100</length>
+    <required>false</required>
+    <type>Text</type>
+    <description>The event type the applicant wrote in when choosing Other on a temporary permit application.</description>
+    <inlineHelpText>Describe the event when Event Type is Other.</inlineHelpText>
+    <label>Event Type Other</label>
+</CustomField>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StandardValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EducationLevel</fullName>
+    <sorted>false</sorted>
+    <standardValue>
+        <fullName>8th Grade</fullName>
+        <default>false</default>
+        <label>8th Grade</label>
+    </standardValue>
+    <standardValue>
+        <fullName>9th Grade</fullName>
+        <default>false</default>
+        <label>9th Grade</label>
+    </standardValue>
+    <standardValue>
+        <fullName>10th Grade</fullName>
+        <default>false</default>
+        <label>10th Grade</label>
+    </standardValue>
+    <standardValue>
+        <fullName>11th Grade</fullName>
+        <default>false</default>
+        <label>11th Grade</label>
+    </standardValue>
+    <standardValue>
+        <fullName>12th Grade</fullName>
+        <default>false</default>
+        <label>12th Grade</label>
+    </standardValue>
+    <standardValue>
+        <fullName>GED</fullName>
+        <default>false</default>
+        <label>GED</label>
+    </standardValue>
+    <standardValue>
+        <fullName>High School Diploma</fullName>
+        <default>false</default>
+        <label>High School Diploma</label>
+    </standardValue>
+</StandardValueSet>

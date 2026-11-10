@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DirectionsToLocation__c</fullName>
+    <length>1000</length>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
+    <description>Directions for the inspector to find the shop, as given on the shop application.</description>
+    <inlineHelpText>Landmarks or turns that help the inspector find the shop.</inlineHelpText>
+    <label>Directions To Location</label>
+</CustomField>

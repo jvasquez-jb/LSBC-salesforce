@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DisclosureExplanation__c</fullName>
+    <length>2000</length>
+    <type>LongTextArea</type>
+    <visibleLines>4</visibleLines>
+    <description>The applicant's explanation of any Yes answer to the disclosure questions: prior license action, felony conviction or license obtained by fraud.</description>
+    <inlineHelpText>Required when any disclosure question is answered Yes.</inlineHelpText>
+    <label>Disclosure Explanation</label>
+</CustomField>
