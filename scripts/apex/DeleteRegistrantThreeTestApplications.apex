@@ -1,5 +1,5 @@
 // Test data cleanup: deletes StopCodeTest Registrant Three's portal applications and drafts (Preliminary
-// Application References), their checklist items and files, saved (paused) forms, and today's fees and holds.
+// Application References), their checklist items and files, saved (paused) forms, and today's fees, holds and exam attempts.
 // Files must be unlinked from checklist items before either can be deleted.
 Id acc = [SELECT AccountId FROM BusinessLicense WHERE Identifier = 'SCT40003'].AccountId;
 Id portalUser = [SELECT Id FROM User WHERE AccountId = :acc LIMIT 1].Id;
@@ -19,5 +19,6 @@ List<RegulatoryTrxnFee> fees = [SELECT Id FROM RegulatoryTrxnFee WHERE AccountId
 List<RegulatoryTrxnFeeItem> feeItems = [SELECT Id FROM RegulatoryTrxnFeeItem WHERE RegulatoryTrxnFeeId IN :fees];
 List<RecordAlert> alerts = [SELECT Id FROM RecordAlert WHERE WhatId = :acc AND CreatedDate = TODAY];
 List<FlowInterview> paused = [SELECT Id FROM FlowInterview WHERE CreatedById = :portalUser];
-delete links; delete docs; delete items; delete feeItems; delete fees; delete apps; delete drafts; delete alerts; delete paused;
-System.debug(LoggingLevel.ERROR, 'CLEAN apps ' + apps.size() + ' drafts ' + drafts.size() + ' items ' + items.size() + ' fees ' + fees.size() + ' docs ' + docs.size() + ' alerts ' + alerts.size() + ' paused ' + paused.size());
+List<PersonExamination> attempts = [SELECT Id FROM PersonExamination WHERE Contact.AccountId = :acc AND CreatedDate = TODAY];
+delete links; delete docs; delete items; delete feeItems; delete fees; delete apps; delete drafts; delete alerts; delete paused; delete attempts;
+System.debug(LoggingLevel.ERROR, 'CLEAN apps ' + apps.size() + ' drafts ' + drafts.size() + ' items ' + items.size() + ' fees ' + fees.size() + ' docs ' + docs.size() + ' alerts ' + alerts.size() + ' paused ' + paused.size() + ' attempts ' + attempts.size());

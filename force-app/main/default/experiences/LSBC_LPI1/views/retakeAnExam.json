@@ -1,0 +1,70 @@
+{
+  "appPageId": "39740273-a4f0-4311-b732-31661924917d",
+  "componentName": "siteforce:sldsOneColLayout",
+  "dataProviders": [],
+  "id": "b8902cf5-5f87-4ced-8e7b-bbb4ff69df7e",
+  "label": "Retake an Exam",
+  "regions": [
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "richTextValue": "<!-- Page heading and one-line introduction -->\n<h1 class=\"lsbc-page-title\">Retake an Exam</h1>\n<p class=\"lsbc-page-intro\">Apply to retake the national, practical or state exam.</p>"
+          },
+          "componentName": "forceCommunity:richTextInline",
+          "id": "14bd0e3a-0a11-4f2c-840c-969136ecce12",
+          "renderPriority": "NEUTRAL",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "9f9af8b0-3b7e-4062-977d-d706cf763014",
+      "regionName": "header",
+      "type": "region"
+    },
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "flowArguments": "",
+            "flowName": "ScreenFlowIndividualApplicationRetake"
+          },
+          "componentName": "forceCommunity:flowCommunity",
+          "id": "24b6a573-0060-42dc-ae83-e253289b1f45",
+          "renderPriority": "NEUTRAL",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "d2a29883-8b53-4e71-82f3-358243a77c72",
+      "regionName": "content",
+      "type": "region"
+    },
+    {
+      "id": "f201f379-164a-48b6-90d9-fb87f0e41720",
+      "regionName": "footer",
+      "type": "region"
+    },
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "customHeadTags": "",
+            "description": "",
+            "title": "Retake an Exam"
+          },
+          "componentName": "forceCommunity:seoAssistant",
+          "id": "a9e36841-82d9-4acb-a818-3bd1c9edc199",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "b8d4d120-e4b2-4478-8050-d73b970b8d3d",
+      "regionName": "sfdcHiddenRegion",
+      "type": "region"
+    }
+  ],
+  "themeLayoutType": "Inner",
+  "type": "view",
+  "viewType": "custom-retake-an-exam"
+}

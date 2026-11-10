@@ -1,0 +1,12 @@
+{
+  "activeViewId": "b8902cf5-5f87-4ced-8e7b-bbb4ff69df7e",
+  "appPageId": "39740273-a4f0-4311-b732-31661924917d",
+  "configurationTags": [],
+  "devName": "Retake_An_Exam",
+  "id": "89a72907-1f8d-4a30-8569-7dd59bec4c75",
+  "label": "Retake an Exam",
+  "pageAccess": "RequiresLogin",
+  "routeType": "custom-retake-an-exam",
+  "type": "route",
+  "urlPrefix": "retake-exam"
+}
