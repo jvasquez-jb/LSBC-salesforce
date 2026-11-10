@@ -11,36 +11,50 @@
         <type>InternalLink</type>
     </navigationMenuItem>
     <navigationMenuItem>
-        <label>Apply</label>
+        <label>Find a School</label>
         <position>1</position>
+        <publiclyAvailable>true</publiclyAvailable>
+        <target>/find-a-school</target>
+        <type>InternalLink</type>
+    </navigationMenuItem>
+    <navigationMenuItem>
+        <label>Apply</label>
+        <position>2</position>
         <publiclyAvailable>false</publiclyAvailable>
         <target>/apply-license-permit</target>
         <type>InternalLink</type>
     </navigationMenuItem>
     <navigationMenuItem>
         <label>Renew</label>
-        <position>2</position>
+        <position>3</position>
         <publiclyAvailable>false</publiclyAvailable>
         <target>/renew-license-permit</target>
         <type>InternalLink</type>
     </navigationMenuItem>
     <navigationMenuItem>
         <label>My Applications</label>
-        <position>3</position>
+        <position>4</position>
         <publiclyAvailable>false</publiclyAvailable>
         <target>/view-license-permit-status</target>
         <type>InternalLink</type>
     </navigationMenuItem>
     <navigationMenuItem>
         <label>Fees</label>
-        <position>4</position>
+        <position>5</position>
         <publiclyAvailable>false</publiclyAvailable>
         <target>/view-fees</target>
         <type>InternalLink</type>
     </navigationMenuItem>
     <navigationMenuItem>
+        <label>Forms &amp; Resources</label>
+        <position>6</position>
+        <publiclyAvailable>true</publiclyAvailable>
+        <target>/forms-and-resources</target>
+        <type>InternalLink</type>
+    </navigationMenuItem>
+    <navigationMenuItem>
         <label>File a Complaint</label>
-        <position>5</position>
+        <position>7</position>
         <publiclyAvailable>true</publiclyAvailable>
         <target>/file-a-complaint</target>
         <type>InternalLink</type>

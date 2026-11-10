@@ -1,0 +1,70 @@
+{
+  "appPageId": "39740273-a4f0-4311-b732-31661924917d",
+  "componentName": "siteforce:sldsOneColLayout",
+  "dataProviders": [],
+  "id": "721d6564-9a24-43f9-8993-0fdefa336bed",
+  "label": "Find a School",
+  "regions": [
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "richTextValue": "<h1 class=\"lsbc-page-title\">Find a School</h1><p class=\"lsbc-page-intro\">Louisiana cosmetology schools, by program and city.</p>"
+          },
+          "componentName": "forceCommunity:richTextInline",
+          "id": "ea29c3d2-d63c-48bf-879c-021320afb04e",
+          "renderPriority": "NEUTRAL",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "eeaed68e-fbdd-4920-afd2-8e799d1aecea",
+      "regionName": "header",
+      "type": "region"
+    },
+    {
+      "id": "0df20a79-1bc0-492d-93ee-f4f14a5d190d",
+      "regionName": "content",
+      "type": "region",
+      "components": [
+        {
+          "componentAttributes": {
+            "flowArguments": "",
+            "flowName": "ScreenFlowAccountSchoolDirectory"
+          },
+          "componentName": "forceCommunity:flowCommunity",
+          "id": "48d1edb8-6529-4ede-863e-9647d289414f",
+          "renderPriority": "NEUTRAL",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ]
+    },
+    {
+      "id": "024a29f0-e870-414d-ae1a-2e7adbe6789b",
+      "regionName": "footer",
+      "type": "region"
+    },
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "customHeadTags": "",
+            "description": "",
+            "title": "Find a School"
+          },
+          "componentName": "forceCommunity:seoAssistant",
+          "id": "21843de5-51f6-4fc5-be80-d79913cbe3f1",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "02150623-6c8c-467b-a4cc-e2646d0a5336",
+      "regionName": "sfdcHiddenRegion",
+      "type": "region"
+    }
+  ],
+  "themeLayoutType": "Inner",
+  "type": "view",
+  "viewType": "custom-find-a-school"
+}
