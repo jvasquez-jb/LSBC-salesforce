@@ -1,70 +1,59 @@
 {
-  "appPageId": "39740273-a4f0-4311-b732-31661924917d",
-  "componentName": "siteforce:sldsOneColLayout",
-  "dataProviders": [],
-  "id": "0f90c9c2-693d-4848-b5b3-6ad66ba1c5b8",
-  "label": "CE Providers",
-  "regions": [
-    {
-      "components": [
-        {
-          "componentAttributes": {
-            "richTextValue": "<!-- Page heading and one-line introduction -->\n<h1 class=\"lsbc-page-title\">Continuing Education Providers</h1>\n<p class=\"lsbc-page-intro\">Providers approved by the Board for instructor continuing education.</p>"
-          },
-          "componentName": "forceCommunity:richTextInline",
-          "id": "e3fd3303-7a89-4adc-91c7-6838ec0a0865",
-          "renderPriority": "NEUTRAL",
-          "renditionMap": {},
-          "type": "component"
-        }
-      ],
-      "id": "7b06c534-eac1-49e3-bc7f-168d46f44b40",
-      "regionName": "header",
-      "type": "region"
-    },
-    {
-      "id": "50a0e4a2-9950-4ca4-85c7-893be6e747a6",
-      "regionName": "content",
-      "type": "region",
-      "components": [
-        {
-          "componentAttributes": {
-            "flowArguments": "",
-            "flowName": "ScreenFlowAccreditationCEProviderList"
-          },
-          "componentName": "forceCommunity:flowCommunity",
-          "id": "995f7bfa-72f7-46ac-8668-a062d5b0d4fd",
-          "renderPriority": "NEUTRAL",
-          "renditionMap": {},
-          "type": "component"
-        }
-      ]
-    },
-    {
-      "id": "506f9377-85d7-484d-b15b-5a1362d100a9",
-      "regionName": "footer",
-      "type": "region"
-    },
-    {
-      "components": [
-        {
-          "componentAttributes": {
-            "customHeadTags": "",
-            "description": "",
-            "title": "CE Providers"
-          },
-          "componentName": "forceCommunity:seoAssistant",
-          "id": "42e979c3-f175-45d8-a274-c7d3611b44d3",
-          "renditionMap": {},
-          "type": "component"
-        }
-      ],
-      "id": "d1008bcb-0e72-486e-8dcb-69f0129a0ccc",
-      "regionName": "sfdcHiddenRegion",
-      "type": "region"
-    }
-  ],
-  "themeLayoutType": "Inner",
-  "type": "view",
-  "viewType": "custom-ce-providers"
+  "appPageId" : "39740273-a4f0-4311-b732-31661924917d",
+  "componentName" : "siteforce:sldsOneColLayout",
+  "dataProviders" : [ ],
+  "id" : "0f90c9c2-693d-4848-b5b3-6ad66ba1c5b8",
+  "label" : "CE Providers",
+  "regions" : [ {
+    "components" : [ {
+      "componentAttributes" : {
+        "richTextValue" : "<!-- Page heading and one-line introduction -->\n<h1 class=\"lsbc-page-title\">Continuing Education Providers</h1>\n<p class=\"lsbc-page-intro\">Providers approved by the Board for instructor continuing education.</p>"
+      },
+      "componentName" : "forceCommunity:richTextInline",
+      "id" : "e3fd3303-7a89-4adc-91c7-6838ec0a0865",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "7b06c534-eac1-49e3-bc7f-168d46f44b40",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "flowArguments" : "",
+        "flowName" : "ScreenFlowAccreditationCEProviderList"
+      },
+      "componentName" : "forceCommunity:flowCommunity",
+      "id" : "995f7bfa-72f7-46ac-8668-a062d5b0d4fd",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "50a0e4a2-9950-4ca4-85c7-893be6e747a6",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "id" : "506f9377-85d7-484d-b15b-5a1362d100a9",
+    "regionName" : "footer",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "",
+        "title" : "CE Providers"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "42e979c3-f175-45d8-a274-c7d3611b44d3",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "d1008bcb-0e72-486e-8dcb-69f0129a0ccc",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "custom-ce-providers"
 }

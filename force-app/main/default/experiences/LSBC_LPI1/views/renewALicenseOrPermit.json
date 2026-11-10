@@ -1,39 +1,33 @@
 {
-  "appPageId": "39740273-a4f0-4311-b732-31661924917d",
-  "componentName": "siteforce:sldsOneColLayout",
-  "dataProviders": [],
-  "id": "471adffa-b41d-423a-8d0e-4053c0833406",
-  "label": "Renew a License or Permit",
-  "regions": [
-    {
-      "components": [
-        {
-          "componentAttributes": {
-            "richTextValue": "<h1>    <span style=\"color: #2D2D2D;font-size: 21px;\">Renew a License or a Permit</span>   </h1><div class=\"slds-text-body_regular slds-m-top_large slds-p-bottom_x-large\">Fill out a license or a permit renewal application. You can save a draft application and complete it later.</div>"
-          },
-          "componentName": "forceCommunity:richTextInline",
-          "id": "9c5923d5-2c05-4c92-bdc8-0ffd7317aad8",
-          "renderPriority": "NEUTRAL",
-          "renditionMap": {},
-          "type": "component"
-        }
-      ],
-      "id": "1c641f85-cbd5-4ad1-8781-acecd6613974",
-      "regionName": "header",
-      "type": "region"
-    },
-    {
-      "id": "b198534f-f6ab-4260-81a3-de74495879eb",
-      "regionName": "content",
-      "type": "region"
-    },
-    {
-      "id": "47db7b85-831d-40d2-8023-14a07f1c5d9e",
-      "regionName": "footer",
-      "type": "region"
-    }
-  ],
-  "themeLayoutType": "Inner",
-  "type": "view",
-  "viewType": "renew-license-permit"
+  "appPageId" : "39740273-a4f0-4311-b732-31661924917d",
+  "componentName" : "siteforce:sldsOneColLayout",
+  "dataProviders" : [ ],
+  "id" : "471adffa-b41d-423a-8d0e-4053c0833406",
+  "label" : "Renew a License or Permit",
+  "regions" : [ {
+    "components" : [ {
+      "componentAttributes" : {
+        "richTextValue" : "<h1>    <span style=\"color: #2D2D2D;font-size: 21px;\">Renew a License or a Permit</span>   </h1><div class=\"slds-text-body_regular slds-m-top_large slds-p-bottom_x-large\">Fill out a license or a permit renewal application. You can save a draft application and complete it later.</div>"
+      },
+      "componentName" : "forceCommunity:richTextInline",
+      "id" : "9c5923d5-2c05-4c92-bdc8-0ffd7317aad8",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "1c641f85-cbd5-4ad1-8781-acecd6613974",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "id" : "b198534f-f6ab-4260-81a3-de74495879eb",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "id" : "47db7b85-831d-40d2-8023-14a07f1c5d9e",
+    "regionName" : "footer",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "renew-license-permit"
 }

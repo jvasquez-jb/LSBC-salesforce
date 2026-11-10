@@ -1,12 +1,12 @@
 {
-  "activeViewId": "8eab4bb2-53a0-4d47-9fc6-011347ef75b0",
-  "appPageId": "39740273-a4f0-4311-b732-31661924917d",
-  "configurationTags": [],
-  "devName": "View_Payment_Checkout",
-  "id": "745ef2d9-d0af-4a19-b12a-1af8b9c58af5",
-  "label": "Payment Checkout",
-  "pageAccess": "RequiresLogin",
-  "routeType": "payment-checkout",
-  "type": "route",
-  "urlPrefix": "payment-checkout"
+  "activeViewId" : "8eab4bb2-53a0-4d47-9fc6-011347ef75b0",
+  "appPageId" : "39740273-a4f0-4311-b732-31661924917d",
+  "configurationTags" : [ ],
+  "devName" : "View_Payment_Checkout",
+  "id" : "745ef2d9-d0af-4a19-b12a-1af8b9c58af5",
+  "label" : "Payment Checkout",
+  "pageAccess" : "RequiresLogin",
+  "routeType" : "payment-checkout",
+  "type" : "route",
+  "urlPrefix" : "payment-checkout"
 }

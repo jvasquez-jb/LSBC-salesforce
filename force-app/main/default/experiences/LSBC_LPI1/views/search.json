@@ -1,47 +1,39 @@
 {
-  "appPageId": "39740273-a4f0-4311-b732-31661924917d",
-  "componentName": "siteforce:sldsOneColLayout",
-  "dataProviders": [],
-  "id": "b529e4ae-71d6-4a38-9ec5-f1feb8956ff9",
-  "label": "Search",
-  "regions": [
-    {
-      "id": "a5fa73e7-cdcd-498d-9a11-38a407dd51c6",
-      "regionName": "header",
-      "type": "region"
-    },
-    {
-      "components": [
-        {
-          "componentAttributes": {
-            "scopes": [
-              {
-                "isPublic": true,
-                "name": "KnowledgeArticleVersion"
-              }
-            ],
-            "searchResultFiltering": true,
-            "searchTerm": "{!term}",
-            "showTopResults": true
-          },
-          "componentName": "forceCommunity:search",
-          "id": "cab7c031-3df6-4e51-98d4-635fe32a6fd5",
-          "renderPriority": "NEUTRAL",
-          "renditionMap": {},
-          "type": "component"
-        }
-      ],
-      "id": "381d7713-a1e9-46ed-88d5-e6cb97b9cf25",
-      "regionName": "content",
-      "type": "region"
-    },
-    {
-      "id": "876e0911-750e-475e-8a8e-255485dac22d",
-      "regionName": "footer",
-      "type": "region"
-    }
-  ],
-  "themeLayoutType": "Inner",
-  "type": "view",
-  "viewType": "global-search"
+  "appPageId" : "39740273-a4f0-4311-b732-31661924917d",
+  "componentName" : "siteforce:sldsOneColLayout",
+  "dataProviders" : [ ],
+  "id" : "b529e4ae-71d6-4a38-9ec5-f1feb8956ff9",
+  "label" : "Search",
+  "regions" : [ {
+    "id" : "a5fa73e7-cdcd-498d-9a11-38a407dd51c6",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "scopes" : [ {
+          "isPublic" : true,
+          "name" : "KnowledgeArticleVersion"
+        } ],
+        "searchResultFiltering" : true,
+        "searchTerm" : "{!term}",
+        "showTopResults" : true
+      },
+      "componentName" : "forceCommunity:search",
+      "id" : "cab7c031-3df6-4e51-98d4-635fe32a6fd5",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "381d7713-a1e9-46ed-88d5-e6cb97b9cf25",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "id" : "876e0911-750e-475e-8a8e-255485dac22d",
+    "regionName" : "footer",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "global-search"
 }

@@ -1,12 +1,12 @@
 {
-  "activeViewId": "bc3a351f-4fc9-48c2-9489-ed9200bef9e6",
-  "appPageId": "39740273-a4f0-4311-b732-31661924917d",
-  "configurationTags": [],
-  "devName": "My_License_Applications",
-  "id": "4e3724ae-d663-44b0-954f-b3335a9eecfa",
-  "label": "My Applications and Licenses",
-  "pageAccess": "RequiresLogin",
-  "routeType": "my-application-licenses",
-  "type": "route",
-  "urlPrefix": "view-license-permit-status"
+  "activeViewId" : "bc3a351f-4fc9-48c2-9489-ed9200bef9e6",
+  "appPageId" : "39740273-a4f0-4311-b732-31661924917d",
+  "configurationTags" : [ ],
+  "devName" : "My_License_Applications",
+  "id" : "4e3724ae-d663-44b0-954f-b3335a9eecfa",
+  "label" : "My Applications and Licenses",
+  "pageAccess" : "RequiresLogin",
+  "routeType" : "my-application-licenses",
+  "type" : "route",
+  "urlPrefix" : "view-license-permit-status"
 }

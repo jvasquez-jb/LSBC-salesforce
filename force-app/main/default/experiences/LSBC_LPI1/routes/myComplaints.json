@@ -1,12 +1,12 @@
 {
-  "activeViewId": "acc2d576-e07e-4f01-9228-0cc83ecf9fd1",
-  "appPageId": "39740273-a4f0-4311-b732-31661924917d",
-  "configurationTags": [],
-  "devName": "My_Complaints",
-  "id": "4ee5fa6a-f8a4-4bfa-a876-4f67e84bd4e5",
-  "label": "My Complaints",
-  "pageAccess": "RequiresLogin",
-  "routeType": "my-complaints",
-  "type": "route",
-  "urlPrefix": "my-complaints"
+  "activeViewId" : "acc2d576-e07e-4f01-9228-0cc83ecf9fd1",
+  "appPageId" : "39740273-a4f0-4311-b732-31661924917d",
+  "configurationTags" : [ ],
+  "devName" : "My_Complaints",
+  "id" : "4ee5fa6a-f8a4-4bfa-a876-4f67e84bd4e5",
+  "label" : "My Complaints",
+  "pageAccess" : "RequiresLogin",
+  "routeType" : "my-complaints",
+  "type" : "route",
+  "urlPrefix" : "my-complaints"
 }

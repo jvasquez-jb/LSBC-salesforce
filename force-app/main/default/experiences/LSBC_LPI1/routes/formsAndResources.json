@@ -1,12 +1,12 @@
 {
-  "activeViewId": "84db49f0-5908-48a5-8af7-e1b75c79fc3e",
-  "appPageId": "39740273-a4f0-4311-b732-31661924917d",
-  "configurationTags": [],
-  "devName": "Forms_And_Resources",
-  "id": "fb736d9b-ffc3-405c-9bd6-e32ece21a1ef",
-  "label": "Forms and Resources",
-  "pageAccess": "UseParent",
-  "routeType": "custom-forms-and-resources",
-  "type": "route",
-  "urlPrefix": "forms-and-resources"
+  "activeViewId" : "84db49f0-5908-48a5-8af7-e1b75c79fc3e",
+  "appPageId" : "39740273-a4f0-4311-b732-31661924917d",
+  "configurationTags" : [ ],
+  "devName" : "Forms_And_Resources",
+  "id" : "fb736d9b-ffc3-405c-9bd6-e32ece21a1ef",
+  "label" : "Forms and Resources",
+  "pageAccess" : "UseParent",
+  "routeType" : "custom-forms-and-resources",
+  "type" : "route",
+  "urlPrefix" : "forms-and-resources"
 }

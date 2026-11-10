@@ -1,12 +1,12 @@
 {
-  "activeViewId": "0f90c9c2-693d-4848-b5b3-6ad66ba1c5b8",
-  "appPageId": "39740273-a4f0-4311-b732-31661924917d",
-  "configurationTags": [],
-  "devName": "CE_Providers",
-  "id": "033f30d3-1826-4e83-bac2-16c547a472af",
-  "label": "CE Providers",
-  "pageAccess": "UseParent",
-  "routeType": "custom-ce-providers",
-  "type": "route",
-  "urlPrefix": "ce-providers"
+  "activeViewId" : "0f90c9c2-693d-4848-b5b3-6ad66ba1c5b8",
+  "appPageId" : "39740273-a4f0-4311-b732-31661924917d",
+  "configurationTags" : [ ],
+  "devName" : "CE_Providers",
+  "id" : "033f30d3-1826-4e83-bac2-16c547a472af",
+  "label" : "CE Providers",
+  "pageAccess" : "UseParent",
+  "routeType" : "custom-ce-providers",
+  "type" : "route",
+  "urlPrefix" : "ce-providers"
 }

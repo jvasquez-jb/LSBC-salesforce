@@ -1,73 +1,62 @@
 {
-  "appPageId": "39740273-a4f0-4311-b732-31661924917d",
-  "componentName": "siteforce:sldsOneColLayout",
-  "dataProviders": [],
-  "id": "4e43d1ee-2319-4207-a07b-07197c71b481",
-  "label": "Topic Catalog",
-  "regions": [
-    {
-      "components": [
-        {
-          "componentAttributes": {
-            "bannerText": "",
-            "bannerTextWithKnowledge": "Explore other <a href=\"javascript:void(0)\" class=\"headlineArticles\">articles</a> and <a href=\"javascript:void(0)\" class=\"headlineDiscussions\">discussions</a> on this topic.",
-            "bannerTextWithoutKnowledge": "Explore other <a href=\"javascript:void(0)\" class=\"headlineDiscussions\">discussions</a> on this topic.",
-            "pageType": "",
-            "showSubTopics": true,
-            "title": "Topics",
-            "uniqueNameOrId": ""
-          },
-          "componentName": "forceCommunity:headline",
-          "id": "3dbea529-39fe-4c5e-b71a-c9fce9c5062d",
-          "renderPriority": "NEUTRAL",
-          "renditionMap": {},
-          "type": "component"
-        }
-      ],
-      "id": "0908896e-944e-4d4e-8762-fdf739a49cc9",
-      "regionName": "header",
-      "type": "region"
-    },
-    {
-      "components": [
-        {
-          "componentAttributes": {},
-          "componentName": "forceCommunity:topicCatalog",
-          "id": "12a4bf41-a946-4562-8243-2c284a2d0306",
-          "renderPriority": "NEUTRAL",
-          "renditionMap": {},
-          "type": "component"
-        }
-      ],
-      "id": "1e0d6b57-5bcd-4da1-bd11-06395cd5cef0",
-      "regionName": "content",
-      "type": "region"
-    },
-    {
-      "id": "a7102cbd-93e2-40db-a8c2-56619f190d41",
-      "regionName": "footer",
-      "type": "region"
-    },
-    {
-      "components": [
-        {
-          "componentAttributes": {
-            "customHeadTags": "",
-            "description": "",
-            "title": "Topic Catalog"
-          },
-          "componentName": "forceCommunity:seoAssistant",
-          "id": "3408f1f4-fe27-43d7-8756-bba5d3f44a62",
-          "renditionMap": {},
-          "type": "component"
-        }
-      ],
-      "id": "12c1aaf4-c72c-45ba-bfaf-7097c197e649",
-      "regionName": "sfdcHiddenRegion",
-      "type": "region"
-    }
-  ],
-  "themeLayoutType": "Inner",
-  "type": "view",
-  "viewType": "topic-catalog"
+  "appPageId" : "39740273-a4f0-4311-b732-31661924917d",
+  "componentName" : "siteforce:sldsOneColLayout",
+  "dataProviders" : [ ],
+  "id" : "4e43d1ee-2319-4207-a07b-07197c71b481",
+  "label" : "Topic Catalog",
+  "regions" : [ {
+    "components" : [ {
+      "componentAttributes" : {
+        "bannerText" : "",
+        "bannerTextWithKnowledge" : "Explore other <a href=\"javascript:void(0)\" class=\"headlineArticles\">articles</a> and <a href=\"javascript:void(0)\" class=\"headlineDiscussions\">discussions</a> on this topic.",
+        "bannerTextWithoutKnowledge" : "Explore other <a href=\"javascript:void(0)\" class=\"headlineDiscussions\">discussions</a> on this topic.",
+        "pageType" : "",
+        "showSubTopics" : true,
+        "title" : "Topics",
+        "uniqueNameOrId" : ""
+      },
+      "componentName" : "forceCommunity:headline",
+      "id" : "3dbea529-39fe-4c5e-b71a-c9fce9c5062d",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "0908896e-944e-4d4e-8762-fdf739a49cc9",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : { },
+      "componentName" : "forceCommunity:topicCatalog",
+      "id" : "12a4bf41-a946-4562-8243-2c284a2d0306",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "1e0d6b57-5bcd-4da1-bd11-06395cd5cef0",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "id" : "a7102cbd-93e2-40db-a8c2-56619f190d41",
+    "regionName" : "footer",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "",
+        "title" : "Topic Catalog"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "3408f1f4-fe27-43d7-8756-bba5d3f44a62",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "12c1aaf4-c72c-45ba-bfaf-7097c197e649",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "topic-catalog"
 }

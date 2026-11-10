@@ -1,70 +1,59 @@
 {
-  "appPageId": "39740273-a4f0-4311-b732-31661924917d",
-  "componentName": "siteforce:sldsOneColLayout",
-  "dataProviders": [],
-  "id": "54b5eff1-5b5c-46ed-86c7-9cddfe941914",
-  "label": "File a Complaint",
-  "regions": [
-    {
-      "components": [
-        {
-          "componentAttributes": {
-            "richTextValue": "<!-- Page heading and one-line introduction -->\n<h1 class=\"lsbc-page-title\">File a Complaint</h1>\n<p class=\"lsbc-page-intro\">Report a salon, school or practitioner to the Board. You can identify yourself or file anonymously.</p>"
-          },
-          "componentName": "forceCommunity:richTextInline",
-          "id": "2e5dcc37-b443-4282-b01b-390bc1c7eb87",
-          "renderPriority": "NEUTRAL",
-          "renditionMap": {},
-          "type": "component"
-        }
-      ],
-      "id": "55f885a6-6388-4c38-8f05-ca59ccfd7a1a",
-      "regionName": "header",
-      "type": "region"
-    },
-    {
-      "id": "890463cb-e1da-42f9-bf00-24852c77a32a",
-      "regionName": "content",
-      "type": "region",
-      "components": [
-        {
-          "componentAttributes": {
-            "flowArguments": "",
-            "flowName": "ScreenFlowCasePublicComplaint"
-          },
-          "componentName": "forceCommunity:flowCommunity",
-          "id": "0c521e4c-74e5-45ad-bbc2-0ccb02be13ca",
-          "renderPriority": "NEUTRAL",
-          "renditionMap": {},
-          "type": "component"
-        }
-      ]
-    },
-    {
-      "id": "e3d039a2-1a63-4e0d-b837-2c560d8669d4",
-      "regionName": "footer",
-      "type": "region"
-    },
-    {
-      "components": [
-        {
-          "componentAttributes": {
-            "customHeadTags": "",
-            "description": "",
-            "title": "File a Complaint"
-          },
-          "componentName": "forceCommunity:seoAssistant",
-          "id": "acf791c5-255f-4826-b4a0-cf6adfc36999",
-          "renditionMap": {},
-          "type": "component"
-        }
-      ],
-      "id": "e4a96a04-805f-4ef0-b39e-f40e52a90cfa",
-      "regionName": "sfdcHiddenRegion",
-      "type": "region"
-    }
-  ],
-  "themeLayoutType": "Inner",
-  "type": "view",
-  "viewType": "report-a-business"
+  "appPageId" : "39740273-a4f0-4311-b732-31661924917d",
+  "componentName" : "siteforce:sldsOneColLayout",
+  "dataProviders" : [ ],
+  "id" : "54b5eff1-5b5c-46ed-86c7-9cddfe941914",
+  "label" : "File a Complaint",
+  "regions" : [ {
+    "components" : [ {
+      "componentAttributes" : {
+        "richTextValue" : "<!-- Page heading and one-line introduction -->\n<h1 class=\"lsbc-page-title\">File a Complaint</h1>\n<p class=\"lsbc-page-intro\">Report a salon, school or practitioner to the Board. You can identify yourself or file anonymously.</p>"
+      },
+      "componentName" : "forceCommunity:richTextInline",
+      "id" : "2e5dcc37-b443-4282-b01b-390bc1c7eb87",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "55f885a6-6388-4c38-8f05-ca59ccfd7a1a",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "flowArguments" : "",
+        "flowName" : "ScreenFlowCasePublicComplaint"
+      },
+      "componentName" : "forceCommunity:flowCommunity",
+      "id" : "0c521e4c-74e5-45ad-bbc2-0ccb02be13ca",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "890463cb-e1da-42f9-bf00-24852c77a32a",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "id" : "e3d039a2-1a63-4e0d-b837-2c560d8669d4",
+    "regionName" : "footer",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "customHeadTags" : "",
+        "description" : "",
+        "title" : "File a Complaint"
+      },
+      "componentName" : "forceCommunity:seoAssistant",
+      "id" : "acf791c5-255f-4826-b4a0-cf6adfc36999",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "e4a96a04-805f-4ef0-b39e-f40e52a90cfa",
+    "regionName" : "sfdcHiddenRegion",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "report-a-business"
 }

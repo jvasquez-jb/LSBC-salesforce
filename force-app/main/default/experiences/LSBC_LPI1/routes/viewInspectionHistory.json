@@ -1,12 +1,12 @@
 {
-  "activeViewId": "f2c42cc8-3ea7-4b65-a077-f4d35810a279",
-  "appPageId": "39740273-a4f0-4311-b732-31661924917d",
-  "configurationTags": [],
-  "devName": "Inspections",
-  "id": "3cbd0904-5de6-4671-95d5-da1244303c6e",
-  "label": "View Inspection History",
-  "pageAccess": "RequiresLogin",
-  "routeType": "inspections",
-  "type": "route",
-  "urlPrefix": "view-inspection-history"
+  "activeViewId" : "f2c42cc8-3ea7-4b65-a077-f4d35810a279",
+  "appPageId" : "39740273-a4f0-4311-b732-31661924917d",
+  "configurationTags" : [ ],
+  "devName" : "Inspections",
+  "id" : "3cbd0904-5de6-4671-95d5-da1244303c6e",
+  "label" : "View Inspection History",
+  "pageAccess" : "RequiresLogin",
+  "routeType" : "inspections",
+  "type" : "route",
+  "urlPrefix" : "view-inspection-history"
 }

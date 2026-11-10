@@ -1,52 +1,44 @@
 {
-  "appPageId": "39740273-a4f0-4311-b732-31661924917d",
-  "componentName": "siteforce:sldsOneColLayout",
-  "dataProviders": [],
-  "id": "c2b4b224-52ba-489b-b34a-c4e575d75a95",
-  "label": "Search for License or Permit Holder",
-  "regions": [
-    {
-      "components": [
-        {
-          "componentAttributes": {
-            "richTextValue": "<!-- Page heading and one-line introduction -->\n<h1 class=\"lsbc-page-title\">Look Up a License</h1>\n<p class=\"lsbc-page-intro\">Check that a cosmetologist, esthetician, manicurist, instructor, booth renter, salon or school is licensed in Louisiana.</p>"
-          },
-          "componentName": "forceCommunity:richTextInline",
-          "id": "9fe491f0-6719-45c3-af56-85577da1eaa9",
-          "renderPriority": "NEUTRAL",
-          "renditionMap": {},
-          "type": "component"
-        }
-      ],
-      "id": "54550b65-3d90-4c4e-9bdd-8e5fad54ece7",
-      "regionName": "header",
-      "type": "region"
-    },
-    {
-      "id": "8dfde0d5-3de5-4a98-82a9-efdb10e11b78",
-      "regionName": "content",
-      "type": "region",
-      "components": [
-        {
-          "componentAttributes": {
-            "flowArguments": "",
-            "flowName": "ScreenFlowBusinessLicensePublicSearch"
-          },
-          "componentName": "forceCommunity:flowCommunity",
-          "id": "db0c65aa-a4ad-45c6-9e18-c5e1573cbcb7",
-          "renderPriority": "NEUTRAL",
-          "renditionMap": {},
-          "type": "component"
-        }
-      ]
-    },
-    {
-      "id": "79b8e9fb-e320-4d6b-baf5-8d4a2af1b40b",
-      "regionName": "footer",
-      "type": "region"
-    }
-  ],
-  "themeLayoutType": "Inner",
-  "type": "view",
-  "viewType": "lookup-licenses-permits"
+  "appPageId" : "39740273-a4f0-4311-b732-31661924917d",
+  "componentName" : "siteforce:sldsOneColLayout",
+  "dataProviders" : [ ],
+  "id" : "c2b4b224-52ba-489b-b34a-c4e575d75a95",
+  "label" : "Search for License or Permit Holder",
+  "regions" : [ {
+    "components" : [ {
+      "componentAttributes" : {
+        "richTextValue" : "<!-- Page heading and one-line introduction -->\n<h1 class=\"lsbc-page-title\">Look Up a License</h1>\n<p class=\"lsbc-page-intro\">Check that a cosmetologist, esthetician, manicurist, instructor, booth renter, salon or school is licensed in Louisiana.</p>"
+      },
+      "componentName" : "forceCommunity:richTextInline",
+      "id" : "9fe491f0-6719-45c3-af56-85577da1eaa9",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "54550b65-3d90-4c4e-9bdd-8e5fad54ece7",
+    "regionName" : "header",
+    "type" : "region"
+  }, {
+    "components" : [ {
+      "componentAttributes" : {
+        "flowArguments" : "",
+        "flowName" : "ScreenFlowBusinessLicensePublicSearch"
+      },
+      "componentName" : "forceCommunity:flowCommunity",
+      "id" : "db0c65aa-a4ad-45c6-9e18-c5e1573cbcb7",
+      "renderPriority" : "NEUTRAL",
+      "renditionMap" : { },
+      "type" : "component"
+    } ],
+    "id" : "8dfde0d5-3de5-4a98-82a9-efdb10e11b78",
+    "regionName" : "content",
+    "type" : "region"
+  }, {
+    "id" : "79b8e9fb-e320-4d6b-baf5-8d4a2af1b40b",
+    "regionName" : "footer",
+    "type" : "region"
+  } ],
+  "themeLayoutType" : "Inner",
+  "type" : "view",
+  "viewType" : "lookup-licenses-permits"
 }

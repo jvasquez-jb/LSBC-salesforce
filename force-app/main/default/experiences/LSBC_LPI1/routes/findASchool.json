@@ -1,12 +1,12 @@
 {
-  "activeViewId": "721d6564-9a24-43f9-8993-0fdefa336bed",
-  "appPageId": "39740273-a4f0-4311-b732-31661924917d",
-  "configurationTags": [],
-  "devName": "Find_A_School",
-  "id": "53b06302-1595-4871-a9c8-a10813770874",
-  "label": "Find a School",
-  "pageAccess": "UseParent",
-  "routeType": "custom-find-a-school",
-  "type": "route",
-  "urlPrefix": "find-a-school"
+  "activeViewId" : "721d6564-9a24-43f9-8993-0fdefa336bed",
+  "appPageId" : "39740273-a4f0-4311-b732-31661924917d",
+  "configurationTags" : [ ],
+  "devName" : "Find_A_School",
+  "id" : "53b06302-1595-4871-a9c8-a10813770874",
+  "label" : "Find a School",
+  "pageAccess" : "UseParent",
+  "routeType" : "custom-find-a-school",
+  "type" : "route",
+  "urlPrefix" : "find-a-school"
 }
