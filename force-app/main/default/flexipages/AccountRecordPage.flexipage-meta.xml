@@ -11,6 +11,9 @@
                             <value>Edit</value>
                         </valueListItems>
                         <valueListItems>
+                            <value>Account.RecordPayment</value>
+                        </valueListItems>
+                        <valueListItems>
                             <value>Account.AddStopCode</value>
                         </valueListItems>
                         <valueListItems>

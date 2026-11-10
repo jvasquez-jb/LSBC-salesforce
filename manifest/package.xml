@@ -111,8 +111,11 @@
         <members>Payment__c.Account__c</members>
         <members>Payment__c.Amount__c</members>
         <members>Payment__c.AppliedAmount__c</members>
+        <members>Payment__c.CheckDate__c</members>
+        <members>Payment__c.ChecklistItem__c</members>
         <members>Payment__c.ExternalReference__c</members>
         <members>Payment__c.Method__c</members>
+        <members>Payment__c.PayerName__c</members>
         <members>Payment__c.ReceivedDate__c</members>
         <members>Payment__c.RefundAmount__c</members>
         <members>Payment__c.RefundCheckNumber__c</members>
@@ -353,6 +356,7 @@
         <members>RegulatoryTransactionFeeScheduleOverdueFees</members>
         <members>ScreenFlowAccountAddStopCode</members>
         <members>ScreenFlowAccountPortalRegistration</members>
+        <members>ScreenFlowAccountRecordPayment</members>
         <members>ScreenFlowAccountSchoolDirectory</members>
         <members>ScreenFlowAccreditationCEProviderList</members>
         <members>ScreenFlowBusinessLicenseApplicationFacility</members>
@@ -380,6 +384,7 @@
         <members>SubflowFeeAmountPaidSync</members>
         <members>SubflowFeeRenewalAssessment</members>
         <members>SubflowOutOfStateLicenses</members>
+        <members>SubflowPaymentReceiptPaymentCreate</members>
         <members>SubflowPreliminaryApplicationDiscard</members>
         <members>SubflowPreliminaryApplicationTransfer</members>
         <members>SubflowSchoolsAttended</members>
@@ -453,6 +458,7 @@
         <members>Account.AddStopCode</members>
         <members>Account.NewViolationEstablishment</members>
         <members>Account.NewViolationPractitioner</members>
+        <members>Account.RecordPayment</members>
         <members>Case.NewViolation</members>
         <members>Case.RecordComplaint</members>
         <members>RegulatoryTrxnFeeItem.ChangeYear</members>

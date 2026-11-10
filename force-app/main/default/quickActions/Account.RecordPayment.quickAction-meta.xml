@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QuickAction xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Lets staff record a payment received by mail or at the counter and apply it to the account's open fees.</description>
+    <flowDefinition>ScreenFlowAccountRecordPayment</flowDefinition>
+    <label>Record Payment</label>
+    <optionsCreateFeedItem>false</optionsCreateFeedItem>
+    <type>Flow</type>
+</QuickAction>

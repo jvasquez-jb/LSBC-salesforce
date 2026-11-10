@@ -81,7 +81,7 @@ schools, shops, booths and instructors.
 | Business rules | Business Rules Engine, called from Flow |
 | Evidence | Document Checklist Item, Person Examination, Training Course Participant |
 | Money owed | Product, Regulatory Transaction Fee, Fee Item |
-| Money received | A thin payment and allocation ledger, scoped to violations. See `DM-18` |
+| Money received | A thin payment and allocation ledger for every fee: violations, applications and renewals. See `DM-18` |
 | Violations | Regulatory Code, Violation Type, Regulatory Code Violation |
 | Complaints | Case, Email-to-Case, Web-to-Case |
 | Public service | Licence search, school directory, CE provider list |
@@ -328,7 +328,7 @@ Two thin custom objects, scoped to the violation path only.
 
 | Object | Purpose |
 |---|---|
-| `Payment__c` | One receipt. Date, amount, method, external reference, unapplied balance |
+| `Payment__c` | One receipt. Date, amount, method, check or transaction number, check date, payer name, unapplied balance |
 | `PaymentAllocation__c` | The junction. Which payment, which `RegulatoryTrxnFeeItem`, how much, and `ForYear__c` |
 
 This closes the violation loop inside Phase 1: a citation raises a $25 fee with a 15-day clock,
@@ -356,14 +356,26 @@ The accounting entry is a fourth step, performed in QuickBooks, and sits outside
 method: an overpayment report and a refund reconciliation report, both drawing on the refund and
 the refund request. Both are Phase 1 deliverables.
 
-`DM-18a` `[SETTLED]` **Built to be retired.** If Inbound Payments arrives through a change order,
-LSBC gains Invoice, PaymentCart and the native flow. Keeping these objects thin, violation-only,
-and out of the renewal path makes that a mapping exercise rather than a migration. They are not
-wired into renewals, registrations or the deposit process in Phase 1.
+`DM-18a` `[SETTLED]` **Built to be retired, now covering every fee** (revised 10 Nov 2026). The
+ledger was first scoped to violations. Phase 6 extends it to all money LSBC receives, because staff
+have no other way to record a mailed renewal check. Nothing in the objects changed: an allocation
+already pointed at any fee item. Two paths write to it:
+
+| Path | How the payment is created |
+|---|---|
+| Mailed or counter payment (check, money order, cashier's check, card) | Staff run **Record Payment** on the Person or business Account. They enter the payment, then go through the account's open fee items, oldest first; each offers what it still owes after earlier payments that were not returned. Anything not applied stays unapplied |
+| Online (PayStar) | The applicant uploads the receipt to the application's Payment Receipt checklist item. When staff set that item to **Accepted**, a Card payment is created for the application's fees that are still Due, one allocation per fee item. One receipt creates one payment: `Payment__c.ChecklistItem__c` is unique |
+
+LSBC takes no cash. If Inbound Payments arrives through a change order, these objects still map
+across: one payment, its allocations to fee items, and a year on each.
 
 `DM-19` `[OPEN]` **The deposit is also the unit of work for printing.** The CLOSE Licenses menu
 is deposit-driven — Shop by Deposit, Renewals by Deposit, Print All by Deposit #, Manager by
 Deposit Number. A deposit is not only a finance artifact.
+
+Phase 6 note: LSBC confirmed no deposit number is needed on a payment (10 Nov 2026), so `Payment__c`
+has none and printing is not batched by deposit. The print queue (Phase 6) works from the licence
+instead.
 
 ---
 
@@ -1554,3 +1566,4 @@ the source.
 | 10 Nov 2026 | `BR-25`: a retake is both an application (for certification, checklist and fee) and a new Person Examination attempt. |
 | 10 Nov 2026 | Facility tax ID stored on a new `Account.TaxIdentificationNumber__c`: `BusinessProfile` has no tax field in this org. |
 | 10 Nov 2026 | Portal screen flows carry plain labels (shown to applicants in the Save for later dialog); their API names follow the naming convention. |
+| 10 Nov 2026 | `DM-18a` revised: the payment ledger covers every fee. Staff record mailed payments with Record Payment on the Account; accepting a PayStar receipt creates the payment. No cash, no deposit number (`DM-19` note). |

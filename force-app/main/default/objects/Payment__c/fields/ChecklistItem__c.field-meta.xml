@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ChecklistItem__c</fullName>
+    <caseSensitive>true</caseSensitive>
+    <description>The Id of the Payment Receipt checklist item this payment was created from, when staff accepted an online (PayStar) receipt. Unique, so one receipt can only ever create one payment. Blank for payments staff record by hand. Text because Salesforce does not allow a lookup to Document Checklist Item.</description>
+    <externalId>true</externalId>
+    <inlineHelpText>Set automatically when an online payment receipt is accepted. Do not change.</inlineHelpText>
+    <label>Checklist Item</label>
+    <length>18</length>
+    <required>false</required>
+    <type>Text</type>
+    <unique>true</unique>
+</CustomField>
