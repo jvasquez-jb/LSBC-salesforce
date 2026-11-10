@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>StatusDraftOutOfStateLicense</fullName>
+    <active>true</active>
+    <description>A license issued by another state or country is kept as Draft so it never counts as a Louisiana license for stop codes, renewals or public search. Its verification is recorded in Verification Status.</description>
+    <errorConditionFormula>AND(
+  OR(NOT(ISBLANK(JurisdictionState)), NOT(ISBLANK(JurisdictionCountry))),
+  NOT(ISPICKVAL(Status, &quot;Draft&quot;))
+)</errorConditionFormula>
+    <errorDisplayField>Status</errorDisplayField>
+    <errorMessage>A license from another state or country stays Draft. Record its verification in Verification Status instead.</errorMessage>
+</ValidationRule>

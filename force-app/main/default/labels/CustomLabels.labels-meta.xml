@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
+    <labels>
+        <fullName>PayStarPaymentUrl</fullName>
+        <categories>Portal</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>PayStar Payment URL</shortDescription>
+        <value>https://www.lsbc.louisiana.gov</value>
+    </labels>
+</CustomLabels>
