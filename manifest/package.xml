@@ -153,6 +153,7 @@
     </types>
     <types>
         <members>ApplicationDocumentRequirement.AffidavitDriversLicenseOrStateId</members>
+        <members>ApplicationDocumentRequirement.AffidavitPaymentReceipt</members>
         <members>ApplicationDocumentRequirement.AhdFacLocalOccupationalLicense</members>
         <members>ApplicationDocumentRequirement.AhdFacOperatorLicense</members>
         <members>ApplicationDocumentRequirement.DuplicatePaymentReceipt</members>
@@ -330,6 +331,7 @@
         <members>ScreenFlowBusinessLicensePublicSearch</members>
         <members>ScreenFlowCasePublicComplaint</members>
         <members>ScreenFlowCaseRecordComplaint</members>
+        <members>ScreenFlowIndividualApplicationAffidavit</members>
         <members>ScreenFlowIndividualApplicationReciprocity</members>
         <members>ScreenFlowIndividualApplicationRenewal</members>
         <members>ScreenFlowIndividualApplicationResume</members>

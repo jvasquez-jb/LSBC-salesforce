@@ -1,0 +1,12 @@
+{
+  "activeViewId": "ddc1e7fd-a7b4-4297-beec-f3312ad1c1f8",
+  "appPageId": "39740273-a4f0-4311-b732-31661924917d",
+  "configurationTags": [],
+  "devName": "requestAnAffidavit",
+  "id": "937f8092-6df7-4d05-9b46-0aae59add863",
+  "label": "Request an Affidavit",
+  "pageAccess": "RequiresLogin",
+  "routeType": "custom-affidavit",
+  "type": "route",
+  "urlPrefix": "affidavit"
+}

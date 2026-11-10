@@ -1,0 +1,70 @@
+{
+  "appPageId": "39740273-a4f0-4311-b732-31661924917d",
+  "componentName": "siteforce:sldsOneColLayout",
+  "dataProviders": [],
+  "id": "ddc1e7fd-a7b4-4297-beec-f3312ad1c1f8",
+  "label": "Request an Affidavit",
+  "regions": [
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "richTextValue": "<!-- Page heading and one-line introduction -->\n<h1 class=\"lsbc-page-title\">Request an Affidavit</h1>\n<p class=\"lsbc-page-intro\">Ask the Board to certify your Louisiana licensure to another state or to an address.</p>"
+          },
+          "componentName": "forceCommunity:richTextInline",
+          "id": "ee2e2ad9-bd5f-435d-bf82-ed6ca0b578b3",
+          "renderPriority": "NEUTRAL",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "6043787c-0a0a-4cde-b7da-139ef5fa2246",
+      "regionName": "header",
+      "type": "region"
+    },
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "flowArguments": "",
+            "flowName": "ScreenFlowIndividualApplicationAffidavit"
+          },
+          "componentName": "forceCommunity:flowCommunity",
+          "id": "a3030160-d4d9-43fd-9374-ec5556d44f0d",
+          "renderPriority": "NEUTRAL",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "4426bbed-e738-4b33-8af5-93543a153b0f",
+      "regionName": "content",
+      "type": "region"
+    },
+    {
+      "id": "44a01133-8222-4c04-bf35-d86e565ef9f2",
+      "regionName": "footer",
+      "type": "region"
+    },
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "customHeadTags": "",
+            "description": "",
+            "title": "Request an Affidavit"
+          },
+          "componentName": "forceCommunity:seoAssistant",
+          "id": "4456798f-16dd-483b-ab81-35c353c4e308",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "7438b378-6b43-40be-816a-f85e322ab1fd",
+      "regionName": "sfdcHiddenRegion",
+      "type": "region"
+    }
+  ],
+  "themeLayoutType": "Inner",
+  "type": "view",
+  "viewType": "custom-affidavit"
+}
