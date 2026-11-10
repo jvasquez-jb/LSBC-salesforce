@@ -107,6 +107,9 @@ Raised by later phases while Phase 2 is paused. Pick these up when it resumes.
 10. Queue membership for Complaint Intake and General Inquiries (staff, not Jonathan). Members are
     data (`GroupMember`), not in the queue metadata.
 11. Field history on violation `Status` and `PublicComplaint.IsReporterConfidential` (`SEC-05`).
+12. Establishments created by the portal shop and facility applications are owned by the applicant's
+    portal user (that is how the owner sees them). Decide staff access to them, and whether ownership
+    moves to an LSBC user or queue once the application is approved.
 
 ## Org notes
 
