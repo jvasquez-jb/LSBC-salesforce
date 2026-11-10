@@ -1229,6 +1229,17 @@ Weeks 11 and 12, using representative data. Written sign-off is required before 
 `CUT-03` `[SETTLED]` Two train-the-trainer sessions: administrator and end user. Training guides,
 Trailhead links, quick-reference guides.
 
+As built (Phase 6): one training guide per desk, written step by step on the LSBC Licensing app's
+screens: [Mailroom and Front Desk](https://claude.ai/artifact/NwTZF552EehJzUo4AgeaEQ),
+[Renewal Desk](https://claude.ai/artifact/Je9toe5RXaKKY132MGs2R1),
+[Reciprocity and Testing](https://claude.ai/artifact/QR3YD7EVusSLPCQXJy4vvL),
+[Problem Desk](https://claude.ai/artifact/5XDCeaK9KrJhNhwx9SCtek) and
+[Complaints](https://claude.ai/artifact/SqDtAjsJFBtEqUxCKEwSZw). The administrator material is the
+LSBC Salesforce Admin Guide. For the January 27 staff go-live with the portal unpublished, staff
+enter paper applications with New Application and record mailed payments with Record Payment
+(`PT-15`). Data load templates and a separate cutover runbook were left out of Phase 6 by
+decision; the Deployment Manifest is the deployment runbook.
+
 ---
 
 ## 6. Back-office processes — reference
@@ -1639,3 +1650,4 @@ the source.
 | 10 Nov 2026 | `PT-15` as built: New Application runs the portal forms for a person as staff; Upload Documents on applications, including documents sent to the Board. |
 | 10 Nov 2026 | Staff work queues: list views Applications Awaiting Review (both application objects), Open Stop Codes, Payments Received This Week (in place of Payments by Deposit) and the LSBC Licensing Home page that shows them with Licenses Ready to Print. |
 | 10 Nov 2026 | Staff reports built: LSBC Operations folder (seven reports on six new report types) and the LSBC Operations dashboard, shown to each viewer with their own access and placed on the LSBC Licensing Home page. |
+| 10 Nov 2026 | `CUT-03` as built: five desk training guides; Phase 6 closed. Staff access to the Phase 6 tools is on the Phase 2 list. |
