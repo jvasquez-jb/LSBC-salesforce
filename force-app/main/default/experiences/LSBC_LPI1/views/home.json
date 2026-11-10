@@ -1,55 +1,72 @@
 {
-  "appPageId" : "39740273-a4f0-4311-b732-31661924917d",
-  "componentName" : "siteforce:sldsOneColLayout",
-  "dataProviders" : [ ],
-  "id" : "92bf375e-ed38-43b1-a740-0d45b804d6d1",
-  "label" : "Home",
-  "regions" : [ {
-    "id" : "aa6b033f-1c02-437d-a6d3-9e98c5a35760",
-    "regionName" : "header",
-    "type" : "region"
-  }, {
-    "components" : [ {
-      "componentAttributes" : {
-        "maxWidth" : 100,
-        "overlayColor" : "rgba(0,0,0,0.6)",
-        "overlayHoverColor" : "",
-        "radius" : 0,
-        "showTitle" : false,
-        "textAlignment" : "center",
-        "textBgColor" : "rgba(0,0,0,0)",
-        "textBgHoverColor" : "rgba(0,0,0,0)",
-        "textColor" : "",
-        "textHoverColor" : "",
-        "textPosition" : "center center",
-        "title" : "Featured Topics"
-      },
-      "componentName" : "forceTopic:featuredTopics",
-      "id" : "1bd79484-5099-482b-9cb9-cbd8c164de5d",
-      "renderPriority" : "NEUTRAL",
-      "renditionMap" : { },
-      "type" : "component"
-    } ],
-    "id" : "bbba2927-1054-4109-baa8-44327bb50455",
-    "regionName" : "footer",
-    "type" : "region"
-  }, {
-    "components" : [ {
-      "componentAttributes" : {
-        "customHeadTags" : "",
-        "description" : "",
-        "title" : "Home"
-      },
-      "componentName" : "forceCommunity:seoAssistant",
-      "id" : "415bfb08-956f-40ae-bbd4-ce8c06218b0b",
-      "renditionMap" : { },
-      "type" : "component"
-    } ],
-    "id" : "df90cc17-db89-4044-b5bc-026885ddf264",
-    "regionName" : "sfdcHiddenRegion",
-    "type" : "region"
-  } ],
-  "themeLayoutType" : "Inner",
-  "type" : "view",
-  "viewType" : "home"
+  "appPageId": "39740273-a4f0-4311-b732-31661924917d",
+  "componentName": "siteforce:sldsOneColLayout",
+  "dataProviders": [],
+  "id": "92bf375e-ed38-43b1-a740-0d45b804d6d1",
+  "label": "Home",
+  "regions": [
+    {
+      "id": "aa6b033f-1c02-437d-a6d3-9e98c5a35760",
+      "regionName": "header",
+      "type": "region"
+    },
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "richTextValue": "<section class=\"lsbc-section\" aria-labelledby=\"lsbc-popular-title\"><h2 class=\"lsbc-section__title\" id=\"lsbc-popular-title\">Popular tasks</h2><div class=\"lsbc-popular\"><ul><li><a href=\"/LPI/s/renew-license-permit\">Renew my license</a></li><li><a href=\"/LPI/s/search-license-permit-holder\">Look up a license</a></li><li><a href=\"/LPI/s/apply-license-permit\">Apply for reciprocity</a></li></ul><ul><li><a href=\"/LPI/s/renew-license-permit\">Request a duplicate license</a></li><li><a href=\"/LPI/s/view-fees\">Pay a fee</a></li><li><a href=\"/LPI/s/file-a-complaint\">File a complaint</a></li></ul></div></section>"
+          },
+          "componentName": "forceCommunity:htmlBlock",
+          "id": "83076612-e9a9-442a-bcb4-a66b2fa20e20",
+          "renditionMap": {},
+          "renderPriority": "NEUTRAL",
+          "type": "component"
+        },
+        {
+          "componentAttributes": {
+            "richTextValue": "<section class=\"lsbc-section\" aria-labelledby=\"lsbc-topics-title\"><h2 class=\"lsbc-section__title\" id=\"lsbc-topics-title\">All topics</h2><div class=\"lsbc-topics\"><a class=\"lsbc-tile\" href=\"/LPI/s/renew-license-permit\"><img src=\"/LPI/resource/PortalBranding/icons/license.svg\" alt=\"\"/><span>Licenses &amp; Renewals</span></a><a class=\"lsbc-tile\" href=\"/LPI/s/apply-license-permit\"><img src=\"/LPI/resource/PortalBranding/icons/apply.svg\" alt=\"\"/><span>Apply for a License</span></a><a class=\"lsbc-tile\" href=\"/LPI/s/search-license-permit-holder\"><img src=\"/LPI/resource/PortalBranding/icons/lookup.svg\" alt=\"\"/><span>Look Up a License</span></a><a class=\"lsbc-tile\" href=\"/LPI/s/view-license-permit-status\"><img src=\"/LPI/resource/PortalBranding/icons/applications.svg\" alt=\"\"/><span>My Applications</span></a><a class=\"lsbc-tile\" href=\"/LPI/s/view-fees\"><img src=\"/LPI/resource/PortalBranding/icons/fees.svg\" alt=\"\"/><span>Fees &amp; Payments</span></a><a class=\"lsbc-tile\" href=\"/LPI/s/file-a-complaint\"><img src=\"/LPI/resource/PortalBranding/icons/complaint.svg\" alt=\"\"/><span>File a Complaint</span></a></div></section>"
+          },
+          "componentName": "forceCommunity:htmlBlock",
+          "id": "1aaa3c58-0373-4185-9025-eaa24288eff4",
+          "renditionMap": {},
+          "renderPriority": "NEUTRAL",
+          "type": "component"
+        },
+        {
+          "componentAttributes": {
+            "richTextValue": "<section class=\"lsbc-help\" aria-labelledby=\"lsbc-help-title\"><h2 id=\"lsbc-help-title\">Need more help?</h2><p>Our office is open Monday to Friday.</p><div class=\"lsbc-help__cards\">\n<div class=\"lsbc-help__card\"><img src=\"/LPI/resource/PortalBranding/icons/contact.svg\" alt=\"\"/><div><a href=\"tel:+12257563404\">Contact the Board</a><p>Call 225-756-3404, or write to 11622 Sunbelt Court, Baton Rouge, Louisiana 70809.</p></div></div>\n<div class=\"lsbc-help__card\"><img src=\"/LPI/resource/PortalBranding/icons/complaint.svg\" alt=\"\"/><div><a href=\"/LPI/s/file-a-complaint\">File a Complaint</a><p>Report a salon, school or practitioner. You can stay anonymous.</p></div></div>\n</div></section>"
+          },
+          "componentName": "forceCommunity:htmlBlock",
+          "id": "d6718a38-160f-4df5-8858-62f1f4dcfb84",
+          "renditionMap": {},
+          "renderPriority": "NEUTRAL",
+          "type": "component"
+        }
+      ],
+      "id": "bbba2927-1054-4109-baa8-44327bb50455",
+      "regionName": "footer",
+      "type": "region"
+    },
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "customHeadTags": "",
+            "description": "",
+            "title": "Home"
+          },
+          "componentName": "forceCommunity:seoAssistant",
+          "id": "415bfb08-956f-40ae-bbd4-ce8c06218b0b",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "df90cc17-db89-4044-b5bc-026885ddf264",
+      "regionName": "sfdcHiddenRegion",
+      "type": "region"
+    }
+  ],
+  "themeLayoutType": "Home",
+  "type": "view",
+  "viewType": "home"
 }

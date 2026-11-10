@@ -1,11 +1,11 @@
 {
-  "cmsSettings" : { },
-  "currentThemeId" : "f1b94683-e577-48d8-869c-fc1abb6acd2e",
-  "headMarkup" : null,
-  "id" : "39740273-a4f0-4311-b732-31661924917d",
-  "isLockerServiceEnabled" : true,
-  "isRelaxedCSPLevel" : false,
-  "label" : "main",
-  "templateName" : "Licenses & Permits Template",
-  "type" : "appPage"
+  "cmsSettings": {},
+  "currentThemeId": "75fe20fd-f098-467e-9f62-5afc0a243697",
+  "headMarkup": null,
+  "id": "39740273-a4f0-4311-b732-31661924917d",
+  "isLockerServiceEnabled": true,
+  "isRelaxedCSPLevel": false,
+  "label": "main",
+  "templateName": "Licenses & Permits Template",
+  "type": "appPage"
 }
