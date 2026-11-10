@@ -1,0 +1,67 @@
+{
+  "appPageId": "39740273-a4f0-4311-b732-31661924917d",
+  "componentName": "siteforce:sldsOneColLayout",
+  "dataProviders": [],
+  "id": "45a13479-19ae-4c7b-ab41-f12abd756a9b",
+  "label": "Continue Application",
+  "regions": [
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "richTextValue": "<!-- Page heading and one-line introduction -->\n<h1 class=\"lsbc-page-title\">Continue Your Application</h1>\n<p class=\"lsbc-page-intro\">Pick up a saved application where you left off. Saved applications are kept for 30 days from when you last worked on them, then deleted.</p>"
+          },
+          "componentName": "forceCommunity:richTextInline",
+          "id": "95e719e2-dda1-45b1-8eec-9608fb9140cf",
+          "renderPriority": "NEUTRAL",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "e9d68f4b-02a8-4d53-bc66-1d5e6bc38775",
+      "regionName": "header",
+      "type": "region"
+    },
+    {
+      "components": [
+        {
+          "componentAttributes": {},
+          "componentName": "c:flowResume",
+          "id": "481fc982-5a9a-4828-891b-a0b02cc04cef",
+          "renderPriority": "NEUTRAL",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "3d55fc28-dee1-44d8-9af8-462ef6fad979",
+      "regionName": "content",
+      "type": "region"
+    },
+    {
+      "id": "d0998445-1775-495d-8ac3-0b35b773bc4f",
+      "regionName": "footer",
+      "type": "region"
+    },
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "customHeadTags": "",
+            "description": "",
+            "title": "Continue Application"
+          },
+          "componentName": "forceCommunity:seoAssistant",
+          "id": "12a55c6e-a2ba-44fb-94ee-3a8588887e40",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "bcd13cc6-7a37-44b0-ad35-0b1ee260e14f",
+      "regionName": "sfdcHiddenRegion",
+      "type": "region"
+    }
+  ],
+  "themeLayoutType": "Inner",
+  "type": "view",
+  "viewType": "custom-continue-application"
+}

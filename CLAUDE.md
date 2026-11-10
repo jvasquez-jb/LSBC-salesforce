@@ -171,7 +171,17 @@ Raised by later phases while Phase 2 is paused. Pick these up when it resumes.
   `documentChecklistUpload` LWC in `Subflow: Document Checklist Upload`. A file can't be deleted while
   it is linked to a checklist item, nor the item while it has a file: delete the
   `ContentDocumentLink` first (`scripts/apex/DeleteRegistrantThreeTestApplications.apex`).
-- Portal forms create their records before certification, so an abandoned form leaves Draft
-  applications, fees and checklist items behind.
+- Portal forms write nothing to the application objects until the applicant certifies. Each form
+  creates a draft (`PreliminaryApplicationRef`, Application Type = target object) at the start; its
+  documents sit on checklist items under the draft, and `SavedApplicationUrl` holds
+  `/LPI/s/continue-application?guid=<$Flow.InterviewGuid>` to find the paused form again. On
+  Certify the form creates the real records and `Subflow: Preliminary Application Transfer` moves
+  the checklist items and marks the draft submitted; the form deletes the draft after payment.
+  Save for later is flow pause (org setting `enableFlowPauseEnabled`, in `settings/Flow`); screens
+  that allow it get the 30-day message from `flowkit.PAUSED_TEXT`. My Applications lists saved forms
+  (`ScreenFlowIndividualApplicationResume`); Continue opens `/continue-application?interviewId=`,
+  where the Aura `flowResume` component resumes it. `Subflow: Preliminary Application Discard`
+  deletes a draft; the nightly `PreliminaryApplicationReferenceScheduleExpiredDrafts` (01:15) runs it
+  after 30 days untouched. New forms follow the same pattern.
 - `force-app` holds only metadata this project owns. A full org retrieve sits in `reference/`
   (ignored by git) for lookups. Copy a file into `force-app` only when we change it.

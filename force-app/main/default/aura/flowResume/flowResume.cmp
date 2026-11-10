@@ -1,0 +1,16 @@
+<!--
+  Flow Resume: reopens a portal applicant's saved (paused) application form where they left off.
+  The Continue links on My Applications (Screen Flow: Individual Application Resume) open the
+  Continue Application page with ?interviewId=<paused flow interview Id>. Aura, because the LWC flow
+  container can't resume a paused interview. No business logic here.
+-->
+<aura:component implements="forceCommunity:availableForAllPageTypes" access="global" description="Resumes a saved portal application from the interviewId in the page address.">
+    <aura:attribute name="message" type="String" access="private"/>
+    <aura:handler name="init" value="{!this}" action="{!c.init}"/>
+    <aura:if isTrue="{!v.message}">
+        <p class="lsbc-resume-message">
+            <aura:unescapedHtml value="{!v.message}"/>
+        </p>
+    </aura:if>
+    <lightning:flow aura:id="flow" onstatuschange="{!c.statusChange}"/>
+</aura:component>

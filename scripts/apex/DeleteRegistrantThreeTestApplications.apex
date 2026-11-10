@@ -1,17 +1,23 @@
-// Test data cleanup: deletes StopCodeTest Registrant Three's portal applications, checklist items, files,
-// today's fees and holds. Files must be unlinked from checklist items before either can be deleted.
+// Test data cleanup: deletes StopCodeTest Registrant Three's portal applications and drafts (Preliminary
+// Application References), their checklist items and files, saved (paused) forms, and today's fees and holds.
+// Files must be unlinked from checklist items before either can be deleted.
 Id acc = [SELECT AccountId FROM BusinessLicense WHERE Identifier = 'SCT40003'].AccountId;
+Id portalUser = [SELECT Id FROM User WHERE AccountId = :acc LIMIT 1].Id;
 List<IndividualApplication> apps = [SELECT Id FROM IndividualApplication WHERE AccountId = :acc];
-Set<Id> appIds = new Map<Id, IndividualApplication>(apps).keySet();
-List<DocumentChecklistItem> items = [SELECT Id FROM DocumentChecklistItem WHERE ParentRecordId IN :appIds];
+List<PreliminaryApplicationRef> drafts = [SELECT Id FROM PreliminaryApplicationRef WHERE OwnerId = :portalUser];
+Set<Id> parents = new Set<Id>();
+for (IndividualApplication a : apps) parents.add(a.Id);
+for (PreliminaryApplicationRef d : drafts) parents.add(d.Id);
+List<DocumentChecklistItem> items = [SELECT Id FROM DocumentChecklistItem WHERE ParentRecordId IN :parents];
+Set<Id> linked = new Set<Id>(parents);
+for (DocumentChecklistItem i : items) linked.add(i.Id);
+Set<Id> docIds = new Set<Id>();
+List<ContentDocumentLink> links = linked.isEmpty() ? new List<ContentDocumentLink>() : [SELECT Id, ContentDocumentId FROM ContentDocumentLink WHERE LinkedEntityId IN :linked];
+for (ContentDocumentLink l : links) docIds.add(l.ContentDocumentId);
+List<ContentDocument> docs = [SELECT Id FROM ContentDocument WHERE Id IN :docIds];
 List<RegulatoryTrxnFee> fees = [SELECT Id FROM RegulatoryTrxnFee WHERE AccountId = :acc AND CreatedDate = TODAY];
 List<RegulatoryTrxnFeeItem> feeItems = [SELECT Id FROM RegulatoryTrxnFeeItem WHERE RegulatoryTrxnFeeId IN :fees];
-Set<Id> docIds = new Set<Id>();
-Set<Id> linked = new Set<Id>(appIds); for (DocumentChecklistItem i : items) linked.add(i.Id);
-if (!linked.isEmpty()) for (ContentDocumentLink l : [SELECT ContentDocumentId FROM ContentDocumentLink WHERE LinkedEntityId IN :linked]) docIds.add(l.ContentDocumentId);
-List<ContentDocument> docs = [SELECT Id FROM ContentDocument WHERE Id IN :docIds];
 List<RecordAlert> alerts = [SELECT Id FROM RecordAlert WHERE WhatId = :acc AND CreatedDate = TODAY];
-List<ContentDocumentLink> links = linked.isEmpty() ? new List<ContentDocumentLink>() : [SELECT Id FROM ContentDocumentLink WHERE LinkedEntityId IN :linked];
-String step = 'links';
-try { delete links; step = 'docs'; delete docs; step = 'items'; delete items; } catch (Exception e) { System.debug(LoggingLevel.ERROR, 'CLEAN FAILED at ' + step + ': ' + e.getMessage()); throw e; } delete feeItems; delete fees; delete apps; delete alerts;
-System.debug(LoggingLevel.ERROR, 'CLEAN apps ' + apps.size() + ' items ' + items.size() + ' fees ' + fees.size() + ' docs ' + docs.size() + ' alerts ' + alerts.size());
+List<FlowInterview> paused = [SELECT Id FROM FlowInterview WHERE CreatedById = :portalUser];
+delete links; delete docs; delete items; delete feeItems; delete fees; delete apps; delete drafts; delete alerts; delete paused;
+System.debug(LoggingLevel.ERROR, 'CLEAN apps ' + apps.size() + ' drafts ' + drafts.size() + ' items ' + items.size() + ' fees ' + fees.size() + ' docs ' + docs.size() + ' alerts ' + alerts.size() + ' paused ' + paused.size());

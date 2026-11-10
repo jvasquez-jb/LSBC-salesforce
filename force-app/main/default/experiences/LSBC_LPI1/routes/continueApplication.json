@@ -1,0 +1,12 @@
+{
+  "activeViewId": "45a13479-19ae-4c7b-ab41-f12abd756a9b",
+  "appPageId": "39740273-a4f0-4311-b732-31661924917d",
+  "configurationTags": [],
+  "devName": "Continue_Application",
+  "id": "c6b69f83-6963-423f-bff3-2f7a3be5499a",
+  "label": "Continue Application",
+  "pageAccess": "RequiresLogin",
+  "routeType": "custom-continue-application",
+  "type": "route",
+  "urlPrefix": "continue-application"
+}
