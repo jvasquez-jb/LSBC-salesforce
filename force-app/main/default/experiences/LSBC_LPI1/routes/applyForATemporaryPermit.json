@@ -1,0 +1,12 @@
+{
+  "activeViewId": "37aa4ba8-55dd-4052-a897-5bca4b748499",
+  "appPageId": "39740273-a4f0-4311-b732-31661924917d",
+  "configurationTags": [],
+  "devName": "applyForATemporaryPermit",
+  "id": "f251ba25-34ef-429e-9269-d4480459f131",
+  "label": "Apply for a Temporary Permit",
+  "pageAccess": "RequiresLogin",
+  "routeType": "custom-temporary-permit",
+  "type": "route",
+  "urlPrefix": "temporary-permit"
+}

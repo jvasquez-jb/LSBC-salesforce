@@ -1,0 +1,70 @@
+{
+  "appPageId": "39740273-a4f0-4311-b732-31661924917d",
+  "componentName": "siteforce:sldsOneColLayout",
+  "dataProviders": [],
+  "id": "37aa4ba8-55dd-4052-a897-5bca4b748499",
+  "label": "Apply for a Temporary Permit",
+  "regions": [
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "richTextValue": "<!-- Page heading and one-line introduction -->\n<h1 class=\"lsbc-page-title\">Apply for a Temporary Permit</h1>\n<p class=\"lsbc-page-intro\">Work at a hair show, pageant, demonstration or movie set in Louisiana with your out-of-state license.</p>"
+          },
+          "componentName": "forceCommunity:richTextInline",
+          "id": "4fcb76dd-f9b6-4087-a14e-425688901fdb",
+          "renderPriority": "NEUTRAL",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "261e7216-11fd-43bd-a638-e679e7771631",
+      "regionName": "header",
+      "type": "region"
+    },
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "flowArguments": "",
+            "flowName": "ScreenFlowIndividualApplicationTemporaryPermit"
+          },
+          "componentName": "forceCommunity:flowCommunity",
+          "id": "f2cda6c0-98bd-4f75-93e9-07c487636c0e",
+          "renderPriority": "NEUTRAL",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "ba46705a-2b23-4145-bdf0-f086fb0623eb",
+      "regionName": "content",
+      "type": "region"
+    },
+    {
+      "id": "05c5901f-82f9-4fe1-980a-8b0b40a729dc",
+      "regionName": "footer",
+      "type": "region"
+    },
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "customHeadTags": "",
+            "description": "",
+            "title": "Apply for a Temporary Permit"
+          },
+          "componentName": "forceCommunity:seoAssistant",
+          "id": "956ec4fb-9837-4ddd-acb3-7680bbe04027",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "a132bc9b-138e-4423-943f-d596519abac0",
+      "regionName": "sfdcHiddenRegion",
+      "type": "region"
+    }
+  ],
+  "themeLayoutType": "Inner",
+  "type": "view",
+  "viewType": "custom-temporary-permit"
+}
