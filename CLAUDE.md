@@ -83,7 +83,7 @@ you are working on before building, and section 9 for what the org actually prov
 | 2 | Security (5.1), `OPEN-11` ACR sharing spike | Paused: awaiting Board feedback on `LSBC_Access_Matrix.xlsx` |
 | 3 | Business rules (section 2) | Done. Eligibility rules built, called from Phase 5 and 6 |
 | 4 | Cases and violations (section 4) | Done |
-| 5 | Portal (section 3) | |
+| 5 | Portal (section 3) | Done. School Administrator and Business Owner forms wait for Phase 2 |
 | 6 | Staff tools, reports, cutover (PT-15–17, DM-18c, section 5) | |
 
 ### Phase 2 carry-over
@@ -110,6 +110,8 @@ Raised by later phases while Phase 2 is paused. Pick these up when it resumes.
 12. Establishments created by the portal shop and facility applications are owned by the applicant's
     portal user (that is how the owner sees them). Decide staff access to them, and whether ownership
     moves to an LSBC user or queue once the application is approved.
+13. The School Administrator and Business Owner portal audiences (access over Account Contact
+    Relations, `OPEN-11`) and the 17 School Forms; staff access to portal submissions.
 
 ## Org notes
 

@@ -737,6 +737,35 @@ clock plus a single-renewal rule. Owned by the problem desk, not the reciprocity
 
 ## 3. Experience Cloud portal — Week 9
 
+**As built (Phase 5).** The site is LSBC LPI at `/LPI` (Aura, Licenses & Permits template), in a
+help-centre layout in LSBC's colours. Guests get licence search, the school directory, CE providers,
+the complaint form, Forms & Resources and Sign Up; everything else needs a login. Every form is a
+Screen Flow that follows its paper PDF section by section, built from shared subflows.
+
+| Piece | How it works |
+|---|---|
+| Sign up | Two paths: a licensee matches licence number, last or maiden name and ZIP; someone new to the Board gives name, date of birth and contact details, and a person account is created unless the same name and date of birth is on file. Apex `PortalUserRegistration` creates the login; `RecordTriggerUserAfterSave` assigns the licences and the `PortalLicenseeAccess` group a minute later |
+| Drafts | A form writes nothing to the application objects until Certify. It keeps a draft on `PreliminaryApplicationRef` (the standard object, used in place of the "Draft Application" in 1.2), with its documents on checklist items under the draft. Save for later is flow pause; My Applications lists saved forms with Continue, and the Aura `flowResume` component resumes them. Drafts untouched for 30 days are deleted nightly |
+| Documents | Checklist rows come from `ApplicationDocumentRequirement__mdt`; each item is filed under a document category. The `documentChecklistUpload` LWC shows the checklist as rows with one upload each (`PT-18`). Items the form says are mailed, or sent by another state or company, are Sent to the Board: the applicant submits without them and staff upload them. Upload Documents on My Applications takes later uploads |
+| Certification | Every form ends with the checkbox, typed name and timestamp (`PT-19`), showing the form's printed attestation |
+| Payment | Fees come from the Fee Schedule; the pay step links to PayStar and takes the receipt as a checklist upload. Shop and facility fees are paid to the inspector as printed; when nothing is due the empty receipt item is removed |
+| Rules called | Reciprocity exams from the `ReciprocityStateExams` matrix and `EligibilityReciprocity` version 2; temporary and threading permits from `EligibilityPermit`; duplicate and renewal fees from the Phase 3 rules |
+| Access | Guest profile LSBC LPI Profile, member profile LSBC Portal User, sharing set on the user's own records. School Administrator and Business Owner access over Account Contact Relations waits for Phase 2 (`PT-02`) |
+
+| Form (PDF) | Flow | Creates on Certify |
+|---|---|---|
+| License Renewal | `ScreenFlowIndividualApplicationRenewal` | One Renewal application per licence, a Duplicate application per duplicate, fees; a name change sets the Name Change Proof Pending hold |
+| Reciprocity (Cosmetology, Esthetician, Manicurist, Instructor), Military, Foreign | `ScreenFlowIndividualApplicationReciprocity` | Reciprocity application with path, exams and answers; Person Language for the national exam; fees by path |
+| Reciprocity Retake | `ScreenFlowIndividualApplicationRetake` | Retake application and a new Person Examination attempt (`BR-25`) |
+| Temporary Permit | `ScreenFlowIndividualApplicationTemporaryPermit` | Reciprocity application, licence type Temporary Permit, with the event and its dates |
+| Threading | `ScreenFlowIndividualApplicationThreadingPermit` | New Licensure application, Threading Permit; holders of a licence are told they don't need one |
+| Affidavit | `ScreenFlowIndividualApplicationAffidavit` | Affidavit application (Renewal record type); first free, then $15 |
+| Shop | `ScreenFlowBusinessLicenseApplicationShop` | The establishment (or the existing one), Owner and Manager relations, New Establishment application, fees |
+| Threading / AHD Facility | `ScreenFlowBusinessLicenseApplicationFacility` | The establishment with its tax ID, Owner relation, New Establishment application, fees |
+| New School Check List | `ScreenFlowBusinessLicenseApplicationSchool` | The school with its capacity, School Administrator relation, New School application, $100 fee; later items uploaded afterwards |
+
+The 17 School Forms wait for the School Administrator audience (Phase 2).
+
 ### 3.1 Audiences
 
 `PT-01` `[SETTLED]` **Four audiences driven by custom permissions, not profiles.** One person
@@ -1517,3 +1546,11 @@ the source.
 | 9 Nov 2026 | `PT-19` confirmed by LSBC: a certification checkbox, typed name and timestamp in place of DocuSign or any e-signature. Notarised forms are still uploaded unless the Board decides otherwise. |
 | 9 Nov 2026 | `PT-23` added: portal forms match LSBC's 15 application PDFs section by section, as Screen Flows. The "LSBC Application Form Field Mapping" doc maps every PDF field; 20 new fields are proposed there for Board approval. The School Forms packet (17 forms) is mapped and built with the school portal. |
 | 9 Nov 2026 | `PT-24` added: the portal follows the help.hulu.com help-centre layout in LSBC's branding (Facebook cover banner and seal, in `docs/branding/`). |
+| 10 Nov 2026 | Phase 5 built: the portal site, sign-up, guest pages and the application forms. Section 3 opens with an as-built summary. |
+| 10 Nov 2026 | Portal drafts use the standard `PreliminaryApplicationRef` in place of a custom Draft Application object; nothing is written to the application objects until the applicant certifies. Save for later is flow pause (enabled for the org); drafts are deleted after 30 days untouched. |
+| 10 Nov 2026 | `PT-09` extended: sign-up has a second path for people new to the Board, who have no licence number to match. |
+| 10 Nov 2026 | `PT-18`: the document checklist upload LWC is built, with document categories. Documents that reach the Board by mail or from a third party are marked Sent to the Board and don't stop the applicant submitting. |
+| 10 Nov 2026 | `BR-19`: the reciprocity state tables (06/2024) are a new decision matrix, `ReciprocityStateExams`, read by `EligibilityReciprocity` version 2; `ReciprocityStateRule` is retired. The original licence is the out-of-state licence with the earliest initial date. |
+| 10 Nov 2026 | `BR-25`: a retake is both an application (for certification, checklist and fee) and a new Person Examination attempt. |
+| 10 Nov 2026 | Facility tax ID stored on a new `Account.TaxIdentificationNumber__c`: `BusinessProfile` has no tax field in this org. |
+| 10 Nov 2026 | Portal screen flows carry plain labels (shown to applicants in the Save for later dialog); their API names follow the naming convention. |
