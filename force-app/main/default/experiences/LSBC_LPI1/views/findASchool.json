@@ -9,7 +9,7 @@
       "components": [
         {
           "componentAttributes": {
-            "richTextValue": "<h1 class=\"lsbc-page-title\">Find a School</h1><p class=\"lsbc-page-intro\">Louisiana cosmetology schools, by program and city.</p>"
+            "richTextValue": "<!-- Page heading and one-line introduction -->\n<h1 class=\"lsbc-page-title\">Find a School</h1>\n<p class=\"lsbc-page-intro\">Louisiana cosmetology schools, by program and city.</p>"
           },
           "componentName": "forceCommunity:richTextInline",
           "id": "ea29c3d2-d63c-48bf-879c-021320afb04e",

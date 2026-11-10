@@ -9,7 +9,7 @@
       "components": [
         {
           "componentAttributes": {
-            "richTextValue": "<h1 class=\"lsbc-page-title\">Look Up a License</h1><p class=\"lsbc-page-intro\">Check that a cosmetologist, esthetician, manicurist, instructor, booth renter, salon or school is licensed in Louisiana.</p>"
+            "richTextValue": "<!-- Page heading and one-line introduction -->\n<h1 class=\"lsbc-page-title\">Look Up a License</h1>\n<p class=\"lsbc-page-intro\">Check that a cosmetologist, esthetician, manicurist, instructor, booth renter, salon or school is licensed in Louisiana.</p>"
           },
           "componentName": "forceCommunity:richTextInline",
           "id": "9fe491f0-6719-45c3-af56-85577da1eaa9",

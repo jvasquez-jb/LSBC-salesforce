@@ -1,54 +1,60 @@
 {
-  "appPageId" : "39740273-a4f0-4311-b732-31661924917d",
-  "componentName" : "siteforce:sldsOneColLayout",
-  "dataProviders" : [ ],
-  "id" : "a7a59db8-621b-4473-97b0-6d0b0c3b72be",
-  "label" : "User Settings",
-  "regions" : [ {
-    "id" : "7f8debca-8d66-4bdc-bd7c-095284e850e0",
-    "regionName" : "header",
-    "type" : "region"
-  }, {
-    "components" : [ {
-      "componentAttributes" : {
-        "accountSectionTitle" : "User Information",
-        "accountTabName" : "Account Management",
-        "connectedSourcesTabName" : "Connected Sources",
-        "deleteAccountButtonTitle" : "Deactivate My Account",
-        "deleteAccountConfirmationPopupBody" : "After you deactivate your account, you'll lose access to this site.",
-        "deleteAccountConfirmationPopupButtonTitle" : "Got It",
-        "deleteAccountConfirmationPopupTitle" : "Deactivate your account?",
-        "deleteAccountErrorMessage" : "Something went wrong. Contact your site administrator.",
-        "deleteAccountSectionTitle" : "Deactivate Account",
-        "emailNotificationsTitle" : "Email Notifications",
-        "emailSectionDescText" : "When email notifications are enabled, email me when someone:",
-        "hideAccountDeleteSection" : true,
-        "hideChatterNotificationSettings" : true,
-        "hideConnectedSources" : true,
-        "hideEmailNotificationSettings" : false,
-        "hideProfileVisibilitySettings" : true,
-        "id" : "{!recordId}",
-        "locationTitle" : "Location",
-        "profileSectionDescText" : "Customize who is able to see what on your profile page",
-        "profileSectionToolTipText" : "Restricted: Visible to the employees of the company that created the site. Members: Visible to logged-in members. Public: Visible to anyone viewing pages that don't require login.",
-        "profileVisibilityTitle" : "Profile Visibility",
-        "settingsPageTitle" : "Settings"
-      },
-      "componentName" : "forceCommunity:userSettingsCustomizable",
-      "id" : "551a7282-2066-4d7a-8e20-347346cce84e",
-      "renderPriority" : "NEUTRAL",
-      "renditionMap" : { },
-      "type" : "component"
-    } ],
-    "id" : "76429492-4d0f-42b3-b9a7-a458feb133ef",
-    "regionName" : "content",
-    "type" : "region"
-  }, {
-    "id" : "3af4f633-deea-4d49-ab87-011ea213852c",
-    "regionName" : "footer",
-    "type" : "region"
-  } ],
-  "themeLayoutType" : "Inner",
-  "type" : "view",
-  "viewType" : "usersettings"
+  "appPageId": "39740273-a4f0-4311-b732-31661924917d",
+  "componentName": "siteforce:sldsOneColLayout",
+  "dataProviders": [],
+  "id": "a7a59db8-621b-4473-97b0-6d0b0c3b72be",
+  "label": "User Settings",
+  "regions": [
+    {
+      "id": "7f8debca-8d66-4bdc-bd7c-095284e850e0",
+      "regionName": "header",
+      "type": "region"
+    },
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "accountSectionTitle": "User Information",
+            "accountTabName": "Account Management",
+            "connectedSourcesTabName": "Connected Sources",
+            "deleteAccountButtonTitle": "Deactivate My Account",
+            "deleteAccountConfirmationPopupBody": "After you deactivate your account, you'll lose access to this site.",
+            "deleteAccountConfirmationPopupButtonTitle": "Got It",
+            "deleteAccountConfirmationPopupTitle": "Deactivate your account?",
+            "deleteAccountErrorMessage": "Something went wrong. Contact your site administrator.",
+            "deleteAccountSectionTitle": "Deactivate Account",
+            "emailNotificationsTitle": "Email Notifications",
+            "emailSectionDescText": "When email notifications are enabled, email me when someone:",
+            "hideAccountDeleteSection": true,
+            "hideChatterNotificationSettings": true,
+            "hideConnectedSources": true,
+            "hideEmailNotificationSettings": false,
+            "hideProfileVisibilitySettings": true,
+            "id": "{!recordId}",
+            "locationTitle": "Location",
+            "profileSectionDescText": "Customize who is able to see what on your profile page",
+            "profileSectionToolTipText": "Restricted: Visible to the employees of the company that created the site. Members: Visible to logged-in members. Public: Visible to anyone viewing pages that don't require login.",
+            "profileVisibilityTitle": "Profile Visibility",
+            "settingsPageTitle": "Settings"
+          },
+          "componentName": "forceCommunity:userSettingsCustomizable",
+          "id": "551a7282-2066-4d7a-8e20-347346cce84e",
+          "renderPriority": "NEUTRAL",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "76429492-4d0f-42b3-b9a7-a458feb133ef",
+      "regionName": "content",
+      "type": "region"
+    },
+    {
+      "id": "3af4f633-deea-4d49-ab87-011ea213852c",
+      "regionName": "footer",
+      "type": "region"
+    }
+  ],
+  "themeLayoutType": "Inner",
+  "type": "view",
+  "viewType": "usersettings"
 }

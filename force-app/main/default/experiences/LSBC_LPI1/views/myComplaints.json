@@ -1,33 +1,39 @@
 {
-  "appPageId" : "39740273-a4f0-4311-b732-31661924917d",
-  "componentName" : "siteforce:sldsOneColLayout",
-  "dataProviders" : [ ],
-  "id" : "acc2d576-e07e-4f01-9228-0cc83ecf9fd1",
-  "label" : "My Complaints",
-  "regions" : [ {
-    "components" : [ {
-      "componentAttributes" : {
-        "richTextValue" : "<h1>             <span style=\"color: #2D2D2D;font-size: 21px;\">My Complaints</span>         </h1><div class=\"slds-text-body_regular slds-m-top_large slds-p-bottom_x-large\">View complaints that you file or are filed against you. </div>"
-      },
-      "componentName" : "forceCommunity:richTextInline",
-      "id" : "ce1ecd31-09e3-423c-bca4-c3951bf10b45",
-      "renderPriority" : "NEUTRAL",
-      "renditionMap" : { },
-      "type" : "component"
-    } ],
-    "id" : "a4773214-9765-4faf-9275-246f6ba1636f",
-    "regionName" : "header",
-    "type" : "region"
-  }, {
-    "id" : "eaef4898-fb2c-41a6-a598-851805a6d5a9",
-    "regionName" : "content",
-    "type" : "region"
-  }, {
-    "id" : "712c2e29-eb87-438b-b02d-63b8add04e1a",
-    "regionName" : "footer",
-    "type" : "region"
-  } ],
-  "themeLayoutType" : "Inner",
-  "type" : "view",
-  "viewType" : "my-complaints"
+  "appPageId": "39740273-a4f0-4311-b732-31661924917d",
+  "componentName": "siteforce:sldsOneColLayout",
+  "dataProviders": [],
+  "id": "acc2d576-e07e-4f01-9228-0cc83ecf9fd1",
+  "label": "My Complaints",
+  "regions": [
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "richTextValue": "<h1>             <span style=\"color: #2D2D2D;font-size: 21px;\">My Complaints</span>         </h1><div class=\"slds-text-body_regular slds-m-top_large slds-p-bottom_x-large\">View complaints that you file or are filed against you. </div>"
+          },
+          "componentName": "forceCommunity:richTextInline",
+          "id": "ce1ecd31-09e3-423c-bca4-c3951bf10b45",
+          "renderPriority": "NEUTRAL",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "a4773214-9765-4faf-9275-246f6ba1636f",
+      "regionName": "header",
+      "type": "region"
+    },
+    {
+      "id": "eaef4898-fb2c-41a6-a598-851805a6d5a9",
+      "regionName": "content",
+      "type": "region"
+    },
+    {
+      "id": "712c2e29-eb87-438b-b02d-63b8add04e1a",
+      "regionName": "footer",
+      "type": "region"
+    }
+  ],
+  "themeLayoutType": "Inner",
+  "type": "view",
+  "viewType": "my-complaints"
 }

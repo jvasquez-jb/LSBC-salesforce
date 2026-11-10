@@ -1,52 +1,60 @@
 {
-  "appPageId" : "39740273-a4f0-4311-b732-31661924917d",
-  "componentName" : "siteforce:sldsOneColLayout",
-  "dataProviders" : [ ],
-  "id" : "cf021ced-3b87-4f94-9e31-a0019e620a53",
-  "label" : "Apply for a License or a Permit",
-  "regions" : [ {
-    "components" : [ {
-      "componentAttributes" : {
-        "richTextValue" : "<h1>    <span style=\"color: #2D2D2D;font-size: 21px;\">Apply for a License or a Permit</span>   </h1>         <div class=\"slds-text-body_regular slds-m-top_large slds-p-bottom_x-large\">Fill out a license or a permit application. You can save a draft application and complete it later.</div>"
-      },
-      "componentName" : "forceCommunity:richTextInline",
-      "id" : "efea8cac-4c09-454e-82d2-09628be88137",
-      "renderPriority" : "NEUTRAL",
-      "renditionMap" : { },
-      "type" : "component"
-    } ],
-    "id" : "6151ef77-ad7a-4ddd-8ae6-6d4dcbcccb7f",
-    "regionName" : "header",
-    "type" : "region"
-  }, {
-    "components" : [ {
-      "componentAttributes" : {
-        "agentToggleLabel" : "Show Application Assistant Agent",
-        "botId" : "",
-        "documentTypeApiName" : "",
-        "flowDevName" : "pss_lpi__BusinessLicenseApplication",
-        "hideDocumentUpload" : false,
-        "idpConfigApiName" : "",
-        "myDomainUrl" : "",
-        "pageTitle" : "",
-        "showAgentChat" : false,
-        "uploadSectionLabel" : ""
-      },
-      "componentName" : "runtime_missionforce_intake:flowAgentContainer",
-      "id" : "20ab0f28-f0c1-44aa-adcc-64714b274e5b",
-      "renderPriority" : "NEUTRAL",
-      "renditionMap" : { },
-      "type" : "component"
-    } ],
-    "id" : "b72fd07b-1be6-4f2d-a761-1b6affcfe9ea",
-    "regionName" : "content",
-    "type" : "region"
-  }, {
-    "id" : "7796d9f0-8bab-4828-b442-ea48825df613",
-    "regionName" : "footer",
-    "type" : "region"
-  } ],
-  "themeLayoutType" : "Inner",
-  "type" : "view",
-  "viewType" : "start-application"
+  "appPageId": "39740273-a4f0-4311-b732-31661924917d",
+  "componentName": "siteforce:sldsOneColLayout",
+  "dataProviders": [],
+  "id": "cf021ced-3b87-4f94-9e31-a0019e620a53",
+  "label": "Apply for a License or a Permit",
+  "regions": [
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "richTextValue": "<h1>    <span style=\"color: #2D2D2D;font-size: 21px;\">Apply for a License or a Permit</span>   </h1>         <div class=\"slds-text-body_regular slds-m-top_large slds-p-bottom_x-large\">Fill out a license or a permit application. You can save a draft application and complete it later.</div>"
+          },
+          "componentName": "forceCommunity:richTextInline",
+          "id": "efea8cac-4c09-454e-82d2-09628be88137",
+          "renderPriority": "NEUTRAL",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "6151ef77-ad7a-4ddd-8ae6-6d4dcbcccb7f",
+      "regionName": "header",
+      "type": "region"
+    },
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "agentToggleLabel": "Show Application Assistant Agent",
+            "botId": "",
+            "documentTypeApiName": "",
+            "flowDevName": "pss_lpi__BusinessLicenseApplication",
+            "hideDocumentUpload": false,
+            "idpConfigApiName": "",
+            "myDomainUrl": "",
+            "pageTitle": "",
+            "showAgentChat": false,
+            "uploadSectionLabel": ""
+          },
+          "componentName": "runtime_missionforce_intake:flowAgentContainer",
+          "id": "20ab0f28-f0c1-44aa-adcc-64714b274e5b",
+          "renderPriority": "NEUTRAL",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "b72fd07b-1be6-4f2d-a761-1b6affcfe9ea",
+      "regionName": "content",
+      "type": "region"
+    },
+    {
+      "id": "7796d9f0-8bab-4828-b442-ea48825df613",
+      "regionName": "footer",
+      "type": "region"
+    }
+  ],
+  "themeLayoutType": "Inner",
+  "type": "view",
+  "viewType": "start-application"
 }

@@ -1,38 +1,42 @@
 {
-  "appPageId" : "39740273-a4f0-4311-b732-31661924917d",
-  "componentName" : "siteforce:sldsOneColLayout",
-  "dataProviders" : [ ],
-  "id" : "2731f1d6-6a0d-4861-ba91-6673d9895145",
-  "label" : "Pending Payments: Regulatory Transaction Fees",
-  "regions" : [ {
-    "components" : [ {
-      "componentAttributes" : {
-        "enableInlineEdit" : false,
-        "filterName" : "ReadyForPayment_RegulatoryTrxnFees",
-        "layout" : "FULL",
-        "pageSize" : 25,
-        "scope" : "RegulatoryTrxnFee",
-        "showActionBar" : true,
-        "showChartsPanel" : false,
-        "showDisplay" : "grid",
-        "showFilterPanel" : true,
-        "showImageIcon" : true,
-        "showManualRefreshButton" : true,
-        "showObjectName" : true,
-        "showPinnedList" : false,
-        "showSearchBar" : true
-      },
-      "componentName" : "forceCommunity:objectHome",
-      "id" : "279f5b03-0d06-4b76-9bcd-2e5a7313f3ea",
-      "renderPriority" : "NEUTRAL",
-      "renditionMap" : { },
-      "type" : "component"
-    } ],
-    "id" : "42056e0b-2d82-4505-91f8-3f7136d4ed16",
-    "regionName" : "content",
-    "type" : "region"
-  } ],
-  "themeLayoutType" : "Inner",
-  "type" : "view",
-  "viewType" : "view-fees"
+  "appPageId": "39740273-a4f0-4311-b732-31661924917d",
+  "componentName": "siteforce:sldsOneColLayout",
+  "dataProviders": [],
+  "id": "2731f1d6-6a0d-4861-ba91-6673d9895145",
+  "label": "Pending Payments: Regulatory Transaction Fees",
+  "regions": [
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "enableInlineEdit": false,
+            "filterName": "ReadyForPayment_RegulatoryTrxnFees",
+            "layout": "FULL",
+            "pageSize": 25,
+            "scope": "RegulatoryTrxnFee",
+            "showActionBar": true,
+            "showChartsPanel": false,
+            "showDisplay": "grid",
+            "showFilterPanel": true,
+            "showImageIcon": true,
+            "showManualRefreshButton": true,
+            "showObjectName": true,
+            "showPinnedList": false,
+            "showSearchBar": true
+          },
+          "componentName": "forceCommunity:objectHome",
+          "id": "279f5b03-0d06-4b76-9bcd-2e5a7313f3ea",
+          "renderPriority": "NEUTRAL",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "42056e0b-2d82-4505-91f8-3f7136d4ed16",
+      "regionName": "content",
+      "type": "region"
+    }
+  ],
+  "themeLayoutType": "Inner",
+  "type": "view",
+  "viewType": "view-fees"
 }

@@ -1,73 +1,87 @@
 {
-  "appPageId" : "39740273-a4f0-4311-b732-31661924917d",
-  "componentName" : "siteforce:dynamicLayout",
-  "dataProviders" : [ ],
-  "id" : "8eab4bb2-53a0-4d47-9fc6-011347ef75b0",
-  "label" : "Payment Checkout",
-  "regions" : [ {
-    "id" : "ba8421ac-7295-45fd-b2dc-d47415cd1193",
-    "regionName" : "header",
-    "type" : "region"
-  }, {
-    "components" : [ {
-      "componentAttributes" : {
-        "background" : "background: rgba(0,0,0,0)",
-        "backgroundOverlay" : "rgba(0,0,0,0.5)",
-        "contentAreaWidth" : 100,
-        "sectionConfig" : {
-          "UUID" : "55effe40-451f-4ec4-b9c3-d993f24c15ef",
-          "columns" : [ {
-            "UUID" : "67dd2a8b-48fb-4fef-b37d-98e30b7d6714",
-            "columnKey" : "col1",
-            "columnName" : "Column 1",
-            "columnWidth" : "12",
-            "seedComponents" : [ {
-              "attributes" : {
-                "accountId" : "{!CurrentUser.effectiveAccountId}",
-                "currency" : "USD",
-                "merchantAccountId" : "",
-                "sfdc:identifier" : "pss_payment_paymentSheetWrapper"
-              },
-              "fqn" : "pss_payment:paymentSheetWrapper"
-            } ]
-          } ]
-        },
-        "sectionHeight" : 32
-      },
-      "componentName" : "forceCommunity:section",
-      "id" : "55effe40-451f-4ec4-b9c3-d993f24c15ef",
-      "regions" : [ {
-        "components" : [ {
-          "componentAttributes" : {
-            "accountId" : "{!CurrentUser.effectiveAccountId}",
-            "currency" : "USD",
-            "merchantAccountId" : ""
+  "appPageId": "39740273-a4f0-4311-b732-31661924917d",
+  "componentName": "siteforce:dynamicLayout",
+  "dataProviders": [],
+  "id": "8eab4bb2-53a0-4d47-9fc6-011347ef75b0",
+  "label": "Payment Checkout",
+  "regions": [
+    {
+      "id": "ba8421ac-7295-45fd-b2dc-d47415cd1193",
+      "regionName": "header",
+      "type": "region"
+    },
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "background": "background: rgba(0,0,0,0)",
+            "backgroundOverlay": "rgba(0,0,0,0.5)",
+            "contentAreaWidth": 100,
+            "sectionConfig": {
+              "UUID": "55effe40-451f-4ec4-b9c3-d993f24c15ef",
+              "columns": [
+                {
+                  "UUID": "67dd2a8b-48fb-4fef-b37d-98e30b7d6714",
+                  "columnKey": "col1",
+                  "columnName": "Column 1",
+                  "columnWidth": "12",
+                  "seedComponents": [
+                    {
+                      "attributes": {
+                        "accountId": "{!CurrentUser.effectiveAccountId}",
+                        "currency": "USD",
+                        "merchantAccountId": "",
+                        "sfdc:identifier": "pss_payment_paymentSheetWrapper"
+                      },
+                      "fqn": "pss_payment:paymentSheetWrapper"
+                    }
+                  ]
+                }
+              ]
+            },
+            "sectionHeight": 32
           },
-          "componentName" : "pss_payment:paymentSheetWrapper",
-          "id" : "105aa1e8-9f8e-456c-883b-4c1ee65108c5",
-          "renderPriority" : "NEUTRAL",
-          "renditionMap" : { },
-          "type" : "component"
-        } ],
-        "id" : "67dd2a8b-48fb-4fef-b37d-98e30b7d6714",
-        "regionLabel" : "Column 1",
-        "regionName" : "col1",
-        "renditionMap" : { },
-        "type" : "region"
-      } ],
-      "renderPriority" : "NEUTRAL",
-      "renditionMap" : { },
-      "type" : "component"
-    } ],
-    "id" : "abcd0f75-0832-4029-ab71-d3b8b527c43a",
-    "regionName" : "content",
-    "type" : "region"
-  }, {
-    "id" : "d3d37eaa-dbac-4da4-abd7-887cd06b7e9d",
-    "regionName" : "footer",
-    "type" : "region"
-  } ],
-  "themeLayoutType" : "Inner",
-  "type" : "view",
-  "viewType" : "payment-checkout"
+          "componentName": "forceCommunity:section",
+          "id": "55effe40-451f-4ec4-b9c3-d993f24c15ef",
+          "regions": [
+            {
+              "components": [
+                {
+                  "componentAttributes": {
+                    "accountId": "{!CurrentUser.effectiveAccountId}",
+                    "currency": "USD",
+                    "merchantAccountId": ""
+                  },
+                  "componentName": "pss_payment:paymentSheetWrapper",
+                  "id": "105aa1e8-9f8e-456c-883b-4c1ee65108c5",
+                  "renderPriority": "NEUTRAL",
+                  "renditionMap": {},
+                  "type": "component"
+                }
+              ],
+              "id": "67dd2a8b-48fb-4fef-b37d-98e30b7d6714",
+              "regionLabel": "Column 1",
+              "regionName": "col1",
+              "renditionMap": {},
+              "type": "region"
+            }
+          ],
+          "renderPriority": "NEUTRAL",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "abcd0f75-0832-4029-ab71-d3b8b527c43a",
+      "regionName": "content",
+      "type": "region"
+    },
+    {
+      "id": "d3d37eaa-dbac-4da4-abd7-887cd06b7e9d",
+      "regionName": "footer",
+      "type": "region"
+    }
+  ],
+  "themeLayoutType": "Inner",
+  "type": "view",
+  "viewType": "payment-checkout"
 }

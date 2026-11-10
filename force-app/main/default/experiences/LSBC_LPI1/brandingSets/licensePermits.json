@@ -7,7 +7,7 @@
     "ActionColor": "#051E5F",
     "BorderColor": "#939393",
     "CardBackgroundColor": "rgba(255, 255, 255, 0)",
-    "CompanyLogo": "/LPI/sfsites/c/resource/PortalLogoWhite",
+    "CompanyLogo": "/sfsites/c/resource/PortalLogoWhite",
     "DetailTextColor": "#4A4F5C",
     "ErrorFontColor": "#ff9e9e",
     "HeaderFonts": "Montserrat",

@@ -9,7 +9,7 @@
       "components": [
         {
           "componentAttributes": {
-            "richTextValue": "<h1 class=\"lsbc-page-title\">Continuing Education Providers</h1><p class=\"lsbc-page-intro\">Providers approved by the Board for instructor continuing education.</p>"
+            "richTextValue": "<!-- Page heading and one-line introduction -->\n<h1 class=\"lsbc-page-title\">Continuing Education Providers</h1>\n<p class=\"lsbc-page-intro\">Providers approved by the Board for instructor continuing education.</p>"
           },
           "componentName": "forceCommunity:richTextInline",
           "id": "e3fd3303-7a89-4adc-91c7-6838ec0a0865",
