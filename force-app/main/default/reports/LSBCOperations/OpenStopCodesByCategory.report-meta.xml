@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>RecordAlert$What.Name</field>
+    </columns>
+    <columns>
+        <field>RecordAlert$Severity</field>
+    </columns>
+    <columns>
+        <field>RecordAlert$EffectiveDate</field>
+    </columns>
+    <columns>
+        <field>RecordAlert$Description</field>
+    </columns>
+    <description>Active stop codes, by stop code, with the holder and when each started.</description>
+    <filter>
+        <criteriaItems>
+            <column>RecordAlert$IsActive</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>equals</operator>
+            <value>1</value>
+        </criteriaItems>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>RecordAlert$Subject</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Open Stop Codes by Category</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>StopCodes__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>RecordAlert$EffectiveDate</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

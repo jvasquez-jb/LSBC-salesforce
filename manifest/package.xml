@@ -262,6 +262,11 @@
         <name>CustomTab</name>
     </types>
     <types>
+        <members>LSBCOperations/</members>
+        <members>LSBCOperations/LSBCOperations</members>
+        <name>Dashboard</name>
+    </types>
+    <types>
         <members>ApplicationPathExams</members>
         <members>FeeSchedule</members>
         <members>ReciprocityStateExams</members>
@@ -562,11 +567,25 @@
         <members>LSBCFinance/PaymentsAppliedByLicenseYear</members>
         <members>LSBCFinance/PaymentsByReceivedDate</members>
         <members>LSBCFinance/RefundReconciliation</members>
+        <members>LSBCOperations/</members>
+        <members>LSBCOperations/BusinessApplicationsAwaitingReview</members>
+        <members>LSBCOperations/ComplaintsByStatus</members>
+        <members>LSBCOperations/FeesPastDue</members>
+        <members>LSBCOperations/IndividualApplicationsAwaitingReview</members>
+        <members>LSBCOperations/LicensesReadyToPrint</members>
+        <members>LSBCOperations/OpenStopCodesByCategory</members>
+        <members>LSBCOperations/ReturnedApplicationsByReason</members>
         <name>Report</name>
     </types>
     <types>
+        <members>BusinessLicenseApplications</members>
+        <members>BusinessLicenses</members>
+        <members>Fees</members>
+        <members>IndividualApplications</members>
         <members>Payments</members>
         <members>PaymentsWithAllocations</members>
+        <members>PublicComplaints</members>
+        <members>StopCodes</members>
         <name>ReportType</name>
     </types>
     <types>

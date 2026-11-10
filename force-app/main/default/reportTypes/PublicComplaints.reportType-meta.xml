@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ReportType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <baseObject>PublicComplaint</baseObject>
+    <category>other</category>
+    <deployed>true</deployed>
+    <description>One row per public complaint, with who it is about. The complainant's name and contact details are left out.</description>
+    <label>Public Complaints</label>
+    <sections>
+            <columns>
+                <checkedByDefault>true</checkedByDefault>
+                <field>Name</field>
+                <table>PublicComplaint</table>
+            </columns>
+            <columns>
+                <checkedByDefault>true</checkedByDefault>
+                <field>Account.Name</field>
+                <table>PublicComplaint</table>
+            </columns>
+            <columns>
+                <checkedByDefault>true</checkedByDefault>
+                <field>BusinessName</field>
+                <table>PublicComplaint</table>
+            </columns>
+            <columns>
+                <checkedByDefault>true</checkedByDefault>
+                <field>Status</field>
+                <table>PublicComplaint</table>
+            </columns>
+            <columns>
+                <checkedByDefault>true</checkedByDefault>
+                <field>ComplaintType</field>
+                <table>PublicComplaint</table>
+            </columns>
+            <columns>
+                <checkedByDefault>true</checkedByDefault>
+                <field>SourceType</field>
+                <table>PublicComplaint</table>
+            </columns>
+            <columns>
+                <checkedByDefault>true</checkedByDefault>
+                <field>IncidentDate</field>
+                <table>PublicComplaint</table>
+            </columns>
+            <columns>
+                <checkedByDefault>true</checkedByDefault>
+                <field>ReceivedDate</field>
+                <table>PublicComplaint</table>
+            </columns>
+            <columns>
+                <checkedByDefault>true</checkedByDefault>
+                <field>IsReporterConfidential</field>
+                <table>PublicComplaint</table>
+            </columns>
+            <columns>
+                <checkedByDefault>true</checkedByDefault>
+                <field>Priority</field>
+                <table>PublicComplaint</table>
+            </columns>
+            <columns>
+                <checkedByDefault>true</checkedByDefault>
+                <field>CreatedDate</field>
+                <table>PublicComplaint</table>
+            </columns>
+        <masterLabel>Public Complaints</masterLabel>
+    </sections>
+</ReportType>

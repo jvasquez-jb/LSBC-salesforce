@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>RegulatoryTrxnFee$Name</field>
+    </columns>
+    <columns>
+        <field>RegulatoryTrxnFee$Status</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>RegulatoryTrxnFee$TotalFeeAmount</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>RegulatoryTrxnFee$AmountPaid__c</field>
+    </columns>
+    <columns>
+        <field>RegulatoryTrxnFee$DueDate</field>
+    </columns>
+    <description>Fees whose due date has passed and that are still Due or Partially Paid, by holder, with the total and what has been paid.</description>
+    <filter>
+        <criteriaItems>
+            <column>RegulatoryTrxnFee$DueDate</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>lessThan</operator>
+            <value>TODAY</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>RegulatoryTrxnFee$Status</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>equals</operator>
+            <value>1,4</value>
+        </criteriaItems>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>RegulatoryTrxnFee$Account.Name</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Fees Past Due</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Fees__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>RegulatoryTrxnFee$DueDate</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

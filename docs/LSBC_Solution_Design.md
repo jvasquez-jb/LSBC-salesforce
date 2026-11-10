@@ -1638,3 +1638,4 @@ the source.
 | 10 Nov 2026 | Print queue built: Ready to Print formula, Licenses Ready to Print list view and Mark Printed list button, which skips licences whose holder has an active stop code. |
 | 10 Nov 2026 | `PT-15` as built: New Application runs the portal forms for a person as staff; Upload Documents on applications, including documents sent to the Board. |
 | 10 Nov 2026 | Staff work queues: list views Applications Awaiting Review (both application objects), Open Stop Codes, Payments Received This Week (in place of Payments by Deposit) and the LSBC Licensing Home page that shows them with Licenses Ready to Print. |
+| 10 Nov 2026 | Staff reports built: LSBC Operations folder (seven reports on six new report types) and the LSBC Operations dashboard, shown to each viewer with their own access and placed on the LSBC Licensing Home page. |

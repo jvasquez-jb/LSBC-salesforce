@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <FlexiPage xmlns="http://soap.sforce.com/2006/04/metadata">
-    <description>Home for staff in the LSBC Licensing app: the work queues. Applications awaiting review, licenses ready to print, open stop codes and this week's payments. Each list shows only records the user can see.</description>
+    <description>Home for staff in the LSBC Licensing app: the work queues. Applications awaiting review, licenses ready to print, open stop codes and this week's payments, beside the LSBC Operations dashboard. Each list shows only records the user can see.</description>
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
@@ -80,6 +80,24 @@
         <type>Region</type>
     </flexiPageRegions>
     <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>dashboardName</name>
+                    <value>LSBCOperations</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>height</name>
+                    <value>900</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>hideOnError</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentName>desktopDashboards:embeddedDashboard</componentName>
+                <identifier>desktopDashboards_embeddedDashboard1</identifier>
+            </componentInstance>
+        </itemInstances>
         <name>bottomRight</name>
         <type>Region</type>
     </flexiPageRegions>

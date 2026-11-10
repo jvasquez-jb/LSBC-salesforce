@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>BusinessLicenseApplication$Name</field>
+    </columns>
+    <columns>
+        <field>BusinessLicenseApplication$Account.Name</field>
+    </columns>
+    <columns>
+        <field>BusinessLicenseApplication$ApplicationType</field>
+    </columns>
+    <columns>
+        <field>BusinessLicenseApplication$AppliedDate</field>
+    </columns>
+    <columns>
+        <field>BusinessLicenseApplication$RequirementsCompleteDate</field>
+    </columns>
+    <columns>
+        <field>BusinessLicenseApplication$WasReturned</field>
+    </columns>
+    <description>Establishment, facility and school applications submitted and not yet decided, by status and license type, oldest first.</description>
+    <filter>
+        <criteriaItems>
+            <column>BusinessLicenseApplication$Status</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>equals</operator>
+            <value>Submitted,Application Accepted,In Review,Inspection Phase</value>
+        </criteriaItems>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>BusinessLicenseApplication$Status</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>BusinessLicenseApplication$LicenseType.Name</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Business Applications Awaiting Review</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>BusinessLicenseApplications__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <sortColumn>BusinessLicenseApplication$AppliedDate</sortColumn>
+    <sortOrder>Asc</sortOrder>
+    <timeFrameFilter>
+        <dateColumn>BusinessLicenseApplication$AppliedDate</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

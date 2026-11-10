@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>BusinessLicense$Name</field>
+    </columns>
+    <columns>
+        <field>BusinessLicense$Identifier</field>
+    </columns>
+    <columns>
+        <field>BusinessLicense$Account.Name</field>
+    </columns>
+    <columns>
+        <field>BusinessLicense$Status</field>
+    </columns>
+    <columns>
+        <field>BusinessLicense$PeriodEnd</field>
+    </columns>
+    <columns>
+        <field>BusinessLicense$PrintRequestedDate__c</field>
+    </columns>
+    <description>Licenses approved, renewed or replaced and not printed since, by license type.</description>
+    <filter>
+        <criteriaItems>
+            <column>BusinessLicense$IsReadyToPrint__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>equals</operator>
+            <value>1</value>
+        </criteriaItems>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>BusinessLicense$RegulatoryAuthorizationType.Name</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Licenses Ready to Print</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>BusinessLicenses__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>BusinessLicense$PeriodEnd</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

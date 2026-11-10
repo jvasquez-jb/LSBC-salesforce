@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ReportType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <baseObject>RecordAlert</baseObject>
+    <category>other</category>
+    <deployed>true</deployed>
+    <description>One row per stop code (Record Alert), with the holder it is on.</description>
+    <label>Stop Codes</label>
+    <sections>
+            <columns>
+                <checkedByDefault>true</checkedByDefault>
+                <field>Name</field>
+                <table>RecordAlert</table>
+            </columns>
+            <columns>
+                <checkedByDefault>true</checkedByDefault>
+                <field>Subject</field>
+                <table>RecordAlert</table>
+            </columns>
+            <columns>
+                <checkedByDefault>true</checkedByDefault>
+                <field>What.Name</field>
+                <table>RecordAlert</table>
+            </columns>
+            <columns>
+                <checkedByDefault>true</checkedByDefault>
+                <field>Severity</field>
+                <table>RecordAlert</table>
+            </columns>
+            <columns>
+                <checkedByDefault>true</checkedByDefault>
+                <field>IsActive</field>
+                <table>RecordAlert</table>
+            </columns>
+            <columns>
+                <checkedByDefault>true</checkedByDefault>
+                <field>EffectiveDate</field>
+                <table>RecordAlert</table>
+            </columns>
+            <columns>
+                <checkedByDefault>true</checkedByDefault>
+                <field>ValidUntilDate</field>
+                <table>RecordAlert</table>
+            </columns>
+            <columns>
+                <checkedByDefault>true</checkedByDefault>
+                <field>Description</field>
+                <table>RecordAlert</table>
+            </columns>
+            <columns>
+                <checkedByDefault>true</checkedByDefault>
+                <field>CreatedDate</field>
+                <table>RecordAlert</table>
+            </columns>
+            <columns>
+                <checkedByDefault>true</checkedByDefault>
+                <field>CreatedBy.Name</field>
+                <table>RecordAlert</table>
+            </columns>
+        <masterLabel>Stop Codes</masterLabel>
+    </sections>
+</ReportType>

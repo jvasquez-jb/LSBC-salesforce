@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>IndividualApplication$Name</field>
+    </columns>
+    <columns>
+        <field>IndividualApplication$Account.Name</field>
+    </columns>
+    <columns>
+        <field>IndividualApplication$ApplicationType</field>
+    </columns>
+    <columns>
+        <field>IndividualApplication$AppliedDate</field>
+    </columns>
+    <columns>
+        <field>IndividualApplication$RequirementsCompleteDate</field>
+    </columns>
+    <columns>
+        <field>IndividualApplication$WasReturned</field>
+    </columns>
+    <description>Individual applications submitted and not yet decided, by status and license type, oldest first.</description>
+    <filter>
+        <criteriaItems>
+            <column>IndividualApplication$Status</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>equals</operator>
+            <value>Submitted,Application Accepted,In Review</value>
+        </criteriaItems>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>IndividualApplication$Status</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>IndividualApplication$LicenseType.Name</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Individual Applications Awaiting Review</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>IndividualApplications__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <sortColumn>IndividualApplication$AppliedDate</sortColumn>
+    <sortOrder>Asc</sortOrder>
+    <timeFrameFilter>
+        <dateColumn>IndividualApplication$AppliedDate</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>

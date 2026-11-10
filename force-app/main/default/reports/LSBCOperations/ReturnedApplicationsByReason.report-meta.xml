@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>IndividualApplication$Name</field>
+    </columns>
+    <columns>
+        <field>IndividualApplication$Account.Name</field>
+    </columns>
+    <columns>
+        <field>IndividualApplication$LicenseType.Name</field>
+    </columns>
+    <columns>
+        <field>IndividualApplication$Status</field>
+    </columns>
+    <columns>
+        <field>IndividualApplication$AppliedDate</field>
+    </columns>
+    <columns>
+        <field>IndividualApplication$DecisionReason__c</field>
+    </columns>
+    <description>Individual applications returned to the applicant, by return reason, with what staff told them.</description>
+    <filter>
+        <criteriaItems>
+            <column>IndividualApplication$WasReturned</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>false</isUnlocked>
+            <operator>equals</operator>
+            <value>1</value>
+        </criteriaItems>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>IndividualApplication$ReturnReason__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Returned Applications by Reason</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>IndividualApplications__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>IndividualApplication$AppliedDate</dateColumn>
+        <interval>INTERVAL_CUSTOM</interval>
+    </timeFrameFilter>
+</Report>
