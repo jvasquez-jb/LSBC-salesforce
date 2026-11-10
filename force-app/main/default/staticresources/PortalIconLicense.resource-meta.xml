@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StaticResource xmlns="http://soap.sforce.com/2006/04/metadata">
+    <cacheControl>Public</cacheControl>
+    <contentType>image/svg+xml</contentType>
+    <description>Line icon for the portal home page (license). Replace the wordmark and seal when the Board supplies original logo files.</description>
+</StaticResource>
