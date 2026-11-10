@@ -151,5 +151,11 @@ Raised by later phases while Phase 2 is paused. Pick these up when it resumes.
 - Violations: the `FeeSchedule` `Violation` row must exist or a violation can't be saved. Violation
   and complaint test records sit on the `StopCodeTest` accounts and Cases `RoutingTest …`,
   `ComplaintTest …`, `E2CTest …`; delete them with the stop code test data.
+- Portal (site LSBC LPI, `/LPI`, Licenses & Permits theme): every flow a guest runs is set to
+  "Override default behavior and restrict access to enabled profiles or permission sets"
+  (`isAdditionalPermissionRequiredToRun`) and then granted to the guest profile `LSBC LPI Profile`
+  in its flow access. Images in HTML blocks use `/sfsites/c/resource/<StaticResourceName>`, one
+  static resource per image: the block prefixes the page path (`/LPI/s`), so `/LPI/...` doubles.
+  Check the published site with headless Chrome (`--dump-dom`, `--screenshot`) after publishing.
 - `force-app` holds only metadata this project owns. A full org retrieve sits in `reference/`
   (ignored by git) for lookups. Copy a file into `force-app` only when we change it.
