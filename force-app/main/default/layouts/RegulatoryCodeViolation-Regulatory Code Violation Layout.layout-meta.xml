@@ -116,6 +116,28 @@
     <relatedLists>
         <relatedList>RelatedFileList</relatedList>
     </relatedLists>
+    <relatedLists>
+        <fields>Name</fields>
+        <fields>TotalFeeAmount</fields>
+        <fields>AmountPaid__c</fields>
+        <fields>Status</fields>
+        <fields>DueDate</fields>
+        <relatedList>RegulatoryTrxnFees</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>Name</fields>
+        <fields>DocumentType</fields>
+        <fields>IsRequired</fields>
+        <fields>IsSentToBoard__c</fields>
+        <fields>Status</fields>
+        <relatedList>DocumentChecklistItem</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <relatedList>RelatedContentNoteList</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <relatedList>RelatedHistoryList</relatedList>
+    </relatedLists>
     <showEmailCheckbox>false</showEmailCheckbox>
     <showRunAssignmentRulesCheckbox>false</showRunAssignmentRulesCheckbox>
     <showSubmitAndAttachButton>false</showSubmitAndAttachButton>

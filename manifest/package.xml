@@ -28,6 +28,14 @@
         <name>AutoResponseRules</name>
     </types>
     <types>
+        <members>LSBCSeal</members>
+        <name>ContentAsset</name>
+    </types>
+    <types>
+        <members>LSBCLicensing</members>
+        <name>CustomApplication</name>
+    </types>
+    <types>
         <members>Account.MaximumStudentCapacity__c</members>
         <members>Account.Parish__c</members>
         <members>Account.TaxIdentificationNumber__c</members>
@@ -304,7 +312,25 @@
         <name>ExpressionSetDefinition</name>
     </types>
     <types>
+        <members>AccountRecordPage</members>
+        <members>AccreditationRecordPage</members>
+        <members>BusinessLicenseApplicationRecordPage</members>
+        <members>BusinessLicenseRecordPage</members>
+        <members>CaseRecordPage</members>
         <members>Case_Record_Page2</members>
+        <members>CourseOfferingRecordPage</members>
+        <members>DocumentChecklistItemRecordPage</members>
+        <members>IndividualApplicationRecordPage</members>
+        <members>LSBCLicensingUtilityBar</members>
+        <members>PaymentAllocationRecordPage</members>
+        <members>PaymentRecordPage</members>
+        <members>PersonExaminationRecordPage</members>
+        <members>PublicComplaintRecordPage</members>
+        <members>RecordAlertRecordPage</members>
+        <members>RegulatoryCodeViolationRecordPage</members>
+        <members>RegulatoryTrxnFeeItemRecordPage</members>
+        <members>RegulatoryTrxnFeeRecordPage</members>
+        <members>TrainingCourseParticipantRecordPage</members>
         <name>FlexiPage</name>
     </types>
     <types>
@@ -371,11 +397,22 @@
     </types>
     <types>
         <members>Account-Account Layout</members>
+        <members>Accreditation-Accreditation Layout</members>
+        <members>BusinessLicense-Business License Layout</members>
+        <members>BusinessLicenseApplication-Business License Application Layout</members>
         <members>Case-Custom Case Layout</members>
+        <members>CourseOffering-Course Offering Layout</members>
+        <members>IndividualApplication-Individual Application Layout</members>
+        <members>PaymentAllocation__c-Payment Allocation Layout</members>
+        <members>Payment__c-Payment Layout</members>
         <members>PersonAccount-Person Account Layout</members>
+        <members>PersonExamination-Person Examination Layout</members>
         <members>PublicComplaint-Public Complaint Layout</members>
+        <members>RecordAlert-Record Alert Layout</members>
         <members>RegulatoryCodeViolation-Regulatory Code Violation Layout</members>
+        <members>RegulatoryTrxnFee-Regulatory Transaction Fee Layout</members>
         <members>RegulatoryTrxnFeeItem-Regulatory Transaction Fee Item Layout</members>
+        <members>TrainingCourseParticipant-Training Course Participant Layout</members>
         <name>Layout</name>
     </types>
     <types>
@@ -402,6 +439,7 @@
         <name>PermissionSetGroup</name>
     </types>
     <types>
+        <members>Admin</members>
         <members>LSBC LPI Profile</members>
         <members>LSBC Portal User</members>
         <name>Profile</name>
