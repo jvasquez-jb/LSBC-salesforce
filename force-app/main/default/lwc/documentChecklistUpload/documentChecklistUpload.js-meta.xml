@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>66.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>Document Checklist Upload</masterLabel>
+    <description>Flow screen component: an application's checklist as rows grouped by category, each with its own upload, status and Board comments. Returns the items given a file; the flow sets them to Pending.</description>
+    <targets>
+        <target>lightning__FlowScreen</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__FlowScreen">
+            <property name="applicationId" type="String" label="Application Id" role="inputOnly" required="true" description="The Individual Application or Business License Application whose checklist to show."/>
+            <property name="includeCategories" type="String" label="Show Only Categories" role="inputOnly" description="Comma-separated category developer names to show, for example Payment. Blank shows every category."/>
+            <property name="excludeCategories" type="String" label="Leave Out Categories" role="inputOnly" description="Comma-separated category developer names to leave out, for example Payment."/>
+            <property name="uploadedItemIds" type="String[]" label="Uploaded Item Ids" role="outputOnly" description="Checklist items that had a file attached on this screen."/>
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

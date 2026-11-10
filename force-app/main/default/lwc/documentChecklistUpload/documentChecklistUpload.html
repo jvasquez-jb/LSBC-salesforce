@@ -1,0 +1,44 @@
+<template>
+    <template lwc:if={loading}>
+        <lightning-spinner alternative-text="Loading your documents" size="small"></lightning-spinner>
+    </template>
+    <template lwc:if={errorMessage}>
+        <p class="lsbc-error" role="alert">{errorMessage}</p>
+    </template>
+    <template lwc:if={hasItems}>
+        <template for:each={groups} for:item="group">
+            <section key={group.name} class="lsbc-group">
+                <h3 class="lsbc-group__title">{group.name}</h3>
+                <ul class="lsbc-rows">
+                    <template for:each={group.rows} for:item="row">
+                        <li key={row.id} class="lsbc-row">
+                            <div class="lsbc-row__text">
+                                <p class="lsbc-row__name">
+                                    {row.name}
+                                    <span class={row.requiredClass}>{row.requiredText}</span>
+                                </p>
+                                <p lwc:if={row.instruction} class="lsbc-row__instruction">{row.instruction}</p>
+                                <p class={row.statusClass}>{row.statusText}</p>
+                                <p lwc:if={row.isReturned} class="lsbc-row__returned">Board's note: {row.comments}</p>
+                                <p lwc:if={row.hasFiles} class="lsbc-row__files">Files: {row.filesText}</p>
+                            </div>
+                            <div lwc:if={row.canUpload} class="lsbc-row__upload">
+                                <lightning-file-upload
+                                    label={row.name}
+                                    variant="label-hidden"
+                                    record-id={row.id}
+                                    data-id={row.id}
+                                    multiple
+                                    onuploadfinished={handleUploadFinished}>
+                                </lightning-file-upload>
+                            </div>
+                        </li>
+                    </template>
+                </ul>
+            </section>
+        </template>
+    </template>
+    <template lwc:if={noItemsMessage}>
+        <p>{noItemsMessage}</p>
+    </template>
+</template>

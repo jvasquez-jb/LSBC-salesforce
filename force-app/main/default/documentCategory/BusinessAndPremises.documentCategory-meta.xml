@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DocumentCategory xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Documents about a salon, school, facility or event and its premises.</description>
+    <masterLabel>Business and Premises</masterLabel>
+</DocumentCategory>

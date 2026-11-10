@@ -161,5 +161,17 @@ Raised by later phases while Phase 2 is paused. Pick these up when it resumes.
   in its flow access. Images in HTML blocks use `/sfsites/c/resource/<StaticResourceName>`, one
   static resource per image: the block prefixes the page path (`/LPI/s`), so `/LPI/...` doubles.
   Check the published site with headless Chrome (`--dump-dom`, `--screenshot`) after publishing.
+- Portal users get the permission set group `PortalLicenseeAccess` (`PortalLicensee` +
+  managed `force__DocumentChecklist`), assigned by `RecordTriggerUserAfterSave`. Without
+  Document Checklist, a portal file upload to a checklist item fails ("insufficient access rights
+  on entity") even with full record access.
+- Document checklist items: `IsRequired` can only be set on create (replace the item to change it),
+  and `AccountId` can't be set at all. Each item is filed under its document type's
+  `DocumentCategory` (links in `documentCategoryDocumentTypes/`). Portal uploads go through the
+  `documentChecklistUpload` LWC in `Subflow: Document Checklist Upload`. A file can't be deleted while
+  it is linked to a checklist item, nor the item while it has a file: delete the
+  `ContentDocumentLink` first (`scripts/apex/DeleteRegistrantThreeTestApplications.apex`).
+- Portal forms create their records before certification, so an abandoned form leaves Draft
+  applications, fees and checklist items behind.
 - `force-app` holds only metadata this project owns. A full org retrieve sits in `reference/`
   (ignored by git) for lookups. Copy a file into `force-app` only when we change it.

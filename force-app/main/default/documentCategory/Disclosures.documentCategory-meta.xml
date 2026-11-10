@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DocumentCategory xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Records that explain a Yes answer to a background question.</description>
+    <masterLabel>Disclosures</masterLabel>
+</DocumentCategory>

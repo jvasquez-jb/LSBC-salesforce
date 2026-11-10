@@ -1,0 +1,22 @@
+/* Rows follow the portal's bordered white list style; colours are the LSBC brand tokens. */
+.lsbc-group { margin-bottom: 1.5rem; }
+.lsbc-group__title { font-family: Montserrat, sans-serif; font-size: 1.05rem; font-weight: 700; color: #051E5F; margin: 0 0 .5rem; }
+.lsbc-rows { list-style: none; margin: 0; padding: 0; border: 1px solid #D8DDE6; border-radius: 6px; background: #fff; }
+.lsbc-row { display: flex; flex-wrap: wrap; gap: .75rem 1.5rem; justify-content: space-between; align-items: flex-start; padding: 1rem; }
+.lsbc-row + .lsbc-row { border-top: 1px solid #D8DDE6; }
+.lsbc-row__text { flex: 1 1 18rem; min-width: 0; }
+.lsbc-row__name { font-weight: 700; color: #181818; margin: 0 0 .25rem; }
+.lsbc-row__instruction { color: #3E3E3C; margin: 0 0 .25rem; }
+.lsbc-row__returned { color: #8C2D1F; margin: .25rem 0 0; }
+.lsbc-row__files { color: #3E3E3C; font-size: .875rem; margin: .25rem 0 0; overflow-wrap: anywhere; }
+.lsbc-row__upload { flex: 0 0 auto; }
+.lsbc-badge { display: inline-block; margin-left: .5rem; padding: 0 .5rem; border-radius: 1rem; font-size: .75rem; font-weight: 600; background: #F3F3F3; color: #3E3E3C; vertical-align: middle; }
+.lsbc-badge_required { background: #051E5F; color: #fff; }
+.lsbc-status { font-size: .875rem; margin: 0; color: #3E3E3C; }
+.lsbc-status_pending { color: #1F4E9C; }
+.lsbc-status_accepted { color: #2E7D32; }
+.lsbc-status_rejected { color: #8C2D1F; font-weight: 600; }
+.lsbc-error { color: #8C2D1F; }
+@media (max-width: 600px) {
+    .lsbc-row__upload { flex-basis: 100%; }
+}
