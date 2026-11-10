@@ -1367,13 +1367,30 @@ excluded by the SOW; adding them was raised in session.
 
 | Area | Note |
 |---|---|
-| Data migration from CLOSE | Platform configured to receive it. See `OPEN-03`, `OPEN-05` |
+| Data migration from CLOSE | Platform configured to receive it. See `OPEN-03`, `OPEN-05`. A first load ran in the sandbox on 10 Nov 2026 (below) |
 | Paper and microfilm digitisation | Raised in session as in scope; excluded by the SOW |
 | Inspections and enforcement | Beyond violation capture. Phase 1 prepares the ground only |
 | Payment integration | PayStar and Elavon. Phase 1 links out and records the receipt. Integration only under a signed change order |
 | Knowledge base and public AI | Roadmap |
 | Employee and civil service data | Explicitly excluded |
 | lsbc.louisiana.gov replacement | Extent of any content move still being agreed |
+
+**First CLOSE load (sandbox, 10 Nov 2026).** LSBC supplied CLOSE data and a first load went into
+LSBC-Partial: 31,166 people with a current licence, 7,385 salons, 58 schools and 38,978 licences (one
+per holder and licence type, renewals rolled into Renewal Count). Records match on abstracted keys in
+`LegacyKey__c` on Account, `BusinessLicense` and `Accreditation`, never on the SSN, which was not
+loaded. It raised four gaps, now client questions:
+
+- **Licence number.** CLOSE has none apart from the applicant ID, so `Identifier` is blank. Sign-up
+  (`PT-09`) and public search (`PT-10`) match on it, so migrated licensees can't sign up until it is set.
+- **Instructor types.** CLOSE has three; the build has one, which codes 7 and 9 treat as needing both a
+  cosmetologist and an esthetician licence. About 600 instructors were held on load.
+- **Booth renters.** Code 6 needs a cosmetologist licence; `DM-03` says any operator licence.
+- **Licence types not built:** Manager (1,194 current), Make-up (38), Microdermabrasion (24). Duplicate
+  licences (267) are reprints, not a licence type.
+
+Loading licences opened 6,889 stop codes, mostly code 16 (no licensed manager), because owner and
+manager relationships load next.
 
 ### 7.1 Preparing for inspections
 
@@ -1673,3 +1690,4 @@ the source.
 | 10 Nov 2026 | Staff reports built: LSBC Operations folder (seven reports on six new report types) and the LSBC Operations dashboard, shown to each viewer with their own access and placed on the LSBC Licensing Home page. |
 | 10 Nov 2026 | `CUT-03` as built: five desk training guides; Phase 6 closed. Staff access to the Phase 6 tools is on the Phase 2 list. |
 | 10 Nov 2026 | Status brought current after Phase 6: header, milestone build status, a 5.1 note listing what paused security still owes the later phases, `PT-09` and `OPEN-09`/`OPEN-36` describe the new-to-the-Board sign-up path, and `OPEN-11` now holds up security rather than the data model. Duplicate change log rows removed. |
+| 10 Nov 2026 | First CLOSE load in the sandbox (section 7): Legacy Key fields on Account, `BusinessLicense` and `Accreditation` and the `LSBCDataMigration` permission set brought into the build. Licence numbers, instructor types, booth renter licences and three missing licence types raised as client questions. |

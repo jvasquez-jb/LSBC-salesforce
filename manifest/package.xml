@@ -43,10 +43,12 @@
         <name>CustomApplication</name>
     </types>
     <types>
+        <members>Account.LegacyKey__c</members>
         <members>Account.MaximumStudentCapacity__c</members>
         <members>Account.Parish__c</members>
         <members>Account.TaxIdentificationNumber__c</members>
         <members>Accreditation.BondAmount__c</members>
+        <members>Accreditation.LegacyKey__c</members>
         <members>Accreditation.Underwriter__c</members>
         <members>ApplicationDocumentRequirement__mdt.ApplicationPath__c</members>
         <members>ApplicationDocumentRequirement__mdt.ApplicationType__c</members>
@@ -61,6 +63,7 @@
         <members>BusinessLicense.IsMasterInstructor__c</members>
         <members>BusinessLicense.IsReadyToPrint__c</members>
         <members>BusinessLicense.LastCEUDate__c</members>
+        <members>BusinessLicense.LegacyKey__c</members>
         <members>BusinessLicense.PrintRequestedDate__c</members>
         <members>BusinessLicense.PrintedDate__c</members>
         <members>BusinessLicense.RenewalCount__c</members>
@@ -476,6 +479,7 @@
         <name>Network</name>
     </types>
     <types>
+        <members>LSBCDataMigration</members>
         <members>PortalLicensee</members>
         <members>PublicSectorAccessAdminPSL</members>
         <name>PermissionSet</name>
