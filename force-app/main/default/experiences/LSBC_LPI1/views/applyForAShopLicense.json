@@ -1,0 +1,70 @@
+{
+  "appPageId": "39740273-a4f0-4311-b732-31661924917d",
+  "componentName": "siteforce:sldsOneColLayout",
+  "dataProviders": [],
+  "id": "18ed7f58-32d9-45e8-a125-66d153ce6419",
+  "label": "Apply for a Shop License",
+  "regions": [
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "richTextValue": "<!-- Page heading and one-line introduction -->\n<h1 class=\"lsbc-page-title\">Apply for a Shop License</h1>\n<p class=\"lsbc-page-intro\">Open a new shop or salon, move to a new location, reopen, or take over as a new owner.</p>"
+          },
+          "componentName": "forceCommunity:richTextInline",
+          "id": "09f2e2d4-6ff9-4e93-93b7-a8942f6c5c1a",
+          "renderPriority": "NEUTRAL",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "4002b109-5a51-4a72-b8d0-c4212605b353",
+      "regionName": "header",
+      "type": "region"
+    },
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "flowArguments": "",
+            "flowName": "ScreenFlowBusinessLicenseApplicationShop"
+          },
+          "componentName": "forceCommunity:flowCommunity",
+          "id": "46d20e98-7a2b-470f-b95c-cb2f801e9998",
+          "renderPriority": "NEUTRAL",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "0ff2c96e-bb60-4d6f-8c2a-e77b14180247",
+      "regionName": "content",
+      "type": "region"
+    },
+    {
+      "id": "bf3a11b2-8c35-4beb-bdd7-596d552853ed",
+      "regionName": "footer",
+      "type": "region"
+    },
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "customHeadTags": "",
+            "description": "",
+            "title": "Apply for a Shop License"
+          },
+          "componentName": "forceCommunity:seoAssistant",
+          "id": "032e028c-0ddd-4f68-9ad4-bcf0acfee4ba",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "563c1002-09fd-47dd-9232-f62bf79320e7",
+      "regionName": "sfdcHiddenRegion",
+      "type": "region"
+    }
+  ],
+  "themeLayoutType": "Inner",
+  "type": "view",
+  "viewType": "custom-shop-application"
+}

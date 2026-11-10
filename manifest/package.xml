@@ -328,6 +328,7 @@
         <members>ScreenFlowAccountPortalRegistration</members>
         <members>ScreenFlowAccountSchoolDirectory</members>
         <members>ScreenFlowAccreditationCEProviderList</members>
+        <members>ScreenFlowBusinessLicenseApplicationShop</members>
         <members>ScreenFlowBusinessLicensePublicSearch</members>
         <members>ScreenFlowCasePublicComplaint</members>
         <members>ScreenFlowCaseRecordComplaint</members>
