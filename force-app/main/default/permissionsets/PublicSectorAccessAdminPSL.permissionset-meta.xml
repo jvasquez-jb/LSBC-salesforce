@@ -3,72 +3,77 @@
     <description>Enables user access to all Public Sector objects and features.</description>
     <fieldPermissions>
         <editable>true</editable>
-        <field>RegulatoryCodeViolation.Establishment__c</field>
+        <field>Account.MaximumStudentCapacity__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>RegulatoryCodeViolation.Practitioner__c</field>
+        <field>Account.Parish__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>RegulatoryCodeViolation.CitedParty__c</field>
+        <field>Accreditation.AccountId</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>RegulatoryCodeViolation.Case__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>RegulatoryTrxnFee.AmountPaid__c</field>
+        <field>Accreditation.AccreditationRating</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Contact.LastDuplicateLicenseDate__c</field>
+        <field>Accreditation.AccreditingBody</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>RegulatoryTrxnFee.Description</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>RegulatoryTrxnFee.TotalFeeAmount</field>
+        <field>Accreditation.BondAmount__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>TrainingCourseParticipant.EndDate</field>
+        <field>Accreditation.EffectiveFrom</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>TrainingCourseParticipant.StartDate</field>
+        <field>Accreditation.EffectiveTo</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>TrainingCourseParticipant.TotalCredits</field>
+        <field>Accreditation.LastFullSurveyDate</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>TrainingCourseParticipant.TotalHours</field>
+        <field>Accreditation.LastOnsiteSurveyDate</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Examination.ExamType__c</field>
+        <field>Accreditation.SourceSystemIdentifier</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Examination.LicenseType__c</field>
+        <field>Accreditation.Status</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Accreditation.SubType</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Accreditation.Type</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Accreditation.Underwriter__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -79,6 +84,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>BusinessLicense.ApplicationFormId</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>BusinessLicense.ConsecutiveCEUCycles__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -99,6 +109,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>BusinessLicense.IsActive</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>BusinessLicense.IsMasterInstructor__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -128,12 +143,22 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>BusinessLicense.LastCEUDate__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>BusinessLicense.PeriodEnd</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
         <field>BusinessLicense.PeriodStart</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>BusinessLicense.RenewalCount__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -158,12 +183,42 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Contact.DuplicateLicenseCount__c</field>
+        <field>BusinessLicenseApplication.CertifiedDateTime__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Contact.LegacyCertificationNumber__c</field>
+        <field>BusinessLicenseApplication.CertifiedName__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>BusinessLicenseApplication.DirectionsToLocation__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>BusinessLicenseApplication.IsCertified__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>BusinessLicenseApplication.IsPremisesLeased__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>BusinessLicenseApplication.RequestedOpeningDate__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>BusinessLicenseApplication.ReturnReason__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Contact.DuplicateLicenseCount__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -173,12 +228,17 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Contact.MaidenName__c</field>
+        <field>Contact.LastDuplicateLicenseDate__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Account.Parish__c</field>
+        <field>Contact.LegacyCertificationNumber__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Contact.MaidenName__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -193,56 +253,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Accreditation.BondAmount__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Accreditation.Underwriter__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>BusinessLicense.ConsecutiveCEUCycles__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>BusinessLicense.IsMasterInstructor__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>BusinessLicense.LastCEUDate__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>BusinessLicense.RenewalCount__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>BusinessLicenseApplication.CertifiedDateTime__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>BusinessLicenseApplication.CertifiedName__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>BusinessLicenseApplication.IsCertified__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>BusinessLicenseApplication.ReturnReason__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>CourseOffering.ApprovedHours__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -253,7 +263,32 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Examination.ExamType__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Examination.LicenseType__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>IndividualApplication.AffidavitMailingAddress__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>IndividualApplication.AffidavitRecipientState__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>IndividualApplication.ApplicationPath__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>IndividualApplication.ApprenticeshipSetting__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -273,6 +308,16 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>IndividualApplication.DisclosureExplanation__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>IndividualApplication.EvaluationAgency__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>IndividualApplication.EventEndDate__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -283,7 +328,22 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>IndividualApplication.EventTypeOther__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>IndividualApplication.EventType__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>IndividualApplication.Exams__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>IndividualApplication.FelonyConviction__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -298,12 +358,37 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>IndividualApplication.IsLouisianaResident__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>IndividualApplication.LicenseByApprenticeship__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>IndividualApplication.LicenseObtainedByFraud__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>IndividualApplication.MondayHours__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>IndividualApplication.NoShowFeeAcknowledged__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>IndividualApplication.OriginatingState__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>IndividualApplication.PriorLicenseAction__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -324,6 +409,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>IndividualApplication.ThursdayHours__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>IndividualApplication.TookHandsOnPractical__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -428,6 +518,16 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>PersonEducation.SchoolCity__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>PersonEducation.SchoolState__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>PersonExamination.AttemptNumber__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -498,6 +598,41 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>RegulatoryCodeViolation.Case__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>RegulatoryCodeViolation.CitedParty__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>RegulatoryCodeViolation.Establishment__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>RegulatoryCodeViolation.Practitioner__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>RegulatoryTrxnFee.AmountPaid__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>RegulatoryTrxnFee.Description</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>RegulatoryTrxnFee.TotalFeeAmount</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>RegulatoryTrxnFeeItem.FeeProduct__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -508,62 +643,27 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>TrainingCourseParticipant.EndDate</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>TrainingCourseParticipant.EntryType__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Accreditation.AccountId</field>
+        <field>TrainingCourseParticipant.StartDate</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Accreditation.AccreditationRating</field>
+        <field>TrainingCourseParticipant.TotalCredits</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Accreditation.AccreditingBody</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Accreditation.EffectiveFrom</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Accreditation.EffectiveTo</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Accreditation.LastFullSurveyDate</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Accreditation.LastOnsiteSurveyDate</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Accreditation.SourceSystemIdentifier</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Accreditation.Status</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Accreditation.SubType</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Accreditation.Type</field>
+        <field>TrainingCourseParticipant.TotalHours</field>
         <readable>true</readable>
     </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
