@@ -4,7 +4,7 @@
 **Engagement:** Phase 1 Foundation, Carahsoft SOW 66003598, NASPO LA 4400010663
 **Status:** Built in the LSBC-Partial sandbox except security (section 5.1), which is paused for
 the Board's feedback on the access matrix. The portal is built and stays unpublished until March or April 2027.
-**Last updated:** 10 November 2026
+**Last updated:** 11 November 2026
 
 ---
 
@@ -176,8 +176,9 @@ registration. A licensee who married since their last renewal is the classic dup
 later migration. CLOSE carries `Old Certification#` predating current numbering.
 
 `DM-07` `[OPEN]` CLOSE stores **race and sex** on the applicant record. Confirm whether race
-is still collected and what for. If it migrates it needs field-level restriction from day one,
-and there is no encryption at rest behind it in Phase 1. See `OPEN-13`.
+is still collected and what for. If it migrates it needs field-level restriction from day one.
+Shield is in Phase 1 (`SEC-03`) but is not provisioned until January 15 (`SEC-03a`), and a picklist
+cannot be encrypted, so field access is its main protection either way. See `OPEN-13`.
 
 ### 1.2 Applications and licensure
 
@@ -1705,6 +1706,7 @@ the source.
 | 10 Nov 2026 | Staff reports built: LSBC Operations folder (seven reports on six new report types) and the LSBC Operations dashboard, shown to each viewer with their own access and placed on the LSBC Licensing Home page. |
 | 10 Nov 2026 | `CUT-03` as built: five desk training guides; Phase 6 closed. Staff access to the Phase 6 tools is on the Phase 2 list. |
 | 10 Nov 2026 | Status brought current after Phase 6: header, milestone build status, a 5.1 note listing what paused security still owes the later phases, `PT-09` and `OPEN-09`/`OPEN-36` describe the new-to-the-Board sign-up path, and `OPEN-11` now holds up security rather than the data model. Duplicate change log rows removed. |
+| 11 Nov 2026 | `DM-07` no longer says Phase 1 has no encryption at rest: Shield is in Phase 1 (`SEC-03`), from January 15. |
 | 10 Nov 2026 | First CLOSE load in the sandbox (section 7): Legacy Key fields on Account, `BusinessLicense` and `Accreditation` and the `LSBCDataMigration` permission set brought into the build. Licence numbers, instructor types, booth renter licences and three missing licence types raised as client questions. |
 | 11 Nov 2026 | CLOSE migration build: Instructor split into Cosmetology, Esthetician and Manicurist Instructor, each needing its own discipline's licence for codes 7 and 9 (`BR-02`); the reciprocity, retake and temporary permit forms ask which instructor licence. Manager, Microdermabrasion and Make-up Application licence types (`BR-22a`, `DM-12`). Code 32 NSF Late Fees is manual (`BR-03`). All CLOSE fee codes on Product; renewal and late fees per licence type, `FH` failure to renew, `PO` is a school fine (`BR-07`). CLOSE's violations and citations replace the placeholders (`CM-02`). A rule change now edits the existing expression set version: new versions can't be deployed in this org. |
 | 11 Nov 2026 | Code 16 also clears when the shop holds a current Manager licence: CLOSE keeps the Manager licence on the shop (`BR-22a`). New `BusinessLicense.InstructorStatus__c` (Active, Inactive) from CLOSE's instructor status; N and X are a client question. |
