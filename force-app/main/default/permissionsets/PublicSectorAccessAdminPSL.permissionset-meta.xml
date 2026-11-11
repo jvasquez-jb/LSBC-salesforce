@@ -603,6 +603,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Product2.RevenueCode__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>RegulatoryAuthorizationType.CECycleYears__c</field>
         <readable>true</readable>
     </fieldPermissions>

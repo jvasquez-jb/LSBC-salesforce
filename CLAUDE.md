@@ -143,8 +143,11 @@ Raised by later phases while Phase 2 is paused. Pick these up when it resumes.
   - Test an expression set through `POST /services/data/v66.0/actions/custom/runExpressionSet/<Name>`
     with `{"inputs":[{...}]}` (the same action Flow uses). The Connect `business-rules` endpoint rejects the name.
   - An active version can't be redeployed. Set `ExpressionSetVersion.IsActive` false with
-    `sf data update record`, deploy, and the file's `<status>Active</status>` reactivates it. Once
-    rules are in use, make a new version instead.
+    `sf data update record`, deploy, and the file's `<status>Active</status>` reactivates it. A new
+    expression set version can't be deployed here ("LatestVersionSnapshotId not found"), so rule
+    changes go into the existing version this way; git keeps the old rule. Keep the gap short: while
+    the version is inactive, every flow calling it fails. Version descriptions max 255 characters.
+    Decision matrices do take new versions (`FeeSchedule` V3).
   - Every expression set variable must be an input, an output or a constant. A working variable
     that is neither breaks the Flow action ("type mapping … is not a supported type"), though the
     REST test passes. Fold working values into the output formulas.
@@ -220,6 +223,12 @@ Raised by later phases while Phase 2 is paused. Pick these up when it resumes.
   where the Aura `flowResume` component resumes it. `Subflow: Preliminary Application Discard`
   deletes a draft; the nightly `PreliminaryApplicationReferenceScheduleExpiredDrafts` (01:15) runs it
   after 30 days untouched. New forms follow the same pattern.
+- CLOSE migration (the Board's legacy system): load scripts in `scripts/migration` (see its README).
+  Work only from the de-identified copy `../LSBC-Migration/extract/lsbc_deid.sqlite`, where every
+  SSN-shaped applicant ID and certificate number is a mock starting `000`; never open the raw export
+  (Shield isn't on yet). The sandbox-only field `Contact.MockSocialSecurityNumber__c` lives in
+  `sandbox-only/`, outside `force-app` and `package.xml`: never deploy it to production. Load files
+  go in `../LSBC-Migration/load`; refuse any with a nine-digit value outside the `000` range.
 - `force-app` holds only metadata this project owns. A full org retrieve sits in `reference/`
   (ignored by git) for lookups. Copy a file into `force-app` only when we change it.
 - Phase 6 staff tools (app LSBC Licensing, console): the record pages and the Phase 6 screen flows are

@@ -79,9 +79,15 @@
             </value>
         </inputParameters>
         <inputParameters>
-            <name>IsInstructor</name>
+            <name>IsCosmetologyInstructor</name>
             <value>
-                <elementReference>forB_IsInstructor</elementReference>
+                <elementReference>forB_IsCosmetologyInstructor</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>IsEstheticianInstructor</name>
+            <value>
+                <elementReference>forB_IsEstheticianInstructor</elementReference>
             </value>
         </inputParameters>
         <inputParameters>
@@ -1000,9 +1006,14 @@
         <expression>NOT(ISBLANK({!GetBoothRentalPermit.Id})) || {!varB_IsBoothRenterByRelation}</expression>
     </formulas>
     <formulas>
-        <name>forB_IsInstructor</name>
+        <name>forB_IsCosmetologyInstructor</name>
         <dataType>Boolean</dataType>
-        <expression>NOT(ISBLANK({!GetInstructorLicense.Id}))</expression>
+        <expression>NOT(ISBLANK({!GetCosmetologyInstructorLicense.Id}))</expression>
+    </formulas>
+    <formulas>
+        <name>forB_IsEstheticianInstructor</name>
+        <dataType>Boolean</dataType>
+        <expression>NOT(ISBLANK({!GetEstheticianInstructorLicense.Id}))</expression>
     </formulas>
     <formulas>
         <name>forB_IsBoothRenterRole</name>
@@ -1382,7 +1393,7 @@
         <locationY>0</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>GetInstructorType</targetReference>
+            <targetReference>GetCosmetologyInstructorType</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -1397,8 +1408,29 @@
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordLookups>
-        <name>GetInstructorType</name>
-        <label>Get Instructor Type</label>
+        <name>GetCosmetologyInstructorType</name>
+        <label>Get Cosmetology Instructor Type</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>GetEstheticianInstructorType</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Name</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Cosmetology Instructor</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>RegulatoryAuthorizationType</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>GetEstheticianInstructorType</name>
+        <label>Get Esthetician Instructor Type</label>
         <locationX>0</locationX>
         <locationY>0</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
@@ -1410,7 +1442,7 @@
             <field>Name</field>
             <operator>EqualTo</operator>
             <value>
-                <stringValue>Instructor</stringValue>
+                <stringValue>Esthetician Instructor</stringValue>
             </value>
         </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
@@ -1503,7 +1535,7 @@
         <locationY>0</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>GetInstructorLicense</targetReference>
+            <targetReference>GetCosmetologyInstructorLicense</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -1555,8 +1587,66 @@
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordLookups>
-        <name>GetInstructorLicense</name>
-        <label>Get Instructor License</label>
+        <name>GetCosmetologyInstructorLicense</name>
+        <label>Get Cosmetology Instructor License</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>GetEstheticianInstructorLicense</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>AccountId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>varT_AccountId</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>RegulatoryAuthorizationTypeId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>GetCosmetologyInstructorType.Id</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Status</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <stringValue>Revoked</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Status</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <stringValue>Retired</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Status</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <stringValue>Deceased</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Status</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <stringValue>Draft</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>BusinessLicense</object>
+        <sortField>PeriodEnd</sortField>
+        <sortOrder>Desc</sortOrder>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>GetEstheticianInstructorLicense</name>
+        <label>Get Esthetician Instructor License</label>
         <locationX>0</locationX>
         <locationY>0</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
@@ -1575,7 +1665,7 @@
             <field>RegulatoryAuthorizationTypeId</field>
             <operator>EqualTo</operator>
             <value>
-                <elementReference>GetInstructorType.Id</elementReference>
+                <elementReference>GetEstheticianInstructorType.Id</elementReference>
             </value>
         </filters>
         <filters>

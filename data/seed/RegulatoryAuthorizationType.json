@@ -64,7 +64,45 @@
         "type": "RegulatoryAuthorizationType",
         "referenceId": "TypeInstructor"
       },
-      "Name": "Instructor",
+      "Name": "Cosmetology Instructor",
+      "RegulatoryAuthCategory": "License",
+      "ExpirationBasis__c": "Holders Birthday",
+      "TermLength__c": 12,
+      "DurationType": "Month",
+      "Program__c": "@CourseTeacher",
+      "CompletionThresholdHours__c": 500,
+      "RequiresNationalExam__c": true,
+      "RequiresPracticalExam__c": true,
+      "RequiresStateExam__c": true,
+      "RequiresCE__c": true,
+      "CEHoursRequired__c": 16,
+      "CECycleYears__c": 2
+    },
+    {
+      "attributes": {
+        "type": "RegulatoryAuthorizationType",
+        "referenceId": "TypeEstheticianInstructor"
+      },
+      "Name": "Esthetician Instructor",
+      "RegulatoryAuthCategory": "License",
+      "ExpirationBasis__c": "Holders Birthday",
+      "TermLength__c": 12,
+      "DurationType": "Month",
+      "Program__c": "@CourseTeacher",
+      "CompletionThresholdHours__c": 500,
+      "RequiresNationalExam__c": true,
+      "RequiresPracticalExam__c": true,
+      "RequiresStateExam__c": true,
+      "RequiresCE__c": true,
+      "CEHoursRequired__c": 16,
+      "CECycleYears__c": 2
+    },
+    {
+      "attributes": {
+        "type": "RegulatoryAuthorizationType",
+        "referenceId": "TypeManicuristInstructor"
+      },
+      "Name": "Manicurist Instructor",
       "RegulatoryAuthCategory": "License",
       "ExpirationBasis__c": "Holders Birthday",
       "TermLength__c": 12,
@@ -146,6 +184,40 @@
       "Name": "School",
       "RegulatoryAuthCategory": "License",
       "ExpirationBasis__c": "January 31",
+      "TermLength__c": 12,
+      "DurationType": "Month"
+    },
+    {
+      "attributes": {
+        "type": "RegulatoryAuthorizationType",
+        "referenceId": "TypeManager"
+      },
+      "Name": "Manager",
+      "RegulatoryAuthCategory": "License",
+      "ExpirationBasis__c": "January 31",
+      "TermLength__c": 12,
+      "DurationType": "Month"
+    },
+    {
+      "attributes": {
+        "type": "RegulatoryAuthorizationType",
+        "referenceId": "TypeMicrodermabrasion"
+      },
+      "Name": "Microdermabrasion",
+      "RegulatoryAuthCategory": "Permit",
+      "ExpirationBasis__c": "Holders Birthday",
+      "TermLength__c": 12,
+      "DurationType": "Month",
+      "Program__c": "@CourseMicrodermabrasion"
+    },
+    {
+      "attributes": {
+        "type": "RegulatoryAuthorizationType",
+        "referenceId": "TypeMakeupApplication"
+      },
+      "Name": "Make-up Application",
+      "RegulatoryAuthCategory": "Permit",
+      "ExpirationBasis__c": "Holders Birthday",
       "TermLength__c": 12,
       "DurationType": "Month"
     }

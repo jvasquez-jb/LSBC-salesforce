@@ -5,7 +5,7 @@
         "type": "Product2",
         "referenceId": "FeeAC"
       },
-      "Name": "Renewal",
+      "Name": "Cosmetologist-Renewal",
       "FeeCode__c": "AC",
       "IsActive": true
     },
@@ -14,7 +14,7 @@
         "type": "Product2",
         "referenceId": "FeeBY"
       },
-      "Name": "Miscellaneous",
+      "Name": "Miscellaneous Fees-Cos, Man., Esth., Instr.",
       "FeeCode__c": "BY",
       "IsActive": true
     },
@@ -23,7 +23,7 @@
         "type": "Product2",
         "referenceId": "FeeFD"
       },
-      "Name": "School Renewal",
+      "Name": "COSMETOLOGY SCHOOL - RENEWAL",
       "FeeCode__c": "FD",
       "IsActive": true
     },
@@ -32,7 +32,7 @@
         "type": "Product2",
         "referenceId": "FeeFH"
       },
-      "Name": "Late Fee",
+      "Name": "COSMETOLOGY SCHOOL - LATE FEES",
       "FeeCode__c": "FH",
       "IsActive": true
     },
@@ -41,7 +41,7 @@
         "type": "Product2",
         "referenceId": "FeePB"
       },
-      "Name": "Overpayment And Refund Request",
+      "Name": "Overpayment",
       "FeeCode__c": "PB",
       "IsActive": true
     },
@@ -50,7 +50,7 @@
         "type": "Product2",
         "referenceId": "FeePE"
       },
-      "Name": "List",
+      "Name": "List - Cosmetologist",
       "FeeCode__c": "PE",
       "IsActive": true
     },
@@ -59,7 +59,7 @@
         "type": "Product2",
         "referenceId": "FeePO"
       },
-      "Name": "Failure To Timely Renew",
+      "Name": "Violation/Fine - School",
       "FeeCode__c": "PO",
       "IsActive": true
     }

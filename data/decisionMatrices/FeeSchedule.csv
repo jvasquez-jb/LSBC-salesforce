@@ -3,9 +3,9 @@ Individual License,,35
 Permit,,50
 Temporary Permit,,50
 Booth Renter Contract,,5
-Late Penalty,FH,35
+Late Penalty,,35
 School Renewal,FD,190
-Failure To Timely Renew,PO,175
+Failure To Timely Renew,FH,175
 Practical Examination,,25
 State Examination,,25
 Restoration Examination,,25
@@ -25,3 +25,33 @@ Establishment License,,55
 Manager License,,35
 Threading Examination,,25
 No Show,,25
+Cosmetologist Renewal,AC,35
+Cosmetologist Late Fee,AH,35
+Manicurist Renewal,AJ,35
+Manicurist Late Fee,AO,35
+Esthetician Renewal,AQ,35
+Esthetician Late Fee,AV,35
+Shampoo Assistant Renewal,CF,50
+Shampoo Assistant Late Fee,,35
+Cosmetology Instructor Renewal,AX,35
+Cosmetology Instructor Late Fee,BX,35
+Esthetician Instructor Renewal,BP,35
+Esthetician Instructor Late Fee,BX,35
+Manicurist Instructor Renewal,BG,35
+Manicurist Instructor Late Fee,BX,35
+Alternative Hair Design Permit Renewal,CB,50
+Alternative Hair Design Permit Late Fee,,35
+Threading Permit Renewal,QH,50
+Threading Permit Late Fee,,35
+Booth Rental Permit Renewal,DB,50
+Booth Rental Permit Late Fee,DF,35
+Microdermabrasion Renewal,CD,50
+Microdermabrasion Late Fee,,35
+Make-up Application Renewal,CH,50
+Make-up Application Late Fee,,35
+Manager Renewal,EH,35
+Manager Late Fee,EI,35
+Salon Renewal,DI,55
+Salon Late Fee,DL,35
+Threading Facility Renewal,QJ,50
+Threading Facility Late Fee,QK,35

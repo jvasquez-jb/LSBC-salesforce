@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MockSocialSecurityNumber__c</fullName>
+    <caseSensitive>false</caseSensitive>
+    <description>Sandbox testing only. A made-up number, starting 000, that stands in for the person's social security number in migrated test data until Shield Platform Encryption is turned on. It is never a real number. Never deploy this field to production: the real number goes in Social Security Number.</description>
+    <externalId>true</externalId>
+    <inlineHelpText>Test data only. Not a real social security number.</inlineHelpText>
+    <label>Mock Social Security Number</label>
+    <length>11</length>
+    <required>false</required>
+    <type>Text</type>
+    <unique>true</unique>
+</CustomField>

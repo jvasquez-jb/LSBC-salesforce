@@ -151,6 +151,7 @@
         <members>PersonEducation.SchoolState__c</members>
         <members>PersonExamination.AttemptNumber__c</members>
         <members>Product2.FeeCode__c</members>
+        <members>Product2.RevenueCode__c</members>
         <members>RegulatoryAuthorizationType.CECycleYears__c</members>
         <members>RegulatoryAuthorizationType.CEHoursRequired__c</members>
         <members>RegulatoryAuthorizationType.CompletionThresholdHours__c</members>
@@ -550,6 +551,7 @@
         <members>StopCode29</members>
         <members>StopCode30</members>
         <members>StopCode31</members>
+        <members>StopCode32</members>
         <name>RecordAlertCategory</name>
     </types>
     <types>

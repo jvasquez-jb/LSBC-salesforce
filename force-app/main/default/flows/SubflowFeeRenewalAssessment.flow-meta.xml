@@ -34,7 +34,7 @@
         <inputParameters>
             <name>FeeName</name>
             <value>
-                <stringValue>Late Penalty</stringValue>
+                <elementReference>forT_LateFeeName</elementReference>
             </value>
         </inputParameters>
         <storeOutputAutomatically>true</storeOutputAutomatically>
@@ -614,9 +614,15 @@
     </formulas>
     <formulas>
         <name>forT_RenewalFeeName</name>
-        <description>Which Fee Schedule row prices this renewal. Salon renewal has no row until its amount is confirmed.</description>
+        <description>Which Fee Schedule row prices this renewal: the license type's name followed by Renewal, such as Cosmetologist Renewal. A type with no row stops the assessment with a message.</description>
         <dataType>String</dataType>
-        <expression>IF({!GetLicenseType.Name} = &quot;School&quot;, &quot;School Renewal&quot;, IF({!GetLicenseType.Name} = &quot;Salon&quot;, &quot;Salon Renewal&quot;, IF(ISPICKVAL({!GetLicenseType.RegulatoryAuthCategory}, &quot;Permit&quot;), &quot;Permit&quot;, &quot;Individual License&quot;)))</expression>
+        <expression>{!GetLicenseType.Name} &amp; &quot; Renewal&quot;</expression>
+    </formulas>
+    <formulas>
+        <name>forT_LateFeeName</name>
+        <description>Which Fee Schedule row prices each missed license year: the license type's name followed by Late Fee, such as Cosmetologist Late Fee. A late school pays the failure-to-renew fee instead.</description>
+        <dataType>String</dataType>
+        <expression>{!GetLicenseType.Name} &amp; &quot; Late Fee&quot;</expression>
     </formulas>
     <formulas>
         <name>forT_RenewalYear</name>

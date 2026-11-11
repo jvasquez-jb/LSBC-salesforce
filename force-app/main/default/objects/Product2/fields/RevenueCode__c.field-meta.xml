@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>RevenueCode__c</fullName>
+    <description>The state revenue code the fee is reported under, as recorded in the Board's previous licensing system. Most fees use 1595.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The revenue code finance reports this fee under.</inlineHelpText>
+    <label>Revenue Code</label>
+    <length>10</length>
+    <required>false</required>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>
