@@ -126,6 +126,10 @@ six months) on instructors. Before loading CE:
 
 ### A7. Smaller items
 
+- Stop code 20 (no hours for six months) opened on 195 migrated students whose last hours were six to
+  twelve months ago; CLOSE had 1 open. Confirm with LSBC that code 20 should be automatic, or whether
+  a student counts as dropped (and the enrolment ends) instead.
+
 - Violation Type severity: all 38 loaded as Minor Violation; the chief inspector sets them (data).
 - Licence numbers (PT-14): migrated licences have no `Identifier`, so migrated licensees can't use
   portal sign-up or public search until LSBC answers how numbers are assigned.
