@@ -37,7 +37,7 @@ What is loaded (sandbox, 11 Nov 2026):
 | Owner, manager, assistant manager and booth renter relationships | 11,347 |
 | School surety bonds | 477 |
 | Exam attempts (graded) | 98,539 on 22 Examinations |
-| Fees still owed (due date blank, so no Non Payment hold) | 13,210, $487,657.05 |
+| Fees still owed (due date blank, so no Non Payment hold) | 13,212, $487,682.05, matching CLOSE |
 | Fees paid by payments since 11 Nov 2023 | 167,244 |
 | Payments since 11 Nov 2023, with 173,806 allocations | 120,554 |
 | Students: course offerings and monthly hours rows | 111 and 32,801 |
@@ -47,8 +47,8 @@ What is loaded (sandbox, 11 Nov 2026):
 
 Not loaded: CE seminars (see A6), inspections (Phase 2). Not loaded for data reasons: 21 months of
 hours over the 192-hour monthly limit, no-show and ungraded exam attempts, enrolments at closed
-schools. Open fee balances total $25 less than CLOSE's figure for the same charges: one charge not
-yet traced.
+schools. Two CLOSE charge numbers are used twice (693999, 737048); each pair
+loaded as one fee.
 
 ## Part A: automation changes
 
