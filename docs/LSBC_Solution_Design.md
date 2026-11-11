@@ -287,6 +287,8 @@ Violation types and regulatory codes are Phase 4 reference data.
 Codes — which may be where approved CE providers and courses actually live. Confirm before
 assuming Training Course and Course Offering cover it. See `OPEN-14`.
 
+**As built (11 Nov 2026).** CLOSE's seminar module holds seminar names, dates and attendance, not providers. The 58 seminars (1992–2026) load as Course Offerings under one Training Course, Continuing Education, and each attendance of a migrated person as a Training Course Participant with Entry Type Continuing Education (3,899 rows). Stop codes read only student hours: the sync, the six-month schedule and the hours trigger skip that entry type. Whether seminar providers become Organization accounts with CE Provider Approval accreditations is a client question.
+
 `DM-17` `[SETTLED]` **School bonds are tracked with effective and end dates and an underwriter.**
 A $30,000 insurance bond must be current for a school to renew, and the bond check is a hard
 gate in the print path.
@@ -580,7 +582,7 @@ owe against what they are charged. See `OPEN-33`.
 **As built (Phase 3).** Amounts live in the `FeeSchedule` decision matrix, keyed by fee name, with
 the fee code beside each where it is confirmed (`FH`, `FD`, `PO`); its rows are kept in
 `data/decisionMatrices/FeeSchedule.csv`. A price change is a new matrix version with a later start
-date. The rules never carry a price: `FeeLateCalculation` holds only the $465 cap and the 36-month
+date. Version 4 (11 Nov 2026) prices initial licences, duplicates, affidavits and violations per licence type with CLOSE's codes and current amounts, the same way version 3 prices renewals: a flow looks up `<License type> Initial`, `<License type> Duplicate License` or `<License type> Affidavit` and falls back to the generic row when the type has none. A violation looks up `Violation Shop`, `Violation School`, `Violation Operator`, `Violation Instructor` (a practitioner cited at a school who holds an instructor licence) or `Violation Special Permit`. Each fee item links to its fee code Product. Temporary permits, threading facilities, no-shows and exam retakes keep one generic row: CLOSE has no per-type code for them. The rules never carry a price: `FeeLateCalculation` holds only the $465 cap and the 36-month
 restoration limit. Placeholders and gaps:
 
 | Item | State |
@@ -1406,7 +1408,7 @@ certificate number with a made-up number starting 000, so nothing after that rea
 Shield. The sandbox carries those numbers in a sandbox-only Mock Social Security Number field that is
 never deployed. The gaps above are closed in the build: three instructor licence types, Manager,
 Microdermabrasion and Make-up Application, every CLOSE fee code, and renewals and late fees priced per
-licence type in `FeeSchedule` version 3.
+licence type in `FeeSchedule` version 3. Version 4 adds initial, duplicate, affidavit and violation fees per licence type or cited party, and the continuing-education seminars load as course offerings and attendances (see `DM-16`).
 
 ### 7.1 Preparing for inspections
 
@@ -1709,4 +1711,5 @@ the source.
 | 11 Nov 2026 | `DM-07` no longer says Phase 1 has no encryption at rest: Shield is in Phase 1 (`SEC-03`), from January 15. |
 | 10 Nov 2026 | First CLOSE load in the sandbox (section 7): Legacy Key fields on Account, `BusinessLicense` and `Accreditation` and the `LSBCDataMigration` permission set brought into the build. Licence numbers, instructor types, booth renter licences and three missing licence types raised as client questions. |
 | 11 Nov 2026 | CLOSE migration build: Instructor split into Cosmetology, Esthetician and Manicurist Instructor, each needing its own discipline's licence for codes 7 and 9 (`BR-02`); the reciprocity, retake and temporary permit forms ask which instructor licence. Manager, Microdermabrasion and Make-up Application licence types (`BR-22a`, `DM-12`). Code 32 NSF Late Fees is manual (`BR-03`). All CLOSE fee codes on Product; renewal and late fees per licence type, `FH` failure to renew, `PO` is a school fine (`BR-07`). CLOSE's violations and citations replace the placeholders (`CM-02`). A rule change now edits the existing expression set version: new versions can't be deployed in this org. |
+| 11 Nov 2026 | `FeeSchedule` version 4: initial, duplicate, affidavit and violation fees per licence type or cited party, with CLOSE codes and amounts and the generic row as fallback; fee items link to their fee code Product (`BR-07`). Continuing Education entry type on hours entries, ignored by stop codes; CLOSE seminars and attendances loaded (`DM-16`, `OPEN-14`). |
 | 11 Nov 2026 | Code 16 also clears when the shop holds a current Manager licence: CLOSE keeps the Manager licence on the shop (`BR-22a`). New `BusinessLicense.InstructorStatus__c` (Active, Inactive) from CLOSE's instructor status; N and X are a client question. |

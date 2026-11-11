@@ -55,3 +55,40 @@ Salon Renewal,DI,55
 Salon Late Fee,DL,35
 Threading Facility Renewal,QJ,50
 Threading Facility Late Fee,QK,35
+Cosmetologist Initial,AA,35
+Manicurist Initial,AI,35
+Esthetician Initial,AP,35
+Cosmetology Instructor Initial,AW,35
+Esthetician Instructor Initial,BO,35
+Manicurist Instructor Initial,BF,35
+Alternative Hair Design Permit Initial,CA,50
+Microdermabrasion Initial,CC,50
+Shampoo Assistant Initial,CE,50
+Make-up Application Initial,CG,50
+Booth Rental Permit Initial,DA,50
+Threading Permit Initial,QG,50
+Salon Initial,DG,55
+Manager Initial,EK,35
+Cosmetologist Duplicate License,AG,25
+Manicurist Duplicate License,AN,25
+Esthetician Duplicate License,AU,25
+Cosmetology Instructor Duplicate License,BD,25
+Esthetician Instructor Duplicate License,BV,25
+Manicurist Instructor Duplicate License,BM,25
+Microdermabrasion Duplicate License,CU,25
+Make-up Application Duplicate License,CY,50
+Alternative Hair Design Permit Duplicate License,CZ,50
+Booth Rental Permit Duplicate License,DC,25
+Salon Duplicate License,DN,25
+Manager Duplicate License,EJ,25
+Cosmetologist Affidavit,PA,15
+Manicurist Affidavit,PG,15
+Esthetician Affidavit,PH,15
+Cosmetology Instructor Affidavit,PI,15
+Esthetician Instructor Affidavit,PI,15
+Manicurist Instructor Affidavit,PI,15
+Violation Operator,PP,25
+Violation Shop,PN,25
+Violation School,PO,25
+Violation Instructor,PS,25
+Violation Special Permit,ZZ,25

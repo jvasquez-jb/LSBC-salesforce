@@ -45,7 +45,7 @@
             <label>Yes</label>
         </rules>
     </decisions>
-    <description>Nightly. Re-checks stop codes for students whose hours entry ended six months ago in the last week. The sync uses the latest entry, so students with newer hours are unaffected. One sync per student.</description>
+    <description>Nightly. Re-checks stop codes for students whose hours entry ended six months ago in the last week. The sync uses the latest entry, so students with newer hours are unaffected. One sync per student. Continuing education attendance is not student hours and is skipped.</description>
     <environments>Default</environments>
     <formulas>
         <name>forB_IsInWindow</name>
@@ -156,6 +156,13 @@
                 <elementReference>forDT_StaleWindowEnd</elementReference>
             </value>
         </filters>
+        <filters>
+            <field>EntryType__c</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <stringValue>Continuing Education</stringValue>
+            </value>
+        </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
         <object>TrainingCourseParticipant</object>
         <sortField>Id</sortField>
@@ -174,6 +181,13 @@
             <operator>IsNull</operator>
             <value>
                 <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>EntryType__c</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <stringValue>Continuing Education</stringValue>
             </value>
         </filters>
         <object>TrainingCourseParticipant</object>

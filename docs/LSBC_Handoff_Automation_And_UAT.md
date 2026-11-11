@@ -58,6 +58,12 @@ expression set version (see CLAUDE.md, "BRE in this org"). Decision matrices tak
 
 ### A1. Fees by licence type beyond renewal
 
+**Done 11 Nov 2026.** Fee Schedule V4 has the per-type initial, duplicate, affidavit and violation rows
+(CLOSE amounts); the reciprocity, threading permit, renewal (duplicate), affidavit and shop forms and the
+violation trigger look them up with the generic row as fallback and link each fee item to its fee code
+Product. Temporary permit, threading facility, no-show and retake fees stay generic (no per-type code).
+Code 87 ($25 affidavit) is a client question.
+
 Renewals and late fees are priced per licence type (Fee Schedule V3, rows `<Licence type> Renewal`
 and `<Licence type> Late Fee`). The other fees still use one generic row with no fee code, so
 revenue can't be reported by code for them. CLOSE has a code per licence type for each:
@@ -106,6 +112,11 @@ schedule opens the holds. No flow change unless finance wants a different rule f
 balances.
 
 ### A6. Continuing education, then load the CE seminars
+
+**Steps 1 and 2 done 11 Nov 2026.** Entry Type Continuing Education; the sync, the six-month schedule
+and the hours trigger skip it (Relinquished still counts). 58 seminars and 3,899 attendances of migrated
+people loaded with `scripts/migration/build_seminars.py`; open code 20 holds unchanged at 195. Step 3 is
+a client question.
 
 Subflow: Stop Code Sync reads a person's latest Training Course Participant of any kind as their
 latest student hours (`GetLatestHoursEntry` filters on the contact only). Continuing-education

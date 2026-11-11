@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>EntryType__c</fullName>
-    <description>What kind of hours entry this is. Relinquished hours are given up by a notarized letter and are entered as a negative number.</description>
-    <inlineHelpText>Choose Relinquished for hours given up by notarized letter, and enter them as a negative number.</inlineHelpText>
+    <description>What kind of hours entry this is. Relinquished hours are given up by a notarized letter and are entered as a negative number. Continuing Education is a licensee's attendance at a CE seminar, not student hours: stop codes ignore it.</description>
+    <inlineHelpText>Choose Relinquished for hours given up by notarized letter, and enter them as a negative number. Choose Continuing Education for a licensee's CE seminar attendance.</inlineHelpText>
     <label>Entry Type</label>
     <required>false</required>
     <type>Picklist</type>
@@ -24,6 +24,11 @@
                 <fullName>Relinquished</fullName>
                 <default>false</default>
                 <label>Relinquished</label>
+            </value>
+            <value>
+                <fullName>Continuing Education</fullName>
+                <default>false</default>
+                <label>Continuing Education</label>
             </value>
         </valueSetDefinition>
     </valueSet>

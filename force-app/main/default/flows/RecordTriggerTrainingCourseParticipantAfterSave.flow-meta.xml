@@ -23,7 +23,7 @@
             <label>Yes</label>
         </rules>
     </decisions>
-    <description>After hours are entered or corrected, re-checks automatic stop codes for the student. One sync per student per save, so a monthly import does not open duplicate holds.</description>
+    <description>After hours are entered or corrected, re-checks automatic stop codes for the student. Continuing education attendance is not student hours and is skipped. One sync per student per save, so a monthly import does not open duplicate holds.</description>
     <environments>Default</environments>
     <interviewLabel>Record-Trigger: Training Course Participant After Save {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Record-Trigger: Training Course Participant After Save</label>
@@ -83,7 +83,7 @@
         <connector>
             <targetReference>GetHolderFirstRecordInSameSave</targetReference>
         </connector>
-        <filterFormula>ISNEW() || ISCHANGED({!$Record.TotalHours}) || ISCHANGED({!$Record.EndDate}) || ISCHANGED({!$Record.CourseOfferingId})</filterFormula>
+        <filterFormula>NOT(ISPICKVAL({!$Record.EntryType__c}, &quot;Continuing Education&quot;)) &amp;&amp; (ISNEW() || ISCHANGED({!$Record.TotalHours}) || ISCHANGED({!$Record.EndDate}) || ISCHANGED({!$Record.CourseOfferingId}))</filterFormula>
         <object>TrainingCourseParticipant</object>
         <recordTriggerType>CreateAndUpdate</recordTriggerType>
         <triggerType>RecordAfterSave</triggerType>

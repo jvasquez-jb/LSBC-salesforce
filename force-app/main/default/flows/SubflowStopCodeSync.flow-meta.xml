@@ -1842,6 +1842,7 @@
     </recordLookups>
     <recordLookups>
         <name>GetLatestHoursEntry</name>
+        <description>The student's latest hours entry. Continuing education attendance is not student hours and is left out.</description>
         <label>Get Latest Hours Entry</label>
         <locationX>0</locationX>
         <locationY>0</locationY>
@@ -1857,6 +1858,13 @@
                 <elementReference>GetAccount.PersonContactId</elementReference>
             </value>
         </filters>
+        <filters>
+            <field>EntryType__c</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <stringValue>Continuing Education</stringValue>
+            </value>
+        </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
         <object>TrainingCourseParticipant</object>
         <sortField>EndDate</sortField>
@@ -1865,6 +1873,7 @@
     </recordLookups>
     <recordLookups>
         <name>GetHoursEntries</name>
+        <description>Every hours entry for the student's current course offering, to total the hours. Continuing education attendance is left out.</description>
         <label>Get Hours Entries</label>
         <locationX>0</locationX>
         <locationY>0</locationY>
@@ -1885,6 +1894,13 @@
             <operator>EqualTo</operator>
             <value>
                 <elementReference>GetLatestHoursEntry.CourseOfferingId</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>EntryType__c</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <stringValue>Continuing Education</stringValue>
             </value>
         </filters>
         <getFirstRecordOnly>false</getFirstRecordOnly>

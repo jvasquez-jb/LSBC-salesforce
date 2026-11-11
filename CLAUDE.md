@@ -237,6 +237,10 @@ Raised by later phases while Phase 2 is paused. Pick these up when it resumes.
   Reports created through the Analytics API default to "my records" (`<scope>user</scope>`): set
   `organization` before deploying. Business License Application Status has no Denied value, so
   Decide sets a refused business application to Canceled.
+- Fee Schedule rows are `<License type> <Fee>` (Renewal, Late Fee, Initial, Duplicate License, Affidavit) and
+  `Violation <Shop|School|Operator|Instructor|Special Permit>`; flows fall back to the generic row and link each
+  item to its fee code Product. Continuing-education attendance is a Training Course Participant with Entry Type
+  Continuing Education (Training Course `Continuing Education`, one offering per CLOSE seminar): stop codes skip it.
 - Payments: Record Payment (Account) for mail and counter; accepting a Payment Receipt checklist item
   creates the Card payment (`SubflowPaymentReceiptPaymentCreate`, one per receipt via the unique
   `ChecklistItem__c`). No cash, no deposit number.

@@ -8,19 +8,19 @@
         <actionName>FeeSchedule</actionName>
         <actionType>runDecisionMatrix</actionType>
         <connector>
-            <targetReference>IsTheViolationFeeScheduled</targetReference>
+            <targetReference>IsThereAViolationFeeForTheCitedParty</targetReference>
         </connector>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
             <name>FeeName</name>
             <value>
-                <stringValue>Violation</stringValue>
+                <elementReference>forT_ViolationFeeName</elementReference>
             </value>
         </inputParameters>
         <storeOutputAutomatically>true</storeOutputAutomatically>
-    </actionCalls>
+    </actionCalls><actionCalls><name>LookUpGenericViolationFee</name><label>Look Up Generic Violation Fee</label><locationX>0</locationX><locationY>0</locationY><actionName>FeeSchedule</actionName><actionType>runDecisionMatrix</actionType><connector><targetReference>IsTheViolationFeeScheduled</targetReference></connector><flowTransactionModel>CurrentTransaction</flowTransactionModel><inputParameters><name>FeeName</name><value><stringValue>Violation</stringValue></value></inputParameters><storeOutputAutomatically>true</storeOutputAutomatically></actionCalls>
     <apiVersion>66.0</apiVersion>
-    <customErrors>
+    <assignments><name>AddLicenseTypeId</name><label>Add License Type Id</label><locationX>0</locationX><locationY>0</locationY><assignmentItems><assignToReference>varT_LicenseTypeIds</assignToReference><operator>Add</operator><value><elementReference>LoopThroughPractitionerLicenses.RegulatoryAuthorizationTypeId</elementReference></value></assignmentItems><connector><targetReference>LoopThroughPractitionerLicenses</targetReference></connector></assignments><customErrors>
         <name>ViolationFeeNotScheduled</name>
         <description>Stops the save when the Fee Schedule has no Violation amount, so no violation is recorded without its fee.</description>
         <label>Violation Fee Not Scheduled</label>
@@ -44,7 +44,7 @@
             <name>Scheduled</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>LookUpViolationFee.Amount</leftValueReference>
+                <leftValueReference>forN_ViolationAmount</leftValueReference>
                 <operator>IsNull</operator>
                 <rightValue>
                     <booleanValue>false</booleanValue>
@@ -55,8 +55,8 @@
             </connector>
             <label>Yes</label>
         </rules>
-    </decisions>
-    <description>When a violation is recorded, raises its fee from the Fee Schedule against the cited party (the establishment or the practitioner), due 15 days after the violation date, and records that due date on the violation. If the fee is still unpaid after the due date, the existing stop code rules open the non-payment hold on the cited party.</description>
+    </decisions><decisions><name>IsAPractitionerCited</name><description>A cited practitioner's fee depends on the licenses they hold; an establishment's on whether it is a school.</description><label>Is a Practitioner Cited?</label><locationX>0</locationX><locationY>0</locationY><defaultConnector><targetReference>LookUpViolationFee</targetReference></defaultConnector><defaultConnectorLabel>No</defaultConnectorLabel><rules><name>PractitionerCited</name><conditionLogic>and</conditionLogic><conditions><leftValueReference>$Record.CitedParty__c</leftValueReference><operator>EqualTo</operator><rightValue><stringValue>Practitioner</stringValue></rightValue></conditions><connector><targetReference>GetPractitionerLicenses</targetReference></connector><label>Yes</label></rules></decisions><decisions><name>IsThereAViolationFeeForTheCitedParty</name><description>The Fee Schedule has a row for the cited party; otherwise the generic Violation row prices the fee.</description><label>Is There a Violation Fee for the Cited Party?</label><locationX>0</locationX><locationY>0</locationY><defaultConnector><targetReference>LookUpGenericViolationFee</targetReference></defaultConnector><defaultConnectorLabel>No</defaultConnectorLabel><rules><name>HasCitedPartyFee</name><conditionLogic>and</conditionLogic><conditions><leftValueReference>LookUpViolationFee.Amount</leftValueReference><operator>IsNull</operator><rightValue><booleanValue>false</booleanValue></rightValue></conditions><connector><targetReference>IsTheViolationFeeScheduled</targetReference></connector><label>Yes</label></rules></decisions>
+    <description>When a violation is recorded, raises its fee from the Fee Schedule (by cited party: shop, school, operator, instructor or special permit, falling back to the generic Violation row) against the cited party (the establishment or the practitioner), due 15 days after the violation date, and records that due date on the violation. If the fee is still unpaid after the due date, the existing stop code rules open the non-payment hold on the cited party.</description>
     <environments>Default</environments>
     <formulas>
         <name>forDT_DueDate</name>
@@ -75,10 +75,10 @@
         <description>The cited party: the practitioner when Cited Party is Practitioner, otherwise the establishment.</description>
         <dataType>String</dataType>
         <expression>IF(ISPICKVAL({!$Record.CitedParty__c}, &quot;Practitioner&quot;), {!$Record.Practitioner__c}, {!$Record.Establishment__c})</expression>
-    </formulas>
+    </formulas><formulas><name>forT_ViolationFeeName</name><description>Which Fee Schedule row prices the violation. An establishment pays Violation School or Violation Shop. A practitioner cited at a school who holds a current instructor license pays Violation Instructor; otherwise one with a current cosmetologist, esthetician or manicurist license pays Violation Operator, and anyone else Violation Special Permit.</description><dataType>String</dataType><expression>IF(ISPICKVAL({!$Record.CitedParty__c}, &quot;Practitioner&quot;), IF(NOT(ISBLANK({!GetInstructorTypeHeld.Id})) &amp;&amp; {!$Record.Establishment__r.RecordType.DeveloperName} = &quot;School&quot;, &quot;Violation Instructor&quot;, IF(NOT(ISBLANK({!GetOperatorTypeHeld.Id})), &quot;Violation Operator&quot;, &quot;Violation Special Permit&quot;)), IF({!$Record.Establishment__r.RecordType.DeveloperName} = &quot;School&quot;, &quot;Violation School&quot;, &quot;Violation Shop&quot;))</expression></formulas><formulas><name>forN_ViolationAmount</name><description>The fee amount: the cited party's row, or the generic Violation row when it has none.</description><dataType>Currency</dataType><expression>IF(ISBLANK({!LookUpViolationFee.Amount}), {!LookUpGenericViolationFee.Amount}, {!LookUpViolationFee.Amount})</expression><scale>2</scale></formulas><formulas><name>forT_ViolationFeeCode</name><description>The fee code from whichever Fee Schedule row priced the violation.</description><dataType>String</dataType><expression>IF(ISBLANK({!LookUpViolationFee.Amount}), {!LookUpGenericViolationFee.FeeCode}, {!LookUpViolationFee.FeeCode})</expression></formulas>
     <interviewLabel>Record-Trigger: Regulatory Code Violation After Save {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Record-Trigger: Regulatory Code Violation After Save</label>
-    <processMetadataValues>
+    <loops><name>LoopThroughPractitionerLicenses</name><label>Loop Through Practitioner Licenses</label><locationX>0</locationX><locationY>0</locationY><collectionReference>GetPractitionerLicenses</collectionReference><iterationOrder>Asc</iterationOrder><nextValueConnector><targetReference>AddLicenseTypeId</targetReference></nextValueConnector><noMoreValuesConnector><targetReference>GetInstructorTypeHeld</targetReference></noMoreValuesConnector></loops><processMetadataValues>
         <name>BuilderType</name>
         <value>
             <stringValue>LightningFlowBuilder</stringValue>
@@ -167,7 +167,7 @@
         <inputAssignments>
             <field>FeeAmount</field>
             <value>
-                <elementReference>LookUpViolationFee.Amount</elementReference>
+                <elementReference>forN_ViolationAmount</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -206,13 +206,13 @@
             <field>FeeCode__c</field>
             <operator>EqualTo</operator>
             <value>
-                <elementReference>LookUpViolationFee.FeeCode</elementReference>
+                <elementReference>forT_ViolationFeeCode</elementReference>
             </value>
         </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
         <object>Product2</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
-    </recordLookups>
+    </recordLookups><recordLookups><name>GetPractitionerLicenses</name><description>The cited practitioner's current licenses.</description><label>Get Practitioner Licenses</label><locationX>0</locationX><locationY>0</locationY><assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound><connector><targetReference>LoopThroughPractitionerLicenses</targetReference></connector><filterLogic>and</filterLogic><filters><field>AccountId</field><operator>EqualTo</operator><value><elementReference>$Record.Practitioner__c</elementReference></value></filters><filters><field>PeriodEnd</field><operator>GreaterThanOrEqualTo</operator><value><elementReference>$Flow.CurrentDate</elementReference></value></filters><filters><field>Status</field><operator>NotEqualTo</operator><value><stringValue>Revoked</stringValue></value></filters><filters><field>Status</field><operator>NotEqualTo</operator><value><stringValue>Retired</stringValue></value></filters><filters><field>Status</field><operator>NotEqualTo</operator><value><stringValue>Deceased</stringValue></value></filters><filters><field>Status</field><operator>NotEqualTo</operator><value><stringValue>Draft</stringValue></value></filters><getFirstRecordOnly>false</getFirstRecordOnly><object>BusinessLicense</object><queriedFields>Id</queriedFields><queriedFields>RegulatoryAuthorizationTypeId</queriedFields><storeOutputAutomatically>true</storeOutputAutomatically></recordLookups><recordLookups><name>GetInstructorTypeHeld</name><description>An instructor license type among the practitioner's current licenses.</description><label>Get Instructor Type Held</label><locationX>0</locationX><locationY>0</locationY><assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound><connector><targetReference>GetOperatorTypeHeld</targetReference></connector><filterLogic>and</filterLogic><filters><field>Id</field><operator>In</operator><value><elementReference>varT_LicenseTypeIds</elementReference></value></filters><filters><field>Name</field><operator>Contains</operator><value><stringValue>Instructor</stringValue></value></filters><getFirstRecordOnly>true</getFirstRecordOnly><object>RegulatoryAuthorizationType</object><queriedFields>Id</queriedFields><storeOutputAutomatically>true</storeOutputAutomatically></recordLookups><recordLookups><name>GetOperatorTypeHeld</name><description>A cosmetologist, esthetician or manicurist license type among the practitioner's current licenses.</description><label>Get Operator Type Held</label><locationX>0</locationX><locationY>0</locationY><assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound><connector><targetReference>LookUpViolationFee</targetReference></connector><filterLogic>1 AND (2 OR 3 OR 4)</filterLogic><filters><field>Id</field><operator>In</operator><value><elementReference>varT_LicenseTypeIds</elementReference></value></filters><filters><field>Name</field><operator>EqualTo</operator><value><stringValue>Cosmetologist</stringValue></value></filters><filters><field>Name</field><operator>EqualTo</operator><value><stringValue>Esthetician</stringValue></value></filters><filters><field>Name</field><operator>EqualTo</operator><value><stringValue>Manicurist</stringValue></value></filters><getFirstRecordOnly>true</getFirstRecordOnly><object>RegulatoryAuthorizationType</object><queriedFields>Id</queriedFields><storeOutputAutomatically>true</storeOutputAutomatically></recordLookups>
     <recordUpdates>
         <name>SetComplianceDueDate</name>
         <label>Set Compliance Due Date to Fee Due Date</label>
@@ -230,11 +230,11 @@
         <locationX>0</locationX>
         <locationY>0</locationY>
         <connector>
-            <targetReference>LookUpViolationFee</targetReference>
+            <targetReference>IsAPractitionerCited</targetReference>
         </connector>
         <object>RegulatoryCodeViolation</object>
         <recordTriggerType>Create</recordTriggerType>
         <triggerType>RecordAfterSave</triggerType>
     </start>
     <status>Active</status>
-</Flow>
+<variables><name>varT_LicenseTypeIds</name><description>The license types of the cited practitioner's current licenses.</description><dataType>String</dataType><isCollection>true</isCollection><isInput>false</isInput><isOutput>false</isOutput></variables></Flow>

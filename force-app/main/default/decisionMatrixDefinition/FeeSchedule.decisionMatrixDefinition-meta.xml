@@ -94,4 +94,34 @@
         <status>Active</status>
         <versionNumber>3</versionNumber>
     </versions>
+    <versions>
+        <fullName>FeeSchedule_V4</fullName>
+        <columns>
+            <columnType>Input</columnType>
+            <dataType>Text</dataType>
+            <displaySequence>1</displaySequence>
+            <isWildcardColumn>false</isWildcardColumn>
+            <name>FeeName</name>
+        </columns>
+        <columns>
+            <columnType>Output</columnType>
+            <dataType>Text</dataType>
+            <displaySequence>2</displaySequence>
+            <isWildcardColumn>false</isWildcardColumn>
+            <name>FeeCode</name>
+        </columns>
+        <columns>
+            <columnType>Output</columnType>
+            <dataType>Currency</dataType>
+            <displaySequence>3</displaySequence>
+            <isWildcardColumn>false</isWildcardColumn>
+            <name>Amount</name>
+        </columns>
+        <decisionMatrixDefinition>FeeSchedule</decisionMatrixDefinition>
+        <label>Fee Schedule V4</label>
+        <rank>4</rank>
+        <startDate>2026-11-11T00:00:00.000Z</startDate>
+        <status>Active</status>
+        <versionNumber>4</versionNumber>
+    </versions>
 </DecisionMatrixDefinition>
