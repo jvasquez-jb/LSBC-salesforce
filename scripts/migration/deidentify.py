@@ -42,7 +42,11 @@ REF_COL = re.compile(r"RECEIPT|DEPOSIT|CHECK|SEQ|PHONE|SCORE|ODOMETER|TIME|BOND_
 # Nine digits in a row, or 123-45-6789. A ZIP+4 such as 70123-4567 is not matched.
 NINE = re.compile(r"(?<![0-9])(?:([0-9]{9})|([0-9]{3})-([0-9]{2})-([0-9]{4}))(?![0-9])")
 GLOBS = ("*[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]*",
-         "*[0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9][0-9][0-9]*")
+         "*[0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9][0-9][0-9]*",
+         "[0-9][0-9][0-9][0-9][0-9][0-9][0-9]", "[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]")
+# A few applicant IDs are 7, 8 or 10 digits (an SSN that lost a leading zero, or gained a digit).
+# Those are swapped wherever a whole value equals one; 7 and 8 digits are padded to 9 first.
+odd = lambda v: str(v).strip().zfill(9) if str(v).strip().isdigit() and len(str(v).strip()) in (7, 8, 10) else None
 norm = lambda m: "".join(g for g in m.groups() if g)
 
 t0 = time.time()
@@ -67,10 +71,16 @@ for (t, c), k in kind.items():
     if k == "id":
         for (v,) in db.execute(f'SELECT DISTINCT "{c}" FROM "{t}" WHERE {where9(c)}'):
             known.update(norm(m) for m in NINE.finditer(str(v)))
-print("known IDs", len(known))
+short_known = set()
+for (v,) in db.execute('SELECT DISTINCT APPLICANT_ID FROM APPLICANTS'):
+    if odd(v):
+        short_known.add(odd(v))
+known |= short_known
+print("known IDs", len(known), "of which odd-length", len(short_known))
 
 rnd = random.SystemRandom()
 mock_of, used = {}, set()
+used |= {k for k in known if k.startswith("000")}  # a padded short ID can start 000: never hand it out
 for (t, c), k in kind.items():  # never hand out a mock that already appears in the data
     if k != "num":
         for (v,) in db.execute(f'SELECT DISTINCT "{c}" FROM "{t}" WHERE "{c}" GLOB \'*000*\''):
@@ -92,10 +102,14 @@ def mock(real):
 
 
 def swap_all(v):
+    if v is not None and odd(v) in short_known:
+        return mock(odd(v))
     return v if v is None else NINE.sub(lambda m: mock(norm(m)), str(v))
 
 
 def swap_known(v):
+    if v is not None and odd(v) in short_known:
+        return mock(odd(v))
     return v if v is None else NINE.sub(lambda m: mock(norm(m)) if norm(m) in known else m.group(0), str(v))
 
 
@@ -126,7 +140,7 @@ def num_text(v):
     if isinstance(v, float) and v.is_integer():
         v = int(v)
     if isinstance(v, int):
-        return f"{v:09d}" if v in known_int else str(v)
+        return f"{v:09d}" if v in known_int else str(v)  # 10-digit IDs keep their digits
     return str(v)
 
 
@@ -137,7 +151,7 @@ for t in tables:
         if ty != "NUMERIC":
             continue
         vals = db.execute(f'SELECT DISTINCT CAST("{c}" AS INTEGER) FROM "{t}" WHERE "{c}" >= 1000000 '
-                          f'AND "{c}" <= 999999999 AND "{c}" = CAST("{c}" AS INTEGER)').fetchall()
+                          f'AND "{c}" <= 9999999999 AND "{c}" = CAST("{c}" AS INTEGER)').fetchall()
         if any(v in known_int for (v,) in vals):
             num_ids.append(c)
     if not num_ids:
@@ -171,11 +185,16 @@ real_left = outside_left = 0
 for (t, c), k in kind.items():
     if k == "num":
         continue
+    here = 0
     for (v,) in db.execute(f'SELECT "{c}" FROM "{t}" WHERE {where9(c)}'):
+        here += odd(v) in short_known
         for m in NINE.finditer(str(v)):
             d = norm(m)
-            real_left += d in known
+            here += d in known
             outside_left += k in ("id", "text") and not d.startswith("000")
+    if here:
+        print(f"known IDs left in {t}.{c}: {here}")
+    real_left += here
 print("distinct values replaced", len(mock_of))
 print("known IDs left anywhere", real_left)
 print("nine-digit values outside the 000 range left in ID or free-text columns", outside_left)

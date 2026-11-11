@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Sandbox testing only. Read and edit the made-up Mock Social Security Number on people, for whoever loads or tests migrated data. Never deploy to production.</description>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Contact.MockSocialSecurityNumber__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Sandbox Mock Data</label>
+</PermissionSet>
