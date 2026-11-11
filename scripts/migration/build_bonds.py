@@ -10,9 +10,10 @@ is kept in the Name only: it repeats across renewals, and the sandbox requires
 SourceSystemIdentifier to be unique.
 """
 import csv, os, sqlite3, collections
-ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+ROOT = os.environ.get("LSBC_MIGRATION_DIR") or os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+DB = os.environ.get("LSBC_DB", "lsbc.sqlite")  # lsbc_deid.sqlite: the de-identified copy
 AS_OF = "2026-11-10"
-db = sqlite3.connect(os.path.join(ROOT, "extract", "lsbc.sqlite"))
+db = sqlite3.connect(os.path.join(ROOT, "extract", DB))
 xc = {(a, int(float(b))): k for a, b, k in db.execute("SELECT src1, src2, legacy_key FROM XW_SCHOOL")}
 loaded = {r["LegacyKey__c"] for r in csv.DictReader(open(os.path.join(ROOT, "load", "school_accounts.csv")))}
 day = lambda s, lo, hi: (s or "")[:10] if lo <= (s or "")[:4] <= hi else ""

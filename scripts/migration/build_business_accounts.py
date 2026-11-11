@@ -8,10 +8,11 @@ the owner's SSN.
 """
 import csv, json, os, re, sqlite3
 
-ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+ROOT = os.environ.get("LSBC_MIGRATION_DIR") or os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+DB = os.environ.get("LSBC_DB", "lsbc.sqlite")  # lsbc_deid.sqlite: the de-identified copy
 AS_OF = "2026-11-09"
 RT = {"SHOPS": "012cp00000MfMxZAAV", "SCHOOLS": "012cp00000MfMxbAAF"}
-db = sqlite3.connect(os.path.join(ROOT, "extract", "lsbc.sqlite"))
+db = sqlite3.connect(os.path.join(ROOT, "extract", DB))
 db.row_factory = sqlite3.Row
 us_states = set(json.load(open(os.path.join(ROOT, "sf", "us_states.json"))))
 acct = json.load(open(os.path.join(ROOT, "sf", "describe_Account.json")))["result"]

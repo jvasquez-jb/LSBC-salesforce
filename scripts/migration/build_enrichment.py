@@ -7,8 +7,9 @@ load/instructor_ceu.csv           last CEU date on Instructor licences
                                   (APPLICANTS.CEU_LAST_DATE)
 """
 import csv, os, sqlite3
-ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-db = sqlite3.connect(os.path.join(ROOT, "extract", "lsbc.sqlite"))
+ROOT = os.environ.get("LSBC_MIGRATION_DIR") or os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+DB = os.environ.get("LSBC_DB", "lsbc.sqlite")  # lsbc_deid.sqlite: the de-identified copy
+db = sqlite3.connect(os.path.join(ROOT, "extract", DB))
 xp = dict(db.execute("SELECT src1, legacy_key FROM XW_PERSON"))
 loaded = {r["LegacyKey__c"] for r in csv.DictReader(open(os.path.join(ROOT, "sf", "account_ids.csv")))}
 lic = {r["LegacyKey__c"] for r in csv.DictReader(open(os.path.join(ROOT, "load", "business_licenses.csv")))}

@@ -7,8 +7,9 @@ automation from the underlying data, so loading them would fight it. Open
 codes with no category in the sandbox go to load/held_stop_codes.csv.
 """
 import csv, json, os, sqlite3, collections
-ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-db = sqlite3.connect(os.path.join(ROOT, "extract", "lsbc.sqlite"))
+ROOT = os.environ.get("LSBC_MIGRATION_DIR") or os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+DB = os.environ.get("LSBC_DB", "lsbc.sqlite")  # lsbc_deid.sqlite: the de-identified copy
+db = sqlite3.connect(os.path.join(ROOT, "extract", DB))
 cats = json.load(open(os.path.join(ROOT, "sf", "alert_categories.json")))
 ids = {r["LegacyKey__c"]: r["Id"] for r in csv.DictReader(open(os.path.join(ROOT, "sf", "account_ids.csv")))}
 xp = dict(db.execute("SELECT src1, legacy_key FROM XW_PERSON"))

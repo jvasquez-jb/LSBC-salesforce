@@ -10,22 +10,25 @@ load/held_licenses.csv instead of being loaded.
 """
 import csv, json, os, re, sqlite3, collections
 
-ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+ROOT = os.environ.get("LSBC_MIGRATION_DIR") or os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+DB = os.environ.get("LSBC_DB", "lsbc.sqlite")  # lsbc_deid.sqlite: the de-identified copy
 AS_OF = "2026-11-09"
-db = sqlite3.connect(os.path.join(ROOT, "extract", "lsbc.sqlite"))
+db = sqlite3.connect(os.path.join(ROOT, "extract", DB))
 types = json.load(open(os.path.join(ROOT, "sf", "auth_types.json")))
 
 # legacy type -> sandbox licence type, by holder kind (P person, S shop, SC school)
 MAP = {
     ("C", "P"): "Cosmetologist", ("M", "P"): "Manicurist", ("E", "P"): "Esthetician",
-    ("CI", "P"): "Instructor", ("EI", "P"): "Instructor", ("MI", "P"): "Instructor",
+    ("CI", "P"): "Cosmetology Instructor", ("EI", "P"): "Esthetician Instructor",
+    ("MI", "P"): "Manicurist Instructor", ("MA", "S"): "Manager", ("TM", "S"): "Manager",
+    ("MB", "P"): "Microdermabrasion", ("MU", "P"): "Make-up Application",
     ("SA", "P"): "Shampoo Assistant", ("AH", "P"): "Alternative Hair Design Permit",
     ("AH", "S"): "Alternative Hair Design Facility", ("T", "P"): "Threading Permit",
     ("TF", "S"): "Threading Facility", ("TP", "P"): "Temporary Permit",
     ("B", "P"): "Booth Rental Permit", ("SH", "S"): "Salon", ("SC", "SC"): "School",
 }
 NAME = {"Salon": "Salon License", "School": "School License",
-        "Booth Rental Permit": "Booth Permit"}
+        "Booth Rental Permit": "Booth Permit", "Manager": "Manager License"}
 
 xw = {}
 for kind, t in (("P", "XW_PERSON"), ("S", "XW_SHOP"), ("SC", "XW_SCHOOL")):
@@ -66,6 +69,7 @@ cols = ["LegacyKey__c", "Name", "Account.LegacyKey__c", "RegulatoryAuthorization
         "Status", "PeriodStart", "PeriodEnd", "RenewalCount__c", "JurisdictionType",
         "VerificationStatus"]
 stats, held = collections.Counter(), collections.Counter()
+ONLY = set(filter(None, os.environ.get("LSBC_ONLY_TYPES", "").split(";")))  # e.g. "Manager;Microdermabrasion"
 with open(os.path.join(ROOT, "load", "business_licenses.csv"), "w", newline="") as fh, \
      open(os.path.join(ROOT, "load", "held_licenses.csv"), "w", newline="") as hh:
     w = csv.DictWriter(fh, fieldnames=cols, lineterminator="\n")
@@ -80,6 +84,8 @@ with open(os.path.join(ROOT, "load", "business_licenses.csv"), "w", newline="") 
         if not hk or not target:
             held[lt] += 1
             hw.writerow([hk or "", lt, c["end"], "no licence type in sandbox" if hk else "no crosswalk key"])
+            continue
+        if ONLY and target not in ONLY:
             continue
         start = c["start"] if c["start"] and c["start"] <= c["end"] else ""
         w.writerow({

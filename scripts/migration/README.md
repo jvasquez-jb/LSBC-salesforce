@@ -47,10 +47,15 @@ number. Our working folder is `../LSBC-Migration` (beside this repo): `extract/l
 |---|---|---|
 | `deidentify.py <lsbc.sqlite> <lsbc_deid.sqlite>` | The de-identified copy | Run once on the raw export. Every applicant ID, certificate number, SSN and tax ID column, and any nine-digit number in free text, becomes a mock starting `000` (an area the SSA never issues); the same real value always gets the same mock, so joins still work. Receipt, cheque, deposit and phone numbers keep their values unless they match a known ID. Logins and passwords are blanked. The real-to-mock mapping is never written. Prints counts only and fails if any real ID is left |
 | `build_fee_products.py <deid> <load dir>` | `fee_products.csv` | All 621 CLOSE fee codes as Products, upserted on `FeeCode__c`. Active when the code has a current amount (563) |
+| `refresh_sf_inputs.py <working folder>` | `sf/auth_types.json`, `account_ids.csv`, `alert_categories.json`, `describe_Account.json`, `us_states.json` | Pulls them from the default org. Rerun after every account load and after licence types or stop codes change |
+| `build_licence_statuses.py <deid>` | `licence_statuses.csv` | Licences of holders CLOSE marks retired (code 25) or deceased (code 26, or the deceased flag) get that status. Needs `sf/licence_keys.csv` (every migrated licence's `LegacyKey__c`) |
 | `build_violations.py <deid> <load dir> <authority Id>` | `regulatory_codes.csv`, `violation_types.csv` | 123 statute citations and 38 violations in CLOSE's 4 categories. Inserts: load once |
 
-Tim's scripts above read `extract/lsbc.sqlite`; point them at the de-identified copy before
-running them again. The mock IDs replace the real ones in the crosswalk too, so the `LSBC-` keys
+Tim's scripts read `extract/$LSBC_DB` under `$LSBC_MIGRATION_DIR`: run them with
+`LSBC_MIGRATION_DIR=../LSBC-Migration LSBC_DB=lsbc_deid.sqlite`. `build_licenses.py` also takes
+`LSBC_ONLY_TYPES` (licence type names separated by `;`) to write only those types. It maps CLOSE's
+three instructor licences to their own types, and Manager (held by the shop in CLOSE),
+Microdermabrasion and Make-up Application. The mock IDs replace the real ones in the crosswalk too, so the `LSBC-` keys
 already in Salesforce still match.
 
 ## Before running against another org

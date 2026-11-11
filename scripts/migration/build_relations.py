@@ -14,10 +14,11 @@ from sf/account_ids.csv. One row per salon and person; roles are combined.
 """
 import csv, os, sqlite3, sys, collections
 
-ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+ROOT = os.environ.get("LSBC_MIGRATION_DIR") or os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+DB = os.environ.get("LSBC_DB", "lsbc.sqlite")  # lsbc_deid.sqlite: the de-identified copy
 AS_OF = "2026-11-09"
 phase = sys.argv[1]
-db = sqlite3.connect(os.path.join(ROOT, "extract", "lsbc.sqlite"))
+db = sqlite3.connect(os.path.join(ROOT, "extract", DB))
 xp = dict(db.execute("SELECT src1, legacy_key FROM XW_PERSON"))
 xs = {(a, int(float(b))): k for a, b, k in db.execute("SELECT src1, src2, legacy_key FROM XW_SHOP")}
 xc = {(a, int(float(b))): k for a, b, k in db.execute("SELECT src1, src2, legacy_key FROM XW_SCHOOL")}
