@@ -71,6 +71,14 @@
       },
       "Name": "Advanced Training",
       "Status": "Active"
+    },
+    {
+      "attributes": {
+        "type": "TrnCourse",
+        "referenceId": "CourseMakeupApplication"
+      },
+      "Name": "Make-up Application",
+      "Status": "Active"
     }
   ]
 }

@@ -6,7 +6,9 @@ Usage: python3 -I refresh_sf_inputs.py <working folder>   (uses the default org)
 Writes:
   auth_types.json        licence type name -> Id
   account_ids.csv        LegacyKey__c, Id, PersonContactId of every migrated account
+  school_names.csv       LegacyKey__c, Name of every migrated school
   alert_categories.json  stop code developer name -> id, label, description
+  courses.json           training course name -> Id
   describe_Account.json  sf sobject describe -s Account
   us_states.json         the US state codes the org's address picklist accepts
 Run it after every account load, and after licence types or stop codes change.
@@ -29,12 +31,19 @@ def query(soql):
 types = {r["Name"]: r["Id"] for r in query("SELECT Id, Name FROM RegulatoryAuthorizationType")}
 json.dump(types, open(os.path.join(sf_dir, "auth_types.json"), "w"), indent=1)
 
-accounts = query("SELECT Id, LegacyKey__c, PersonContactId FROM Account WHERE LegacyKey__c != null")
-with open(os.path.join(sf_dir, "account_ids.csv"), "w", newline="") as fh:
-    w = csv.writer(fh, lineterminator="\n")
-    w.writerow(["LegacyKey__c", "Id", "PersonContactId"])
-    for r in accounts:
-        w.writerow([r["LegacyKey__c"], r["Id"], r.get("PersonContactId") or ""])
+# Bulk export: a plain query stops at 50,000 rows.
+out = os.path.join(sf_dir, "account_ids.csv")
+subprocess.run(["sf", "data", "export", "bulk", "-q",
+                "SELECT LegacyKey__c, Id, PersonContactId FROM Account WHERE LegacyKey__c != null",
+                "--output-file", out, "--result-format", "csv", "--wait", "15"], capture_output=True, check=True)
+accounts = list(csv.DictReader(open(out)))
+subprocess.run(["sf", "data", "export", "bulk", "-q",
+                "SELECT LegacyKey__c, Name FROM Account WHERE LegacyKey__c LIKE 'LSBC-SC-%'",
+                "--output-file", os.path.join(sf_dir, "school_names.csv"), "--result-format", "csv", "--wait", "15"],
+               capture_output=True, check=True)
+
+courses = {r["Name"]: r["Id"] for r in query("SELECT Id, Name FROM TrnCourse")}
+json.dump(courses, open(os.path.join(sf_dir, "courses.json"), "w"), indent=1)
 
 cats = {r["DeveloperName"]: {"id": r["Id"], "label": r["MasterLabel"], "desc": r.get("Description") or ""}
         for r in query("SELECT Id, DeveloperName, MasterLabel, Description FROM RecordAlertCategory")}
