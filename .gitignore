@@ -55,3 +55,10 @@ docs/*.pdf
 # Binary site bundle; the ExperienceBundle under experiences/ is the source
 force-app/main/default/siteDotComSites/
 dm_rows.tmp.json
+
+# CLOSE migration: real licensee data and SSNs never go in the repo
+*.sqlite
+scripts/migration/extract/
+scripts/migration/load/
+scripts/migration/sf/
+crosswalk_*.csv
