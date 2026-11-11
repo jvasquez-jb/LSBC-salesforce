@@ -470,9 +470,9 @@ today.
 | 4 | A student has an open New Licensure application and approved hours are below the completion threshold | Hours reach the threshold |
 | 5 | The holder's Cosmetologist licence `PeriodEnd` is past (status not Revoked, Retired or Deceased) | `PeriodEnd` moves forward |
 | 6 | A Booth Rental Permit holder, or a person with an active Booth Renter ACR, holds no current Cosmetologist licence | A current licence exists |
-| 7 | An Instructor licence holder holds no current Cosmetologist licence | A current licence exists |
+| 7 | A Cosmetology Instructor licence holder holds no current Cosmetologist licence | A current licence exists |
 | 8 | The latest attempt at an exam the licence type requires is a Fail | A Pass is recorded |
-| 9 | An Instructor licence holder holds no current Esthetician licence | A current licence exists |
+| 9 | An Esthetician Instructor licence holder holds no current Esthetician licence | A current licence exists |
 | 15 | A licence `PeriodEnd` is more than three years past | The licence is restored |
 | 16 | A Salon has no active Owner or Manager ACR whose person holds a current operator licence (`BR-22a`) | One is recorded |
 | 17 | An open licensure application needs an exam with no attempt on record | An attempt is recorded |
@@ -480,8 +480,9 @@ today.
 | 21 | A fee on the holder is Due or Partially Paid past its `DueDate` | It is Paid |
 | 31 | The latest Restoration exam attempt is a Fail | A Pass is recorded |
 
-Codes 7 and 9 follow this document: an instructor needs both licences. Whether that holds for every
-instructor discipline should be confirmed with LSBC.
+Codes 7 and 9 follow CLOSE, which ties code 7 to the Cosmetology Instructor licence and code 9 to
+the Esthetician Instructor licence. A Manicurist Instructor gets no automatic hold: CLOSE has no code
+for it. (Built 11 Nov 2026; the first build applied both codes to every instructor.)
 
 > The five prerequisite codes are the quiet win. A booth renter must hold a current cosmetology
 > licence, an instructor must hold both cosmetology and esthetician, a shop must have a licensed
@@ -492,7 +493,7 @@ the school owner or authorised personnel under Louisiana R.S. 37:508.B, certifyi
 paid all contractual fees and is therefore eligible to be **scheduled for examination or
 transferred**. It gates scheduling, not only transfer.
 
-`BR-03` `[SETTLED]` **Fourteen codes stay manual.** They need the code list, a reason, and the
+`BR-03` `[SETTLED]` **Fifteen codes stay manual.** They need the code list, a reason, and the
 ability for staff to set and clear a hold — not automation.
 
 | Code | Description | Note |
@@ -511,6 +512,7 @@ ability for staff to set and clear a hold — not automation.
 | 28 | BOARD ORDER/Fee not paid | Follows a board decision |
 | 29 | CAUGHT CHEATING DURING EXAM | Examination misconduct |
 | 30 | Admin Violation | Administrative hearing pending |
+| 32 | NSF Late Fees | The late fee on a returned payment is unpaid (added in CLOSE in October 2026) |
 
 `BR-04` `[PROPOSED]` **Three codes are not holds.** 23 Licence Revoked, 25 Licensee Retired,
 26 Licensee Deceased never clear and never receive an end date. They belong as `BusinessLicense.Status`
@@ -525,9 +527,13 @@ See `OPEN-15`.
 
 ### 2.2 Fees
 
-`BR-07` `[SETTLED]` Fee codes are two-letter CLOSE codes and become external IDs on Product.
-Confirmed so far: `FD` school renewal, `FH` late fees, `PO` failure to timely renew,
-`PB` overpayment and refund request, `BY` miscellaneous, `PE` list, `AC` renewal. Full table from the code-table export.
+`BR-07` `[SETTLED]` Fee codes are CLOSE codes (mostly two letters, six are three digits) and become
+external IDs on Product. All 621 are loaded from the CLOSE extract, 563 active, with their revenue code.
+Each licence type has its own renewal and late fee code: `AC` and `AH` for a cosmetologist, `AJ` and
+`AO` manicurist, `AQ` and `AV` esthetician, `AX`/`BP`/`BG` and `BX` for the three instructors, `DB` and
+`DF` booth renter, `DI` and `DL` salon, `EH` and `EI` manager, `FD` school renewal. `FH` is the school
+late fee, charged as failure to timely renew. `PO` is not a renewal fee: it is the violation fine for a
+school (`PP` operator, `PN` shop, `PS` instructor). `PB` overpayment, `BY` miscellaneous, `PE` list.
 
 | Rule | Code | Behaviour |
 |---|---|---|
@@ -1065,7 +1071,7 @@ when staff triage them.
 |---|---|---|
 | Fields | `RegulatoryCodeViolation`: `Establishment__c`, `Practitioner__c`, `CitedParty__c`, `Case__c`; `RegulatoryTrxnFee.AmountPaid__c` | Who is cited and billed; how much of a fee is paid (`CM-02`, `CM-03`) |
 | Validation rules | `EstablishmentOrPractitionerRequired`, `CitedPartyMatchesAccount`, `DescriptionRequiredOtherViolationType` | A violation names a party, bills a named party, and explains an Other |
-| Reference data | Louisiana State Board of Cosmetology authority; placeholder `RegulatoryCode` and `ViolationType` records plus Other | Replaced when the violations list arrives |
+| Reference data | Louisiana State Board of Cosmetology authority; from CLOSE, 123 `RegulatoryCode` citations with their rule text and 38 `ViolationType` records in CLOSE's four categories (Unlicensed Operator, Salon, School, Administrative Rules), plus Other | The chief inspector confirms which are current and sets severity (loaded as Minor) |
 | Flow | Record-Trigger: Regulatory Code Violation After Save | On create: the `Violation` fee from `FeeSchedule`, billed to the cited party, due 15 days after the violation date; sets Compliance Due Date. Stops the save if the fee is missing from the schedule |
 | Flow | Subflow: Fee Amount Paid Sync; Record-Trigger: Payment Allocation After Save and Before Delete; Record-Trigger: Payment After Save (extended) | Totals allocations into Amount Paid and sets the fee Due, Partially Paid or Paid. Returned payments do not count |
 | Hold | Existing code 21 (Non Payment) | Opens when the violation fee passes its due date unpaid, ends when it is paid. Code 12 stays a manual hold |
@@ -1392,6 +1398,15 @@ loaded. It raised four gaps, now client questions:
 Loading licences opened 6,889 stop codes, mostly code 16 (no licensed manager), because owner and
 manager relationships load next.
 
+**Second round (11 Nov 2026).** Owner, manager and booth renter relationships (11,347), 477 school
+bonds and 1,555 staff-set stop codes followed, cutting code 16 to 767. The build then took over the
+load. A de-identified copy of the CLOSE extract replaces every SSN-shaped applicant ID and
+certificate number with a made-up number starting 000, so nothing after that reads a real SSN before
+Shield. The sandbox carries those numbers in a sandbox-only Mock Social Security Number field that is
+never deployed. The gaps above are closed in the build: three instructor licence types, Manager,
+Microdermabrasion and Make-up Application, every CLOSE fee code, and renewals and late fees priced per
+licence type in `FeeSchedule` version 3.
+
 ### 7.1 Preparing for inspections
 
 None of this builds inspections.
@@ -1691,3 +1706,4 @@ the source.
 | 10 Nov 2026 | `CUT-03` as built: five desk training guides; Phase 6 closed. Staff access to the Phase 6 tools is on the Phase 2 list. |
 | 10 Nov 2026 | Status brought current after Phase 6: header, milestone build status, a 5.1 note listing what paused security still owes the later phases, `PT-09` and `OPEN-09`/`OPEN-36` describe the new-to-the-Board sign-up path, and `OPEN-11` now holds up security rather than the data model. Duplicate change log rows removed. |
 | 10 Nov 2026 | First CLOSE load in the sandbox (section 7): Legacy Key fields on Account, `BusinessLicense` and `Accreditation` and the `LSBCDataMigration` permission set brought into the build. Licence numbers, instructor types, booth renter licences and three missing licence types raised as client questions. |
+| 11 Nov 2026 | CLOSE migration build: Instructor split into Cosmetology, Esthetician and Manicurist Instructor, each needing its own discipline's licence for codes 7 and 9 (`BR-02`); the reciprocity, retake and temporary permit forms ask which instructor licence. Manager, Microdermabrasion and Make-up Application licence types (`BR-22a`, `DM-12`). Code 32 NSF Late Fees is manual (`BR-03`). All CLOSE fee codes on Product; renewal and late fees per licence type, `FH` failure to renew, `PO` is a school fine (`BR-07`). CLOSE's violations and citations replace the placeholders (`CM-02`). A rule change now edits the existing expression set version: new versions can't be deployed in this org. |
