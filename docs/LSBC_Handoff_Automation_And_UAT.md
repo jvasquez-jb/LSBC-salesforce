@@ -146,6 +146,29 @@ six months) on instructors. Before loading CE:
   portal sign-up or public search until LSBC answers how numbers are assigned.
 - E-check payments load as Check (9 in three years); add a method only if finance asks.
 
+### A8. Fixes from the UAT run on migrated data (11 Nov 2026)
+
+Defects D-002 to D-028 in the UAT doc's Defect log. These need a flow or rule change; propose names first.
+
+| Defect | Severity | Change |
+|---|---|---|
+| D-002, D-004 | Blocker, Major | Retake and shop Certify hit "Too many SOQL queries: 101": one save runs Stop Code Sync once per trigger (application, exam attempt, fee, checklist). Sync once per holder per transaction, or move the sync to an asynchronous path. The fee-by-type change (A1) added two queries to the shop form |
+| D-003 | Major | Look Up a License: search by number only when a number is entered (a blank number matches the ~40,000 unnumbered migrated licences) |
+| D-005 | Major | Stop Code Sync's oldest-open-fee lookup: only fees with a due date, so undated migrated balances don't hide a new overdue fee |
+| D-006 | Major | Deleting a payment: block it while it has allocations, or re-total the fees it paid |
+| D-007 | Major | Staff New Application: email optional (migrated people have none) and not written to the person |
+| D-008 | Major | Staff-entered applications paid with Record Payment: no Payment Receipt item, or count the payment as the receipt, so Decide can approve |
+| D-010 | Major | Threading permit form: accommodation document upload fails |
+| D-024 | Major | Shop, facility and school forms: Create Shop fails with DUPLICATES_DETECTED when the Standard Account Duplicate Rule matches a similar shop in the same city. Allow the save (or a fault path with a message), or adjust the rule. Check whether this, not D-004, caused the earlier SHOP-01 faults |
+| D-025 | Major | Checklist item trigger: leave Sent to the Board items out of the open-required-item check, so Requirements Complete Date is stamped; and out of My Applications' Documents to upload |
+| D-026 | Major | My Applications: uploading a replacement to a returned (Rejected) item fails. Likely the same cause as D-010 |
+| D-012 | Minor | Run the stop code sync when a licence is deleted |
+| D-027, D-028 | Minor | Military reciprocity leaves an unused optional Court Records item; Back on the renewal name-change error clears the answer and names |
+| D-017, D-018, D-019 | Minor | Save for later on Schools attended; pause dialog and empty My Applications text; renewal with nothing ticked |
+| D-020, D-021, D-022 | Minor | Form wording and lists: "Age: 36.00", escaped apostrophe, business types in the out-of-state licence list, temporary permit event type, web complaint confidentiality, Continuing Education in Find a School's program list, staff wording on Mark Printed, Upload Documents and the name-change hold |
+
+Not flow changes: D-009, D-011, D-013, D-014, D-016 (layouts and pages; D-009 with Phase 2 profiles), D-015 (known limit), D-023 (scripts to update).
+
 ## Part B: run every UAT script on the migrated data
 
 The UAT doc is [LSBC UAT Scripts](https://claude.ai/artifact/Pv2nDG8sGtdwZsnnQTQgAG). Each script
