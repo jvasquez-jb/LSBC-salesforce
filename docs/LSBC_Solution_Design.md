@@ -202,7 +202,7 @@ separate Deceased flag on the applicant, which supports this. See `BR-04`.
 the single public lookup key, and stop-code and prerequisite rules never have to find "the current
 one". Year-by-year history comes from renewal applications, fee items carrying `ForYear__c`, and
 field history. Credential-level facts — `LastCEUDate__c`, `ConsecutiveCEUCycles__c`,
-`IsMasterInstructor__c`, `RenewalCount__c` — live on the licence.
+`IsMasterInstructor__c`, `InstructorStatus__c` (Active or Inactive, from CLOSE; it decides the instructor's fee codes), `RenewalCount__c` — live on the licence.
 
 > `BusinessLicenseStatus` in the org ships with Inactive (default), Revoked, Draft and Verified.
 > Phase 1 added Active, Retired and Deceased.
@@ -474,7 +474,7 @@ today.
 | 8 | The latest attempt at an exam the licence type requires is a Fail | A Pass is recorded |
 | 9 | An Esthetician Instructor licence holder holds no current Esthetician licence | A current licence exists |
 | 15 | A licence `PeriodEnd` is more than three years past | The licence is restored |
-| 16 | A Salon has no active Owner or Manager ACR whose person holds a current operator licence (`BR-22a`) | One is recorded |
+| 16 | A Salon has no active Owner or Manager ACR whose person holds a current operator licence, and holds no current Manager licence of its own (`BR-22a`) | Either is recorded |
 | 17 | An open licensure application needs an exam with no attempt on record | An attempt is recorded |
 | 20 | A student's most recent hours ended more than six months ago | New hours arrive |
 | 21 | A fee on the holder is Due or Partially Paid past its `DueDate` | It is Paid |
@@ -1707,3 +1707,4 @@ the source.
 | 10 Nov 2026 | Status brought current after Phase 6: header, milestone build status, a 5.1 note listing what paused security still owes the later phases, `PT-09` and `OPEN-09`/`OPEN-36` describe the new-to-the-Board sign-up path, and `OPEN-11` now holds up security rather than the data model. Duplicate change log rows removed. |
 | 10 Nov 2026 | First CLOSE load in the sandbox (section 7): Legacy Key fields on Account, `BusinessLicense` and `Accreditation` and the `LSBCDataMigration` permission set brought into the build. Licence numbers, instructor types, booth renter licences and three missing licence types raised as client questions. |
 | 11 Nov 2026 | CLOSE migration build: Instructor split into Cosmetology, Esthetician and Manicurist Instructor, each needing its own discipline's licence for codes 7 and 9 (`BR-02`); the reciprocity, retake and temporary permit forms ask which instructor licence. Manager, Microdermabrasion and Make-up Application licence types (`BR-22a`, `DM-12`). Code 32 NSF Late Fees is manual (`BR-03`). All CLOSE fee codes on Product; renewal and late fees per licence type, `FH` failure to renew, `PO` is a school fine (`BR-07`). CLOSE's violations and citations replace the placeholders (`CM-02`). A rule change now edits the existing expression set version: new versions can't be deployed in this org. |
+| 11 Nov 2026 | Code 16 also clears when the shop holds a current Manager licence: CLOSE keeps the Manager licence on the shop (`BR-22a`). New `BusinessLicense.InstructorStatus__c` (Active, Inactive) from CLOSE's instructor status; N and X are a client question. |

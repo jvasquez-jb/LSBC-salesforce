@@ -60,6 +60,7 @@
         <members>ApplicationDocumentRequirement__mdt.RecordType__c</members>
         <members>ApplicationDocumentRequirement__mdt.SortOrder__c</members>
         <members>BusinessLicense.ConsecutiveCEUCycles__c</members>
+        <members>BusinessLicense.InstructorStatus__c</members>
         <members>BusinessLicense.IsMasterInstructor__c</members>
         <members>BusinessLicense.IsReadyToPrint__c</members>
         <members>BusinessLicense.LastCEUDate__c</members>

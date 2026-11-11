@@ -1089,8 +1089,9 @@
     </formulas>
     <formulas>
         <name>forB_HasLicensedOwnerOrManager</name>
+        <description>True when an active owner or manager holds a current operator license, or the shop holds a current Manager license.</description>
         <dataType>Boolean</dataType>
-        <expression>NOT(ISBLANK({!GetLeaderLicense.Id}))</expression>
+        <expression>OR(NOT(ISBLANK({!GetLeaderLicense.Id})), NOT(ISBLANK({!GetManagerLicense.Id})))</expression>
     </formulas>
     <formulas>
         <name>forT_PersonOpenCodes</name>
@@ -2443,7 +2444,7 @@
         <locationY>0</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>RunStopCodeEstablishment</targetReference>
+            <targetReference>GetManagerType</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -2458,6 +2459,90 @@
             <operator>In</operator>
             <value>
                 <elementReference>varT_OperatorTypeIds</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>PeriodEnd</field>
+            <operator>GreaterThanOrEqualTo</operator>
+            <value>
+                <elementReference>forDT_AsOfStart</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Status</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <stringValue>Revoked</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Status</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <stringValue>Retired</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Status</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <stringValue>Deceased</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Status</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <stringValue>Draft</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>BusinessLicense</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>GetManagerType</name>
+        <label>Get Manager Type</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>GetManagerLicense</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Name</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Manager</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>RegulatoryAuthorizationType</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>GetManagerLicense</name>
+        <label>Get Manager License</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>RunStopCodeEstablishment</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>AccountId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>varT_AccountId</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>RegulatoryAuthorizationTypeId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>GetManagerType.Id</elementReference>
             </value>
         </filters>
         <filters>
