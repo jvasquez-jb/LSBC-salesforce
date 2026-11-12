@@ -62,6 +62,11 @@ you are working on before building, and section 9 for what the org actually prov
   - Validation rules: `<Field><Rule><Dependency>` in PascalCase, e.g. `TotalHoursMax192MonthlyHours`;
     plain-language error message.
   - Standard objects and fields keep Salesforce's spelling.
+- Every custom field goes on its object's page layout (read-only when a flow or the applicant sets it)
+  and gets field access in `PublicSectorAccessAdminPSL`, in the same change that creates it. If the
+  object's layout isn't in `force-app`, retrieve it first. Run `python3 -I scripts/checks/field_coverage.py`
+  before committing; it must pass. The only field kept off layouts is the social security number
+  (`EXCEPTIONS` in the script).
 - A picklist whose values are used on more than one object is a global value set, referenced by
   each field. Never copy the same values inline on two fields. Example: `Parish`, used by
   `Account.Parish__c` and `Contact.HomeParish__c`.

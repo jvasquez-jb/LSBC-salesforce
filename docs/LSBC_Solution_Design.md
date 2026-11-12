@@ -138,6 +138,14 @@ Each Apex class has a test class. There are no Apex triggers.
 > Note that `AuthApplicationPlace` still labels its lookup to `BusinessLicense` as "Authorization",
 > so the older name survives in relationship labels.
 
+> **Every field goes on a layout and gets admin access.** Each custom field the build creates is,
+> in the same change, added to its object's page layout (read-only when a flow or the applicant sets
+> it) and given field access in `PublicSectorAccessAdminPSL`. Staff and testers can only check what
+> they can see; a field missing from the layout hides an applicant's answer or a rule's input.
+> `scripts/checks/field_coverage.py` lists any field that breaks this and is run before each commit.
+> The only field kept off every layout is the social security number. Staff field access for each
+> role is decided with the access matrix (5.1).
+
 ### 1.1 People and organisations
 
 `DM-01` `[SETTLED]` **Person Accounts are enabled.** A licensee is their own Account, not a
@@ -1826,3 +1834,4 @@ the source.
 | 12 Nov 2026 | LSBC answers (Tywanda): code 6 accepts any current operator licence, `OPEN-50` settled (`BR-02`, `DM-03`). Code 16 is set and ended by staff: the automatic rule is removed from `StopCodeEstablishment` and the sync, 535 automatic holds ended and CLOSE's 3 live code 16 holds loaded (`BR-03`, `OPEN-55` now code 20 only). A manager's operator licence is checked on the shop form, since CLOSE files the Manager licence under the shop. The shop form treats a new location as a new establishment. The portal books no inspection; online payment of the $105 and e-checks are with LSBC (`PT-20`). Thirty-five open. |
 | 12 Nov 2026 | LSBC answers (Deborah): code 20 at 180 days instead of six months (`BR-11`), `OPEN-55` settled. The new school form takes no online payment: the inspector collects inspection fees at the visits (`BR-22`); the inspector collects the $300 and $340 at the final inspection. CE providers Milady, Pivot Point and Rocketcert created, `OPEN-49` settled pending approval dates. `OPEN-25` settled (one exam application). Make-up is renewal only. Instructor status N and X go to William (`OPEN-42`). Thirty-two open. |
 | 12 Nov 2026 | Deborah's follow-up: CE providers are approved by the Board each year, so each has a 2026 approval (1 Jan to 31 Dec) and staff add the next. The inspector collects all new school fees at the inspections, the $300 and $340 at the final one. Code 20 counts from the last hours received; the build counts from the end date of the last hours entry. |
+| 12 Nov 2026 | Every custom field goes on its layout and gets admin field access in the same change; `scripts/checks/field_coverage.py` enforces it (section 1). Layouts brought in line: the record type, applicant answers, certification and location on both applications, fee year and product, Legacy Key, Parish, Tax ID, Entry Type, Attempt Number, bond and CE fields, Fee Code; the Examination, Person Disability, Person Education and licence type (Regulatory Authorization Type) layouts added to the repo with their fields. Compact layouts on nine objects. The person account shows relationships, exams, accommodation requests and languages. |

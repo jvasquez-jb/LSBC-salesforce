@@ -473,15 +473,19 @@
         <members>Case-Custom Case Layout</members>
         <members>CourseOffering-Course Offering Layout</members>
         <members>DocumentChecklistItem-Document Checklist Item Layout</members>
+        <members>Examination-Examination Layout</members>
         <members>IndividualApplication-Individual Application Layout</members>
         <members>LetterTemplate__mdt-Letter Template Layout</members>
         <members>PaymentAllocation__c-Payment Allocation Layout</members>
         <members>Payment__c-Payment Layout</members>
         <members>PersonAccount-Person Account Layout</members>
+        <members>PersonDisability-Person Disability Layout</members>
+        <members>PersonEducation-Person Education Layout</members>
         <members>PersonExamination-Person Examination Layout</members>
         <members>Product2-Product Layout</members>
         <members>PublicComplaint-Public Complaint Layout</members>
         <members>RecordAlert-Record Alert Layout</members>
+        <members>RegulatoryAuthorizationType-Regulatory Authorization Type Layout</members>
         <members>RegulatoryCodeViolation-Regulatory Code Violation Layout</members>
         <members>RegulatoryTrxnFee-Regulatory Transaction Fee Layout</members>
         <members>RegulatoryTrxnFeeItem-Regulatory Transaction Fee Item Layout</members>
