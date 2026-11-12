@@ -501,7 +501,7 @@ today.
 | 9 | No Esthetician License for Instructor | A held esthetician licence (prerequisite) |
 | 15 | Restoration Exam | Lapse beyond three years |
 | 17 | Exam has not been taken | Absence of a Person Examination record |
-| 20 | Needs re-registration | 180 days without submitted hours |
+| 20 | Needs re-registration | 180 days without hours received |
 | 21 | Non Payment | Outstanding fee balance |
 | 31 | Restoration Exam Not Passed | Person Examination result |
 
@@ -519,7 +519,7 @@ today.
 | 9 | An Esthetician Instructor licence holder holds no current Esthetician licence | A current licence exists |
 | 15 | A licence `PeriodEnd` is more than three years past | The licence is restored |
 | 17 | An open licensure application needs an exam with no attempt on record | An attempt is recorded |
-| 20 | A student's most recent hours ended more than 180 days ago (LSBC confirmed 180 days, 12 Nov 2026; six calendar months until then) | New hours arrive |
+| 20 | The Board last received hours for a student more than 180 days ago, by the hours entry's Received Date (LSBC confirmed 180 days from the last hours received, 12 Nov 2026; until then six calendar months from the end of the last hours period) | New hours arrive |
 | 21 | A fee on the holder is Due or Partially Paid past its `DueDate` | It is Paid |
 | 31 | The latest Restoration exam attempt is a Fail | A Pass is recorded |
 
@@ -1834,4 +1834,5 @@ the source.
 | 12 Nov 2026 | LSBC answers (Tywanda): code 6 accepts any current operator licence, `OPEN-50` settled (`BR-02`, `DM-03`). Code 16 is set and ended by staff: the automatic rule is removed from `StopCodeEstablishment` and the sync, 535 automatic holds ended and CLOSE's 3 live code 16 holds loaded (`BR-03`, `OPEN-55` now code 20 only). A manager's operator licence is checked on the shop form, since CLOSE files the Manager licence under the shop. The shop form treats a new location as a new establishment. The portal books no inspection; online payment of the $105 and e-checks are with LSBC (`PT-20`). Thirty-five open. |
 | 12 Nov 2026 | LSBC answers (Deborah): code 20 at 180 days instead of six months (`BR-11`), `OPEN-55` settled. The new school form takes no online payment: the inspector collects inspection fees at the visits (`BR-22`); the inspector collects the $300 and $340 at the final inspection. CE providers Milady, Pivot Point and Rocketcert created, `OPEN-49` settled pending approval dates. `OPEN-25` settled (one exam application). Make-up is renewal only. Instructor status N and X go to William (`OPEN-42`). Thirty-two open. |
 | 12 Nov 2026 | Deborah's follow-up: CE providers are approved by the Board each year, so each has a 2026 approval (1 Jan to 31 Dec) and staff add the next. The inspector collects all new school fees at the inspections, the $300 and $340 at the final one. Code 20 counts from the last hours received; the build counts from the end date of the last hours entry. |
+| 12 Nov 2026 | Code 20 counts from the date the Board received the last hours, as Deborah described: new field Received Date on Training Course Participant (defaults to the day the entry is made), backfilled on the 32,804 migrated hours entries from CLOSE's entry date (a median 16 days after the month's end). `StopCodePerson` input `LatestHoursReceivedDate` replaces `LatestHoursEndDate`; the nightly schedule watches the received date (`BR-11`, `DM-16`). |
 | 12 Nov 2026 | Every custom field goes on its layout and gets admin field access in the same change; `scripts/checks/field_coverage.py` enforces it (section 1). Layouts brought in line: the record type, applicant answers, certification and location on both applications, fee year and product, Legacy Key, Parish, Tax ID, Entry Type, Attempt Number, bond and CE fields, Fee Code; the Examination, Person Disability, Person Education and licence type (Regulatory Authorization Type) layouts added to the repo with their fields. Compact layouts on nine objects. The person account shows relationships, exams, accommodation requests and languages. |

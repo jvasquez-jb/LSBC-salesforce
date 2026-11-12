@@ -43,9 +43,9 @@
             </value>
         </inputParameters>
         <inputParameters>
-            <name>LatestHoursEndDate</name>
+            <name>LatestHoursReceivedDate</name>
             <value>
-                <elementReference>forD_LatestHoursEndDate</elementReference>
+                <elementReference>forD_LatestHoursReceivedDate</elementReference>
             </value>
         </inputParameters>
         <inputParameters>
@@ -973,9 +973,9 @@
         <scale>2</scale>
     </formulas>
     <formulas>
-        <name>forD_LatestHoursEndDate</name>
+        <name>forD_LatestHoursReceivedDate</name>
         <dataType>Date</dataType>
-        <expression>DATEVALUE({!GetLatestHoursEntry.EndDate})</expression>
+        <expression>{!GetLatestReceivedHours.ReceivedDate__c}</expression>
     </formulas>
     <formulas>
         <name>forD_EarliestLapsedPeriodEnd</name>
@@ -1753,7 +1753,7 @@
         <locationY>0</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>HasHoursOnRecord</targetReference>
+            <targetReference>GetLatestReceivedHours</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -1773,6 +1773,37 @@
         <getFirstRecordOnly>true</getFirstRecordOnly>
         <object>TrainingCourseParticipant</object>
         <sortField>EndDate</sortField>
+        <sortOrder>Desc</sortOrder>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>GetLatestReceivedHours</name>
+        <description>The hours entry the Board received most recently, for code 20 (180 days without hours received). Continuing education attendance is left out.</description>
+        <label>Get Latest Received Hours</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>HasHoursOnRecord</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>ContactId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>GetAccount.PersonContactId</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>EntryType__c</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <stringValue>Continuing Education</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>TrainingCourseParticipant</object>
+        <sortField>ReceivedDate__c</sortField>
         <sortOrder>Desc</sortOrder>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>

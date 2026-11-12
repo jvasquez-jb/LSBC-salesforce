@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ReceivedDate__c</fullName>
+    <defaultValue>TODAY()</defaultValue>
+    <description>The date the Board received these hours from the school. A student with no hours received for 180 days must re-enroll (stop code 20 counts from this date). Defaults to the day the entry is created; migrated entries carry the date CLOSE recorded them.</description>
+    <inlineHelpText>The date the Board received these hours. Leave as today for hours entered on arrival.</inlineHelpText>
+    <label>Received Date</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Date</type>
+</CustomField>

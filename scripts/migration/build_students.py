@@ -87,9 +87,9 @@ elif mode == "participants":
     st = collections.Counter()
     with open(os.path.join(root, "load", "participants.csv"), "w", newline="") as fh:
         w = csv.writer(fh, lineterminator="\n")
-        w.writerow(["ContactId", "CourseOfferingId", "StartDate", "EndDate", "TotalHours", "EntryType__c"])
-        for a, s, q, t, d, h, tr in db.execute("""SELECT REG_APP_APPLICANT_ID, REG_SCH_CERT_NBR_NUM, REG_SCH_SEQ_NUM,
-                REG_ST_STUDENT_TYPE, DATE_HOURS_COMPLETED, HOURS, TRANSFERRED FROM HOURS"""):
+        w.writerow(["ContactId", "CourseOfferingId", "StartDate", "EndDate", "TotalHours", "EntryType__c", "ReceivedDate__c"])
+        for a, s, q, t, d, h, tr, rec in db.execute("""SELECT REG_APP_APPLICANT_ID, REG_SCH_CERT_NBR_NUM, REG_SCH_SEQ_NUM,
+                REG_ST_STUDENT_TYPE, DATE_HOURS_COMPLETED, HOURS, TRANSFERRED, DATE_CREATED FROM HOURS"""):
             key = (a, s, q, t)
             if key not in wanted:
                 continue
@@ -104,6 +104,7 @@ elif mode == "participants":
             if not transfer:
                 end = (datetime.date(y + m // 12, m % 12 + 1, 1) - datetime.timedelta(days=1)).isoformat()
             w.writerow([c, o, f"{start}T17:00:00.000Z", f"{end}T17:00:00.000Z", round(float(h), 2),
-                        "Transfer" if transfer else "Monthly Hours"])
+                        "Transfer" if transfer else "Monthly Hours",
+                        day(rec)])  # the date CLOSE recorded the hours: when the Board received them
             st["loaded"] += 1
     print(dict(st))

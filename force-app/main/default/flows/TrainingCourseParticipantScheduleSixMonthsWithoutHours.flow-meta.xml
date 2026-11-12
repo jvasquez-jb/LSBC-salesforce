@@ -45,13 +45,13 @@
             <label>Yes</label>
         </rules>
     </decisions>
-    <description>Nightly. Re-checks stop codes for students whose hours entry ended 180 days ago in the last week. The sync uses the latest entry, so students with newer hours are unaffected. One sync per student. Continuing education attendance is not student hours and is skipped.</description>
+    <description>Nightly. Re-checks stop codes for students whose last hours were received 180 days ago in the last week. The sync uses the latest entry, so students with newer hours are unaffected. One sync per student. Continuing education attendance is not student hours and is skipped.</description>
     <environments>Default</environments>
     <formulas>
         <name>forB_IsInWindow</name>
         <description>True when the date this schedule watches fell in the last seven days.</description>
         <dataType>Boolean</dataType>
-        <expression>DATEVALUE({!$Record.EndDate}) &gt;= (TODAY() - 180) - 7 &amp;&amp; DATEVALUE({!$Record.EndDate}) &lt; (TODAY() - 180)</expression>
+        <expression>{!$Record.ReceivedDate__c} &gt;= (TODAY() - 180) - 7 &amp;&amp; {!$Record.ReceivedDate__c} &lt; (TODAY() - 180)</expression>
     </formulas>
     <formulas>
         <name>forD_WindowStart</name>
@@ -94,14 +94,14 @@
         <expression>DATETIMEVALUE(ADDMONTHS(TODAY(), -36))</expression>
     </formulas>
     <formulas>
-        <name>forDT_StaleWindowStart</name>
-        <dataType>DateTime</dataType>
-        <expression>DATETIMEVALUE((TODAY() - 180) - 7)</expression>
+        <name>forD_StaleWindowStart</name>
+        <dataType>Date</dataType>
+        <expression>(TODAY() - 180) - 7</expression>
     </formulas>
     <formulas>
-        <name>forDT_StaleWindowEnd</name>
-        <dataType>DateTime</dataType>
-        <expression>DATETIMEVALUE((TODAY() - 180))</expression>
+        <name>forD_StaleWindowEnd</name>
+        <dataType>Date</dataType>
+        <expression>(TODAY() - 180)</expression>
     </formulas>
     <interviewLabel>Training Course Participant Schedule: Six Months Without Hours {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Training Course Participant Schedule: Six Months Without Hours</label>
@@ -143,17 +143,17 @@
             </value>
         </filters>
         <filters>
-            <field>EndDate</field>
+            <field>ReceivedDate__c</field>
             <operator>GreaterThanOrEqualTo</operator>
             <value>
-                <elementReference>forDT_StaleWindowStart</elementReference>
+                <elementReference>forD_StaleWindowStart</elementReference>
             </value>
         </filters>
         <filters>
-            <field>EndDate</field>
+            <field>ReceivedDate__c</field>
             <operator>LessThan</operator>
             <value>
-                <elementReference>forDT_StaleWindowEnd</elementReference>
+                <elementReference>forD_StaleWindowEnd</elementReference>
             </value>
         </filters>
         <filters>
@@ -177,7 +177,7 @@
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
-            <field>EndDate</field>
+            <field>ReceivedDate__c</field>
             <operator>IsNull</operator>
             <value>
                 <booleanValue>false</booleanValue>

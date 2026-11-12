@@ -55,6 +55,10 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
+                <field>ReceivedDate__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
                 <field>VerificationStatus</field>
             </layoutItems>
         </layoutColumns>

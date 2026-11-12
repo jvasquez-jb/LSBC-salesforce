@@ -186,6 +186,7 @@
         <members>RegulatoryTrxnFeeItem.FeeProduct__c</members>
         <members>RegulatoryTrxnFeeItem.ForYear__c</members>
         <members>TrainingCourseParticipant.EntryType__c</members>
+        <members>TrainingCourseParticipant.ReceivedDate__c</members>
         <name>CustomField</name>
     </types>
     <types>

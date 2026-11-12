@@ -163,9 +163,9 @@
             <actionType>AssignParameterValues</actionType>
             <assignment>
                 <assignedParameter>StopCode20</assignedParameter>
-                <expression>NOT(ISBLANK(LatestHoursEndDate)) &amp;&amp; NOT(ISBLANK(CompletionThresholdHours)) &amp;&amp; ApprovedHours &lt; CompletionThresholdHours &amp;&amp; LatestHoursEndDate &lt; AsOfDate + (0 - ReRegistrationDays)</expression>
+                <expression>NOT(ISBLANK(LatestHoursReceivedDate)) &amp;&amp; NOT(ISBLANK(CompletionThresholdHours)) &amp;&amp; ApprovedHours &lt; CompletionThresholdHours &amp;&amp; LatestHoursReceivedDate &lt; AsOfDate + (0 - ReRegistrationDays)</expression>
             </assignment>
-            <description>A student with no hours submitted for the re-registration period.</description>
+            <description>A student with no hours received for the re-enrollment period.</description>
             <label>Set Stop Code 20</label>
             <name>SetStopCode20</name>
             <resultIncluded>true</resultIncluded>
@@ -257,9 +257,9 @@
         <variables>
             <collection>false</collection>
             <dataType>Date</dataType>
-            <description>End date of the most recent hours entry. Blank when there are none.</description>
+            <description>Date the Board received the most recent hours entry. Blank when there are none.</description>
             <input>true</input>
-            <name>LatestHoursEndDate</name>
+            <name>LatestHoursReceivedDate</name>
             <output>false</output>
             <type>Variable</type>
         </variables>
@@ -431,7 +431,7 @@
             <collection>false</collection>
             <dataType>Numeric</dataType>
             <decimalPlaces>2</decimalPlaces>
-            <description>Days without submitted hours before a student must re-enroll: 180.</description>
+            <description>Days without hours received before a student must re-enroll: 180.</description>
             <input>false</input>
             <name>ReRegistrationDays</name>
             <output>false</output>
@@ -531,7 +531,7 @@
         <variables>
             <collection>false</collection>
             <dataType>Boolean</dataType>
-            <description>A student with no hours submitted for the re-registration period.</description>
+            <description>A student with no hours received for the re-enrollment period.</description>
             <input>false</input>
             <name>StopCode20</name>
             <output>true</output>
