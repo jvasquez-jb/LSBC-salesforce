@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <RecordAlertCategory xmlns="http://soap.sforce.com/2006/04/metadata">
-    <description>Set and ended automatically. Opens when a student has submitted no hours for six months. Ends when the student re-registers and hours resume. Until it is ended, the holder's licenses are not printed or mailed; they stay valid.</description>
+    <description>Set and ended automatically. Opens when a student has submitted no hours for 180 days. Ends when the student re-registers and hours resume. Until it is ended, the holder's licenses are not printed or mailed; they stay valid.</description>
     <masterLabel>20 Needs Re-registration</masterLabel>
     <severity>Error</severity>
 </RecordAlertCategory>

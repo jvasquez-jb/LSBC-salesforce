@@ -16,10 +16,14 @@
     </values>
     <values>
         <field>Instruction__c</field>
-        <value xsi:type="xsd:string">Initial premises inspection $100.00, final inspection $300.00 and new school application fee $340.00</value>
+        <value xsi:type="xsd:string">All fees are paid to the inspector at the inspections: $100.00 at the initial premises inspection, then $300.00 final inspection and $340.00 new school application fee at the final inspection</value>
     </values>
     <values>
         <field>IsRequired__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
+        <field>IsSentToBoard__c</field>
         <value xsi:type="xsd:boolean">true</value>
     </values>
     <values>

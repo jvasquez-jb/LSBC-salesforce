@@ -493,7 +493,7 @@ today.
 | 9 | No Esthetician License for Instructor | A held esthetician licence (prerequisite) |
 | 15 | Restoration Exam | Lapse beyond three years |
 | 17 | Exam has not been taken | Absence of a Person Examination record |
-| 20 | Needs re-registration | Six months without submitted hours |
+| 20 | Needs re-registration | 180 days without submitted hours |
 | 21 | Non Payment | Outstanding fee balance |
 | 31 | Restoration Exam Not Passed | Person Examination result |
 
@@ -511,7 +511,7 @@ today.
 | 9 | An Esthetician Instructor licence holder holds no current Esthetician licence | A current licence exists |
 | 15 | A licence `PeriodEnd` is more than three years past | The licence is restored |
 | 17 | An open licensure application needs an exam with no attempt on record | An attempt is recorded |
-| 20 | A student's most recent hours ended more than six months ago | New hours arrive |
+| 20 | A student's most recent hours ended more than 180 days ago (LSBC confirmed 180 days, 12 Nov 2026; six calendar months until then) | New hours arrive |
 | 21 | A fee on the holder is Due or Partially Paid past its `DueDate` | It is Paid |
 | 31 | The latest Restoration exam attempt is a Fail | A Pass is recorded |
 
@@ -840,7 +840,7 @@ Screen Flow that follows its paper PDF section by section, built from shared sub
 | Affidavit | `ScreenFlowIndividualApplicationAffidavit` | Affidavit application (Renewal record type); first free, then $15 |
 | Shop | `ScreenFlowBusinessLicenseApplicationShop` | A new establishment for a new shop or a new location; the existing one for a reopening or new ownership (LSBC, 12 Nov 2026). Owner and Manager relations (the manager's number must be a current operator licence), New Establishment application, fees |
 | Threading / AHD Facility | `ScreenFlowBusinessLicenseApplicationFacility` | The establishment with its tax ID, Owner relation, New Establishment application, fees |
-| New School Check List | `ScreenFlowBusinessLicenseApplicationSchool` | The school with its capacity, School Administrator relation, New School application, $100 fee; later items uploaded afterwards |
+| New School Check List | `ScreenFlowBusinessLicenseApplicationSchool` | The school with its capacity, School Administrator relation, New School application, $100 fee paid to the inspector at the premises inspection, with no online pay step; the $300 final inspection and $340 application fees are collected by the inspector at the final inspection, and staff add them then (LSBC, 12 Nov 2026); later items uploaded afterwards |
 
 The 17 School Forms wait for the School Administrator audience (Phase 2).
 
@@ -1393,7 +1393,7 @@ A bulk import, not a portal upload.
 - IT processes the file; exceptions return as a problem sheet marked NR for not registered.
 - Flagged records are matched by hand on name and school identifier.
 - **60-day grace period** after the tenth. Beyond that, hours must arrive with testing paperwork.
-- A student with no hours for six months must re-enrol.
+- A student with no hours for 180 days must re-enrol.
 - Corrections arrive on a form and are recorded with old value, new value, date and initials —
   an audit trail the platform should keep natively rather than in free text.
 
@@ -1446,7 +1446,8 @@ loaded. It raised four gaps:
 - **Booth renters.** Code 6 needs a cosmetologist licence; `DM-03` says any operator licence. Settled
   12 Nov 2026: any operator licence, which ended 69 of the 158 code 6 holds.
 - **Licence types not built:** Manager (1,194 current), Make-up (38), Microdermabrasion (24). Duplicate
-  licences (267) are reprints, not a licence type.
+  licences (267) are reprints, not a licence type. Make-up is renewal only: no new permits are issued
+  (LSBC, 12 Nov 2026), and no form offers one.
 
 Loading licences opened 6,889 stop codes, mostly code 16 (no licensed manager), because owner and
 manager relationships load next.
@@ -1482,7 +1483,8 @@ Licence numbers (`OPEN-40`) remain open; the booth renter base licence (`OPEN-50
 
 Some loaded data raised holds CLOSE does not have: code 16 (no manager) and code 20 (no hours for six
 months) (`OPEN-55`). Code 16 is now set by staff: the 535 automatic holds were ended on 12 Nov 2026 and
-CLOSE's open code 16 holds loaded, 3 of its 50 (the other 47 are on shops not migrated). The reverse also happens: the old unpaid balances have no due date, so they raise
+CLOSE's open code 16 holds loaded, 3 of its 50 (the other 47 are on shops not migrated). Code 20 stays
+automatic: LSBC confirmed a student with no activity for 180 days must re-enroll. The reverse also happens: the old unpaid balances have no due date, so they raise
 no Non Payment hold where CLOSE has one (`OPEN-56`).
 
 **Real data in a sandbox without security.** Real names, addresses, dates of birth, licences, exams,
@@ -1595,7 +1597,6 @@ more than leaving a door open.
 | `OPEN-21` | Remaining retention periods | Deposits three years. Cheques are given as one year here but about three years in section 6.1 — confirm which. Other document types sit with compliance | Compliance |
 | `OPEN-22` | Knowledge base in or out | Half of all calls are students asking about scores — the largest single deflection target | Before backlog lock |
 | `OPEN-24` | Enforcing registration on enrolment | Aligned in session. Enforcing it is a process change for schools, not only a validation rule | Before Week 7 |
-| `OPEN-25` | Which exam forms consolidate | The Board wants all of them digitised. Several of the eleven overlap and should merge | Deborah |
 | `OPEN-26` | The no-show fee | A $25 fee exists in policy but is not systematically enforced. Should the platform apply it? | Deborah |
 | `OPEN-28` | Automatic cleanup orders | Recorded in distributed notes as agreed. It is inspections functionality and out of scope | Immediate |
 | `OPEN-29` | The $55 renewal amount | The mailroom sorts renewal payments by amount. Nobody has explained $55 | Kiwan |
@@ -1604,19 +1605,17 @@ more than leaving a door open.
 | `OPEN-33` | The card service charge | Applies to card payments, raising a $525 restoration to roughly $540. All card payments, or only at the counter? | Carnita or the front desk |
 | `OPEN-40` | Licence numbers for migrated licences | CLOSE has no licence number apart from the applicant ID, which is shaped like a social security number, so `Identifier` is blank on every migrated licence. Portal sign-up and search by number find no migrated licensee (`PT-09`, `PT-13`, `PT-14`) | Before the production load |
 | `OPEN-41` | Numbering new licences | Decide approves a licence, and staff type its number until the rule is known: a running number per type, salons starting 777 (`PT-14`) | Staff go-live |
-| `OPEN-42` | Instructor status N and X | CLOSE marks instructors A, I, M, N or X. Active and inactive instructors renew under different fee codes; N and X are unexplained (`BR-07`) | Before renewals use the status |
+| `OPEN-42` | Instructor status N and X | CLOSE marks instructors A, I, M, N or X. Active and inactive instructors renew under different fee codes; N (26) and X (2) are unexplained. Deborah knows only Active, Inactive and Master; William to check CLOSE (`BR-07`) | Before renewals use the status |
 | `OPEN-43` | Refunding money already applied to a fee | Refund covers only money not applied to a fee. Staff would take money off a fee by hand first, with no record of why (`DM-18b`) | Staff go-live |
 | `OPEN-44` | Notarised forms and the certification step | Will the Board accept the portal's certification (checkbox, typed name, time) in place of notarisation, for example the contractual fees certificate (`BR-03a`, `PT-19`)? | Portal publish |
 | `OPEN-45` | LSBC mailboxes and sending addresses | Email-to-Case needs LSBC's complaint and inquiry mailboxes forwarded by OTS, and acknowledgements and portal emails need a verified LSBC sender, with DKIM and SPF (`CM-01`, `PT-09b`) | Staff go-live |
 | `OPEN-46` | Letter wording and letterhead | The four letters use placeholder wording and a placeholder letterhead (`PT-16`) | Staff go-live |
 | `OPEN-47` | Counting affidavits | First free, then $15: over what period does "first" count, is $15 per licence or per request, and what is CLOSE's $25 code 87 (`BR-26`)? | Staff go-live |
 | `OPEN-48` | The printed licence layout | The print queue tracks what needs printing, but nothing can print onto the three-part stock until we have a sample (`PT-16`) | Staff go-live |
-| `OPEN-49` | Seminar providers | CLOSE holds seminar names only. Do providers become Organization accounts with CE Provider Approval records, which the public CE provider list reads (`DM-16`)? | Portal publish |
 | `OPEN-51` | Encrypting the date of birth | Confirm Shield can encrypt `Contact.Birthdate` before the field list is applied in January. Nothing filters on it (`SEC-04`, `PT-09`) | Before Shield, January |
 | `OPEN-52` | History of rule changes | Expression set versions cannot be deployed in this org, so rule changes overwrite the active version and LSBC's administrator gets no history. Test creating versions in Expression Set Builder, or raise it with Salesforce; otherwise accept and tell LSBC (section 2) | Build team, before handover |
 | `OPEN-53` | Scope: migration and the payment ledger | Migration is listed out of scope, but the build team has loaded CLOSE data (section 7). That load is more than licence records: it includes three years of finance history, 120,554 payments with 173,806 allocations, in the custom ledger. The ledger itself grew from violations to every fee (`DM-18a`). Both need a change order or an agreed reading of the SOW | Project manager, before this document goes to LSBC |
 | `OPEN-54` | Real data in the sandbox | Real CLOSE data has been in LSBC-Partial since 10 Nov with security unbuilt and Shield in January. Confirm who may log in, and that offshore resources have no access to agency data | Project manager, immediate |
-| `OPEN-55` | Holds raised by migrated data | Code 20 on 195 students, against 1 in CLOSE: automatic, or does a student with no hours count as dropped (`BR-11`)? Code 16 is settled: staff set it (`BR-03`) | Before the production load |
 | `OPEN-56` | Unpaid CLOSE balances and printing | Non Payment needs a due date, and the 13,212 migrated balances ($487,682) have none, so they hold nothing at go-live. CLOSE has 63 Non Payment holds open; Salesforce has 2, so licences CLOSE holds for non-payment will print. A policy choice for LSBC and finance, not a data fix: which balances, if any, should hold printing, and from what due date (`DM-18`, `BR-02`) | Staff go-live |
 
 ### Settled
@@ -1643,9 +1642,12 @@ more than leaving a door open.
 | `OPEN-03` | Open stop codes at go-live | Answered by the load: CLOSE's open staff-set holds, the live administrative holds among them, came across as stop codes in the sandbox (1,555). They reach production with the production load (`OPEN-05`) |
 | `OPEN-14` | The Seminar module | It holds seminar names, dates and attendance, not providers. The 58 seminars and 3,899 attendances are loaded as continuing education (`DM-16`). Providers are `OPEN-49` |
 | `OPEN-50` | Booth renter base licence | Any current operator licence: cosmetologist, esthetician or manicurist (LSBC, 12 Nov 2026). Code 6 follows it (`BR-02`, `DM-03`) |
+| `OPEN-25` | Which exam forms consolidate | One exam application with an exam type choice (Deborah, 12 Nov 2026). Built with the school portal |
+| `OPEN-49` | Seminar providers | Milady, Pivot Point and Rocketcert (Deborah, 12 Nov 2026), created as Organization accounts, each with a 2026 CE Provider Approval (1 Jan to 31 Dec). The Board approves providers each year; staff add each year's approval (`DM-16`) |
+| `OPEN-55` | Holds raised by migrated data | Code 16 is set by staff (`BR-03`); code 20 stays automatic at 180 days (`BR-11`). Both confirmed by LSBC, 12 Nov 2026 |
 | `OPEN-39` | Complaint intake | `PublicComplaint` carries the complaint, `Case` carries the work, `ComplaintCase` joins them. It beats `Case` with record types on anonymity, categorisation, intake channel and board reporting |
 
-**The shape of what remains.** Thirty-five open. The LSBC Client Questions document tracks over a
+**The shape of what remains.** Thirty-two open. The LSBC Client Questions document tracks over a
 hundred smaller configuration questions; those that change scope, go-live or the data are listed here.
 
 **Two are for the project manager before this document goes to LSBC:** `OPEN-53`, migration and the
@@ -1661,8 +1663,7 @@ board meeting; and `OPEN-38`, freelance operators without a fixed salon, which n
 legislation.
 
 **Several decide the production load and what the public sees:** `OPEN-40` licence numbers (the
-largest: without them no migrated licensee can sign up), `OPEN-55` holds raised by migrated data,
-`OPEN-56` unpaid CLOSE balances that hold nothing, and `OPEN-06` website scope.
+largest: without them no migrated licensee can sign up), `OPEN-56` unpaid CLOSE balances that hold nothing, and `OPEN-06` website scope.
 
 **Several are needed for staff go-live on January 27:** `OPEN-41`, `OPEN-43`, and `OPEN-45` to `OPEN-48`.
 
@@ -1823,3 +1824,5 @@ the source.
 | 12 Nov 2026 | Brought in line with the build after review. Section 7 records that the build team loaded CLOSE data, with what is loaded and the real-data exposure; `PT-13` and `CM-07` no longer assume no migration. `DM-18` says the ledger now covers every fee. Fee table: late fees are per licence type, school late renewal is `FD` + `FH`, every code is loaded. `ReciprocityStateExams` replaces `ReciprocityStateRule` in sections 1 and 2. Code 6 notes its conflict with `DM-03`; stop codes are 32 in CLOSE, 29 built. `PT-07` and `PT-09` updated; section 2 states that expression set rule changes keep no history; 0.2 lists the code in the build. Section 8: `OPEN-03` and `OPEN-14` settled with notes; `OPEN-40` to `OPEN-55` added from the client questions and this review; thirty-five open. |
 | 12 Nov 2026 | Section 7 explains why code 16 fell from 767 to about 530. `OPEN-53` names the three years of payments and allocations in the load. Unpaid CLOSE balances split from `OPEN-55` into `OPEN-56`, a policy choice: they raise no Non Payment hold, so licences CLOSE holds will print. Thirty-six open. |
 | 12 Nov 2026 | LSBC answers (Tywanda): code 6 accepts any current operator licence, `OPEN-50` settled (`BR-02`, `DM-03`). Code 16 is set and ended by staff: the automatic rule is removed from `StopCodeEstablishment` and the sync, 535 automatic holds ended and CLOSE's 3 live code 16 holds loaded (`BR-03`, `OPEN-55` now code 20 only). A manager's operator licence is checked on the shop form, since CLOSE files the Manager licence under the shop. The shop form treats a new location as a new establishment. The portal books no inspection; online payment of the $105 and e-checks are with LSBC (`PT-20`). Thirty-five open. |
+| 12 Nov 2026 | LSBC answers (Deborah): code 20 at 180 days instead of six months (`BR-11`), `OPEN-55` settled. The new school form takes no online payment: the inspector collects inspection fees at the visits (`BR-22`); the inspector collects the $300 and $340 at the final inspection. CE providers Milady, Pivot Point and Rocketcert created, `OPEN-49` settled pending approval dates. `OPEN-25` settled (one exam application). Make-up is renewal only. Instructor status N and X go to William (`OPEN-42`). Thirty-two open. |
+| 12 Nov 2026 | Deborah's follow-up: CE providers are approved by the Board each year, so each has a 2026 approval (1 Jan to 31 Dec) and staff add the next. The inspector collects all new school fees at the inspections, the $300 and $340 at the final one. Code 20 counts from the last hours received; the build counts from the end date of the last hours entry. |

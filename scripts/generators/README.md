@@ -5,7 +5,7 @@ generated files stay consistent. Run with `python3 -I` from the repo root.
 
 | Script | Writes | Run |
 |---|---|---|
-| `pagegen.py` | The 17 LSBC record pages (`flexipages/*RecordPage`), all in the Account Record Page format. The `PAGES` table lists each page's actions and tabs | `python3 -I scripts/generators/pagegen.py force-app/main/default/flexipages <describe dir>`; the describe dir holds `sf sobject describe -s <Object> --json` output per object, one `<Object>.json` each |
+| `pagegen.py` | The 17 LSBC record pages (`flexipages/*RecordPage`), all in the Account Record Page format. The `PAGES` table lists each page's actions and tabs | `python3 -I scripts/generators/pagegen.py force-app/main/default/flexipages <describe dir>`; the describe dir holds `sf sobject describe -s <Object> --json` output per object, one `<Object>.json` each. An optional third argument limits it to some objects (`Account` or `Account,Case`) |
 | `flowlib.py` | Shared helpers for the flow generators below | (imported) |
 | `recordpayment.py` | `ScreenFlowAccountRecordPayment` | `python3 -I scripts/generators/recordpayment.py force-app/main/default/flows` |
 | `refund.py` | `ScreenFlowPaymentRefund` | as above |

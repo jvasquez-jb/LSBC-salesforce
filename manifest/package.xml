@@ -35,6 +35,18 @@
         <name>AutoResponseRules</name>
     </types>
     <types>
+        <members>Account.AccountCompactLayout</members>
+        <members>BusinessLicense.BusinessLicenseCompactLayout</members>
+        <members>BusinessLicenseApplication.BusinessLicenseApplicationCompactLayout</members>
+        <members>DocumentChecklistItem.DocumentChecklistItemCompactLayout</members>
+        <members>IndividualApplication.IndividualApplicationCompactLayout</members>
+        <members>Payment__c.PaymentCompactLayout</members>
+        <members>PersonAccount.PersonAccountCompactLayout</members>
+        <members>RecordAlert.RecordAlertCompactLayout</members>
+        <members>RegulatoryTrxnFee.RegulatoryTrxnFeeCompactLayout</members>
+        <name>CompactLayout</name>
+    </types>
+    <types>
         <members>LSBCSeal</members>
         <name>ContentAsset</name>
     </types>
@@ -248,9 +260,14 @@
     <types>
         <members>ApplicationDocumentRequirement__mdt</members>
         <members>BusinessLicense</members>
+        <members>BusinessLicenseApplication</members>
+        <members>DocumentChecklistItem</members>
+        <members>IndividualApplication</members>
         <members>LetterTemplate__mdt</members>
         <members>PaymentAllocation__c</members>
         <members>Payment__c</members>
+        <members>RecordAlert</members>
+        <members>RegulatoryTrxnFee</members>
         <name>CustomObject</name>
     </types>
     <types>
@@ -454,12 +471,14 @@
         <members>BusinessLicenseApplication-Business License Application Layout</members>
         <members>Case-Custom Case Layout</members>
         <members>CourseOffering-Course Offering Layout</members>
+        <members>DocumentChecklistItem-Document Checklist Item Layout</members>
         <members>IndividualApplication-Individual Application Layout</members>
         <members>LetterTemplate__mdt-Letter Template Layout</members>
         <members>PaymentAllocation__c-Payment Allocation Layout</members>
         <members>Payment__c-Payment Layout</members>
         <members>PersonAccount-Person Account Layout</members>
         <members>PersonExamination-Person Examination Layout</members>
+        <members>Product2-Product Layout</members>
         <members>PublicComplaint-Public Complaint Layout</members>
         <members>RecordAlert-Record Alert Layout</members>
         <members>RegulatoryCodeViolation-Regulatory Code Violation Layout</members>

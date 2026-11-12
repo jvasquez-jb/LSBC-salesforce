@@ -30,6 +30,14 @@
                 <field>RegulatoryTrxnFeeId</field>
             </layoutItems>
             <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>ForYear__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>FeeProduct__c</field>
+            </layoutItems>
+            <layoutItems>
                 <behavior>Edit</behavior>
                 <field>CalculationInfo</field>
             </layoutItems>

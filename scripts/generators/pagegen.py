@@ -13,6 +13,7 @@ def caps(obj):
             'feed': d.get('feedEnabled', False), 'rels': rels}
 
 NO_NOTES = {'DocumentChecklistItem', 'RecordAlert'}
+FRONT_TABS = {'Relationships', 'Exams and Accommodations'}
 PERSON = ('{!Record.IsPersonAccount}', 'true')
 BUSINESS = ('{!Record.IsPersonAccount}', 'false')
 
@@ -89,7 +90,10 @@ PAGES = {
  'Account': ('Account Record Page',
    'Staff view of a person or business: licenses, applications, fees and payments, stop codes, violations and Cases. Person and business accounts see the related lists that apply to them.',
    ['Edit', ('Account.NewApplication', PERSON), 'Account.RecordPayment', 'Account.GenerateLetter', 'Account.AddStopCode', ('Account.NewViolationPractitioner', PERSON), ('Account.NewViolationEstablishment', BUSINESS)],
-   [('Licenses', [('BusinessLicenses', BUSINESS), (('DYN', 'BusinessLicenses', 'Licenses', ['Name', 'Identifier', 'RegulatoryAuthorizationType', 'Status', 'PeriodEnd']), PERSON)]),
+   [('Relationships', [('PersonAccountContactRelations', PERSON), ('AccountContactRelations', BUSINESS)]),
+    ('Exams and Accommodations', [(('DYN', 'PersonPersonExamContact', 'Person Examinations', ['Name', 'Examination', 'ExaminationDate', 'AttemptNumber__c', 'Result']), PERSON),
+                                  (('DYN', 'PersonDisabilities', 'Accommodation Requests', ['Name', 'Status', 'Accommodations__c', 'IsAccommodationRequired']), PERSON)]),
+    ('Licenses', [('BusinessLicenses', BUSINESS), (('DYN', 'BusinessLicenses', 'Licenses', ['Name', 'Identifier', 'RegulatoryAuthorizationType', 'Status', 'PeriodEnd']), PERSON)]),
     ('Applications', [(('DYN', 'IndividualApplicationAccount', 'Individual Applications', ['Name', 'LicenseType', 'Status', 'AppliedDate']), PERSON),
                       (('DYN', 'BusinessLicenseApplicationAccount', 'Business License Applications', ['Name', 'LicenseType', 'Status', 'AppliedDate']), BUSINESS)]),
     ('Fees and Payments', [('RegulatoryTrxnFees', None), ('PaymentsReceived__r', None)]),
@@ -178,6 +182,8 @@ def build(obj):
     right = []
     if tabs:
         ts = []
+        # Relationships and Exams and Accommodations sit first but don't open by default.
+        first = next((i for i, (t, _) in enumerate(tabs) if t not in FRONT_TABS), 0)
         for i, (title, lists) in enumerate(tabs):
             body = ''.join(w for w in title.title() if w.isalnum()) + 'TabContent'
             body = body[0].lower() + body[1:]
@@ -185,7 +191,7 @@ def build(obj):
                 ('exposedAttributes', '{"Limit":"25","ChildLimit":"5","AggregateAlerts":false}'),
                 ('flexcardName', 'ServiceExcellenceAlertCard')]) if rl == 'ALERTCARD'
                 else p.dynamic(rl, vis) if isinstance(rl, tuple) else p.related(rl, vis) for rl, vis in lists])
-            ts.append(p.tab(title, body, 'true' if i == 0 else None))
+            ts.append(p.tab(title, body, 'true' if i == first else None))
         p.region('objectTabs', ts)
         right.append(p.tabset('objectTabs'))
     if obj == 'RecordAlert':
@@ -219,5 +225,8 @@ def finish(p, obj, label, desc):
     open(os.path.join(OUT, name + '.flexipage-meta.xml'), 'w').write(xml)
     return name
 
+# Optional third argument: comma-separated objects to build (default: all).
+ONLY = set(sys.argv[3].split(',')) if len(sys.argv) > 3 else set(PAGES)
 for o in PAGES:
-    print(o, build(o))
+    if o in ONLY:
+        print(o, build(o))

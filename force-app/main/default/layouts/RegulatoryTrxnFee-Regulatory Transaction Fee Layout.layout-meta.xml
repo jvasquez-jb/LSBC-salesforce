@@ -38,6 +38,10 @@
                 <field>TotalFeeAmount</field>
             </layoutItems>
             <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>AmountPaid__c</field>
+            </layoutItems>
+            <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Comments</field>
             </layoutItems>

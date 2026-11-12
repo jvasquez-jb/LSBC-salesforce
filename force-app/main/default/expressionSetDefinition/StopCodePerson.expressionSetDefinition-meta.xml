@@ -163,7 +163,7 @@
             <actionType>AssignParameterValues</actionType>
             <assignment>
                 <assignedParameter>StopCode20</assignedParameter>
-                <expression>NOT(ISBLANK(LatestHoursEndDate)) &amp;&amp; NOT(ISBLANK(CompletionThresholdHours)) &amp;&amp; ApprovedHours &lt; CompletionThresholdHours &amp;&amp; LatestHoursEndDate &lt; ADDMONTHS(AsOfDate, 0 - ReRegistrationMonths)</expression>
+                <expression>NOT(ISBLANK(LatestHoursEndDate)) &amp;&amp; NOT(ISBLANK(CompletionThresholdHours)) &amp;&amp; ApprovedHours &lt; CompletionThresholdHours &amp;&amp; LatestHoursEndDate &lt; AsOfDate + (0 - ReRegistrationDays)</expression>
             </assignment>
             <description>A student with no hours submitted for the re-registration period.</description>
             <label>Set Stop Code 20</label>
@@ -431,12 +431,12 @@
             <collection>false</collection>
             <dataType>Numeric</dataType>
             <decimalPlaces>2</decimalPlaces>
-            <description>Months without submitted hours before a student must re-register.</description>
+            <description>Days without submitted hours before a student must re-enroll: 180.</description>
             <input>false</input>
-            <name>ReRegistrationMonths</name>
+            <name>ReRegistrationDays</name>
             <output>false</output>
             <type>Constant</type>
-            <value>6</value>
+            <value>180</value>
         </variables>
         <variables>
             <collection>false</collection>

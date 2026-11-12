@@ -45,13 +45,13 @@
             <label>Yes</label>
         </rules>
     </decisions>
-    <description>Nightly. Re-checks stop codes for students whose hours entry ended six months ago in the last week. The sync uses the latest entry, so students with newer hours are unaffected. One sync per student. Continuing education attendance is not student hours and is skipped.</description>
+    <description>Nightly. Re-checks stop codes for students whose hours entry ended 180 days ago in the last week. The sync uses the latest entry, so students with newer hours are unaffected. One sync per student. Continuing education attendance is not student hours and is skipped.</description>
     <environments>Default</environments>
     <formulas>
         <name>forB_IsInWindow</name>
         <description>True when the date this schedule watches fell in the last seven days.</description>
         <dataType>Boolean</dataType>
-        <expression>DATEVALUE({!$Record.EndDate}) &gt;= ADDMONTHS(TODAY(), -6) - 7 &amp;&amp; DATEVALUE({!$Record.EndDate}) &lt; ADDMONTHS(TODAY(), -6)</expression>
+        <expression>DATEVALUE({!$Record.EndDate}) &gt;= (TODAY() - 180) - 7 &amp;&amp; DATEVALUE({!$Record.EndDate}) &lt; (TODAY() - 180)</expression>
     </formulas>
     <formulas>
         <name>forD_WindowStart</name>
@@ -96,12 +96,12 @@
     <formulas>
         <name>forDT_StaleWindowStart</name>
         <dataType>DateTime</dataType>
-        <expression>DATETIMEVALUE(ADDMONTHS(TODAY(), -6) - 7)</expression>
+        <expression>DATETIMEVALUE((TODAY() - 180) - 7)</expression>
     </formulas>
     <formulas>
         <name>forDT_StaleWindowEnd</name>
         <dataType>DateTime</dataType>
-        <expression>DATETIMEVALUE(ADDMONTHS(TODAY(), -6))</expression>
+        <expression>DATETIMEVALUE((TODAY() - 180))</expression>
     </formulas>
     <interviewLabel>Training Course Participant Schedule: Six Months Without Hours {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Training Course Participant Schedule: Six Months Without Hours</label>

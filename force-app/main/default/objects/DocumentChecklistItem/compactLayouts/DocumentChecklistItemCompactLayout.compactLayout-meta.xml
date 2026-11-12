@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DocumentChecklistItemCompactLayout</fullName>
+    <fields>Name</fields>
+    <fields>Status</fields>
+    <fields>IsSentToBoard__c</fields>
+    <fields>ParentRecordId</fields>
+    <label>Document Checklist Item Compact Layout</label>
+</CompactLayout>

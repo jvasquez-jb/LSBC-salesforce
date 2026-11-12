@@ -2,6 +2,7 @@
 <RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>PersonAccount</fullName>
     <active>true</active>
+    <compactLayoutAssignment>PersonAccountCompactLayout</compactLayoutAssignment>
     <description>Individuals: licensees, students, instructors, booth renters and applicants.</description>
     <label>Person</label>
     <picklistValues>

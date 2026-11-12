@@ -47,6 +47,10 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
+                <field>EntryType__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
                 <field>EndDate</field>
             </layoutItems>
             <layoutItems>

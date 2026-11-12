@@ -215,15 +215,15 @@
     <picklistValues>
         <picklist>Type</picklist>
         <values>
-            <fullName>Parent Company</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>CE Provider</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>Credential Evaluation Agency</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Parent Company</fullName>
             <default>false</default>
         </values>
         <values>
