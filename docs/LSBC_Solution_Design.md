@@ -1444,7 +1444,8 @@ Loading licences opened 6,889 stop codes, mostly code 16 (no licensed manager), 
 manager relationships load next.
 
 **Second round (11 Nov 2026).** Owner, manager and booth renter relationships (11,347), 477 school
-bonds and 1,555 staff-set stop codes followed, cutting code 16 to 767. The build then took over the
+bonds and 1,555 staff-set stop codes followed, cutting code 16 to 767. Later on 11 Nov a shop's own
+current Manager licence began to clear code 16 too (`BR-22a`), which brought it to about 530. The build then took over the
 load. A de-identified copy of the CLOSE extract replaces every SSN-shaped applicant ID and
 certificate number with a made-up number starting 000, so nothing after that reads a real SSN before
 Shield. The 10 Nov load was made before that copy existed. The sandbox carries those numbers in a sandbox-only Mock Social Security Number field that is
@@ -1471,8 +1472,9 @@ Two remain open: licence numbers (`OPEN-40`) and the booth renter base licence (
 | Fee codes | 621 |
 | Open stop codes after the automatic rules ran | 2,602 |
 
-Some loaded data raises holds CLOSE does not have: code 16 (no manager), code 20 (no hours for six
-months) and code 21 if the old balances are given due dates (`OPEN-55`).
+Some loaded data raises holds CLOSE does not have: code 16 (no manager) and code 20 (no hours for six
+months) (`OPEN-55`). The reverse also happens: the old unpaid balances have no due date, so they raise
+no Non Payment hold where CLOSE has one (`OPEN-56`).
 
 **Real data in a sandbox without security.** Real names, addresses, dates of birth, licences, exams,
 fees and payments have been in LSBC-Partial since 10 Nov 2026. Social security numbers were never
@@ -1604,9 +1606,10 @@ more than leaving a door open.
 | `OPEN-50` | Booth renter base licence | Code 6 needs a cosmetologist licence, as in CLOSE; `DM-03` allows any operator licence. 156 migrated booth renters are held, 70 of them estheticians or manicurists | Staff go-live |
 | `OPEN-51` | Encrypting the date of birth | Confirm Shield can encrypt `Contact.Birthdate` before the field list is applied in January. Nothing filters on it (`SEC-04`, `PT-09`) | Before Shield, January |
 | `OPEN-52` | History of rule changes | Expression set versions cannot be deployed in this org, so rule changes overwrite the active version and LSBC's administrator gets no history. Test creating versions in Expression Set Builder, or raise it with Salesforce; otherwise accept and tell LSBC (section 2) | Build team, before handover |
-| `OPEN-53` | Scope: migration and the payment ledger | Migration is listed out of scope, but the build team has loaded CLOSE data (section 7). The payment ledger grew from violations to every fee (`DM-18a`). Both need a change order or an agreed reading of the SOW | Project manager, before this document goes to LSBC |
+| `OPEN-53` | Scope: migration and the payment ledger | Migration is listed out of scope, but the build team has loaded CLOSE data (section 7). That load is more than licence records: it includes three years of finance history, 120,554 payments with 173,806 allocations, in the custom ledger. The ledger itself grew from violations to every fee (`DM-18a`). Both need a change order or an agreed reading of the SOW | Project manager, before this document goes to LSBC |
 | `OPEN-54` | Real data in the sandbox | Real CLOSE data has been in LSBC-Partial since 10 Nov with security unbuilt and Shield in January. Confirm who may log in, and that offshore resources have no access to agency data | Project manager, immediate |
-| `OPEN-55` | Holds raised by migrated data | Code 16 (530 open against CLOSE's 50; did staff set it by hand?), code 20 on 195 students, and Non Payment if the 13,212 old balances get due dates (`BR-11`, `BR-22a`, `DM-18`) | Before the production load |
+| `OPEN-55` | Holds raised by migrated data | Code 16: 535 open on 12 Nov, after a shop's own Manager licence began clearing it, against CLOSE's 50. Did staff set it by hand? Code 20 on 195 students (`BR-11`, `BR-22a`) | Before the production load |
+| `OPEN-56` | Unpaid CLOSE balances and printing | Non Payment needs a due date, and the 13,212 migrated balances ($487,682) have none, so they hold nothing at go-live. CLOSE has 63 Non Payment holds open; Salesforce has 2, so licences CLOSE holds for non-payment will print. A policy choice for LSBC and finance, not a data fix: which balances, if any, should hold printing, and from what due date (`DM-18`, `BR-02`) | Staff go-live |
 
 ### Settled
 
@@ -1633,7 +1636,7 @@ more than leaving a door open.
 | `OPEN-14` | The Seminar module | It holds seminar names, dates and attendance, not providers. The 58 seminars and 3,899 attendances are loaded as continuing education (`DM-16`). Providers are `OPEN-49` |
 | `OPEN-39` | Complaint intake | `PublicComplaint` carries the complaint, `Case` carries the work, `ComplaintCase` joins them. It beats `Case` with record types on anonymity, categorisation, intake channel and board reporting |
 
-**The shape of what remains.** Thirty-five open. The LSBC Client Questions document tracks over a
+**The shape of what remains.** Thirty-six open. The LSBC Client Questions document tracks over a
 hundred smaller configuration questions; those that change scope, go-live or the data are listed here.
 
 **Two are for the project manager before this document goes to LSBC:** `OPEN-53`, migration and the
@@ -1649,8 +1652,8 @@ board meeting; and `OPEN-38`, freelance operators without a fixed salon, which n
 legislation.
 
 **Several decide the production load and what the public sees:** `OPEN-40` licence numbers (the
-largest: without them no migrated licensee can sign up), `OPEN-55` holds raised by migrated data, and
-`OPEN-06` website scope.
+largest: without them no migrated licensee can sign up), `OPEN-55` holds raised by migrated data,
+`OPEN-56` unpaid CLOSE balances that hold nothing, and `OPEN-06` website scope.
 
 **Several are needed for staff go-live on January 27:** `OPEN-41`, `OPEN-43`, `OPEN-45` to `OPEN-48`
 and `OPEN-50`.
@@ -1810,3 +1813,4 @@ the source.
 | 11 Nov 2026 | Code 16 also clears when the shop holds a current Manager licence: CLOSE keeps the Manager licence on the shop (`BR-22a`). New `BusinessLicense.InstructorStatus__c` (Active, Inactive) from CLOSE's instructor status; N and X are a client question. |
 | 12 Nov 2026 | UAT on migrated data, fixes (`BR-01`, `BR-11`, `BR-07`, `PT-10`, `PT-15`): the stop code re-check runs in the background, once per holder per save (new Account field Stop Code Sync Pending; Record-Trigger: Account After Save), and deleting a licence re-checks too. Non Payment ignores fees with no due date. A payment applied to fees can't be deleted. Staff paper intake asks no email and leaves no receipt item. The Standard Account Duplicate Rule reports only, so establishment forms always save. A returned checklist item's file moves to the application (one file per item is a platform rule); accommodation documents reach the Person Disability through the person account. Person Account layout rebuilt; the Home dashboard stays a link until Phase 2 sharing decides how it runs. |
 | 12 Nov 2026 | Brought in line with the build after review. Section 7 records that the build team loaded CLOSE data, with what is loaded and the real-data exposure; `PT-13` and `CM-07` no longer assume no migration. `DM-18` says the ledger now covers every fee. Fee table: late fees are per licence type, school late renewal is `FD` + `FH`, every code is loaded. `ReciprocityStateExams` replaces `ReciprocityStateRule` in sections 1 and 2. Code 6 notes its conflict with `DM-03`; stop codes are 32 in CLOSE, 29 built. `PT-07` and `PT-09` updated; section 2 states that expression set rule changes keep no history; 0.2 lists the code in the build. Section 8: `OPEN-03` and `OPEN-14` settled with notes; `OPEN-40` to `OPEN-55` added from the client questions and this review; thirty-five open. |
+| 12 Nov 2026 | Section 7 explains why code 16 fell from 767 to about 530. `OPEN-53` names the three years of payments and allocations in the load. Unpaid CLOSE balances split from `OPEN-55` into `OPEN-56`, a policy choice: they raise no Non Payment hold, so licences CLOSE holds will print. Thirty-six open. |
