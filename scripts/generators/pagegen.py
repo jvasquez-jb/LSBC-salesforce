@@ -92,7 +92,8 @@ PAGES = {
    ['Edit', ('Account.NewApplication', PERSON), 'Account.RecordPayment', 'Account.GenerateLetter', 'Account.AddStopCode', ('Account.NewViolationPractitioner', PERSON), ('Account.NewViolationEstablishment', BUSINESS)],
    [('Relationships', [('PersonAccountContactRelations', PERSON), ('AccountContactRelations', BUSINESS)]),
     ('Exams and Accommodations', [(('DYN', 'PersonPersonExamContact', 'Person Examinations', ['Name', 'Examination', 'ExaminationDate', 'AttemptNumber__c', 'Result']), PERSON),
-                                  (('DYN', 'PersonDisabilities', 'Accommodation Requests', ['Name', 'Status', 'Accommodations__c', 'IsAccommodationRequired']), PERSON)]),
+                                  (('DYN', 'PersonDisabilities', 'Accommodation Requests', ['Name', 'Status', 'Accommodations__c', 'IsAccommodationRequired']), PERSON),
+                                  (('FLOW', 'ScreenFlowAccountPersonLanguages'), PERSON)]),
     ('Licenses', [('BusinessLicenses', BUSINESS), (('DYN', 'BusinessLicenses', 'Licenses', ['Name', 'Identifier', 'RegulatoryAuthorizationType', 'Status', 'PeriodEnd']), PERSON)]),
     ('Applications', [(('DYN', 'IndividualApplicationAccount', 'Individual Applications', ['Name', 'LicenseType', 'Status', 'AppliedDate']), PERSON),
                       (('DYN', 'BusinessLicenseApplicationAccount', 'Business License Applications', ['Name', 'LicenseType', 'Status', 'AppliedDate']), BUSINESS)]),
@@ -137,6 +138,10 @@ class Page:
         return self.comp('force:relatedListSingleContainer', [
             ('parentFieldApiName', f'{self.obj}.Id'), ('relatedListApiName', rl),
             ('relatedListComponentOverride', 'NONE'), ('rowsToDisplay', '10'), ('showActionBar', 'true')], vis)
+    def flow(self, name, vis=None):
+        # A screen flow on the page, given the record's Id as recordId.
+        args = '[{"label":"recordId","dataType":"String","supportsRecordId":true,"value":"{!Record.Id}"}]'
+        return self.comp('flowruntime:interview', [('flowArguments', args), ('flowLayout', 'oneColumn'), ('flowName', name)], vis)
     def dynamic(self, spec, vis=None):
         _, rl, label, fields = spec
         return self.comp('lst:dynamicRelatedList', [
@@ -156,7 +161,7 @@ def build(obj):
     for t, lists in tabs:
         for rl, _ in lists:
             name_ = rl[1] if isinstance(rl, tuple) else rl
-            assert name_ == 'ALERTCARD' or name_ in c['rels'], f'{obj}: no related list {name_}'
+            assert name_ == 'ALERTCARD' or (isinstance(rl, tuple) and rl[0] == 'FLOW') or name_ in c['rels'], f'{obj}: no related list {name_}'
     header = [p.comp('force:highlightsPanel', [('collapsed', 'false'), ('enableActionsConfiguration', 'true'),
         ('enableActionsInNative', 'true'), ('hideChatterActions', 'true'), ('hideSlackAction', 'false'),
         ('numVisibleActions', '3')], value_lists={'actionNames': actions})]
@@ -190,6 +195,7 @@ def build(obj):
             p.region(body, [p.comp('runtime_omnistudio:flexcard', [
                 ('exposedAttributes', '{"Limit":"25","ChildLimit":"5","AggregateAlerts":false}'),
                 ('flexcardName', 'ServiceExcellenceAlertCard')]) if rl == 'ALERTCARD'
+                else p.flow(rl[1], vis) if isinstance(rl, tuple) and rl[0] == 'FLOW'
                 else p.dynamic(rl, vis) if isinstance(rl, tuple) else p.related(rl, vis) for rl, vis in lists])
             ts.append(p.tab(title, body, 'true' if i == first else None))
         p.region('objectTabs', ts)

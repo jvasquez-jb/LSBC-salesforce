@@ -13,6 +13,7 @@ generated files stay consistent. Run with `python3 -I` from the repo root.
 | `decide.py` | `ScreenFlowIndividualApplicationDecide` and `ScreenFlowBusinessLicenseApplicationDecide` | as above |
 | `endstop.py` | `ScreenFlowRecordAlertEndStopCode` | as above |
 | `markprinted.py` | `ScreenFlowBusinessLicenseMarkPrinted` | as above |
+| `languages.py` | `ScreenFlowAccountPersonLanguages` (read-only list of a person's languages, on the Account page) | as above |
 | `newapp.py` | `ScreenFlowAccountNewApplication` | as above |
 | `staffintake.py` | One-off patch that added staff intake (`recordId`, staff flags) to the nine portal forms and three upload and payment flows. Already applied; it skips files it has patched | not needed again |
 
