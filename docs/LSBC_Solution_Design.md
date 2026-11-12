@@ -444,6 +444,12 @@ checks that every stop code on a record carries an end date before producing a l
 > three credentials gets one alert rather than one per licence, so the print routine checks alerts
 > on the holder rather than on the thing being printed. Accepted; see `OPEN-37`.
 
+> **When holds are re-checked.** Saving a licence, relationship, bond, exam attempt, application,
+> fee, payment or hours entry, or deleting a licence, queues a re-check of the holder's automatic
+> stop codes. It runs in the background a few seconds after the save, once per holder however many
+> records the save touched, so a portal form that saves several records stays within platform
+> limits. Nightly schedules re-check holders whose dates passed.
+
 `BR-02` `[SETTLED]` **Fourteen codes are derivable by the rules engine.** Each is checked by eye
 today.
 
@@ -1713,3 +1719,4 @@ the source.
 | 11 Nov 2026 | CLOSE migration build: Instructor split into Cosmetology, Esthetician and Manicurist Instructor, each needing its own discipline's licence for codes 7 and 9 (`BR-02`); the reciprocity, retake and temporary permit forms ask which instructor licence. Manager, Microdermabrasion and Make-up Application licence types (`BR-22a`, `DM-12`). Code 32 NSF Late Fees is manual (`BR-03`). All CLOSE fee codes on Product; renewal and late fees per licence type, `FH` failure to renew, `PO` is a school fine (`BR-07`). CLOSE's violations and citations replace the placeholders (`CM-02`). A rule change now edits the existing expression set version: new versions can't be deployed in this org. |
 | 11 Nov 2026 | `FeeSchedule` version 4: initial, duplicate, affidavit and violation fees per licence type or cited party, with CLOSE codes and amounts and the generic row as fallback; fee items link to their fee code Product (`BR-07`). Continuing Education entry type on hours entries, ignored by stop codes; CLOSE seminars and attendances loaded (`DM-16`, `OPEN-14`). |
 | 11 Nov 2026 | Code 16 also clears when the shop holds a current Manager licence: CLOSE keeps the Manager licence on the shop (`BR-22a`). New `BusinessLicense.InstructorStatus__c` (Active, Inactive) from CLOSE's instructor status; N and X are a client question. |
+| 12 Nov 2026 | UAT on migrated data, fixes (`BR-01`, `BR-11`, `BR-07`, `PT-10`, `PT-15`): the stop code re-check runs in the background, once per holder per save (new Account field Stop Code Sync Pending; Record-Trigger: Account After Save), and deleting a licence re-checks too. Non Payment ignores fees with no due date. A payment applied to fees can't be deleted. Staff paper intake asks no email and leaves no receipt item. The Standard Account Duplicate Rule reports only, so establishment forms always save. A returned checklist item's file moves to the application (one file per item is a platform rule); accommodation documents reach the Person Disability through the person account. Person Account layout rebuilt; the Home dashboard stays a link until Phase 2 sharing decides how it runs. |

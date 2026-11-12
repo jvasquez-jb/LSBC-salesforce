@@ -46,6 +46,7 @@
         <members>Account.LegacyKey__c</members>
         <members>Account.MaximumStudentCapacity__c</members>
         <members>Account.Parish__c</members>
+        <members>Account.StopCodeSyncPending__c</members>
         <members>Account.TaxIdentificationNumber__c</members>
         <members>Accreditation.BondAmount__c</members>
         <members>Accreditation.LegacyKey__c</members>
@@ -323,6 +324,10 @@
         <name>DocumentCategoryDocumentType</name>
     </types>
     <types>
+        <members>Account.Standard_Account_Duplicate_Rule</members>
+        <name>DuplicateRule</name>
+    </types>
+    <types>
         <members>unfiled$public/CaseComplaintAcknowledgement</members>
         <members>unfiled$public/CaseInquiryAcknowledgement</members>
         <name>EmailTemplate</name>
@@ -372,14 +377,17 @@
         <members>AccreditationScheduleExpiredBonds</members>
         <members>BusinessLicenseScheduleExpiredAndLapsedLicenses</members>
         <members>PreliminaryApplicationReferenceScheduleExpiredDrafts</members>
+        <members>RecordTriggerAccountAfterSave</members>
         <members>RecordTriggerAccountContactRelationAfterSave</members>
         <members>RecordTriggerAccreditationAfterSave</members>
         <members>RecordTriggerBusinessLicenseAfterSave</members>
+        <members>RecordTriggerBusinessLicenseBeforeDelete</members>
         <members>RecordTriggerDocumentChecklistItemAfterSave</members>
         <members>RecordTriggerIndividualApplicationAfterSave</members>
         <members>RecordTriggerPaymentAfterSave</members>
         <members>RecordTriggerPaymentAllocationAfterSave</members>
         <members>RecordTriggerPaymentAllocationBeforeDelete</members>
+        <members>RecordTriggerPaymentBeforeDelete</members>
         <members>RecordTriggerPersonExaminationAfterSave</members>
         <members>RecordTriggerRegulatoryCodeViolationAfterSave</members>
         <members>RecordTriggerRegulatoryTransactionFeeAfterSave</members>
@@ -447,6 +455,7 @@
         <members>Case-Custom Case Layout</members>
         <members>CourseOffering-Course Offering Layout</members>
         <members>IndividualApplication-Individual Application Layout</members>
+        <members>LetterTemplate__mdt-Letter Template Layout</members>
         <members>PaymentAllocation__c-Payment Allocation Layout</members>
         <members>Payment__c-Payment Layout</members>
         <members>PersonAccount-Person Account Layout</members>

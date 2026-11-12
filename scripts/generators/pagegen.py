@@ -46,8 +46,8 @@ PAGES = {
    ['Payment__c.Refund', 'Edit'],
    [('Allocations', [('Allocations__r', None)])]),
  'PaymentAllocation__c': ('Payment Allocation Record Page',
-   'Staff view of one share of a payment applied to a fee line.',
-   ['Edit'], []),
+   'Staff view of one share of a payment applied to a fee line. Deleting it re-totals the fee it paid.',
+   ['Edit', 'Delete'], []),
  'RegulatoryCodeViolation': ('Regulatory Code Violation Record Page',
    'Staff view of a violation: who is cited, its fee and its documents.',
    ['Edit'],
@@ -94,6 +94,7 @@ PAGES = {
                       (('DYN', 'BusinessLicenseApplicationAccount', 'Business License Applications', ['Name', 'LicenseType', 'Status', 'AppliedDate']), BUSINESS)]),
     ('Fees and Payments', [('RegulatoryTrxnFees', None), ('PaymentsReceived__r', None)]),
     ('Stop Codes', [('ALERTCARD', None)]),
+    ('Training', [(('DYN', 'PersonTCPContact', 'Training Course Participants', ['Name', 'CourseOffering', 'EntryType__c', 'TotalHours', 'StartDate', 'EndDate']), PERSON)]),
     ('Violations', [('PractitionerViolations__r', PERSON), ('EstablishmentViolations__r', BUSINESS)]),
     ('Cases', [('Cases', None)])]),
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <FlexiPage xmlns="http://soap.sforce.com/2006/04/metadata">
-    <description>Staff view of one share of a payment applied to a fee line.</description>
+    <description>Staff view of one share of a payment applied to a fee line. Deleting it re-totals the fee it paid.</description>
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
@@ -9,6 +9,9 @@
                     <valueList>
                         <valueListItems>
                             <value>Edit</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>Delete</value>
                         </valueListItems>
                     </valueList>
                 </componentInstanceProperties>

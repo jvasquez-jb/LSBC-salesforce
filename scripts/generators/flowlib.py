@@ -111,5 +111,5 @@ def screen(name, label, fields, nxt, finish=False, next_label=None):
     x += ''.join(fields)
     if next_label:
         x += f'<nextOrFinishButtonLabel>{e(next_label)}</nextOrFinishButtonLabel>'
-    els['screens'].append(x + '<showFooter>true</showFooter><showHeader>true</showHeader></screens>')
+    els['screens'].append(x + '<showFooter>true</showFooter><showHeader>false</showHeader></screens>')
 

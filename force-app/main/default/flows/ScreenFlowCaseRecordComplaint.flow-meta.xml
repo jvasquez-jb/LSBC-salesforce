@@ -273,6 +273,12 @@
     </dynamicChoiceSets>
     <environments>Default</environments>
     <formulas>
+        <name>forB_AskedToStayConfidential</name>
+        <description>True when the complaint came from the portal&apos;s File a Complaint form and the complainant asked to stay confidential: that form records the answer in the Case description. Pre-ticks Keep the complainant&apos;s identity confidential; staff can change it.</description>
+        <dataType>Boolean</dataType>
+        <expression>CONTAINS({!GetCase.Description}, &quot;Complainant asked to stay confidential: Yes&quot;)</expression>
+    </formulas>
+    <formulas>
         <name>forT_SenderName</name>
         <description>The sender's name from the Case, trimmed; blank when there is none.</description>
         <dataType>String</dataType>
@@ -813,7 +819,10 @@
         <fields>
             <name>RC_KeepConfidential</name>
             <dataType>Boolean</dataType>
-            <fieldText>Keep the complainant&apos;s identity confidential</fieldText>
+            <defaultValue>
+                <elementReference>forB_AskedToStayConfidential</elementReference>
+            </defaultValue>
+            <fieldText>Keep the complainant’s identity confidential</fieldText>
             <fieldType>InputField</fieldType>
             <isRequired>true</isRequired>
         </fields>

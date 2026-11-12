@@ -59,7 +59,9 @@ export default class DocumentChecklistUpload extends LightningElement {
                     statusText: sentToBoard ? SENT_TO_BOARD_TEXT : STATUS_TEXT[shownStatus] || shownStatus,
                     statusClass: 'lsbc-status lsbc-status_' + (shownStatus || 'New').toLowerCase(),
                     isReturned: shownStatus === 'Rejected' && !!item.comments,
-                    canUpload: item.status !== 'Accepted' && (!item.isSentToBoard || this.allowSentToBoard),
+                    // Salesforce allows one file per checklist item: no upload box once an item holds a file.
+                    // A returned item's file is moved to the application by the checklist trigger, which frees it.
+                    canUpload: item.status !== 'Accepted' && !(item.fileNames && item.fileNames.length) && (!item.isSentToBoard || this.allowSentToBoard),
                     hasFiles: item.fileNames && item.fileNames.length > 0,
                     filesText: (item.fileNames || []).join(', ')
                 });

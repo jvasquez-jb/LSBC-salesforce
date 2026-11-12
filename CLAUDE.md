@@ -124,6 +124,10 @@ Raised by later phases while Phase 2 is paused. Pick these up when it resumes.
     page `LetterPdf`. Who may edit Letter Template custom metadata.
 18. Sharing for report folders LSBC Finance and LSBC Operations and dashboard folder LSBC
     Operations. The dashboard runs as the viewer, so it follows record access.
+19. The Home page shows only a View Dashboard link: Lightning pages can't embed a dashboard that runs as
+    the viewer. Decide: run it as a fixed user, or put report charts on Home.
+20. Portal users have no access to `PreliminaryApplicationRef` (drafts). Files can't be attached to a draft
+    from the portal; documents go on checklist items, accommodation documents via the person account.
 
 ## Org notes
 
@@ -164,6 +168,16 @@ Raised by later phases while Phase 2 is paused. Pick these up when it resumes.
   `POST /services/data/v66.0/actions/custom/runDecisionMatrix/<Name>`. An unmatched input returns blank outputs.
 - Flow: an empty Text variable is null, and `CONTAINS(null, …)` is null, not false, so it fails an
   "equals false" check. Prefix the haystack: `CONTAINS(";" & {!varT_List}, …)`.
+- A screen text input or multi-select left empty after a visit is an empty string, not null: test it
+  with Is Blank (or a trimmed formula), never Is Null. Radio buttons reject Is Blank; Is Null works there.
+- A radio button with a fixed default resets when its screen is reached again through a connector,
+  even with "remember values". An error screen that sends the user back uses the real Back button
+  (`allowBack` true, `allowFinish` false, `backButtonLabel`).
+- Stop code syncs from record triggers run in the background: each trigger ticks
+  `Account.StopCodeSyncPending__c` on the holder and `Record-Trigger: Account After Save` (Run
+  Asynchronously) unticks it and runs `Subflow: Stop Code Sync`, once per holder per save. New triggers
+  that affect holds tick the flag; never call the sync subflow from a record trigger (three syncs in one
+  portal save hit the 100-query limit). Schedules still call it directly. Holds appear seconds after a save.
 - Flow runs interviews for a batch of records together, element by element, so several records for
   the same Account in one save or one scheduled run all read before any writes. Anything that
   creates records per holder needs a gate: the stop code triggers and schedules get the holder's
@@ -195,6 +209,9 @@ Raised by later phases while Phase 2 is paused. Pick these up when it resumes.
   in its flow access. Images in HTML blocks use `/sfsites/c/resource/<StaticResourceName>`, one
   static resource per image: the block prefixes the page path (`/LPI/s`), so `/LPI/...` doubles.
   Check the published site with headless Chrome (`--dump-dom`, `--screenshot`) after publishing.
+  To drive forms as a portal user, open the org's frontdoor URL, then
+  `/servlet/servlet.su?oid=<org>&sunetworkid=<network>&sunetworkuserid=<user>` (Log in as). Screen inputs carry
+  the flow field's API name in `name`. A local HTTP control server is blocked; use one-shot puppeteer scripts.
 - Sign up has two paths: a licensee (license number, last name, ZIP) or someone new to the Board
   (name, date of birth, contact details; a person account is created unless one with the same name and
   date of birth exists). Guest-created accounts belong to the site's guest record default owner, who must
@@ -211,6 +228,9 @@ Raised by later phases while Phase 2 is paused. Pick these up when it resumes.
   to the item): the portal shows them without an upload and doesn't wait for them; staff upload them on arrival. A file can't be deleted while
   it is linked to a checklist item, nor the item while it has a file: delete the
   `ContentDocumentLink` first (`scripts/apex/DeleteRegistrantThreeTestApplications.apex`).
+  A checklist item holds one file (platform rule, admin included): when staff return an item the checklist
+  trigger moves its file to the application, and the upload component hides the box once an item has a file.
+  Portal users can't attach files to `PersonDisability`, even as owner.
 - Portal forms write nothing to the application objects until the applicant certifies. Each form
   creates a draft (`PreliminaryApplicationRef`, Application Type = target object) at the start; its
   documents sit on checklist items under the draft, and `SavedApplicationUrl` holds

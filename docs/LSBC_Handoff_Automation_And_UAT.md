@@ -148,6 +148,13 @@ six months) on instructors. Before loading CE:
 
 ### A8. Fixes from the UAT run on migrated data (11 Nov 2026)
 
+**Done 12 Nov 2026**, each retested through the screen (portal as the StopCodeTest registrants, staff
+in LSBC Licensing) except D-005 and the staff name-change wording (checked in the flow). Defect log
+rows are Ready to retest with notes. D-024, not D-004, was a separate cause: SHOP-01's faults were
+the SOQL limit. Still open: D-015 (known limit), D-016 (dynamic dashboards can't be embedded; decide
+with Phase 2 sharing), the "Pause Reason" box in D-018 (standard Flow pause dialog), and the CLOSE
+placeholder school RECIPROCITY (client question). D-027 and D-023 were script updates.
+
 Defects D-002 to D-028 in the UAT doc's Defect log. These need a flow or rule change; propose names first.
 
 | Defect | Severity | Change |

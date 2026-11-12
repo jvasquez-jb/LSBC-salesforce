@@ -6,7 +6,7 @@
         <label>Is This The First Record For The Holder In This Save?</label>
         <locationX>0</locationX>
         <locationY>0</locationY>
-        <defaultConnectorLabel>No, an earlier record syncs</defaultConnectorLabel>
+        <defaultConnectorLabel>No, an earlier record queues the sync</defaultConnectorLabel>
         <rules>
             <name>First</name>
             <conditionLogic>and</conditionLogic>
@@ -18,12 +18,12 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>SyncStopCodes</targetReference>
+                <targetReference>SetHolderStopCodeSyncPendingToTrue</targetReference>
             </connector>
             <label>Yes</label>
         </rules>
     </decisions>
-    <description>After an application is created, or its status, record type, license type or applicant changes, re-checks automatic stop codes for the applicant. An open licensure application is what makes hours and examination codes apply. One sync per applicant per save.</description>
+    <description>After an application is created, or its status, record type, license type or applicant changes, queues a re-check of automatic stop codes for the applicant. An open licensure application is what makes hours and examination codes apply. One sync per applicant per save. The re-check runs in the background a few seconds after the save (Record-Trigger: Account After Save).</description>
     <environments>Default</environments>
     <interviewLabel>Record-Trigger: Individual Application After Save {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Record-Trigger: Individual Application After Save</label>
@@ -48,7 +48,7 @@
     <processType>AutoLaunchedFlow</processType>
     <recordLookups>
         <name>GetHolderFirstRecordInSameSave</name>
-        <description>The holder's first record of this object in the same save, by Id. Only that record's run syncs, so a bulk save gives one sync per holder and no duplicate holds.</description>
+        <description>The holder's first record of this object in the same save, by Id. Only that record's run ticks Stop Code Sync Pending on the holder, so a bulk save queues one background sync per holder.</description>
         <label>Get Holder First Record In Same Save</label>
         <locationX>0</locationX>
         <locationY>0</locationY>
@@ -77,6 +77,35 @@
         <sortOrder>Asc</sortOrder>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
+    <recordUpdates>
+        <name>SetHolderStopCodeSyncPendingToTrue</name>
+        <description>Queues the background stop code sync for the holder (Record-Trigger: Account After Save) instead of syncing during this save.</description>
+        <label>Set Holder Stop Code Sync Pending to True</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.AccountId</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>StopCodeSyncPending__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>StopCodeSyncPending__c</field>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputAssignments>
+        <object>Account</object>
+    </recordUpdates>
     <start>
         <locationX>0</locationX>
         <locationY>0</locationY>
@@ -89,17 +118,4 @@
         <triggerType>RecordAfterSave</triggerType>
     </start>
     <status>Active</status>
-    <subflows>
-        <name>SyncStopCodes</name>
-        <label>Sync Stop Codes</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <flowName>SubflowStopCodeSync</flowName>
-        <inputAssignments>
-            <name>varT_AccountId</name>
-            <value>
-                <elementReference>$Record.AccountId</elementReference>
-            </value>
-        </inputAssignments>
-    </subflows>
 </Flow>

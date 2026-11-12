@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>StopCodeSyncPending__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Ticked by automation when something that affects the holder&apos;s automatic stop codes changes (a license, relationship, bond, exam, application, fee, payment or hours). A background job then re-checks the stop codes and unticks it, once per holder per save. Not for manual edit. If it stays ticked, the background job failed: see the flow error email, then untick and tick it again to retry.</description>
+    <label>Stop Code Sync Pending</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Checkbox</type>
+</CustomField>
