@@ -4,7 +4,8 @@
 **Engagement:** Phase 1 Foundation, Carahsoft SOW 66003598, NASPO LA 4400010663
 **Status:** Built in the LSBC-Partial sandbox except security (section 5.1), which is paused for
 the Board's feedback on the access matrix. The portal is built and stays unpublished until March or April 2027.
-**Last updated:** 11 November 2026
+CLOSE data is loaded into the sandbox (section 7).
+**Last updated:** 12 November 2026
 
 ---
 
@@ -102,15 +103,28 @@ schools, shops, booths and instructors.
 - `PR-05` Business logic never moves into a component. Stop codes, fee allocation and
   eligibility stay in BRE.
 
+**Code in the build.** `PR-02` keeps code to what Flow cannot do. Everything below is code the
+administrator should know exists; each piece only moves data or lays out a screen, and none holds a
+business rule. Payments, refunds, the print queue, stop codes and every form are Flow.
+
+| Component | Kind | Why it is code |
+|---|---|---|
+| `PortalUserRegistration` | Apex, called from the sign-up flow | Creates the portal login. A flow run by a guest cannot create a user |
+| `LetterPdfController`, `LetterPdfSaveAction`, page `LetterPdf` | Apex and Visualforce, called from Generate Letter | Renders a letter as a PDF and saves it to the record. The org has no internal Document Generation runtime. Wording is in Letter Template custom metadata |
+| `DocumentChecklistUploadController` and the `documentChecklistUpload` component | Apex (read-only) and LWC | The document upload screen: lists an application's checklist items and their files |
+| `flowResume` | Aura component | Resumes a saved portal form from My Applications |
+
+Each Apex class has a test class. There are no Apex triggers.
+
 ### 0.3 Milestone map
 
-| Milestone | Week | Sections | Build status (10 Nov 2026) |
+| Milestone | Week | Sections | Build status (12 Nov 2026) |
 |---|---|---|---|
 | Discovery complete | 3 | — | Done |
 | Core data model and security | 6 | 1, 2 | Data model and business rules built. Security paused for the Board's access-matrix feedback |
 | Experience Cloud portal — built and tested, not published | 9 | 3 | Built, except the School Administrator and Business Owner audiences and the 17 School Forms, which wait for security |
 | Case management and violations | 10 | 4 | Built |
-| UAT, training, staff go-live | 12 | 5 | Staff tools, reports and training guides built. Staff access waits for security; UAT not started |
+| UAT, training, staff go-live | 12 | 5 | Staff tools, reports and training guides built. Staff access waits for security. The build team has run the UAT scripts on the migrated data and fixed what they found (12 Nov); the Board's UAT has not started |
 | Public portal published | March or April 2027 | 3 | Not published |
 
 ---
@@ -192,7 +206,7 @@ cannot be encrypted, so field access is its main protection either way. See `OPE
 | `RegulatoryAuthorizationType` | Configuration per licence or permit type | Fourteen fields, and sparse: `DurationType`, `RegulatoryAuthCategory`, `RegulatoryAuthCode`, `ProcessingDuration`, `ApplicationUrl`, `IssuingDepartment`. The fee, term length, renewal cycle, continuing-education requirement, hour thresholds and required examinations are all **custom fields**. `BusinessLicense` looks up to this object for both individual and establishment credentials |
 | `BusRegAuthorizationType` | Present, but not referenced by `BusinessLicense` | Confirm whether it is used at all before building against it |
 | `DocumentChecklistItem` | Outstanding requirements | `IsRequired`, `IsAccepted`, `Status`, `Instruction`, with `DocumentType` and `DocumentCategory` lookups. `ParentRecordId` reaches both application objects, `RegulatoryCodeViolation`, `PersonExamination`, `CourseOffering`, `PersonDisability` and `PreliminaryApplicationRef` — so a violation's payment receipt has a home without touching the ledger |
-| `RecordAlert` | Surfaces a hold to staff | `EffectiveDate`, `ValidUntilDate`, `IsActive`, `Severity`, and a `RecordAlertCategory` lookup — so the thirty-one stop codes become category records rather than a picklist, maintainable by an administrator |
+| `RecordAlert` | Surfaces a hold to staff | `EffectiveDate`, `ValidUntilDate`, `IsActive`, `Severity`, and a `RecordAlertCategory` lookup — so CLOSE's thirty-two stop codes (code 32 was added in October 2026) become category records rather than a picklist, maintainable by an administrator. Twenty-nine are built, because `BR-04` makes three of them licence statuses, plus a Name Change Proof Pending hold |
 
 `DM-08` `[SETTLED]` **`BusinessLicense.Status` carries terminal states.** Revoked, Retired and
 Deceased are not holds — they never clear and never receive an end date. CLOSE already has a
@@ -280,7 +294,8 @@ Where they live, decided in Phase 1: CE providers, credential evaluation agencie
 diploma sources are `Organization` Accounts, told apart by `Account.Type`. A provider's or agency's
 approval for a given year is an `Accreditation` record (Type CE Provider Approval or Credential
 Evaluator Approval) with `EffectiveFrom` and `EffectiveTo`, so current and prior years sit side by
-side. State reciprocity exceptions are the `ReciprocityStateRule` decision matrix (settled in Phase 3).
+side. State reciprocity exceptions are the `ReciprocityStateExams` decision matrix, built from the June 2024
+state tables (`BR-19`). It replaced `ReciprocityStateRule` on 10 Nov 2026.
 Violation types and regulatory codes are Phase 4 reference data.
 
 `DM-16` `[OPEN]` CLOSE has a **Seminar module** — Maintain Seminar Details and Maintain Seminar
@@ -328,7 +343,8 @@ Evidence from three independent desks:
 
 #### The Phase 1 decision
 
-Two thin custom objects, scoped to the violation path only.
+Two thin custom objects. They were first scoped to the violation path only, and on 10 Nov 2026
+widened to every fee LSBC receives (`DM-18a`).
 
 | Object | Purpose |
 |---|---|
@@ -341,6 +357,10 @@ hold at day 16.
 
 > **The custom objects exist because of licensing, not because PSS lacks payment objects.** That
 > distinction matters at handover and in any Phase 2 conversation.
+
+> **Scope.** Recording staff-entered payments for all of LSBC's revenue is wider than the original
+> violation exception. It is still not payment integration (no gateway and no card data), but it is
+> real scope beyond what was first agreed. See `OPEN-53`.
 
 `DM-18b` `[SETTLED]` **A refund is a status transition with three actors, not a second record.**
 
@@ -400,8 +420,15 @@ instead.
 
 ## 2. Business rules — Week 6
 
-BRE carries the decision logic; Flow carries orchestration. Rules expressed as decision matrices
-are readable and versioned, and the administrator can change a threshold without touching a flow.
+BRE carries the decision logic; Flow carries orchestration. Rules are readable, and the
+administrator can change a threshold without touching a flow.
+
+> **Versions and history.** Decision matrices keep versions: a price change is a new version with a
+> later start date, and the old one stays. Expression sets do not, in this org. A new expression set
+> version cannot be deployed ("LatestVersionSnapshotId not found"), so a rule change edits the
+> active version in place. Salesforce keeps no record of the old threshold; only the build
+> repository does, and LSBC's administrator will not see it. Whether a new version can be created in
+> Expression Set Builder instead is untested (`OPEN-52`).
 
 **As built (Phase 3).** Flows gather facts and write records; rules never query and never carry a
 price. Thresholds are named constants inside each expression set, amounts and lookup tables are
@@ -410,7 +437,7 @@ decision matrices, and every rule was tested at its boundaries before any flow c
 | Kind | Name | Covers |
 |---|---|---|
 | Decision matrix | `FeeSchedule` | Fee amounts and codes (`BR-07`) |
-| Decision matrix | `ReciprocityStateRule` | States not accepted for reciprocity (`BR-16`, `DM-15`) |
+| Decision matrix | `ReciprocityStateExams` | The exams each state's licensees take, from the June 2024 state tables (`BR-19`, `DM-15`). Replaced `ReciprocityStateRule`, which is still deployed but read by nothing |
 | Decision matrix | `ApplicationPathExams` | Exams and Board approval per reciprocity path (`BR-19`, `BR-23`) |
 | Expression set | `StopCodePerson`, `StopCodeSchool`, `StopCodeEstablishment` | The fourteen derived stop codes (`BR-02`) |
 | Expression set | `FeeLateCalculation`, `FeeDuplicateLicense`, `LicenseExpirationDate` | Late and restoration fees, duplicates, expiry (`BR-08`, `BR-18`, `DM-08a`) |
@@ -419,10 +446,10 @@ decision matrices, and every rule was tested at its boundaries before any flow c
 | Flow | Eight record-triggered flows, four nightly schedules | Keep stop codes current |
 | Flow | Screen Flow: Account Add Stop Code, Screen Flow: Regulatory Transaction Fee Item Change Year | Staff actions Add Stop Code and Change Year |
 
-The eligibility rules are built but not yet called: the Phase 5 portal flows and Phase 6 staff
-intake call them. Inputs that need a decision before then: a state with no `ReciprocityStateRule`
-row is treated as accepted, and its own examination requirements are not yet recorded; the Regular
-and International reciprocity paths use the license type's exams until those requirements arrive.
+The eligibility rules are called by the Phase 5 portal forms and the Phase 6 staff intake. Inputs
+still awaiting a decision: state-table cells that are ambiguous or undated are client questions
+(under `DM-15`), and the Regular and International reciprocity paths use the license type's exams
+until their own requirements arrive.
 An existing master instructor keeps the status only while CE stays compliant (`BR-17a`, `OPEN-23`).
 
 ### 2.1 Stop codes
@@ -478,7 +505,7 @@ today.
 | 3 | A School has no Surety Bond `Accreditation` covering today | A covering bond is recorded |
 | 4 | A student has an open New Licensure application and approved hours are below the completion threshold | Hours reach the threshold |
 | 5 | The holder's Cosmetologist licence `PeriodEnd` is past (status not Revoked, Retired or Deceased) | `PeriodEnd` moves forward |
-| 6 | A Booth Rental Permit holder, or a person with an active Booth Renter ACR, holds no current Cosmetologist licence | A current licence exists |
+| 6 | A Booth Rental Permit holder, or a person with an active Booth Renter ACR, holds no current Cosmetologist licence. This follows CLOSE; `DM-03` allows any operator licence, so the two disagree until LSBC answers `OPEN-50` | A current licence exists |
 | 7 | A Cosmetology Instructor licence holder holds no current Cosmetologist licence | A current licence exists |
 | 8 | The latest attempt at an exam the licence type requires is a Fail | A Pass is recorded |
 | 9 | An Esthetician Instructor licence holder holds no current Esthetician licence | A current licence exists |
@@ -525,7 +552,8 @@ ability for staff to set and clear a hold — not automation.
 
 `BR-04` `[PROPOSED]` **Three codes are not holds.** 23 Licence Revoked, 25 Licensee Retired,
 26 Licensee Deceased never clear and never receive an end date. They belong as `BusinessLicense.Status`
-values. If confirmed, the alert list drops to 28 codes.
+values. With code 32, CLOSE has thirty-two codes; without these three the alert list is twenty-nine,
+which is what is built (ahead of confirmation).
 
 `BR-05` `[SETTLED]` **Stop-code inputs are extensible to an inspection-violation source** so a
 later phase needs no redesign.
@@ -557,11 +585,11 @@ school (`PP` operator, `PN` shop, `PS` instructor). `PB` overpayment, `BY` misce
 | Cleanup order | — | $100, issued in place of multiple citations when a facility reaches five sanitation violations. Seven days to correct, then a return visit |
 | Late school registration | — | $2,500 per student where a school misses the 45-day window. Ten to twenty issued a year; one school once settled $120,000 |
 | Records list request | — | A paid request handled by IT. Fee not yet known |
-| Late penalty | `FH` | $35 per delinquent year on top of the standard $35, with late fees capped at **$465** |
+| Late penalty | Per licence type: `AH`, `AO`, `AV`, `BX`, `DF`, `DL`, `EI` | $35 per delinquent year on top of the standard $35, with late fees capped at **$465** (`BR-07`) |
 | Duplicate licence | — | First free; $25 thereafter, one per year, paper request only, no digital copy |
 | Affidavit | — | First free; $15 thereafter **per licence**, not per request |
 | School renewal | `FD` | $190 a year, due before January 31 |
-| School late renewal | `FH` + `PO` | $380 doubled renewal plus $175 failure to timely renew — $555 total |
+| School late renewal | `FD` + `FH` | $380 doubled renewal (`FD`) plus $175 failure to timely renew (`FH`) — $555 total. `PO` is the school violation fine, not part of this |
 | School bond | — | $30,000 bond must be current; checked in the print routine |
 | Restoration | — | $25 examination plus renewal and late fees for every delinquent year. $25 retake. Money order or cashier's cheque only |
 | Business renewal | — | Due by **January 31**. Peak intake December through February |
@@ -586,17 +614,17 @@ payments or only at the counter is unconfirmed, and it changes what the portal t
 owe against what they are charged. See `OPEN-33`.
 
 **As built (Phase 3).** Amounts live in the `FeeSchedule` decision matrix, keyed by fee name, with
-the fee code beside each where it is confirmed (`FH`, `FD`, `PO`); its rows are kept in
+the CLOSE fee code beside each; its rows are kept in
 `data/decisionMatrices/FeeSchedule.csv`. A price change is a new matrix version with a later start
 date. Version 4 (11 Nov 2026) prices initial licences, duplicates, affidavits and violations per licence type with CLOSE's codes and current amounts, the same way version 3 prices renewals: a flow looks up `<License type> Initial`, `<License type> Duplicate License` or `<License type> Affidavit` and falls back to the generic row when the type has none. A violation looks up `Violation Shop`, `Violation School`, `Violation Operator`, `Violation Instructor` (a practitioner cited at a school who holds an instructor licence) or `Violation Special Permit`. Each fee item links to its fee code Product. Temporary permits, threading facilities, no-shows and exam retakes keep one generic row: CLOSE has no per-type code for them. The rules never carry a price: `FeeLateCalculation` holds only the $465 cap and the 36-month
 restoration limit. Placeholders and gaps:
 
 | Item | State |
 |---|---|
-| Fee codes for every fee except `FH`, `FD`, `PO` | Blank until the code-table export arrives. `AC` is not mapped: whether it is the individual $35 renewal is unconfirmed |
-| Salon (business) renewal amount | Not stated. Renewal assessment stops with a message for a salon until a `Salon Renewal` row is added |
+| Fee codes | All 621 CLOSE codes are loaded as Products (11 Nov 2026) and each fee item links to its code. `AC` is the cosmetologist renewal. Temporary permits, threading facilities, no-shows and retakes have no per-type code in CLOSE |
+| Salon (business) renewal amount | $55, code `DI` (version 3) |
 | Records list request | No amount (`OPEN-30`), so no row |
-| Affidavit "first free, then $15 per licence" (`BR-26`) | No counter of prior affidavits in the model. Decide before the affidavit flow is built |
+| Affidavit "first free, then $15 per licence" (`BR-26`) | The affidavit form counts the applicant's earlier affidavit requests: the first is free. Over what period "first" counts, whether $15 is per licence or per request, and CLOSE's unexplained $25 code 87 are `OPEN-47` |
 | Duplicate licence once a year (`BR-18`) | Enforced over a rolling twelve months from `LastDuplicateLicenseDate__pc` |
 | Late years | Each passed anniversary of the paid-through date is one delinquent year; the renewal pays the current year, and each missed year carries a late fee until the cap |
 | `LicenseExpirationDate` output | Returns midnight UTC. Whoever writes it to `PeriodEnd` should set a Louisiana-local time so the date does not show as the evening before |
@@ -864,8 +892,10 @@ paper folder and one travels with testing paperwork. One upload serves both.
 
 `PT-07` `[OPEN]` **Bulk payment allocation.** Schools send one cheque for many students. Today
 one bad application rejects the whole stack and costs nearly a month. Partial application requires
-a deposit line to attach to several registrations and settle independently. The Phase 1 ledger in
-`DM-18` is deliberately not extended to cover this; it depends on the decision about cheques in `OPEN-02`.
+a deposit line to attach to several registrations and settle independently. `DM-18a` has since
+extended the ledger to every fee, but bulk allocation is still not built: Record Payment applies a
+payment to one account's fees, and a school's cheque covers twenty students' accounts. It still
+depends on the decision about cheques in `OPEN-02`.
 
 ### 3.3 Registration and identity
 
@@ -885,7 +915,10 @@ signs up by matching a licence they already hold.
 Extended in Phase 5: **someone new to the Board** (a reciprocity, permit or first-time applicant
 with no licence number) signs up on a second path with name, date of birth and contact details. A
 person account is created unless one with the same name and date of birth already exists. The
-duplicate check does not depend on encrypted fields.
+duplicate check queries on first and last name only and compares the date of birth after the query,
+so it keeps working once `Birthdate` is encrypted with probabilistic encryption, which cannot be
+filtered on (`SEC-04`). Whether Shield can encrypt `Contact.Birthdate` at all is still to be confirmed
+(`OPEN-51`).
 
 The social security number may be stored in Salesforce, encrypted and hidden, but is never used
 as an external lookup key. That distinction is the whole point of the design: the identifier the
@@ -925,11 +958,12 @@ city.
 rather than referring to state guidance generally. It applies to our components and to every PDF
 LSBC moves across, which remains LSBC's content to remediate.
 
-`PT-13` `[OPEN]` **The public search is empty at go-live.** The CLOSE-backed search at
-lsbc.louisiana.gov stops working when CLOSE retires. With migration out of scope the Salesforce
-search returns nothing for anyone licensed before go-live — which reads to the public as
-unlicensed. Three options: run both searches in parallel, LSBC loads a minimal snapshot from our
-template, or a small change order for a one-time load. See `OPEN-05`.
+`PT-13` `[OPEN]` **What the public search holds at go-live depends on the production load.** The
+CLOSE-backed search at lsbc.louisiana.gov stops working when CLOSE retires. The build team has
+loaded CLOSE's current licences into the sandbox (section 7), so a production load would fill the
+search. Two things stand in the way. Whether that load is in scope, and at what volume, is not agreed
+(`OPEN-05`, `OPEN-53`). And migrated licences carry no licence number, so a search by number finds
+no one licensed before go-live, and neither does portal sign-up (`OPEN-40`). Search by name works.
 
 `PT-14` `[PROPOSED]` **Salon licence numbers begin with 777.** Staff manually switch modes today
 rather than the system recognising the prefix. Derive it.
@@ -1119,8 +1153,10 @@ Notices go by certified **and** regular post. Appeals go to the 19th Judicial Di
 entered only after board approval.
 
 `CM-07` `[OPEN]` **Roughly 50 open administrative violation cases exist**, with active stop codes
-holding licences from printing. With migration out of scope those holds do not exist in Salesforce
-at go-live, and an affected licensee's licence will print. See `OPEN-03`.
+holding licences from printing. The sandbox load brought CLOSE's open staff-set holds across as stop
+codes (1,555 of them), so these holds exist in Salesforce if the production load repeats it. They
+reach production only if that load goes ahead (`OPEN-05`). The cases themselves are not migrated. See
+`OPEN-03`.
 
 ---
 
@@ -1203,7 +1239,7 @@ fields in formulas, filters and list views are avoided from the start.
 |---|---|---|
 | `Contact.SocialSecurityNumber__c` (`SocialSecurityNumber__pc` on the Person Account) | Probabilistic | Identity. Never filtered or matched on (`OPEN-09`) |
 | `PersonDisability.AccommodationDetails__c` | Probabilistic | Health information (`SEC-08`) |
-| Person birthdate (`Contact.Birthdate`) | Confirm it is encryptable at enablement | Identity; the L number already encodes part of it |
+| Person birthdate (`Contact.Birthdate`) | Probabilistic, if Shield supports it on this field (`OPEN-51`) | Identity; the L number already encodes part of it. Never filtered on: sign-up compares it after a name query (`PT-09`) |
 
 Considered and **not** encrypted:
 
@@ -1382,7 +1418,7 @@ excluded by the SOW; adding them was raised in session.
 
 | Area | Note |
 |---|---|
-| Data migration from CLOSE | Platform configured to receive it. See `OPEN-03`, `OPEN-05`. A first load ran in the sandbox on 10 Nov 2026 (below) |
+| Data migration from CLOSE | Listed as out of scope, but the build team has loaded CLOSE data into the sandbox (below). Whether that work and a production load are covered by the SOW, and at what volume, is not agreed: see `OPEN-05`, `OPEN-53` |
 | Paper and microfilm digitisation | Raised in session as in scope; excluded by the SOW |
 | Inspections and enforcement | Beyond violation capture. Phase 1 prepares the ground only |
 | Payment integration | PayStar and Elavon. Phase 1 links out and records the receipt. Integration only under a signed change order |
@@ -1394,7 +1430,7 @@ excluded by the SOW; adding them was raised in session.
 LSBC-Partial: 31,166 people with a current licence, 7,385 salons, 58 schools and 38,978 licences (one
 per holder and licence type, renewals rolled into Renewal Count). Records match on abstracted keys in
 `LegacyKey__c` on Account, `BusinessLicense` and `Accreditation`, never on the SSN, which was not
-loaded. It raised four gaps, now client questions:
+loaded. It raised four gaps:
 
 - **Licence number.** CLOSE has none apart from the applicant ID, so `Identifier` is blank. Sign-up
   (`PT-09`) and public search (`PT-10`) match on it, so migrated licensees can't sign up until it is set.
@@ -1411,10 +1447,38 @@ manager relationships load next.
 bonds and 1,555 staff-set stop codes followed, cutting code 16 to 767. The build then took over the
 load. A de-identified copy of the CLOSE extract replaces every SSN-shaped applicant ID and
 certificate number with a made-up number starting 000, so nothing after that reads a real SSN before
-Shield. The sandbox carries those numbers in a sandbox-only Mock Social Security Number field that is
-never deployed. The gaps above are closed in the build: three instructor licence types, Manager,
+Shield. The 10 Nov load was made before that copy existed. The sandbox carries those numbers in a sandbox-only Mock Social Security Number field that is
+never deployed. Two of the gaps above are closed in the build: three instructor licence types, Manager,
 Microdermabrasion and Make-up Application, every CLOSE fee code, and renewals and late fees priced per
 licence type in `FeeSchedule` version 3. Version 4 adds initial, duplicate, affidavit and violation fees per licence type or cited party, and the continuing-education seminars load as course offerings and attendances (see `DM-16`).
+Two remain open: licence numbers (`OPEN-40`) and the booth renter base licence (`OPEN-50`).
+
+**What is loaded (sandbox, 11 Nov 2026).**
+
+| Data | Count |
+|---|---|
+| People (licensees, owners and managers, enrolled students, applicants) | 35,678 |
+| Salons and schools | 7,385 and 58 |
+| Licences, all current at load | 40,234 |
+| Owner, manager, assistant manager and booth renter relationships | 11,347 |
+| School surety bonds | 477 |
+| Exam attempts | 98,539 |
+| Fees still owed, with no due date | 13,212 ($487,682.05, matching CLOSE) |
+| Payments since 11 Nov 2023, with 173,806 allocations | 120,554 |
+| Students: course offerings and monthly hours rows | 111 and 32,801 |
+| Reciprocity applications in progress | 27 |
+| Continuing-education seminars and attendances | 58 and 3,899 |
+| Fee codes | 621 |
+| Open stop codes after the automatic rules ran | 2,602 |
+
+Some loaded data raises holds CLOSE does not have: code 16 (no manager), code 20 (no hours for six
+months) and code 21 if the old balances are given due dates (`OPEN-55`).
+
+**Real data in a sandbox without security.** Real names, addresses, dates of birth, licences, exams,
+fees and payments have been in LSBC-Partial since 10 Nov 2026. Social security numbers were never
+loaded. The security model is not built (5.1) and Shield arrives in January. On 12 Nov the sandbox had
+five active internal users, all System Administrators. Who may log in, and that the project's rule
+keeping offshore resources away from agency data holds, need confirming (`OPEN-54`).
 
 ### 7.1 Preparing for inspections
 
@@ -1510,12 +1574,10 @@ more than leaving a door open.
 |---|---|---|---|
 | `OPEN-02` | Cheques and money orders after cutover | The Board must keep accepting them for now — card payment is recent and older licensees rely on paper. Phasing them out goes to the December board meeting. Until then the manual lane is built | December board meeting |
 | `OPEN-38` | Freelance and mobile operators | Mobile salons, disability permits and 30-day temporary permits must file monthly itineraries or client rosters. Freelance operators without a fixed salon are a tracking gap the rules do not close. Needs board rules or legislation | Board, later phase |
-| `OPEN-03` | Open stop codes at go-live | Around fifty live administrative violation holds. Without them, licences will print that should not | Immediate |
-| `OPEN-05` | The migration volume | Licence records are in scope up to an agreed volume. The figure has not been set | Immediate |
+| `OPEN-05` | The migration volume | Licence records are in scope up to an agreed volume. The figure has not been set. The sandbox now holds 40,234 licences and much more besides (section 7) | Immediate |
 | `OPEN-06` | Extent of the website content move | Agendas, minutes, directories, the rules book and FAQs all go past what has been confirmed | Immediate |
 | `OPEN-11` | Sharing across Account Contact Relation | Decides whether school administrators and salon owners can be served declaratively | Sandbox spike |
 | `OPEN-13` | Race and sex on the applicant record | A protected category. Still collected? Migrating? What access model? | Erin |
-| `OPEN-14` | The Seminar module | May be where approved continuing-education providers and courses actually live | William |
 | `OPEN-15` | Two stop-code files | Partial files received. A regular and a revised version exist — which is authoritative? | William |
 | `OPEN-19` | Sealed certifications | Whether a scanned certification is acceptable, or the sealed original must be kept | Stephanie |
 | `OPEN-20` | Renewal reminders | Half of renewals arrive late and late fees are income. A policy decision for the Board | Before backlog lock |
@@ -1529,6 +1591,22 @@ more than leaving a door open.
 | `OPEN-30` | The records list request | A paid request for lists, fulfilled by IT. A product with a fee that appears nowhere in the design | Kiwan |
 | `OPEN-31` | The staff wish list | Submitted previously and not located. May carry expectations not captured anywhere | The group |
 | `OPEN-33` | The card service charge | Applies to card payments, raising a $525 restoration to roughly $540. All card payments, or only at the counter? | Carnita or the front desk |
+| `OPEN-40` | Licence numbers for migrated licences | CLOSE has no licence number apart from the applicant ID, which is shaped like a social security number, so `Identifier` is blank on every migrated licence. Portal sign-up and search by number find no migrated licensee (`PT-09`, `PT-13`, `PT-14`) | Before the production load |
+| `OPEN-41` | Numbering new licences | Decide approves a licence, and staff type its number until the rule is known: a running number per type, salons starting 777 (`PT-14`) | Staff go-live |
+| `OPEN-42` | Instructor status N and X | CLOSE marks instructors A, I, M, N or X. Active and inactive instructors renew under different fee codes; N and X are unexplained (`BR-07`) | Before renewals use the status |
+| `OPEN-43` | Refunding money already applied to a fee | Refund covers only money not applied to a fee. Staff would take money off a fee by hand first, with no record of why (`DM-18b`) | Staff go-live |
+| `OPEN-44` | Notarised forms and the certification step | Will the Board accept the portal's certification (checkbox, typed name, time) in place of notarisation, for example the contractual fees certificate (`BR-03a`, `PT-19`)? | Portal publish |
+| `OPEN-45` | LSBC mailboxes and sending addresses | Email-to-Case needs LSBC's complaint and inquiry mailboxes forwarded by OTS, and acknowledgements and portal emails need a verified LSBC sender, with DKIM and SPF (`CM-01`, `PT-09b`) | Staff go-live |
+| `OPEN-46` | Letter wording and letterhead | The four letters use placeholder wording and a placeholder letterhead (`PT-16`) | Staff go-live |
+| `OPEN-47` | Counting affidavits | First free, then $15: over what period does "first" count, is $15 per licence or per request, and what is CLOSE's $25 code 87 (`BR-26`)? | Staff go-live |
+| `OPEN-48` | The printed licence layout | The print queue tracks what needs printing, but nothing can print onto the three-part stock until we have a sample (`PT-16`) | Staff go-live |
+| `OPEN-49` | Seminar providers | CLOSE holds seminar names only. Do providers become Organization accounts with CE Provider Approval records, which the public CE provider list reads (`DM-16`)? | Portal publish |
+| `OPEN-50` | Booth renter base licence | Code 6 needs a cosmetologist licence, as in CLOSE; `DM-03` allows any operator licence. 156 migrated booth renters are held, 70 of them estheticians or manicurists | Staff go-live |
+| `OPEN-51` | Encrypting the date of birth | Confirm Shield can encrypt `Contact.Birthdate` before the field list is applied in January. Nothing filters on it (`SEC-04`, `PT-09`) | Before Shield, January |
+| `OPEN-52` | History of rule changes | Expression set versions cannot be deployed in this org, so rule changes overwrite the active version and LSBC's administrator gets no history. Test creating versions in Expression Set Builder, or raise it with Salesforce; otherwise accept and tell LSBC (section 2) | Build team, before handover |
+| `OPEN-53` | Scope: migration and the payment ledger | Migration is listed out of scope, but the build team has loaded CLOSE data (section 7). The payment ledger grew from violations to every fee (`DM-18a`). Both need a change order or an agreed reading of the SOW | Project manager, before this document goes to LSBC |
+| `OPEN-54` | Real data in the sandbox | Real CLOSE data has been in LSBC-Partial since 10 Nov with security unbuilt and Shield in January. Confirm who may log in, and that offshore resources have no access to agency data | Project manager, immediate |
+| `OPEN-55` | Holds raised by migrated data | Code 16 (530 open against CLOSE's 50; did staff set it by hand?), code 20 on 195 students, and Non Payment if the 13,212 old balances get due dates (`BR-11`, `BR-22a`, `DM-18`) | Before the production load |
 
 ### Settled
 
@@ -1551,20 +1629,31 @@ more than leaving a door open.
 | `OPEN-27` | Operator licence renewal cycle | Annual, by legislative requirement. A three-year lapse triggers a restoration examination |
 | `OPEN-32` | `ApplicationForm` as primary or secondary | Secondary. It is grant-and-benefit shaped — Lead, Opportunity, Budget and Program lookups, a scoring model, no licence type or licence link. The two application objects stay primary |
 | `OPEN-37` | Holds attach to the holder, not the licence | Accepted. One `RecordAlert` per person or establishment, checked by the print routine. To be shown to the Board for feedback; a change would mean a custom lookup from `RecordAlert` to `BusinessLicense` |
+| `OPEN-03` | Open stop codes at go-live | Answered by the load: CLOSE's open staff-set holds, the live administrative holds among them, came across as stop codes in the sandbox (1,555). They reach production with the production load (`OPEN-05`) |
+| `OPEN-14` | The Seminar module | It holds seminar names, dates and attendance, not providers. The 58 seminars and 3,899 attendances are loaded as continuing education (`DM-16`). Providers are `OPEN-49` |
 | `OPEN-39` | Complaint intake | `PublicComplaint` carries the complaint, `Case` carries the work, `ComplaintCase` joins them. It beats `Case` with record types on anonymity, categorisation, intake channel and board reporting |
 
-**The shape of what remains.** Twenty-one open, and the build is under way.
+**The shape of what remains.** Thirty-five open. The LSBC Client Questions document tracks over a
+hundred smaller configuration questions; those that change scope, go-live or the data are listed here.
 
-**One holds up security and is ours to settle:** `OPEN-11`, the sharing spike against Account
-Contact Relation. The data model went ahead without it. It now holds up the School Administrator
-and Business Owner portal audiences, and it is picked up when security resumes (5.1).
+**Two are for the project manager before this document goes to LSBC:** `OPEN-53`, migration and the
+payment ledger as scope, and `OPEN-54`, real data in a sandbox without security. `OPEN-05`, the
+migration volume, goes with them.
+
+**Two are ours to settle:** `OPEN-11`, the sharing spike against Account Contact Relation, which holds
+up the School Administrator and Business Owner portal audiences and is picked up when security
+resumes (5.1); and `OPEN-52`, rule-change history.
 
 **Two are with the Board and have dates:** `OPEN-02`, cheques and money orders, at the December
-board meeting; and freelance operators without a fixed salon, which needs board rules or
-legislation and is marked as such.
+board meeting; and `OPEN-38`, freelance operators without a fixed salon, which needs board rules or
+legislation.
 
-**Three affect what the public sees on day one:** `OPEN-05` the migration volume, `OPEN-06`
-website scope, and `OPEN-03` the live administrative holds.
+**Several decide the production load and what the public sees:** `OPEN-40` licence numbers (the
+largest: without them no migrated licensee can sign up), `OPEN-55` holds raised by migrated data, and
+`OPEN-06` website scope.
+
+**Several are needed for staff go-live on January 27:** `OPEN-41`, `OPEN-43`, `OPEN-45` to `OPEN-48`
+and `OPEN-50`.
 
 **The rest are configuration detail**, each with a named owner who has already been asked.
 
@@ -1604,7 +1693,7 @@ inventories, exact wording and edge cases live.
 
 | Source | What it shows | What it drives |
 |---|---|---|
-| Stop code list (F9 lookup) | All thirty-one codes with descriptions | `BR-02`, `BR-03`, `BR-04` |
+| Stop code list (F9 lookup) | All thirty-one codes with descriptions (code 32 was added in October 2026) | `BR-02`, `BR-03`, `BR-04` |
 | Stop code maintenance | Code, description, effective date, end date | `BR-01` — a hold clears by end date, not status |
 | Maintain financial transactions | Unapplied amount, applied previously, applied, amount left; line items of code, description, for year, fee, amount | `DM-14`, `DM-18` |
 | Reverse transactions | Fee codes in use, the for-year field, the separate change-payment-year function | `BR-07`, `BR-09` |
@@ -1720,3 +1809,4 @@ the source.
 | 11 Nov 2026 | `FeeSchedule` version 4: initial, duplicate, affidavit and violation fees per licence type or cited party, with CLOSE codes and amounts and the generic row as fallback; fee items link to their fee code Product (`BR-07`). Continuing Education entry type on hours entries, ignored by stop codes; CLOSE seminars and attendances loaded (`DM-16`, `OPEN-14`). |
 | 11 Nov 2026 | Code 16 also clears when the shop holds a current Manager licence: CLOSE keeps the Manager licence on the shop (`BR-22a`). New `BusinessLicense.InstructorStatus__c` (Active, Inactive) from CLOSE's instructor status; N and X are a client question. |
 | 12 Nov 2026 | UAT on migrated data, fixes (`BR-01`, `BR-11`, `BR-07`, `PT-10`, `PT-15`): the stop code re-check runs in the background, once per holder per save (new Account field Stop Code Sync Pending; Record-Trigger: Account After Save), and deleting a licence re-checks too. Non Payment ignores fees with no due date. A payment applied to fees can't be deleted. Staff paper intake asks no email and leaves no receipt item. The Standard Account Duplicate Rule reports only, so establishment forms always save. A returned checklist item's file moves to the application (one file per item is a platform rule); accommodation documents reach the Person Disability through the person account. Person Account layout rebuilt; the Home dashboard stays a link until Phase 2 sharing decides how it runs. |
+| 12 Nov 2026 | Brought in line with the build after review. Section 7 records that the build team loaded CLOSE data, with what is loaded and the real-data exposure; `PT-13` and `CM-07` no longer assume no migration. `DM-18` says the ledger now covers every fee. Fee table: late fees are per licence type, school late renewal is `FD` + `FH`, every code is loaded. `ReciprocityStateExams` replaces `ReciprocityStateRule` in sections 1 and 2. Code 6 notes its conflict with `DM-03`; stop codes are 32 in CLOSE, 29 built. `PT-07` and `PT-09` updated; section 2 states that expression set rule changes keep no history; 0.2 lists the code in the build. Section 8: `OPEN-03` and `OPEN-14` settled with notes; `OPEN-40` to `OPEN-55` added from the client questions and this review; thirty-five open. |
