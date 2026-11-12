@@ -7,7 +7,7 @@
     <template>false</template>
     <versions>
         <fullName>StopCodePerson_V1</fullName>
-        <description>Decides which automatic stop codes apply to a person: licensee, student, instructor or booth renter. Each output is true when that hold should be open. The calling flow opens or ends the holds. Instructors need a current license in their own discipline.</description>
+        <description>Which automatic stop codes apply to a person. Each output is true when that hold should be open; the calling flow opens or ends them. Instructors need a current license in their own discipline; booth renters any current operator license.</description>
         <expressionSetDefinition>StopCodePerson</expressionSetDefinition>
         <label>Stop Code Person V1</label>
         <rank>1</rank>
@@ -67,9 +67,9 @@
             <actionType>AssignParameterValues</actionType>
             <assignment>
                 <assignedParameter>StopCode06</assignedParameter>
-                <expression>IsBoothRenter &amp;&amp; NOT(HoldsCosmetologistLicense &amp;&amp; NOT(ISBLANK(CosmetologistPeriodEnd)) &amp;&amp; CosmetologistPeriodEnd &gt;= AsOfDate)</expression>
+                <expression>IsBoothRenter &amp;&amp; NOT(HoldsCurrentOperatorLicense)</expression>
             </assignment>
-            <description>Booth renter without a current cosmetologist license.</description>
+            <description>Booth renter without a current operator license (cosmetologist, esthetician or manicurist).</description>
             <label>Set Stop Code 06</label>
             <name>SetStopCode06</name>
             <resultIncluded>true</resultIncluded>
@@ -329,6 +329,15 @@
         <variables>
             <collection>false</collection>
             <dataType>Boolean</dataType>
+            <description>True when the person holds a current cosmetologist, esthetician or manicurist license that is not revoked, retired or deceased.</description>
+            <input>true</input>
+            <name>HoldsCurrentOperatorLicense</name>
+            <output>false</output>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Boolean</dataType>
             <description>True when the license applied for requires the national examination.</description>
             <input>true</input>
             <name>RequiresNationalExam</name>
@@ -462,7 +471,7 @@
         <variables>
             <collection>false</collection>
             <dataType>Boolean</dataType>
-            <description>Booth renter without a current cosmetologist license.</description>
+            <description>Booth renter without a current operator license (cosmetologist, esthetician or manicurist).</description>
             <input>false</input>
             <name>StopCode06</name>
             <output>true</output>

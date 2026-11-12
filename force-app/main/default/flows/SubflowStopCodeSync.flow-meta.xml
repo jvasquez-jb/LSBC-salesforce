@@ -73,6 +73,12 @@
             </value>
         </inputParameters>
         <inputParameters>
+            <name>HoldsCurrentOperatorLicense</name>
+            <value>
+                <elementReference>forB_HoldsCurrentOperatorLicense</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
             <name>IsBoothRenter</name>
             <value>
                 <elementReference>forB_IsBoothRenter</elementReference>
@@ -204,18 +210,6 @@
             <name>HasReturnedPayment</name>
             <value>
                 <elementReference>forB_HasReturnedPayment</elementReference>
-            </value>
-        </inputParameters>
-        <inputParameters>
-            <name>HoldsSalonLicense</name>
-            <value>
-                <elementReference>forB_HoldsSalonLicense</elementReference>
-            </value>
-        </inputParameters>
-        <inputParameters>
-            <name>HasLicensedOwnerOrManager</name>
-            <value>
-                <elementReference>forB_HasLicensedOwnerOrManager</elementReference>
             </value>
         </inputParameters>
         <inputParameters>
@@ -399,38 +393,6 @@
         </connector>
     </assignments>
     <assignments>
-        <name>AddLeaderContactId</name>
-        <label>Add Leader Contact Id</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <assignmentItems>
-            <assignToReference>varT_LeaderContactIds</assignToReference>
-            <operator>Add</operator>
-            <value>
-                <elementReference>LoopThroughSalonRelations.ContactId</elementReference>
-            </value>
-        </assignmentItems>
-        <connector>
-            <targetReference>LoopThroughSalonRelations</targetReference>
-        </connector>
-    </assignments>
-    <assignments>
-        <name>AddLeaderAccountId</name>
-        <label>Add Leader Account Id</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <assignmentItems>
-            <assignToReference>varT_LeaderAccountIds</assignToReference>
-            <operator>Add</operator>
-            <value>
-                <elementReference>LoopThroughLeaderContacts.AccountId</elementReference>
-            </value>
-        </assignmentItems>
-        <connector>
-            <targetReference>LoopThroughLeaderContacts</targetReference>
-        </connector>
-    </assignments>
-    <assignments>
         <name>SetEstablishmentCodes</name>
         <label>Set Establishment Codes</label>
         <locationX>0</locationX>
@@ -446,14 +408,14 @@
             <assignToReference>varT_EvaluatedCodes</assignToReference>
             <operator>Assign</operator>
             <value>
-                <stringValue>StopCode01;StopCode16;StopCode21;</stringValue>
+                <stringValue>StopCode01;StopCode21;</stringValue>
             </value>
         </assignmentItems>
         <assignmentItems>
             <assignToReference>varT_AutoEndCodes</assignToReference>
             <operator>Assign</operator>
             <value>
-                <stringValue>StopCode16;StopCode21;</stringValue>
+                <stringValue>StopCode21;</stringValue>
             </value>
         </assignmentItems>
         <connector>
@@ -659,7 +621,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>GetSalonType</targetReference>
+                <targetReference>RunStopCodeEstablishment</targetReference>
             </connector>
             <label>Establishment</label>
         </rules>
@@ -792,31 +754,6 @@
                 <targetReference>AddStateExamId</targetReference>
             </connector>
             <label>State</label>
-        </rules>
-    </decisions>
-    <decisions>
-        <name>IsThisAnOwnerOrManager</name>
-        <label>Is This An Owner Or Manager?</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <defaultConnector>
-            <targetReference>LoopThroughSalonRelations</targetReference>
-        </defaultConnector>
-        <defaultConnectorLabel>Otherwise</defaultConnectorLabel>
-        <rules>
-            <name>Leader</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>forB_IsOwnerOrManager</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <booleanValue>true</booleanValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>AddLeaderContactId</targetReference>
-            </connector>
-            <label>Owner or manager</label>
         </rules>
     </decisions>
     <decisions>
@@ -984,6 +921,10 @@
         <name>forB_HoldsCosmetologistLicense</name>
         <dataType>Boolean</dataType>
         <expression>NOT(ISBLANK({!GetCosmetologistLicense.Id}))</expression>
+    </formulas>    <formulas>
+        <name>forB_HoldsCurrentOperatorLicense</name>
+        <dataType>Boolean</dataType>
+        <expression>NOT(ISBLANK({!GetCurrentOperatorLicense.Id}))</expression>
     </formulas>
     <formulas>
         <name>forD_CosmetologistPeriodEnd</name>
@@ -1078,22 +1019,6 @@
         <expression>TEXT({!GetLatestRestorationAttempt.Result})</expression>
     </formulas>
     <formulas>
-        <name>forB_IsOwnerOrManager</name>
-        <dataType>Boolean</dataType>
-        <expression>INCLUDES({!LoopThroughSalonRelations.Roles}, &quot;Owner&quot;) || INCLUDES({!LoopThroughSalonRelations.Roles}, &quot;Manager&quot;)</expression>
-    </formulas>
-    <formulas>
-        <name>forB_HoldsSalonLicense</name>
-        <dataType>Boolean</dataType>
-        <expression>NOT(ISBLANK({!GetSalonLicense.Id}))</expression>
-    </formulas>
-    <formulas>
-        <name>forB_HasLicensedOwnerOrManager</name>
-        <description>True when an active owner or manager holds a current operator license, or the shop holds a current Manager license.</description>
-        <dataType>Boolean</dataType>
-        <expression>OR(NOT(ISBLANK({!GetLeaderLicense.Id})), NOT(ISBLANK({!GetManagerLicense.Id})))</expression>
-    </formulas>
-    <formulas>
         <name>forT_PersonOpenCodes</name>
         <dataType>String</dataType>
         <expression>IF({!RunStopCodePerson.StopCode01}, &quot;StopCode01;&quot;, &quot;&quot;) &amp; IF({!RunStopCodePerson.StopCode04}, &quot;StopCode04;&quot;, &quot;&quot;) &amp; IF({!RunStopCodePerson.StopCode05}, &quot;StopCode05;&quot;, &quot;&quot;) &amp; IF({!RunStopCodePerson.StopCode06}, &quot;StopCode06;&quot;, &quot;&quot;) &amp; IF({!RunStopCodePerson.StopCode07}, &quot;StopCode07;&quot;, &quot;&quot;) &amp; IF({!RunStopCodePerson.StopCode08}, &quot;StopCode08;&quot;, &quot;&quot;) &amp; IF({!RunStopCodePerson.StopCode09}, &quot;StopCode09;&quot;, &quot;&quot;) &amp; IF({!RunStopCodePerson.StopCode15}, &quot;StopCode15;&quot;, &quot;&quot;) &amp; IF({!RunStopCodePerson.StopCode17}, &quot;StopCode17;&quot;, &quot;&quot;) &amp; IF({!RunStopCodePerson.StopCode20}, &quot;StopCode20;&quot;, &quot;&quot;) &amp; IF({!RunStopCodePerson.StopCode21}, &quot;StopCode21;&quot;, &quot;&quot;) &amp; IF({!RunStopCodePerson.StopCode31}, &quot;StopCode31;&quot;, &quot;&quot;)</expression>
@@ -1106,7 +1031,7 @@
     <formulas>
         <name>forT_EstablishmentOpenCodes</name>
         <dataType>String</dataType>
-        <expression>IF({!RunStopCodeEstablishment.StopCode01}, &quot;StopCode01;&quot;, &quot;&quot;) &amp; IF({!RunStopCodeEstablishment.StopCode16}, &quot;StopCode16;&quot;, &quot;&quot;) &amp; IF({!RunStopCodeEstablishment.StopCode21}, &quot;StopCode21;&quot;, &quot;&quot;)</expression>
+        <expression>IF({!RunStopCodeEstablishment.StopCode01}, &quot;StopCode01;&quot;, &quot;&quot;) &amp; IF({!RunStopCodeEstablishment.StopCode21}, &quot;StopCode21;&quot;, &quot;&quot;)</expression>
     </formulas>
     <formulas>
         <name>forB_IsEvaluated</name>
@@ -1192,35 +1117,7 @@
             <targetReference>AddOperatorTypeId</targetReference>
         </nextValueConnector>
         <noMoreValuesConnector>
-            <targetReference>GetSalonRelations</targetReference>
-        </noMoreValuesConnector>
-    </loops>
-    <loops>
-        <name>LoopThroughSalonRelations</name>
-        <label>Loop Through Salon Relations</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <collectionReference>GetSalonRelations</collectionReference>
-        <iterationOrder>Asc</iterationOrder>
-        <nextValueConnector>
-            <targetReference>IsThisAnOwnerOrManager</targetReference>
-        </nextValueConnector>
-        <noMoreValuesConnector>
-            <targetReference>GetLeaderContacts</targetReference>
-        </noMoreValuesConnector>
-    </loops>
-    <loops>
-        <name>LoopThroughLeaderContacts</name>
-        <label>Loop Through Leader Contacts</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <collectionReference>GetLeaderContacts</collectionReference>
-        <iterationOrder>Asc</iterationOrder>
-        <nextValueConnector>
-            <targetReference>AddLeaderAccountId</targetReference>
-        </nextValueConnector>
-        <noMoreValuesConnector>
-            <targetReference>GetLeaderLicense</targetReference>
+            <targetReference>GetCurrentOperatorLicense</targetReference>
         </noMoreValuesConnector>
     </loops>
     <loops>
@@ -1718,7 +1615,7 @@
         <locationY>0</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>GetPersonRelations</targetReference>
+            <targetReference>GetOperatorTypes</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -2299,85 +2196,6 @@
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordLookups>
-        <name>GetSalonType</name>
-        <label>Get Salon Type</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
-        <connector>
-            <targetReference>GetSalonLicense</targetReference>
-        </connector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>Name</field>
-            <operator>EqualTo</operator>
-            <value>
-                <stringValue>Salon</stringValue>
-            </value>
-        </filters>
-        <getFirstRecordOnly>true</getFirstRecordOnly>
-        <object>RegulatoryAuthorizationType</object>
-        <storeOutputAutomatically>true</storeOutputAutomatically>
-    </recordLookups>
-    <recordLookups>
-        <name>GetSalonLicense</name>
-        <label>Get Salon License</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
-        <connector>
-            <targetReference>GetOperatorTypes</targetReference>
-        </connector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>AccountId</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>varT_AccountId</elementReference>
-            </value>
-        </filters>
-        <filters>
-            <field>RegulatoryAuthorizationTypeId</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>GetSalonType.Id</elementReference>
-            </value>
-        </filters>
-        <filters>
-            <field>Status</field>
-            <operator>NotEqualTo</operator>
-            <value>
-                <stringValue>Revoked</stringValue>
-            </value>
-        </filters>
-        <filters>
-            <field>Status</field>
-            <operator>NotEqualTo</operator>
-            <value>
-                <stringValue>Retired</stringValue>
-            </value>
-        </filters>
-        <filters>
-            <field>Status</field>
-            <operator>NotEqualTo</operator>
-            <value>
-                <stringValue>Deceased</stringValue>
-            </value>
-        </filters>
-        <filters>
-            <field>Status</field>
-            <operator>NotEqualTo</operator>
-            <value>
-                <stringValue>Draft</stringValue>
-            </value>
-        </filters>
-        <getFirstRecordOnly>true</getFirstRecordOnly>
-        <object>BusinessLicense</object>
-        <sortField>PeriodEnd</sortField>
-        <sortOrder>Desc</sortOrder>
-        <storeOutputAutomatically>true</storeOutputAutomatically>
-    </recordLookups>
-    <recordLookups>
         <name>GetOperatorTypes</name>
         <label>Get Operator Types</label>
         <locationX>0</locationX>
@@ -2413,13 +2231,14 @@
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordLookups>
-        <name>GetSalonRelations</name>
-        <label>Get Salon Relations</label>
+        <name>GetCurrentOperatorLicense</name>
+        <description>The person's current cosmetologist, esthetician or manicurist license, if any. A booth renter needs one (code 6).</description>
+        <label>Get Current Operator License</label>
         <locationX>0</locationX>
         <locationY>0</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>LoopThroughSalonRelations</targetReference>
+            <targetReference>GetPersonRelations</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -2427,55 +2246,6 @@
             <operator>EqualTo</operator>
             <value>
                 <elementReference>varT_AccountId</elementReference>
-            </value>
-        </filters>
-        <filters>
-            <field>IsActive</field>
-            <operator>EqualTo</operator>
-            <value>
-                <booleanValue>true</booleanValue>
-            </value>
-        </filters>
-        <getFirstRecordOnly>false</getFirstRecordOnly>
-        <object>AccountContactRelation</object>
-        <storeOutputAutomatically>true</storeOutputAutomatically>
-    </recordLookups>
-    <recordLookups>
-        <name>GetLeaderContacts</name>
-        <label>Get Leader Contacts</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
-        <connector>
-            <targetReference>LoopThroughLeaderContacts</targetReference>
-        </connector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>Id</field>
-            <operator>In</operator>
-            <value>
-                <elementReference>varT_LeaderContactIds</elementReference>
-            </value>
-        </filters>
-        <getFirstRecordOnly>false</getFirstRecordOnly>
-        <object>Contact</object>
-        <storeOutputAutomatically>true</storeOutputAutomatically>
-    </recordLookups>
-    <recordLookups>
-        <name>GetLeaderLicense</name>
-        <label>Get Leader License</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
-        <connector>
-            <targetReference>GetManagerType</targetReference>
-        </connector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>AccountId</field>
-            <operator>In</operator>
-            <value>
-                <elementReference>varT_LeaderAccountIds</elementReference>
             </value>
         </filters>
         <filters>
@@ -2483,90 +2253,6 @@
             <operator>In</operator>
             <value>
                 <elementReference>varT_OperatorTypeIds</elementReference>
-            </value>
-        </filters>
-        <filters>
-            <field>PeriodEnd</field>
-            <operator>GreaterThanOrEqualTo</operator>
-            <value>
-                <elementReference>forDT_AsOfStart</elementReference>
-            </value>
-        </filters>
-        <filters>
-            <field>Status</field>
-            <operator>NotEqualTo</operator>
-            <value>
-                <stringValue>Revoked</stringValue>
-            </value>
-        </filters>
-        <filters>
-            <field>Status</field>
-            <operator>NotEqualTo</operator>
-            <value>
-                <stringValue>Retired</stringValue>
-            </value>
-        </filters>
-        <filters>
-            <field>Status</field>
-            <operator>NotEqualTo</operator>
-            <value>
-                <stringValue>Deceased</stringValue>
-            </value>
-        </filters>
-        <filters>
-            <field>Status</field>
-            <operator>NotEqualTo</operator>
-            <value>
-                <stringValue>Draft</stringValue>
-            </value>
-        </filters>
-        <getFirstRecordOnly>true</getFirstRecordOnly>
-        <object>BusinessLicense</object>
-        <storeOutputAutomatically>true</storeOutputAutomatically>
-    </recordLookups>
-    <recordLookups>
-        <name>GetManagerType</name>
-        <label>Get Manager Type</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
-        <connector>
-            <targetReference>GetManagerLicense</targetReference>
-        </connector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>Name</field>
-            <operator>EqualTo</operator>
-            <value>
-                <stringValue>Manager</stringValue>
-            </value>
-        </filters>
-        <getFirstRecordOnly>true</getFirstRecordOnly>
-        <object>RegulatoryAuthorizationType</object>
-        <storeOutputAutomatically>true</storeOutputAutomatically>
-    </recordLookups>
-    <recordLookups>
-        <name>GetManagerLicense</name>
-        <label>Get Manager License</label>
-        <locationX>0</locationX>
-        <locationY>0</locationY>
-        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
-        <connector>
-            <targetReference>RunStopCodeEstablishment</targetReference>
-        </connector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>AccountId</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>varT_AccountId</elementReference>
-            </value>
-        </filters>
-        <filters>
-            <field>RegulatoryAuthorizationTypeId</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>GetManagerType.Id</elementReference>
             </value>
         </filters>
         <filters>
@@ -2739,22 +2425,6 @@
     <variables>
         <name>varT_OperatorTypeIds</name>
         <description>Ids of the operator license types (cosmetologist, manicurist, esthetician).</description>
-        <dataType>String</dataType>
-        <isCollection>true</isCollection>
-        <isInput>false</isInput>
-        <isOutput>false</isOutput>
-    </variables>
-    <variables>
-        <name>varT_LeaderContactIds</name>
-        <description>Contacts linked to the salon as owner or manager.</description>
-        <dataType>String</dataType>
-        <isCollection>true</isCollection>
-        <isInput>false</isInput>
-        <isOutput>false</isOutput>
-    </variables>
-    <variables>
-        <name>varT_LeaderAccountIds</name>
-        <description>Person Accounts of those owners and managers.</description>
         <dataType>String</dataType>
         <isCollection>true</isCollection>
         <isInput>false</isInput>

@@ -107,13 +107,6 @@
             <field>DeveloperName</field>
             <operator>NotEqualTo</operator>
             <value>
-                <stringValue>StopCode16</stringValue>
-            </value>
-        </filters>
-        <filters>
-            <field>DeveloperName</field>
-            <operator>NotEqualTo</operator>
-            <value>
                 <stringValue>StopCode17</stringValue>
             </value>
         </filters>

@@ -192,7 +192,7 @@ Raised by later phases while Phase 2 is paused. Pick these up when it resumes.
   four Cosmetologist exams: national, practical, state and restoration).
   Reuse them; delete them before UAT data goes in. Phase 5 added `StopCodeTest Registrant`,
   `Registrant Two`/`Three` (signed up, with portal logins), `Registrant Four`/`Five` (left for UAT
-  sign-up), `StopCodeTest Registrant Six` (signed up as new to the Board, no license), the establishments `StopCodeTest Portal Salon` and `StopCodeTest Braid Studio` and the school `StopCodeTest Portal Beauty Academy` (from the portal shop, facility and new school applications), `StopCodeTest Trigger`, `StopCodeTest CE Provider Current/Prior/Expired` and the Draft
+  sign-up), `StopCodeTest Registrant Six` (signed up as new to the Board, no license), the establishments `StopCodeTest Portal Salon` and `StopCodeTest Braid Studio` and the school `StopCodeTest Portal Beauty Academy` (from the portal shop, facility and new school applications), `StopCodeTest Trigger`, `StopCodeTest CE Provider Current/Prior/Expired`, `StopCodeTest New Location Salon` (shop form test, BLA-0000000014; BLA-0000000015 is a reopening of StopCodeTest Salon) and the Draft
   `StopCodeTest Texas License`. Portal test logins (`stopcodetest.portal@lsbc-partial.test`,
   `stopcodetest.trigger@…`, `jvasquez+lsbcreg*@journeyblazers.com`) can't be deleted: deactivate them.
 - Case intake (sandbox): Email-to-Case routing address `jvasquez@journeyblazers.com` (Origin Email);
@@ -200,6 +200,9 @@ Raised by later phases while Phase 2 is paused. Pick these up when it resumes.
   verified org-wide address `jvasquez+lsbc@journeyblazers.com`: Salesforce rejects the routing address
   as a sender. Default Case owner is the General Inquiries queue. These are org settings, kept out of
   `force-app`; production uses LSBC addresses. Deliverability must be All email to test acknowledgements.
+- Manager licences belong to the shop, as in CLOSE (no person holds one), so no hold checks a manager's own
+  operator licence; the shop form checks the manager's licence number instead. Code 16 (no manager) is
+  staff-set, not automatic: managers are recorded only on inspection visits.
 - Violations: the `FeeSchedule` `Violation` row must exist or a violation can't be saved. Violation
   and complaint test records sit on the `StopCodeTest` accounts and Cases `RoutingTest …`,
   `ComplaintTest …`, `E2CTest …`; delete them with the stop code test data.
