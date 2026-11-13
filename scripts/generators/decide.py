@@ -56,6 +56,7 @@ def build(obj, label_obj, refuse_status, refuse_word, outdir):
 
     F.formula('forB_Ready', 'Boolean', '{!varN_OpenItems} = 0 && {!varN_UnpaidFees} = 0', 'True when every required document is accepted and every fee is paid, so the application can be approved.')
     F.formula('forB_IsRenewal', 'Boolean', 'NOT(ISBLANK({!GetApplication.LicensePermitNameId})) && TEXT({!GetApplication.ApplicationType}) = "Renewal"', 'True for a renewal of an existing license.')
+    F.formula('forB_IsDuplicate', 'Boolean', 'NOT(ISBLANK({!GetApplication.LicensePermitNameId})) && TEXT({!GetApplication.ApplicationType}) = "Duplicate"', 'True for a duplicate of an existing license: approving it records the date, which allows one duplicate per renewal period.')
     F.formula('forB_IsNewLicense', 'Boolean', 'ISBLANK({!GetApplication.LicensePermitNameId}) && (TEXT({!GetApplication.ApplicationType}) = "New" || ISBLANK(TEXT({!GetApplication.ApplicationType})))', 'True when approving creates a new license.')
     F.formula('forT_LicenseTypeId', 'String', 'IF({!forB_IsRenewal}, {!GetLicense.RegulatoryAuthorizationTypeId}, {!GetApplication.LicenseTypeId})', 'The license type whose expiration basis sets the new expiration date.')
     F.formula('forD_StartDate', 'Date', 'IF({!forB_IsRenewal} && DATEVALUE({!GetLicense.PeriodEnd}) > TODAY(), DATEVALUE({!GetLicense.PeriodEnd}), TODAY())', 'Where the new period starts: a renewal runs on from the current expiration date unless it has passed; a new license starts today.')
@@ -128,7 +129,11 @@ def build(obj, label_obj, refuse_status, refuse_word, outdir):
     F.decision('WhatKindOfApproval', 'What Kind of Approval?', [
         ('Renewal', 'Renewal', [cond('forB_IsRenewal', 'EqualTo', BOOL(True))], 'GetLicense', 'and'),
         ('NewLicense', 'New License', [cond('forB_IsNewLicense', 'EqualTo', BOOL(True))], 'GetLicenseType', 'and'),
+        ('Duplicate', 'Duplicate', [cond('forB_IsDuplicate', 'EqualTo', BOOL(True))], 'RecordDuplicate', 'and'),
     ], 'IsThereALicense', default_label='Other')
+    update('RecordDuplicate', 'Set Last Duplicate Date', 'GetApplication.LicensePermitNameId', 'BusinessLicense', [
+        ('LastDuplicateDate__c', REF('$Flow.CurrentDate')),
+        ('PrintRequestedDate__c', REF('$Flow.CurrentDate'))], 'ApproveApplication', 'CouldNotSaveDecision')
     F.lookup('GetLicense', 'Get License', 'BusinessLicense', [('Id', 'EqualTo', REF('GetApplication.LicensePermitNameId'))],
              ['Id', 'Identifier', 'PeriodEnd', 'RenewalCount__c', 'RegulatoryAuthorizationTypeId'], 'GetLicenseType', first=True, sort=None)
     F.lookup('GetLicenseType', 'Get License Type', 'RegulatoryAuthorizationType', [('Id', 'EqualTo', REF('forT_LicenseTypeId'))],
@@ -209,7 +214,7 @@ def build(obj, label_obj, refuse_status, refuse_word, outdir):
     desc = (f'Records staff\'s decision on a {label_obj.lower()}, from the Decide action. It first shows what stands in the way: required '
             f'documents not yet accepted, fees not fully paid, and active stop codes on the holder. Approve is allowed only when the documents are accepted and the fees paid. '
             f'Approving a new application creates the license with the number staff enter, its expiration date from License Expiration Date; approving a renewal moves the '
-            f'existing license\'s expiration on and adds one to its renewal count. Either way the license is marked ready to print and the application is Approved. '
+            f'existing license\'s expiration on and adds one to its renewal count; approving a duplicate records the date on the license as its Last Duplicate Date. Either way the license is marked ready to print and the application is Approved. '
             f'A return records the reason and can create the return letter; an application can also be {refusal_text}, with the reason saved.')
     label = f'Screen Flow: {label_obj} Decide'
     head = ('<?xml version="1.0" encoding="UTF-8"?>\n<Flow xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">'

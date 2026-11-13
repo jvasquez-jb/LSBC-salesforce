@@ -33,7 +33,7 @@ scripts only write rows for accounts already in the org.
 | 7 | `build_relations.py ids`, then `build_person_accounts.py extract/extra_person_ids.txt extra_people.csv`, then `build_relations.py csv` | `account_contact_relations.csv` | Owners from the shop or school, managers from the latest inspection since 2021, booth renters backed by a current booth licence. The `ids` step finds related people not yet loaded; load them before the `csv` step |
 | 8 | `build_bonds.py` | `school_bonds.csv` | Every surety bond for a loaded school. End years 3000 to 9999 mean a continuous bond, capped at 4000-12-31 |
 | 9 | `build_holds.py` | `open_holds.csv`, `held_stop_codes.csv` | Open CLOSE stop codes, only for categories described "Set and ended by staff". Salesforce raises the other codes itself |
-| 10 | `build_enrichment.py` | `person_duplicate_counts.csv`, `instructor_ceu.csv` | Duplicate licence count and last date per person; last CEU date on instructor licences |
+| 10 | `build_enrichment.py` | `licence_last_duplicates.csv`, `person_close_affidavits.csv`, `instructor_ceu.csv` | Last duplicate date per licence (the duplicate's fee code names the licence; the pre-2001 code 91 is skipped), upserted on BusinessLicense `LegacyKey__c`; Earlier Affidavit In CLOSE for people whose comments record an affidavit ("Cert mailed", "Aff mailed", "Affidavit mailed"; marriage certificate notes excluded), upserted on Account `LegacyKey__c`; last CEU date on instructor licences. Reads `sf/licence_keys.csv`. Loaded 12 Nov 2026: 2,507 licences, 2,853 people |
 
 `read_office.py` prints the text of a `.pptx` or `.xlsx`, used to read the design files.
 

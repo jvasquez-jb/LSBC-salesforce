@@ -173,14 +173,6 @@
         <editHeading>true</editHeading>
         <label>Event</label>
         <layoutColumns>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>EventType__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>EventTypeOther__c</field>
-            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -203,6 +195,10 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>AffidavitRecipientState__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>InitiallyLicensedName__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>

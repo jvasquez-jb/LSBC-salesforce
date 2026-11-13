@@ -11,6 +11,11 @@
     <description>Everything a licensee or applicant needs on the LSBC portal: their own licenses, applications, fees and documents, and the portal forms. Social Security number and birthdate are deliberately left out; the forms read them in system context.</description>
     <fieldPermissions>
         <editable>false</editable>
+        <field>BusinessLicense.LastDuplicateDate__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Account.Parish__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -71,17 +76,12 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Contact.DuplicateLicenseCount__c</field>
+        <field>Contact.HasCloseAffidavit__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
         <field>Contact.HomeParish__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Contact.LastDuplicateLicenseDate__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -156,12 +156,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>IndividualApplication.EventTypeOther__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>IndividualApplication.EventType__c</field>
+        <field>IndividualApplication.InitiallyLicensedName__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

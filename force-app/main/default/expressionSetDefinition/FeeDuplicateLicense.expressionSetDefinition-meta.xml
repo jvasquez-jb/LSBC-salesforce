@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ExpressionSetDefinition xmlns="http://soap.sforce.com/2006/04/metadata">
-    <description>Decides whether a duplicate license may be issued and what it costs: one per twelve months, the first ever free and later ones charged the Fee Schedule amount.</description>
+    <description>Decides whether a duplicate license may be issued and what it costs: one per license in each renewal period, every duplicate charged the Fee Schedule amount.</description>
     <executionScale>Low</executionScale>
     <label>Fee Duplicate License</label>
     <processType>Bre</processType>
     <template>false</template>
     <versions>
         <fullName>FeeDuplicateLicense_V1</fullName>
-        <description>Decides whether a duplicate license may be issued and what it costs: one per twelve months, the first ever free and later ones charged the Fee Schedule amount.</description>
+        <description>Decides whether a duplicate license may be issued and what it costs: one per license in each renewal period, every duplicate charged the Fee Schedule amount.</description>
         <expressionSetDefinition>FeeDuplicateLicense</expressionSetDefinition>
         <label>Fee Duplicate License V1</label>
         <rank>1</rank>
@@ -19,9 +19,9 @@
             <actionType>AssignParameterValues</actionType>
             <assignment>
                 <assignedParameter>IsAllowed</assignedParameter>
-                <expression>ISBLANK(LastDuplicateDate) || LastDuplicateDate &lt;= ADDMONTHS(AsOfDate, -12)</expression>
+                <expression>ISBLANK(LastDuplicateDate) || ISBLANK(PeriodEndDate) || LastDuplicateDate &lt;= ADDMONTHS(PeriodEndDate, -12)</expression>
             </assignment>
-            <description>True when no duplicate was issued in the last twelve months.</description>
+            <description>True when no duplicate of the license was issued in the renewal period: the twelve months before its expiration date.</description>
             <label>Set Is Allowed</label>
             <name>SetIsAllowed</name>
             <resultIncluded>true</resultIncluded>
@@ -35,9 +35,9 @@
             <actionType>AssignParameterValues</actionType>
             <assignment>
                 <assignedParameter>Amount</assignedParameter>
-                <expression>IF(ISBLANK(DuplicateLicenseCount) || DuplicateLicenseCount == 0, 0, DuplicateFee)</expression>
+                <expression>DuplicateFee</expression>
             </assignment>
-            <description>Nothing for the first duplicate ever, otherwise the duplicate fee.</description>
+            <description>The duplicate fee, charged for every duplicate.</description>
             <label>Set Amount</label>
             <name>SetAmount</name>
             <resultIncluded>true</resultIncluded>
@@ -49,18 +49,8 @@
         </steps>
         <variables>
             <collection>false</collection>
-            <dataType>Numeric</dataType>
-            <decimalPlaces>2</decimalPlaces>
-            <description>Duplicates already issued to the person. Blank counts as none.</description>
-            <input>true</input>
-            <name>DuplicateLicenseCount</name>
-            <output>false</output>
-            <type>Variable</type>
-        </variables>
-        <variables>
-            <collection>false</collection>
             <dataType>Date</dataType>
-            <description>When the last duplicate was issued. Blank when there has been none.</description>
+            <description>When the last duplicate of this license was issued. Blank when there has been none.</description>
             <input>true</input>
             <name>LastDuplicateDate</name>
             <output>false</output>
@@ -69,9 +59,9 @@
         <variables>
             <collection>false</collection>
             <dataType>Date</dataType>
-            <description>The date of the request, normally today.</description>
+            <description>The expiration date of the renewal period the duplicate is for: the license's current expiration, or the next one when the license is renewed on the same request. Blank allows the duplicate.</description>
             <input>true</input>
-            <name>AsOfDate</name>
+            <name>PeriodEndDate</name>
             <output>false</output>
             <type>Variable</type>
         </variables>
@@ -88,7 +78,7 @@
         <variables>
             <collection>false</collection>
             <dataType>Boolean</dataType>
-            <description>True when no duplicate was issued in the last twelve months.</description>
+            <description>True when no duplicate of the license was issued in the renewal period: the twelve months before its expiration date.</description>
             <input>false</input>
             <name>IsAllowed</name>
             <output>true</output>
@@ -99,7 +89,7 @@
             <collection>false</collection>
             <dataType>Currency</dataType>
             <decimalPlaces>2</decimalPlaces>
-            <description>Nothing for the first duplicate ever, otherwise the duplicate fee.</description>
+            <description>The duplicate fee, charged for every duplicate.</description>
             <input>false</input>
             <name>Amount</name>
             <output>true</output>

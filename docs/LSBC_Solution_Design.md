@@ -166,7 +166,7 @@ record types.
 
 | Object | Purpose | Key content |
 |---|---|---|
-| Account (person) | Licensees, instructors, students, booth renters | Identity, photo, maiden name, legacy certification number, duplicate count |
+| Account (person) | Licensees, instructors, students, booth renters | Identity, photo, maiden name, legacy certification number, earlier affidavit in CLOSE |
 | Account (business) | Schools, salons, shops | Record types `Establishment` (salons, shops), `School`, and `Organization` (unlicensed businesses: parent companies, CE providers, evaluation agencies). See `DM-01a`. Validated address with geocoding, parish |
 | Contact | Non-licensees only | Public complainants, school administrators, unlicensed owners. Plus the person contact behind each Person Account |
 | `BusinessProfile` | Regulatory detail on an establishment | Nine fields only: operating name, business structure, tax identifier |
@@ -226,7 +226,7 @@ separate Deceased flag on the applicant, which supports this. See `BR-04`.
 the single public lookup key, and stop-code and prerequisite rules never have to find "the current
 one". Year-by-year history comes from renewal applications, fee items carrying `ForYear__c`, and
 field history. Credential-level facts — `LastCEUDate__c`, `ConsecutiveCEUCycles__c`,
-`IsMasterInstructor__c`, `InstructorStatus__c` (Active or Inactive, from CLOSE; it decides the instructor's fee codes), `RenewalCount__c` — live on the licence.
+`IsMasterInstructor__c`, `InstructorStatus__c` (Active or Inactive, from CLOSE; a master instructor is also active or inactive; it does not change the fees), `RenewalCount__c` — live on the licence.
 
 > `BusinessLicenseStatus` in the org ships with Inactive (default), Revoked, Draft and Verified.
 > Phase 1 added Active, Retired and Deceased.
@@ -601,8 +601,8 @@ school (`PP` operator, `PN` shop, `PS` instructor). `PB` overpayment, `BY` misce
 | Late school registration | — | $2,500 per student where a school misses the 45-day window. Ten to twenty issued a year; one school once settled $120,000 |
 | Records list request | — | A paid request handled by IT. Fee not yet known |
 | Late penalty | Per licence type: `AH`, `AO`, `AV`, `BX`, `DF`, `DL`, `EI` | $35 per delinquent year on top of the standard $35, with late fees capped at **$465** (`BR-07`) |
-| Duplicate licence | — | First free; $25 thereafter, one per year, paper request only, no digital copy |
-| Affidavit | — | First free; $15 thereafter **per licence**, not per request |
+| Duplicate licence | — | $25 every time, the first included; one per licence per renewal period, requested at any point in the period; paper request only, no digital copy |
+| Affidavit | — | The first ever free; $15 for every licence after that, **per licence**, not per request. Two licences on a first request: one free, one $15 |
 | School renewal | `FD` | $190 a year, due before January 31 |
 | School late renewal | `FD` + `FH` | $380 doubled renewal (`FD`) plus $175 failure to timely renew (`FH`) — $555 total. `PO` is the school violation fine, not part of this |
 | School bond | — | $30,000 bond must be current; checked in the print routine |
@@ -639,8 +639,8 @@ restoration limit. Placeholders and gaps:
 | Fee codes | All 621 CLOSE codes are loaded as Products (11 Nov 2026) and each fee item links to its code. `AC` is the cosmetologist renewal. Temporary permits, threading facilities, no-shows and retakes have no per-type code in CLOSE |
 | Salon (business) renewal amount | $55, code `DI` (version 3) |
 | Records list request | No amount (`OPEN-30`), so no row |
-| Affidavit "first free, then $15 per licence" (`BR-26`) | The affidavit form counts the applicant's earlier affidavit requests: the first is free. Over what period "first" counts, whether $15 is per licence or per request, and CLOSE's unexplained $25 code 87 are `OPEN-47` |
-| Duplicate licence once a year (`BR-18`) | Enforced over a rolling twelve months from `LastDuplicateLicenseDate__pc` |
+| Affidavit "first free, then $15 per licence" (`BR-26`) | The affidavit form counts the applicant's earlier affidavit requests: the first is free. LSBC confirmed (12 Nov 2026) the first ever is free and $15 is per licence. One request covers one licence and produces its own certification letter, as built. Built 12 Nov 2026: Earlier Affidavit In CLOSE (`Contact.HasCloseAffidavit__c`) marks the 2,853 migrated people whose CLOSE comments record an affidavit (CLOSE keeps no count), and the form treats it as the free one used; the applicant types Initially Licensed Name. CLOSE's $25 code 87 is discontinued |
+| Duplicate licence once per renewal period (`BR-18`) | LSBC confirmed (12 Nov 2026) one duplicate per licence per renewal period, any time in the period, $25 every time. Built 12 Nov 2026: `FeeDuplicateLicense` allows a duplicate when the licence's Last Duplicate Date (`BusinessLicense.LastDuplicateDate__c`) falls before its current period (the twelve months before its expiration, or the next period when renewed on the same request), and always charges the Fee Schedule amount. Approving a duplicate in Decide sets the date; 2,507 licences carry their last CLOSE duplicate |
 | Late years | Each passed anniversary of the paid-through date is one delinquent year; the renewal pays the current year, and each missed year carries a late fee until the cap |
 | `LicenseExpirationDate` output | Returns midnight UTC. Whoever writes it to `PeriodEnd` should set a Louisiana-local time so the date does not show as the evening before |
 
@@ -723,7 +723,9 @@ broke when a prior system crashed and staff overrode dates manually with no hist
 currently holding master status has an unverifiable gap behind them. The platform should track
 cycles year over year from go-live rather than attempt to reconstruct.
 
-`BR-18` `[SETTLED]` Duplicate licences are limited to one per person per year.
+`BR-18` `[SETTLED]` Duplicate licences are limited to **one per licence per renewal period**, requested
+at any point in the period (some licensees post their licence at several salons; the limit guards
+against fraud). Every duplicate costs $25, the first included.
 
 `BR-18a` `[SETTLED]` **A no-show carries a $25 administrative fee** on reapplication, unless the
 candidate gives seven days' notice or 24 hours in an emergency. A separate no-show application
@@ -793,7 +795,12 @@ of one — the inverse of the prerequisite codes in `BR-02`.
 Person Examination.
 
 `BR-26` `[SETTLED]` **An affidavit is both.** Requested on an application — first free, $15
-thereafter — and produces a certification of licensure. Three variants:
+thereafter — and produces a certification of licensure. The first affidavit ever is free and each
+further licence certified costs $15. Each licence is its own request with its own certification
+letter, so a first-time applicant for two licences pays $15 in all. CLOSE records earlier affidavits,
+including those from before CLOSE, only as a comment on the applicant ("Cert mailed to TX 01/01/23",
+"Aff mailed" with a date and initials); any such comment means the free one is used. "Name you were initially licensed under" is any
+name since school registration (a legal name change or maiden name), so the applicant types it. Three variants:
 
 | Variant | Content |
 |---|---|
@@ -808,11 +815,13 @@ testing. No separate renewal path.
 
 `BR-28` `[SETTLED]` **A temporary permit is an event permit for an out-of-state licensee**, and a
 bridge into reciprocity. The applicant holds a current licence in another state and needs to work
-at a named event: hair show, beauty pageant, demonstration, movie set, reciprocity, or other.
+at an event. The paper form lists event types (hair show, beauty pageant, demonstration, movie set,
+reciprocity, other), but reciprocity says (12 Nov 2026) the type doesn't matter, so the portal form no longer asks it.
 
-- $50, applied for at least 30 days in advance, with a copy of the current out-of-state licence
-  and the event dates
-- Valid for **30 days from issue**, and renewable **once** before completion of testing
+- $50, with a copy of the current out-of-state licence. The paper form asks for event dates 30 days
+  in advance; whether the portal keeps that check is asked of reciprocity
+- Valid for **30 days from issue**, and renewable **once** before completion of testing. Staff
+  set the expiration by hand: 30 days from processing the fee plus 2 to 3 days for the post
 - Governed by Administrative Rule 1113.A and B
 - Money order or cashier's cheque only
 
@@ -1613,12 +1622,11 @@ more than leaving a door open.
 | `OPEN-33` | The card service charge | Applies to card payments, raising a $525 restoration to roughly $540. All card payments, or only at the counter? | Carnita or the front desk |
 | `OPEN-40` | Licence numbers for migrated licences | CLOSE has no licence number apart from the applicant ID, which is shaped like a social security number, so `Identifier` is blank on every migrated licence. Portal sign-up and search by number find no migrated licensee (`PT-09`, `PT-13`, `PT-14`) | Before the production load |
 | `OPEN-41` | Numbering new licences | Decide approves a licence, and staff type its number until the rule is known: a running number per type, salons starting 777 (`PT-14`) | Staff go-live |
-| `OPEN-42` | Instructor status N and X | CLOSE marks instructors A, I, M, N or X. Active and inactive instructors renew under different fee codes; N (26) and X (2) are unexplained. Deborah knows only Active, Inactive and Master; William to check CLOSE (`BR-07`) | Before renewals use the status |
 | `OPEN-43` | Refunding money already applied to a fee | Refund covers only money not applied to a fee. Staff would take money off a fee by hand first, with no record of why (`DM-18b`) | Staff go-live |
 | `OPEN-44` | Notarised forms and the certification step | Will the Board accept the portal's certification (checkbox, typed name, time) in place of notarisation, for example the contractual fees certificate (`BR-03a`, `PT-19`)? | Portal publish |
 | `OPEN-45` | LSBC mailboxes and sending addresses | Email-to-Case needs LSBC's complaint and inquiry mailboxes forwarded by OTS, and acknowledgements and portal emails need a verified LSBC sender, with DKIM and SPF (`CM-01`, `PT-09b`) | Staff go-live |
 | `OPEN-46` | Letter wording and letterhead | The four letters use placeholder wording and a placeholder letterhead (`PT-16`) | Staff go-live |
-| `OPEN-47` | Counting affidavits | First free, then $15: over what period does "first" count, is $15 per licence or per request, and what is CLOSE's $25 code 87 (`BR-26`)? | Staff go-live |
+| `OPEN-47` | Counting affidavits | Answered 12 Nov 2026: the first affidavit ever is free, $15 per licence after that, and CLOSE comments mark earlier ones. Code 87 is discontinued (`BR-26`, `BR-07`) | Closed |
 | `OPEN-48` | The printed licence layout | The print queue tracks what needs printing, but nothing can print onto the three-part stock until we have a sample (`PT-16`) | Staff go-live |
 | `OPEN-51` | Encrypting the date of birth | Confirm Shield can encrypt `Contact.Birthdate` before the field list is applied in January. Nothing filters on it (`SEC-04`, `PT-09`) | Before Shield, January |
 | `OPEN-52` | History of rule changes | Expression set versions cannot be deployed in this org, so rule changes overwrite the active version and LSBC's administrator gets no history. Test creating versions in Expression Set Builder, or raise it with Salesforce; otherwise accept and tell LSBC (section 2) | Build team, before handover |
@@ -1653,9 +1661,10 @@ more than leaving a door open.
 | `OPEN-25` | Which exam forms consolidate | One exam application with an exam type choice (Deborah, 12 Nov 2026). Built with the school portal |
 | `OPEN-49` | Seminar providers | Milady, Pivot Point and Rocketcert (Deborah, 12 Nov 2026), created as Organization accounts, each with a 2026 CE Provider Approval (1 Jan to 31 Dec). The Board approves providers each year; staff add each year's approval (`DM-16`) |
 | `OPEN-55` | Holds raised by migrated data | Code 16 is set by staff (`BR-03`); code 20 stays automatic at 180 days (`BR-11`). Both confirmed by LSBC, 12 Nov 2026 |
+| `OPEN-42` | Instructor status N and X | N is Master-Inactive, X is not applicable (William, 12 Nov 2026). Masters load with Active or Inactive and Master Instructor ticked; X stays blank. Status does not change the fees (`BR-07`) |
 | `OPEN-39` | Complaint intake | `PublicComplaint` carries the complaint, `Case` carries the work, `ComplaintCase` joins them. It beats `Case` with record types on anonymity, categorisation, intake channel and board reporting |
 
-**The shape of what remains.** Thirty-two open. The LSBC Client Questions document tracks over a
+**The shape of what remains.** Thirty-one open. The LSBC Client Questions document tracks over a
 hundred smaller configuration questions; those that change scope, go-live or the data are listed here.
 
 **Two are for the project manager before this document goes to LSBC:** `OPEN-53`, migration and the
@@ -1689,7 +1698,7 @@ inventories, exact wording and edge cases live.
 
 | Source | What it contains | What it drives |
 |---|---|---|
-| Applications inventory (spreadsheet) | Fourteen numbered documents with a named owner against each, plus four process areas without forms | `PT-20`. Note the register has at least one error: temporary permits are assigned to the problem desk, which disclaims them |
+| Applications inventory (spreadsheet) | Fourteen numbered documents with a named owner against each, plus four process areas without forms | `PT-20`. Note the register has at least one error: temporary permits are assigned to the problem desk, which disclaims them; they belong to reciprocity |
 | Student enrolment application | The full field inventory in two blocks: applicant details, education history, prior-enrolment questions, school details, course selection, and **hours attending each day of the week** | `PT-05`, the student registration flow. The weekday hours fields are not modelled anywhere else |
 | School reference pack (19 pages) | Eleven further forms, none published separately: certification of contractual fees, notice of termination, registration transfer, notarised relinquishment of hours, national and retake exam applications, practical and state applications, the 1,400-hour and 1,500-hour forms, no-show application, accommodation request and disability documentation, field trips | `PT-21`, `BR-13`, `BR-18a`, `SEC-08`. The accommodation form carries the Board's written confidentiality commitment |
 | Registration procedures (SOP suite) | `REG-DP-001` application review and approval, `REG-DP-002` student registration, plus deposit preparation, mailing, and return and transfer processing. Effective 1 June 2026 | The three-pile sort (return, re-registration, initial processing), duplicate detection by identifier, and the education verification decision table — `BR-10`, `PT-03`, `PT-04` |
@@ -1781,7 +1790,7 @@ the source.
 | 6 Nov 2026 | Course Offering gains a `School__c` lookup; the standard object has none. |
 | 6 Nov 2026 | `SEC-04` encrypted field list drafted in 5.1. |
 | 6 Nov 2026 | `DM-05`, `DM-06`, `BR-04` built ahead of LSBC confirmation; still marked PROPOSED. |
-| 6 Nov 2026 | Person-level fields (maiden name, legacy certification number, social security number and card, duplicate licence count) live on **Contact** and surface on the Person Account as `__pc`. Account custom fields are for business accounts. |
+| 6 Nov 2026 | Person-level fields (maiden name, legacy certification number, social security number and card, duplicate licence count, since moved to the licence) live on **Contact** and surface on the Person Account as `__pc`. Account custom fields are for business accounts. |
 | 6 Nov 2026 | Parish is the global value set `Parish` (64 parishes plus Out of state), used by `Account.Parish__c` for business addresses and `Contact.HomeParish__c` for home addresses. Picklists shared across objects are global value sets. |
 | 6 Nov 2026 | `BusinessLicenseStatus` gains Active alongside Retired and Deceased. |
 | 6 Nov 2026 | Person Account record type relabelled **Person** and given a description; developer name `PersonAccount` unchanged. |
@@ -1836,3 +1845,6 @@ the source.
 | 12 Nov 2026 | Deborah's follow-up: CE providers are approved by the Board each year, so each has a 2026 approval (1 Jan to 31 Dec) and staff add the next. The inspector collects all new school fees at the inspections, the $300 and $340 at the final one. Code 20 counts from the last hours received; the build counts from the end date of the last hours entry. |
 | 12 Nov 2026 | Code 20 counts from the date the Board received the last hours, as Deborah described: new field Received Date on Training Course Participant (defaults to the day the entry is made), backfilled on the 32,804 migrated hours entries from CLOSE's entry date (a median 16 days after the month's end). `StopCodePerson` input `LatestHoursReceivedDate` replaces `LatestHoursEndDate`; the nightly schedule watches the received date (`BR-11`, `DM-16`). |
 | 12 Nov 2026 | Every custom field goes on its layout and gets admin field access in the same change; `scripts/checks/field_coverage.py` enforces it (section 1). Layouts brought in line: the record type, applicant answers, certification and location on both applications, fee year and product, Legacy Key, Parish, Tax ID, Entry Type, Attempt Number, bond and CE fields, Fee Code; the Examination, Person Disability, Person Education and licence type (Regulatory Authorization Type) layouts added to the repo with their fields. Compact layouts on nine objects. The person account shows relationships, exams, accommodation requests and languages. |
+| 12 Nov 2026 | Cory's answers (problem desk): the first affidavit ever is free and $15 is charged per licence certified; CLOSE records earlier affidavits only as an applicant comment; "name you were initially licensed under" is any earlier name, typed by the applicant (`BR-26`). Duplicates are one per renewal period, not per year (`BR-18`). Temporary permits belong to reciprocity (Stephanie). Parish stays blank where the ZIP spans parishes (`PRE-01`). Build changes made the same day (see the next row) |
+| 12 Nov 2026 | Follow-ups from Cory and Stephanie: a duplicate is one per licence per renewal period, any time in it, $25 every time with no free first (`BR-18`). Two licences are two affidavit requests with a letter each; CLOSE comments ("Cert mailed", "Aff mailed") mark earlier affidavits, before CLOSE included; code 87 is discontinued (`BR-26`, `OPEN-47` closed). The temporary permit's event type comes off; the permit runs 30 days from issue plus mail time, set by hand (`BR-28`). Built the same day: Last Duplicate Date on the licence replaces the person's duplicate count and date; Earlier Affidavit In CLOSE and Initially Licensed Name added; event type removed from the temporary permit form. Event dates and the 30-day advance check wait on reciprocity |
+| 12 Nov 2026 | LSBC answers (William): instructor status N is Master-Inactive and X is not applicable; the status does not change the fees, so `InstructorStatus__c` no longer claims it does. The 26 N instructors reload as Inactive masters, the 28 M as Active masters (`BR-07`), `OPEN-42` settled. The portal's Forms and Resources page links the School Forms packet and the Threading and Alternative Hair Design Facility Application on the Board's website; the copies mapped in `docs/` are the same forms. Thirty-one open. |

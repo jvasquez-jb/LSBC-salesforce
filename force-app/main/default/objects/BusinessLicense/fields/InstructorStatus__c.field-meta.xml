@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>InstructorStatus__c</fullName>
-    <description>For instructor licenses: whether the instructor is active (teaching) or inactive. Active and inactive instructors renew and get duplicates under different fee codes. Carried over from the Board's previous licensing system; blank when it recorded another status.</description>
+    <description>For instructor licenses: whether the instructor is active (teaching) or inactive. Master instructors are also active or inactive (see Master Instructor). The status does not change the fees. Carried over from the Board's previous licensing system; blank when it recorded none.</description>
     <inlineHelpText>Instructor licenses only. Active means currently teaching.</inlineHelpText>
     <label>Instructor Status</label>
     <required>false</required>

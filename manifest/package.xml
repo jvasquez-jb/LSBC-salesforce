@@ -77,6 +77,7 @@
         <members>BusinessLicense.IsMasterInstructor__c</members>
         <members>BusinessLicense.IsReadyToPrint__c</members>
         <members>BusinessLicense.LastCEUDate__c</members>
+        <members>BusinessLicense.LastDuplicateDate__c</members>
         <members>BusinessLicense.LegacyKey__c</members>
         <members>BusinessLicense.PrintRequestedDate__c</members>
         <members>BusinessLicense.PrintedDate__c</members>
@@ -89,9 +90,8 @@
         <members>BusinessLicenseApplication.IsPremisesLeased__c</members>
         <members>BusinessLicenseApplication.RequestedOpeningDate__c</members>
         <members>BusinessLicenseApplication.ReturnReason__c</members>
-        <members>Contact.DuplicateLicenseCount__c</members>
+        <members>Contact.HasCloseAffidavit__c</members>
         <members>Contact.HomeParish__c</members>
-        <members>Contact.LastDuplicateLicenseDate__c</members>
         <members>Contact.LegacyCertificationNumber__c</members>
         <members>Contact.MaidenName__c</members>
         <members>Contact.SocialSecurityCardReceived__c</members>
@@ -113,11 +113,10 @@
         <members>IndividualApplication.EvaluationAgency__c</members>
         <members>IndividualApplication.EventEndDate__c</members>
         <members>IndividualApplication.EventStartDate__c</members>
-        <members>IndividualApplication.EventTypeOther__c</members>
-        <members>IndividualApplication.EventType__c</members>
         <members>IndividualApplication.Exams__c</members>
         <members>IndividualApplication.FelonyConviction__c</members>
         <members>IndividualApplication.FridayHours__c</members>
+        <members>IndividualApplication.InitiallyLicensedName__c</members>
         <members>IndividualApplication.IsCertified__c</members>
         <members>IndividualApplication.IsLouisianaResident__c</members>
         <members>IndividualApplication.LicenseByApprenticeship__c</members>

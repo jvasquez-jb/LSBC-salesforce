@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HasCloseAffidavit__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Ticked when the Board's old licensing system (CLOSE) records an affidavit for this person: CLOSE kept no count, only a comment such as "Cert mailed to TX 01/01/23" or "Aff mailed". The first affidavit ever is free, so when this is ticked the Affidavit Request form charges the fee. Set by the data migration.</description>
+    <inlineHelpText>Ticked when CLOSE shows an earlier affidavit, so the free first affidavit has been used.</inlineHelpText>
+    <label>Earlier Affidavit In CLOSE</label>
+    <trackHistory>false</trackHistory>
+    <type>Checkbox</type>
+</CustomField>

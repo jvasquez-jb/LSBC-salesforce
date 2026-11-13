@@ -90,11 +90,7 @@
         <layoutColumns>
             <layoutItems>
                 <behavior>Readonly</behavior>
-                <field>DuplicateLicenseCount__pc</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>LastDuplicateLicenseDate__pc</field>
+                <field>HasCloseAffidavit__pc</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>

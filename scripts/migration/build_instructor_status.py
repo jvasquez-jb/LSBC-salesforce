@@ -4,8 +4,9 @@
 Usage: LSBC_MIGRATION_DIR=<working folder> python3 -I build_instructor_status.py <lsbc_deid.sqlite>
 
 CLOSE keeps one status per person (APPLICANTS.INSTRUCTOR_STATUS): A active,
-I inactive, M master. N and X are not yet explained by LSBC, so those and
-blanks are left empty. The status goes on each of the person's migrated
+I inactive, M master, N master inactive, X not applicable (LSBC, 12 Nov 2026).
+M loads as Active and master, N as Inactive and master; X and blanks are left
+empty. The status does not change the fees. The status goes on each of the person's migrated
 instructor licences (keys ending -CI, -EI or -MI).
 """
 import collections, csv, os, sqlite3, sys
@@ -30,5 +31,7 @@ with open(os.path.join(root, "load", "instructor_status.csv"), "w", newline="") 
         elif s == "I":
             w.writerow([lk, "Inactive", "false"])
         elif s == "M":
-            w.writerow([lk, "", "true"])
+            w.writerow([lk, "Active", "true"])
+        elif s == "N":
+            w.writerow([lk, "Inactive", "true"])
 print(dict(stats))
