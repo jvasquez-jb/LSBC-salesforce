@@ -175,6 +175,11 @@ Raised by later phases while Phase 2 is paused. Pick these up when it resumes.
   "equals false" check. Prefix the haystack: `CONTAINS(";" & {!varT_List}, …)`.
 - A screen text input or multi-select left empty after a visit is an empty string, not null: test it
   with Is Blank (or a trimmed formula), never Is Null. Radio buttons reject Is Blank; Is Null works there.
+- State and Country picklists are on. Screen addresses use the standard Address component
+  (`flowruntime:address`, `required` input for the asterisks), which shows Country and State dropdowns but
+  outputs and takes *names* (`Louisiana`, `United States`): write them to the name fields (`PersonMailingState`,
+  `ShippingCountry`), never the `…Code` fields (restricted picklist error). Saving a state without a country fails.
+  In the browser driver, open its dropdowns with focus + ArrowDown; a click doesn't open State.
 - A radio button with a fixed default resets when its screen is reached again through a connector,
   even with "remember values". An error screen that sends the user back uses the real Back button
   (`allowBack` true, `allowFinish` false, `backButtonLabel`).
