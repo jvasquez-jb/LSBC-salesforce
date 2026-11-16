@@ -170,7 +170,7 @@ def build(obj):
             assert name_ == 'ALERTCARD' or (isinstance(rl, tuple) and rl[0] == 'FLOW') or name_ in c['rels'], f'{obj}: no related list {name_}'
     header = [p.comp('force:highlightsPanel', [('collapsed', 'false'), ('enableActionsConfiguration', 'true'),
         ('enableActionsInNative', 'true'), ('hideChatterActions', 'true'), ('hideSlackAction', 'false'),
-        ('numVisibleActions', '3')], value_lists={'actionNames': actions})]
+        ('numVisibleActions', '7')], value_lists={'actionNames': actions})]
     if obj == 'Account':
         header.append(p.comp('runtime_omnistudio:flexcard', [
             ('exposedAttributes', '{"Limit":"3","ChildLimit":"5","AggregateAlerts":false}'),
