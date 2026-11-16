@@ -393,6 +393,7 @@
         <members>PreliminaryApplicationReferenceScheduleExpiredDrafts</members>
         <members>RecordTriggerAccountAfterSave</members>
         <members>RecordTriggerAccountContactRelationAfterSave</members>
+        <members>RecordTriggerAccountContactRelationBeforeDelete</members>
         <members>RecordTriggerAccreditationAfterSave</members>
         <members>RecordTriggerBusinessLicenseAfterSave</members>
         <members>RecordTriggerBusinessLicenseBeforeDelete</members>
@@ -537,6 +538,7 @@
         <members>Account.AddStopCode</members>
         <members>Account.GenerateLetter</members>
         <members>Account.NewApplication</members>
+        <members>Account.NewLicense</members>
         <members>Account.NewViolationEstablishment</members>
         <members>Account.NewViolationPractitioner</members>
         <members>Account.RecordPayment</members>

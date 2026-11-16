@@ -89,17 +89,17 @@ PAGES = {
    ['Edit'], []),
  'Account': ('Account Record Page',
    'Staff view of a person or business: licenses, applications, fees and payments, stop codes, violations and Cases. Person and business accounts see the related lists that apply to them.',
-   ['Edit', ('Account.NewApplication', PERSON), 'Account.RecordPayment', 'Account.GenerateLetter', 'Account.AddStopCode', ('Account.NewViolationPractitioner', PERSON), ('Account.NewViolationEstablishment', BUSINESS)],
+   ['Edit', ('Account.NewApplication', PERSON), 'Account.NewLicense', 'Account.RecordPayment', 'Account.GenerateLetter', 'Account.AddStopCode', ('Account.NewViolationPractitioner', PERSON), ('Account.NewViolationEstablishment', BUSINESS)],
    [('Relationships', [('PersonAccountContactRelations', PERSON), ('AccountContactRelations', BUSINESS)]),
-    ('Exams and Accommodations', [(('DYN', 'PersonPersonExamContact', 'Person Examinations', ['Name', 'Examination', 'ExaminationDate', 'AttemptNumber__c', 'Result']), PERSON),
-                                  (('DYN', 'PersonDisabilities', 'Accommodation Requests', ['Name', 'Status', 'Accommodations__c', 'IsAccommodationRequired']), PERSON),
+    ('Exams and Accommodations', [(('DYN', 'PersonPersonExamContact', 'Person Examinations', ['Name', 'Examination', 'ExaminationDate', 'AttemptNumber__c', 'Result'], ['New']), PERSON),
+                                  (('DYN', 'PersonDisabilities', 'Accommodation Requests', ['Name', 'Status', 'Accommodations__c', 'IsAccommodationRequired'], ['New']), PERSON),
                                   (('FLOW', 'ScreenFlowAccountPersonLanguages'), PERSON)]),
-    ('Licenses', [('BusinessLicenses', BUSINESS), (('DYN', 'BusinessLicenses', 'Licenses', ['Name', 'Identifier', 'RegulatoryAuthorizationType', 'Status', 'PeriodEnd']), PERSON)]),
-    ('Applications', [(('DYN', 'IndividualApplicationAccount', 'Individual Applications', ['Name', 'LicenseType', 'Status', 'AppliedDate']), PERSON),
-                      (('DYN', 'BusinessLicenseApplicationAccount', 'Business License Applications', ['Name', 'LicenseType', 'Status', 'AppliedDate']), BUSINESS)]),
+    ('Licenses', [('BusinessLicenses', BUSINESS), (('DYN', 'Accreditations', 'Accreditations', ['Name', 'Type', 'AccreditingBody', 'Status', 'EffectiveTo'], ['New']), BUSINESS), (('DYN', 'BusinessLicenses', 'Licenses', ['Name', 'Identifier', 'RegulatoryAuthorizationType', 'Status', 'PeriodEnd']), PERSON)]),
+    ('Applications', [(('DYN', 'IndividualApplicationAccount', 'Individual Applications', ['Name', 'LicenseType', 'Status', 'AppliedDate'], ['New']), PERSON),
+                      (('DYN', 'BusinessLicenseApplicationAccount', 'Business License Applications', ['Name', 'LicenseType', 'Status', 'AppliedDate'], ['New']), BUSINESS)]),
     ('Fees and Payments', [('RegulatoryTrxnFees', None), ('PaymentsReceived__r', None)]),
     ('Stop Codes', [('ALERTCARD', None)]),
-    ('Training', [(('DYN', 'PersonTCPContact', 'Training Course Participants', ['Name', 'CourseOffering', 'EntryType__c', 'TotalHours', 'StartDate', 'EndDate']), PERSON)]),
+    ('Training', [(('DYN', 'PersonTCPContact', 'Training Course Participants', ['Name', 'CourseOffering', 'EntryType__c', 'TotalHours', 'StartDate', 'EndDate'], ['New']), PERSON)]),
     ('Violations', [('PractitionerViolations__r', PERSON), ('EstablishmentViolations__r', BUSINESS)]),
     ('Cases', [('Cases', None)])]),
 }
@@ -143,12 +143,18 @@ class Page:
         args = '[{"label":"recordId","dataType":"String","supportsRecordId":true,"value":"{!Record.Id}"}]'
         return self.comp('flowruntime:interview', [('flowArguments', args), ('flowLayout', 'oneColumn'), ('flowName', name)], vis)
     def dynamic(self, spec, vis=None):
-        _, rl, label, fields = spec
+        # A dynamic list shows the actions of the same list on the page layout. A list that can't be on the
+        # layout gets its actions here (a fifth item, e.g. ['New']), or it shows no New button. Salesforce never shows
+        # New on a person account's Licenses (Organization) list, so licenses are added with the New License action.
+        _, rl, label, fields, *acts = spec
+        lists = {'relatedListFieldAliases': fields}
+        if acts:
+            lists = {'actionNames': acts[0], **lists}
         return self.comp('lst:dynamicRelatedList', [
             ('maxRecordsToDisplay', '10'), ('parentFieldApiName', f'{self.obj}.Id'),
             ('relatedListApiName', rl), ('relatedListDisplayType', 'ADVGRID'), ('relatedListLabel', label),
             ('showActionBar', 'true'), ('sortFieldAlias', '__DEFAULT__'), ('sortFieldOrder', 'Default')], vis,
-            value_lists={'relatedListFieldAliases': fields})
+            value_lists=lists)
     def tab(self, title, body, active=None):
         p = [('active', active)] if active is not None else []
         return self.comp('flexipage:tab', p + [('body', body), ('title', title)])

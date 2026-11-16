@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>66.0</apiVersion>
+    <description>When a person's relationship to an establishment is deleted, queues a re-check of automatic stop codes for the establishment and the person, as an edit does (Record-Trigger: Account Contact Relation After Save). The re-check runs in the background a few seconds after the delete (Record-Trigger: Account After Save), once the relationship is gone: for example a booth renter's 06 ends when they no longer rent a booth.</description>
+    <environments>Default</environments>
+    <interviewLabel>Record-Trigger: Account Contact Relation Before Delete {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Record-Trigger: Account Contact Relation Before Delete</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <name>SetPersonStopCodeSyncPendingToTrue</name>
+        <description>Queues the background stop code sync for the holder (Record-Trigger: Account After Save) after the relationship is deleted, instead of syncing during the delete.</description>
+        <label>Set Person Stop Code Sync Pending to True</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Contact.AccountId</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>StopCodeSyncPending__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>StopCodeSyncPending__c</field>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputAssignments>
+        <object>Account</object>
+    </recordUpdates>
+    <recordUpdates>
+        <name>SetSalonStopCodeSyncPendingToTrue</name>
+        <description>Queues the background stop code sync for the holder (Record-Trigger: Account After Save) after the relationship is deleted, instead of syncing during the delete.</description>
+        <label>Set Salon Stop Code Sync Pending to True</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>SetPersonStopCodeSyncPendingToTrue</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.AccountId</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>StopCodeSyncPending__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>StopCodeSyncPending__c</field>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </inputAssignments>
+        <object>Account</object>
+    </recordUpdates>
+    <start>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>SetSalonStopCodeSyncPendingToTrue</targetReference>
+        </connector>
+        <object>AccountContactRelation</object>
+        <recordTriggerType>Delete</recordTriggerType>
+        <triggerType>RecordBeforeDelete</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>
