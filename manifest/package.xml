@@ -396,6 +396,7 @@
         <members>RecordTriggerAccreditationAfterSave</members>
         <members>RecordTriggerBusinessLicenseAfterSave</members>
         <members>RecordTriggerBusinessLicenseBeforeDelete</members>
+        <members>RecordTriggerBusinessLicenseBeforeSave</members>
         <members>RecordTriggerDocumentChecklistItemAfterSave</members>
         <members>RecordTriggerIndividualApplicationAfterSave</members>
         <members>RecordTriggerPaymentAfterSave</members>

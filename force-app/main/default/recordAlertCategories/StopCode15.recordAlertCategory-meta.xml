@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <RecordAlertCategory xmlns="http://soap.sforce.com/2006/04/metadata">
-    <description>Set and ended automatically. Opens when a license has lapsed for more than three years, so a restoration examination is required. Ends when it is passed. Until it is ended, the holder's licenses are not printed or mailed; they stay valid.</description>
+    <description>Set and ended automatically. Opens when a license lapsed over three years ago and the holder has no current license of that type: a restoration exam is required. Ends when passed. Until then, the holder's licenses are not printed or mailed.</description>
     <masterLabel>15 Restoration Exam</masterLabel>
     <severity>Error</severity>
 </RecordAlertCategory>

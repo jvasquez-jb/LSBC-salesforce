@@ -221,6 +221,22 @@
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </actionCalls>
     <assignments>
+        <name>AddCurrentTypeId</name>
+        <label>Add Current Type Id</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignmentItems>
+            <assignToReference>varT_CurrentTypeIds</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>LoopThroughCurrentLicenses.RegulatoryAuthorizationTypeId</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>LoopThroughCurrentLicenses</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
         <name>SetBoothRenterByRelation</name>
         <label>Set Booth Renter to True</label>
         <locationX>0</locationX>
@@ -1051,6 +1067,20 @@
     <interviewLabel>Subflow: Stop Code Sync {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Subflow: Stop Code Sync</label>
     <loops>
+        <name>LoopThroughCurrentLicenses</name>
+        <label>Loop Through Current Licenses</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <collectionReference>GetCurrentLicenses</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <nextValueConnector>
+            <targetReference>AddCurrentTypeId</targetReference>
+        </nextValueConnector>
+        <noMoreValuesConnector>
+            <targetReference>GetEarliestLicense</targetReference>
+        </noMoreValuesConnector>
+    </loops>
+    <loops>
         <name>LoopThroughPersonRelations</name>
         <label>Loop Through Person Relations</label>
         <locationX>0</locationX>
@@ -1061,7 +1091,7 @@
             <targetReference>IsThisABoothRental</targetReference>
         </nextValueConnector>
         <noMoreValuesConnector>
-            <targetReference>GetEarliestLicense</targetReference>
+            <targetReference>GetCurrentLicenses</targetReference>
         </noMoreValuesConnector>
     </loops>
     <loops>
@@ -1177,6 +1207,65 @@
         </connector>
         <inputReference>varR_NewAlerts</inputReference>
     </recordCreates>
+    <recordLookups>
+        <name>GetCurrentLicenses</name>
+        <description>The holder's current licenses (not yet expired). Their types are left out when looking for a lapsed license for code 15.</description>
+        <label>Get Current Licenses</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>LoopThroughCurrentLicenses</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>AccountId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>varT_AccountId</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>PeriodEnd</field>
+            <operator>GreaterThanOrEqualTo</operator>
+            <value>
+                <elementReference>forDT_AsOfStart</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Status</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <stringValue>Revoked</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Status</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <stringValue>Retired</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Status</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <stringValue>Deceased</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Status</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <stringValue>Draft</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <object>BusinessLicense</object>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>RegulatoryAuthorizationTypeId</queriedFields>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
     <recordLookups>
         <name>GetAccount</name>
         <label>Get Account</label>
@@ -1696,6 +1785,7 @@
     </recordLookups>
     <recordLookups>
         <name>GetEarliestLicense</name>
+        <description>The holder's license with the earliest expiration date, of a type they don't hold a current license for. Code 15 (restoration exam) uses it, so a lapsed license doesn't open code 15 while the person holds a current license of the same type.</description>
         <label>Get Earliest License</label>
         <locationX>0</locationX>
         <locationY>0</locationY>
@@ -1704,6 +1794,13 @@
             <targetReference>GetLatestHoursEntry</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
+        <filters>
+            <field>RegulatoryAuthorizationTypeId</field>
+            <operator>NotIn</operator>
+            <value>
+                <elementReference>varT_CurrentTypeIds</elementReference>
+            </value>
+        </filters>
         <filters>
             <field>AccountId</field>
             <operator>EqualTo</operator>
@@ -2393,6 +2490,14 @@
         </connector>
     </start>
     <status>Active</status>
+    <variables>
+        <name>varT_CurrentTypeIds</name>
+        <description>License types the holder has a current license for.</description>
+        <dataType>String</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
     <variables>
         <name>varT_AccountId</name>
         <description>The Account (person, school or salon) whose stop codes are being synced.</description>
