@@ -111,8 +111,6 @@
         <members>IndividualApplication.DecisionReason__c</members>
         <members>IndividualApplication.DisclosureExplanation__c</members>
         <members>IndividualApplication.EvaluationAgency__c</members>
-        <members>IndividualApplication.EventEndDate__c</members>
-        <members>IndividualApplication.EventStartDate__c</members>
         <members>IndividualApplication.Exams__c</members>
         <members>IndividualApplication.FelonyConviction__c</members>
         <members>IndividualApplication.FridayHours__c</members>
@@ -243,7 +241,6 @@
         <members>ApplicationDocumentRequirement.RenewalProofOfNameChange</members>
         <members>ApplicationDocumentRequirement.ShopOperatorLicense</members>
         <members>ApplicationDocumentRequirement.ShopPaymentReceipt</members>
-        <members>ApplicationDocumentRequirement.TempPermitEventInformation</members>
         <members>ApplicationDocumentRequirement.TempPermitOutOfStateLicenseCopy</members>
         <members>ApplicationDocumentRequirement.TempPermitPaymentReceipt</members>
         <members>ApplicationDocumentRequirement.ThreadFacLocalOccupationalLicense</members>

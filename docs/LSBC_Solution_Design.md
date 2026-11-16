@@ -815,13 +815,14 @@ testing. No separate renewal path.
 
 `BR-28` `[SETTLED]` **A temporary permit is an event permit for an out-of-state licensee**, and a
 bridge into reciprocity. The applicant holds a current licence in another state and needs to work
-at an event. The paper form lists event types (hair show, beauty pageant, demonstration, movie set,
-reciprocity, other), but reciprocity says (12 Nov 2026) the type doesn't matter, so the portal form no longer asks it.
+at an event. The paper form lists event types and asks for the event dates 30 days in advance, but
+reciprocity says (12 and 16 Nov 2026) neither matters: the permit runs 30 days from issue whatever the
+event. The portal form asks neither and has no advance-notice check.
 
-- $50, with a copy of the current out-of-state licence. The paper form asks for event dates 30 days
-  in advance; whether the portal keeps that check is asked of reciprocity
-- Valid for **30 days from issue**, and renewable **once** before completion of testing. Staff
-  set the expiration by hand: 30 days from processing the fee plus 2 to 3 days for the post
+- $50, with a copy of the current out-of-state licence
+- Valid for **30 days from issue**, and renewable **once** before completion of testing. Approving
+  it in Decide sets the expiration **33 days** after approval (Temporary Permit's Term Length): 30 days
+  plus about 3 for the post, as reciprocity does by hand today. Staff can change it before mailing
 - Governed by Administrative Rule 1113.A and B
 - Money order or cashier's cheque only
 
@@ -844,7 +845,7 @@ Screen Flow that follows its paper PDF section by section, built from shared sub
 | Documents | Checklist rows come from `ApplicationDocumentRequirement__mdt`; each item is filed under a document category. The `documentChecklistUpload` LWC shows the checklist as rows with one upload each (`PT-18`). Items the form says are mailed, or sent by another state or company, are Sent to the Board: the applicant submits without them and staff upload them. Upload Documents on My Applications takes later uploads |
 | Certification | Every form ends with the checkbox, typed name and timestamp (`PT-19`), showing the form's printed attestation |
 | Payment | Fees come from the Fee Schedule; the pay step links to PayStar and takes the receipt as a checklist upload. Shop and facility fees are paid to the inspector as printed; when nothing is due the empty receipt item is removed. The portal books no inspection: inspectors set their own schedule (LSBC, 12 Nov 2026). Whether the $105 moves online, and whether PayStar takes e-checks, is with LSBC |
-| Rules called | Reciprocity exams from the `ReciprocityStateExams` matrix and `EligibilityReciprocity` version 2; temporary and threading permits from `EligibilityPermit`; duplicate and renewal fees from the Phase 3 rules |
+| Rules called | Reciprocity exams from the `ReciprocityStateExams` matrix and `EligibilityReciprocity` version 2; threading permits from `EligibilityPermit` (it also limits a temporary permit to one renewal, for staff); duplicate and renewal fees from the Phase 3 rules |
 | Access | Guest profile LSBC LPI Profile, member profile LSBC Portal User, sharing set on the user's own records. School Administrator and Business Owner access over Account Contact Relations waits for Phase 2 (`PT-02`) |
 
 | Form (PDF) | Flow | Creates on Certify |
@@ -852,7 +853,7 @@ Screen Flow that follows its paper PDF section by section, built from shared sub
 | License Renewal | `ScreenFlowIndividualApplicationRenewal` | One Renewal application per licence, a Duplicate application per duplicate, fees; a name change sets the Name Change Proof Pending hold |
 | Reciprocity (Cosmetology, Esthetician, Manicurist, Instructor), Military, Foreign | `ScreenFlowIndividualApplicationReciprocity` | Reciprocity application with path, exams and answers; Person Language for the national exam; fees by path |
 | Reciprocity Retake | `ScreenFlowIndividualApplicationRetake` | Retake application and a new Person Examination attempt (`BR-25`) |
-| Temporary Permit | `ScreenFlowIndividualApplicationTemporaryPermit` | Reciprocity application, licence type Temporary Permit, with the event and its dates |
+| Temporary Permit | `ScreenFlowIndividualApplicationTemporaryPermit` | Reciprocity application, licence type Temporary Permit, with the out-of-state licence; no event questions |
 | Threading | `ScreenFlowIndividualApplicationThreadingPermit` | New Licensure application, Threading Permit; holders of a licence are told they don't need one |
 | Affidavit | `ScreenFlowIndividualApplicationAffidavit` | Affidavit application (Renewal record type); first free, then $15 |
 | Shop | `ScreenFlowBusinessLicenseApplicationShop` | A new establishment for a new shop or a new location; the existing one for a reopening or new ownership (LSBC, 12 Nov 2026). Owner and Manager relations (the manager's number must be a current operator licence), New Establishment application, fees |
@@ -1848,3 +1849,4 @@ the source.
 | 12 Nov 2026 | Cory's answers (problem desk): the first affidavit ever is free and $15 is charged per licence certified; CLOSE records earlier affidavits only as an applicant comment; "name you were initially licensed under" is any earlier name, typed by the applicant (`BR-26`). Duplicates are one per renewal period, not per year (`BR-18`). Temporary permits belong to reciprocity (Stephanie). Parish stays blank where the ZIP spans parishes (`PRE-01`). Build changes made the same day (see the next row) |
 | 12 Nov 2026 | Follow-ups from Cory and Stephanie: a duplicate is one per licence per renewal period, any time in it, $25 every time with no free first (`BR-18`). Two licences are two affidavit requests with a letter each; CLOSE comments ("Cert mailed", "Aff mailed") mark earlier affidavits, before CLOSE included; code 87 is discontinued (`BR-26`, `OPEN-47` closed). The temporary permit's event type comes off; the permit runs 30 days from issue plus mail time, set by hand (`BR-28`). Built the same day: Last Duplicate Date on the licence replaces the person's duplicate count and date; Earlier Affidavit In CLOSE and Initially Licensed Name added; event type removed from the temporary permit form. Event dates and the 30-day advance check wait on reciprocity |
 | 12 Nov 2026 | LSBC answers (William): instructor status N is Master-Inactive and X is not applicable; the status does not change the fees, so `InstructorStatus__c` no longer claims it does. The 26 N instructors reload as Inactive masters, the 28 M as Active masters (`BR-07`), `OPEN-42` settled. The portal's Forms and Resources page links the School Forms packet and the Threading and Alternative Hair Design Facility Application on the Board's website; the copies mapped in `docs/` are the same forms. Thirty-one open. |
+| 16 Nov 2026 | Stephanie (reciprocity): the events and dates section can go and the system should set the expiration (`BR-28`). The temporary permit form no longer asks event dates or checks 30 days' notice; Event Start Date, Event End Date and the optional Event Information document are removed; `EligibilityPermit` drops the advance-notice step. Temporary Permit's Term Length is 33 days, so Decide sets the expiration 30 days plus mail time after approval |

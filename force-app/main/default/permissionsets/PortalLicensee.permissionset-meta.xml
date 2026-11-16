@@ -146,16 +146,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>IndividualApplication.EventEndDate__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>IndividualApplication.EventStartDate__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>IndividualApplication.InitiallyLicensedName__c</field>
         <readable>true</readable>
     </fieldPermissions>

@@ -162,7 +162,7 @@
       "Name": "Temporary Permit",
       "RegulatoryAuthCategory": "Permit",
       "ExpirationBasis__c": "From Issue Date",
-      "TermLength__c": 30,
+      "TermLength__c": 33,
       "DurationType": "Day"
     },
     {

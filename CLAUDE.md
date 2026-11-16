@@ -276,6 +276,8 @@ Raised by later phases while Phase 2 is paused. Pick these up when it resumes.
   Licensee, which now has a date of birth), `IA-0000000034` (renewal of StopCodeTest Registrant
   Cosmetologist, now to 2028-03-01; StopCodeTest Registrant has a date of birth), `StopCodeTest
   NameChange` (now StopCodeTest / Renamed Smith, ended name change stop code, licence `TEST-C-1002`),
-  payments `PAY-000005` to `PAY-000009` (`PAY-000006` refunded), and letter PDFs in Files on
+  payments `PAY-000005` to `PAY-000009` (`PAY-000006` refunded), `IA-0000000096` (approved duplicate
+  of SCT40003, paid) and `IA-0000000108` (approved temporary permit `TEST-TP-1001` for StopCodeTest
+  Registrant Six, paid), and letter PDFs in Files on
   `IA-0000000003`, `StopCodeTest School` and `BLA`/Account test records. Delete them with the other
   StopCodeTest data.
