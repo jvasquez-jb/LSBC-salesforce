@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EnrolledDate__c</fullName>
+    <description>On a completion application, the date the student enrolled at the school, copied from the school's completion form.</description>
+    <inlineHelpText>The date the student enrolled, from the completion form.</inlineHelpText>
+    <label>Date Enrolled</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Date</type>
+</CustomField>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AmountMinAppliedAmount</fullName>
+    <active>true</active>
+    <description>A payment's amount can't be lowered below what is already applied to fees through its allocations. To lower it further, remove or reduce the allocations first.</description>
+    <errorConditionFormula>Amount__c &lt; BLANKVALUE(AppliedAmount__c, 0)</errorConditionFormula>
+    <errorDisplayField>Amount__c</errorDisplayField>
+    <errorMessage>The amount can't be less than the amount already applied to fees.</errorMessage>
+</ValidationRule>

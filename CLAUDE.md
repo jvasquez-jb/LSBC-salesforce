@@ -233,6 +233,9 @@ Raised by later phases while Phase 2 is paused. Pick these up when it resumes.
   managed `force__DocumentChecklist`), assigned by `RecordTriggerUserAfterSave`. Without
   Document Checklist, a portal file upload to a checklist item fails ("insufficient access rights
   on entity") even with full record access.
+- Every document a form asks for is a document checklist item (with its own document type and category),
+  uploaded through `Subflow: Document Checklist Upload` / the `documentChecklistUpload` LWC. Never a plain file
+  upload on a screen, and never files attached to another record by the flow (Jonathan, 16 Nov 2026).
 - Document checklist items: `IsRequired` can only be set on create (replace the item to change it),
   and `AccountId` can't be set at all. Each item is filed under its document type's
   `DocumentCategory` (links in `documentCategoryDocumentTypes/`). Portal uploads go through the

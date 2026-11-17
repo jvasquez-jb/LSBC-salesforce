@@ -3,7 +3,7 @@
     <fullName>Practitioner__c</fullName>
     <deleteConstraint>Restrict</deleteConstraint>
     <description>The licensee the violation is recorded against. Only person accounts can be chosen.</description>
-    <inlineHelpText>The person the violation is recorded against.</inlineHelpText>
+    <inlineHelpText>The licensee involved. Only people can be chosen.</inlineHelpText>
     <label>Practitioner</label>
     <lookupFilter>
         <active>true</active>

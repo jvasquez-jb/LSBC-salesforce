@@ -210,7 +210,7 @@ cannot be encrypted, so field access is its main protection either way. See `OPE
 | Draft Application | Part-finished portal submissions | Save-and-resume payload |
 | Individual Application | Person-side requests | Record types: New licensure, Renewal, Reciprocity. Originating state, application path, certification block |
 | Business Licence Application | Establishment requests | Record types: New establishment, Renewal, New school |
-| `BusinessLicense` | The licence or permit, for individuals **and** establishments | `Identifier`, `AccountId` as holder (a Person Account for individuals, a business Account for establishments; `ContactId` is left unused), `RegulatoryAuthorizationType`, `PeriodStart` / `PeriodEnd`, `Status`, `IsActive`, `BusinessType`, `VerificationStatus` / `VerifiedDate`, and the jurisdiction and issuer fields for out-of-state credentials |
+| `BusinessLicense` | The licence or permit, for individuals **and** establishments | `Identifier`, `AccountId` as holder (a Person Account for individuals, a business Account for establishments; on a person's licence `ContactId` holds the person's Contact as well, filled by `Record-Trigger: Business License Before Save` and backfilled on every migrated person licence), `RegulatoryAuthorizationType`, `PeriodStart` / `PeriodEnd`, `Status`, `IsActive`, `BusinessType`, `VerificationStatus` / `VerifiedDate`, and the jurisdiction and issuer fields for out-of-state credentials |
 | `AuthApplicationPlace` | The place recorded against a licence at issue | Application, licence, and `Place` as a lookup to `Location` or `Address` |
 | `RegulatoryAuthorizationType` | Configuration per licence or permit type | Fourteen fields, and sparse: `DurationType`, `RegulatoryAuthCategory`, `RegulatoryAuthCode`, `ProcessingDuration`, `ApplicationUrl`, `IssuingDepartment`. The fee, term length, renewal cycle, continuing-education requirement, hour thresholds and required examinations are all **custom fields**. `BusinessLicense` looks up to this object for both individual and establishment credentials |
 | `BusRegAuthorizationType` | Present, but not referenced by `BusinessLicense` | Confirm whether it is used at all before building against it |
@@ -229,7 +229,19 @@ field history. Credential-level facts — `LastCEUDate__c`, `ConsecutiveCEUCycle
 `IsMasterInstructor__c`, `InstructorStatus__c` (Active or Inactive, from CLOSE; a master instructor is also active or inactive; it does not change the fees), `RenewalCount__c` — live on the licence.
 
 > `BusinessLicenseStatus` in the org ships with Inactive (default), Revoked, Draft and Verified.
-> Phase 1 added Active, Retired and Deceased.
+> Phase 1 added Active, Retired and Deceased. 16 Nov 2026 added Expired.
+
+As built (16 Nov 2026): staff can set Expired on New License, and Decide's renewal approval sets an
+Expired licence back to Active. The public search shows a licence past its end date as "Expired on
+<date>", and sign-up and the threading permit accept an Active or Expired licence. The nightly change
+that sets a licence past its `PeriodEnd` to Expired (version 3 of the business licence schedule) is
+built and tested but **held**: version 2 stays active until Jonathan approves it, so until then a
+lapsed licence keeps its status. The change is kept in `docs/held-changes/nightly-license-expiry.patch`.
+
+As built (16 Nov 2026), renewals: a renewal's fee is filed under the renewal application, not the
+licence (`SubflowFeeRenewalAssessment` takes the application), with items named for the licence type
+("Cosmetologist renewal", "Cosmetologist late fee"). A licence with a renewal waiting is not offered
+for renewal again. A multi-licence renewal has one Payment Receipt item, on its first application.
 
 `DM-09` `[SETTLED]` **Originating state is captured on reciprocity applications.** Not captured
 today. It is the only way interstate routing becomes visible — applicants licence in an
@@ -842,7 +854,7 @@ Screen Flow that follows its paper PDF section by section, built from shared sub
 |---|---|
 | Sign up | Two paths: a licensee matches licence number, last or maiden name and ZIP; someone new to the Board gives name, date of birth and contact details, and a person account is created unless the same name and date of birth is on file. Apex `PortalUserRegistration` creates the login; `RecordTriggerUserAfterSave` assigns the licences and the `PortalLicenseeAccess` group a minute later |
 | Drafts | A form writes nothing to the application objects until Certify. It keeps a draft on `PreliminaryApplicationRef` (the standard object, used in place of the "Draft Application" in 1.2), with its documents on checklist items under the draft. Save for later is flow pause; My Applications lists saved forms with Continue, and the Aura `flowResume` component resumes them. Drafts untouched for 30 days are deleted nightly |
-| Documents | Checklist rows come from `ApplicationDocumentRequirement__mdt`; each item is filed under a document category. The `documentChecklistUpload` LWC shows the checklist as rows with one upload each (`PT-18`). Items the form says are mailed, or sent by another state or company, are Sent to the Board: the applicant submits without them and staff upload them. Upload Documents on My Applications takes later uploads |
+| Documents | Checklist rows come from `ApplicationDocumentRequirement__mdt`; each item is filed under a document category. The `documentChecklistUpload` LWC shows the checklist as rows with one upload each (`PT-18`). Items the form says are mailed, or sent by another state or company, are Sent to the Board: the applicant submits without them and staff upload them. Upload Documents on My Applications takes later uploads. Every document a form asks for is a checklist item, the accommodation documentation included (16 Nov 2026) |
 | Certification | Every form ends with the checkbox, typed name and timestamp (`PT-19`), showing the form's printed attestation |
 | Payment | Fees come from the Fee Schedule; the pay step links to PayStar and takes the receipt as a checklist upload. Shop and facility fees are paid to the inspector as printed; when nothing is due the empty receipt item is removed. The portal books no inspection: inspectors set their own schedule (LSBC, 12 Nov 2026). Whether the $105 moves online, and whether PayStar takes e-checks, is with LSBC |
 | Rules called | Reciprocity exams from the `ReciprocityStateExams` matrix and `EligibilityReciprocity` version 2; threading permits from `EligibilityPermit` (it also limits a temporary permit to one renewal, for staff); duplicate and renewal fees from the Phase 3 rules |
@@ -1009,6 +1021,18 @@ account. **Upload Documents** on an application opens its checklist for scanned 
 documents, including those marked Sent to the Board, which the portal does not let applicants
 upload. Deposits are recorded per payment; there is no deposit number (`DM-19` note).
 
+Added 16 Nov 2026: **Completion and Initial License (school completion form)**, a staff-only form
+under New Application (`Screen Flow: Individual Application New Licensure`). Staff copy the school's
+1,500 hour completion form: licence sought, school, Date Enrolled, Date Completed and Total Completed
+Hours (`EnrolledDate__c`, `CompletedDate__c`, `TotalCompletedHours__c` on the application). A
+second screen sets the certified hours beside the hours on the Training tab and the licence type's
+completion hours and flags any gap. The Cumulative Hours Report is a required checklist item, the
+school representative's name goes on the certification step, and certifying creates a New Licensure
+application (path Regular, linked to the school's course offering) with the licence type's Initial
+fee. The Student License (L) number is not stored until student registration is built (client
+question). Staff entries on every form end with a staff message, and a school's fee is recorded with
+Record Payment on the school.
+
 `PT-16` `[SETTLED]` **A standardised letter template with fillable fields** for dates and amounts.
 The current character limit produces letters the Executive Director has called unprofessional.
 Named sponsor on the renewal desk.
@@ -1035,17 +1059,24 @@ that one the system set comes back at the next check unless its cause is fixed.
 Application shows what stands in the way: required documents not yet accepted, fees not fully paid,
 and the holder's active stop codes. Staff then approve, return or refuse:
 
-- **Approve** is allowed only when every required document is accepted and the fees are paid.
+- **Approve** is allowed only when the application is certified (a staff entry counts as
+  certified), every required document is accepted and the fees are paid. For a renewal entered
+  before its fee moved to the application, unpaid fees on the licence also count.
   A new application creates the licence with the number staff enter (numbering is a client
   question). A renewal moves the licence's expiration on from its current date, or from today if it
   has passed, and adds one to Renewal Count. The expiration comes from `LicenseExpirationDate`; a
   licence that expires on the holder's birthday needs a date of birth first. Approval marks the
-  licence ready to print (Print Requested Date) and the application Approved. Eligibility rules are
+  licence ready to print (Print Requested Date, clearing any Printed Date), sets an Expired licence
+  back to Active, and marks the application Approved with its Approved Date. Eligibility rules are
   not run again: the portal forms run them before an applicant can submit.
 - **Return** records the return reason and the note (Decision Reason), ticks Was Returned, and can
   create the return letter at once.
 - **Refuse** sets an individual application to Denied. Business License Application Status has no
-  Denied value, so a refused business application is Canceled, with the reason saved.
+  Denied value, so a refused business application is Canceled, with the reason saved. Either way
+  the application's Due and Partially Paid fees are canceled (17 Nov 2026).
+
+Licences and applications are never deleted by staff: a licence entered in error is set to Revoked,
+an application is closed with Decide (Jonathan, 16 Nov 2026).
 
 **Print queue (Phase 6).** Approval, renewal and a duplicate set the licence's Print Requested Date.
 The **Licenses Ready to Print** list view shows every licence with Ready to Print ticked (requested
@@ -1064,6 +1095,14 @@ LSBC.
   per-item status
 - The licence type picker, if the combined list across both type objects needs search or grouping
 - Public search results, only if the standard data table proves unusable in guest context
+
+Every document a form asks for is a checklist item uploaded through the `documentChecklistUpload`
+component; no form attaches files any other way (16 Nov 2026). The accommodation documentation
+became one: a required Documentation for Disability Related Needs item (document type
+`DisabilityDocumentation`, category Exam Accommodations) on the form's draft, added by
+`Subflow: Accommodation Request` when an accommodation is requested. It moves to the application at
+Certify with the other documents, staff accept or return it, and Decide waits for it. Applicants
+must upload it; staff entering a paper application can leave it for later.
 
 `PT-20` `[SETTLED]` **The form inventory, from LSBC's own register.** Fourteen numbered documents
 with a named owner against each, plus four process areas without forms.
@@ -1144,7 +1183,7 @@ when staff triage them.
 | Flow | Subflow: Fee Amount Paid Sync; Record-Trigger: Payment Allocation After Save and Before Delete; Record-Trigger: Payment After Save (extended) | Totals allocations into Amount Paid and sets the fee Due, Partially Paid or Paid. Returned payments do not count |
 | Hold | Existing code 21 (Non Payment) | Opens when the violation fee passes its due date unpaid, ends when it is paid. Code 12 stays a manual hold |
 | Actions | New Violation on Case, business Account and Person Account; Record Complaint on Case | Staff capture; the Account actions pre-fill the party and Cited Party |
-| Flow | Screen Flow: Case Record Complaint | Creates the `PublicComplaint`, the `ComplaintCase` link and participants, sets Case Type Complaint and moves the Case to Complaint Intake |
+| Flow | Screen Flow: Case Record Complaint | Creates the `PublicComplaint`, the `ComplaintCase` link and participants, sets Case Type Complaint and moves the Case to Complaint Intake. Since 16 Nov 2026 it defaults the complaint type and incident date from the Case (the public complaint form stores them in `Case.ComplaintType__c` and `Case.IncidentDate__c`) and sets the Case's Account to the establishment complained about, else the practitioner; New Violation from that Case pre-fills the party from the Account |
 | Case setup | Queues Complaint Intake and General Inquiries; assignment rule `CaseRouting`; auto-response rule `CaseAcknowledgement` with two templates; Email-to-Case | Intake and routing (`CM-01`) |
 
 Known limits: deleting several payment allocations on one fee at once leaves its Amount Paid too
@@ -1309,6 +1348,12 @@ A dedicated accommodation request form exists, with a separate disability docume
 Accommodations surface at testing, not at registration. Access is restricted to the testing and
 reciprocity roles, with encryption at rest and Field Audit Trail behind it from Shield enablement.
 These fields belong on the Week 6 encrypted field list.
+
+As built (16 Nov 2026): the request is one `PersonDisability` per form, updated when the applicant
+comes back to the step and removed with its documentation if the answer becomes No. The supporting
+documentation is not a file on the Person Disability: it is a checklist item on the application in
+the Exam Accommodations category (`PT-18`). Who may open items in that category is a Phase 2 access
+question.
 
 `SEC-09` `[SETTLED]` **Employee data is out of scope.** Onboarding, I-9, drug tests and civil
 service records are excluded from the build.
@@ -1851,3 +1896,11 @@ the source.
 | 12 Nov 2026 | LSBC answers (William): instructor status N is Master-Inactive and X is not applicable; the status does not change the fees, so `InstructorStatus__c` no longer claims it does. The 26 N instructors reload as Inactive masters, the 28 M as Active masters (`BR-07`), `OPEN-42` settled. The portal's Forms and Resources page links the School Forms packet and the Threading and Alternative Hair Design Facility Application on the Board's website; the copies mapped in `docs/` are the same forms. Thirty-one open. |
 | 16 Nov 2026 | Stephanie (reciprocity): the events and dates section can go and the system should set the expiration (`BR-28`). The temporary permit form no longer asks event dates or checks 30 days' notice; Event Start Date, Event End Date and the optional Event Information document are removed; `EligibilityPermit` drops the advance-notice step. Temporary Permit's Term Length is 33 days, so Decide sets the expiration 30 days plus mail time after approval |
 | 16 Nov 2026 | Stop code 15 (restoration exam) counts only licence types the holder no longer holds: a lapsed licence of a type they hold currently no longer opens it (`BR-04`). A licence saved with a person Contact but no Organization now gets the Organization filled from the person (`Record-Trigger: Business License Before Save`): licences, the Licenses tab and every stop code check are keyed on Organization, and one created with only the Contact was missed by all three (`DM-01`). |
+| 16 Nov 2026 | Every document a form asks for is a checklist item (`PT-03`, `PT-18`). The accommodation documentation became a required Documentation for Disability Related Needs item (category Exam Accommodations) on the form's draft, moved to the application at Certify; one Person Disability per form (`SEC-08`). Who sees Exam Accommodations documents is a Phase 2 question. |
+| 16 Nov 2026 | Licence status Expired added to `BusinessLicenseStatus` (`DM-08`): settable on New License, reset to Active by a renewal approval, shown as "Expired on <date>" in the public search. The nightly expiry (schedule version 3) is held until Jonathan approves it; version 2 stays active. |
+| 16 Nov 2026 | Renewals (`DM-08a`): the renewal fee is filed under the renewal application, not the licence; the nine submitted renewals' fees were moved. A licence with a renewal waiting is not offered for renewal again. |
+| 16 Nov 2026 | `BusinessLicense.ContactId` is filled on person licences (`DM-01`): `Record-Trigger: Business License Before Save` fills whichever of Organization and Contact is missing; 32,998 existing person licences backfilled. |
+| 16 Nov 2026 | Staff form Completion and Initial License for the 1,500 hour completion form (`PT-15`), with new fields Total Completed Hours, Date Enrolled and Date Completed on Individual Application and document type Cumulative Hours Report. The Student License (L) number waits for student registration. |
+| 16 Nov 2026 | Decide (`PT-15`): approval needs certification (staff entry counts), sets Approved Date, clears Printed Date and sets an Expired licence back to Active; older renewals count unpaid fees on the licence. Licences and applications are never deleted by staff. |
+| 16 Nov 2026 | Record Complaint (`CM-01`): new Case fields Complaint Type and Incident Date from the public complaint form; Record Complaint carries them over and sets the Case's Account to the business, else the practitioner. |
+| 17 Nov 2026 | Decide's Deny and Refuse cancel the application's unpaid fees (`PT-15`). The latest exam attempt for stop codes is chosen by the new formula Attempt Order on Person Examination (date, attempt number, created time), so a same-day fail and pass are ordered correctly (`BR-02`, code 08). |

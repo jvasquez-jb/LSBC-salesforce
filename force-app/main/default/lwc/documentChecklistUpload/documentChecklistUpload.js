@@ -11,7 +11,7 @@ const STATUS_TEXT = {
 };
 
 // Documents that reach the Board by mail or straight from another state or company: no upload here.
-const SENT_TO_BOARD_TEXT = 'Not uploaded here: send it to the Board as the instruction says. Staff add it when it arrives, and you can submit without it.';
+const SENT_TO_BOARD_TEXT = 'Not uploaded here: provide it as the instruction says (by mail, sent straight from another state or organization, or shown at the inspection). Staff add it when it arrives, and you can submit without it.';
 
 export default class DocumentChecklistUpload extends LightningElement {
     @api applicationId;
@@ -46,6 +46,17 @@ export default class DocumentChecklistUpload extends LightningElement {
                 excludeCategories: this.excludeCategories
             });
             const uploaded = new Set(this.uploadedItemIds || []);
+            // An item that holds a file but is still New (or Returned) was uploaded in an earlier visit, or the upload
+            // finished after Next was clicked: count it as uploaded so the flow sets it to Pending and lets the
+            // applicant continue.
+            const before = uploaded.size;
+            items.forEach((item) => {
+                if ((item.status === 'New' || item.status === 'Rejected') && item.fileNames && item.fileNames.length) uploaded.add(item.id);
+            });
+            if (uploaded.size !== before) {
+                this.uploadedItemIds = [...uploaded];
+                this.dispatchEvent(new FlowAttributeChangeEvent('uploadedItemIds', this.uploadedItemIds));
+            }
             const byCategory = new Map();
             items.forEach((item) => {
                 if (!byCategory.has(item.category)) byCategory.set(item.category, []);
@@ -61,7 +72,9 @@ export default class DocumentChecklistUpload extends LightningElement {
                     isReturned: shownStatus === 'Rejected' && !!item.comments,
                     // Salesforce allows one file per checklist item: no upload box once an item holds a file.
                     // A returned item's file is moved to the application by the checklist trigger, which frees it.
-                    canUpload: item.status !== 'Accepted' && !(item.fileNames && item.fileNames.length) && (!item.isSentToBoard || this.allowSentToBoard),
+                    // Only New and Returned (Rejected) items can take a file: a Pending or Accepted item already holds one,
+                    // even when the portal user can't see it (a file staff uploaded is visible to staff only).
+                    canUpload: (item.status === 'New' || item.status === 'Rejected') && !(item.fileNames && item.fileNames.length) && (!item.isSentToBoard || this.allowSentToBoard),
                     hasFiles: item.fileNames && item.fileNames.length > 0,
                     filesText: (item.fileNames || []).join(', ')
                 });

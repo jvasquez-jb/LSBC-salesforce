@@ -13,10 +13,11 @@ FORMS = [
     ('Renewal', 'License Renewal (renewal or duplicate)', 'ScreenFlowIndividualApplicationRenewal'),
     ('Reciprocity', 'Reciprocity Application', 'ScreenFlowIndividualApplicationReciprocity'),
     ('Retake', 'Retake Exam Application', 'ScreenFlowIndividualApplicationRetake'),
+    ('NewLicensure', 'Completion and Initial License (school completion form)', 'ScreenFlowIndividualApplicationNewLicensure'),
     ('TemporaryPermit', 'Temporary Permit Application', 'ScreenFlowIndividualApplicationTemporaryPermit'),
     ('ThreadingPermit', 'Threading Permit Application', 'ScreenFlowIndividualApplicationThreadingPermit'),
     ('Affidavit', 'Affidavit Request', 'ScreenFlowIndividualApplicationAffidavit'),
-    ('Shop', 'Shop Application (salon, booth rental and others)', 'ScreenFlowBusinessLicenseApplicationShop'),
+    ('Shop', 'Shop Application (salon and other shops)', 'ScreenFlowBusinessLicenseApplicationShop'),
     ('Facility', 'Facility Application (alternative hair design or threading)', 'ScreenFlowBusinessLicenseApplicationFacility'),
     ('School', 'New School Application', 'ScreenFlowBusinessLicenseApplicationSchool'),
 ]
@@ -44,7 +45,7 @@ for key, text, flow in FORMS:
 F.screen('NotAPerson', 'Not a Person', [
     F.display('NAP_Message', '<p>Applications are entered on the applicant\'s person account. For a shop, facility or school, open the owner\'s or director\'s person account and use New Application there.</p>')], None, next_label='Done')
 
-desc = ('Lets staff enter a paper application for a person, from New Application on the Person Account. Staff choose one of the nine portal forms, '
+desc = ('Lets staff enter a paper application for a person, from New Application on the Person Account. Staff choose one of the nine portal forms, or the school\'s completion form (Completion and Initial License, staff only for now), '
         'which opens with that person as the applicant (its recordId input); the form saves the application, its checklist and fees exactly as on the portal, '
         'and its pay step tells staff to record the payment with Record Payment. Shop, facility and school forms are entered on the owner\'s or director\'s person account.')
 label = 'Screen Flow: Account New Application'

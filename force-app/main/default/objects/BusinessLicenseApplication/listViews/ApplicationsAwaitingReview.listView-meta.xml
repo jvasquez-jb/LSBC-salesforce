@@ -14,5 +14,5 @@
         <operation>equals</operation>
         <value>Submitted,Application Accepted,In Review,Inspection Phase</value>
     </filters>
-    <label>Applications Awaiting Review</label>
+    <label>Business Applications Awaiting Review</label>
 </ListView>

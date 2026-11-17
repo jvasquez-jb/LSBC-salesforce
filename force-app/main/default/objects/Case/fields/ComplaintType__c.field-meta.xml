@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ComplaintType__c</fullName>
+    <description>The type of complaint, as chosen on the public complaint form, or as confirmed by staff in Record Complaint. Holds one of the Public Complaint's Complaint Type values; it is text so the list of types is kept in one place, on Public Complaint. Set by the flows, not edited by hand.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The type of complaint chosen on the web form or confirmed in Record Complaint.</inlineHelpText>
+    <label>Complaint Type</label>
+    <length>255</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,7 +1,8 @@
 /**
  * Read-only data for the Document Checklist Upload screen component: an application's checklist
  * items with their category and the files already attached. Runs with sharing, so a portal user
- * only sees their own application's items. It changes nothing: the calling flow sets uploaded
+ * only sees their own application's items; the names of the files on those items are read without sharing,
+ * so files staff uploaded are counted too. It changes nothing: the calling flow sets uploaded
  * items to Pending and decides whether anything required is still missing.
  */
 public with sharing class DocumentChecklistUploadController {
@@ -49,15 +50,25 @@ public with sharing class DocumentChecklistUploadController {
             items.put(i.id, i);
         }
         if (!items.isEmpty()) {
-            for (ContentDocumentLink l : [
-                    SELECT LinkedEntityId, ContentDocument.Title, ContentDocument.FileExtension
-                    FROM ContentDocumentLink WHERE LinkedEntityId IN :items.keySet()
-                    ORDER BY ContentDocument.CreatedDate]) {
+            for (ContentDocumentLink l : new FileLookup().linksFor(items.keySet())) {
                 String ext = l.ContentDocument.FileExtension;
                 items.get(l.LinkedEntityId).fileNames.add(l.ContentDocument.Title + (String.isBlank(ext) ? '' : '.' + ext));
             }
         }
         return items.values();
+    }
+
+    /**
+     * Reads the files on items the user can already see (the items query above runs with sharing). A portal user
+     * can't see a file staff uploaded, so without this the screen would offer an upload box on an item that
+     * already holds its one file. Only the file names are returned, never the files.
+     */
+    private without sharing class FileLookup {
+        List<ContentDocumentLink> linksFor(Set<Id> itemIds) {
+            return [SELECT LinkedEntityId, ContentDocument.Title, ContentDocument.FileExtension
+                    FROM ContentDocumentLink WHERE LinkedEntityId IN :itemIds
+                    ORDER BY ContentDocument.CreatedDate];
+        }
     }
 
     private static Set<String> toSet(String csv) {

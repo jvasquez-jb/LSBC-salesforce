@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<NetworkBranding xmlns="http://soap.sforce.com/2006/04/metadata">
+    <loginFooterText>Louisiana State Board of Cosmetology · 225-756-3404</loginFooterText>
+    <loginPrimaryColor>#051E5F</loginPrimaryColor>
+    <loginQuaternaryColor>#051E5F</loginQuaternaryColor>
+    <network>LSBC LPI</network>
+    <primaryColor>#051E5F</primaryColor>
+    <primaryComplementColor>#FFFFFF</primaryComplementColor>
+    <quaternaryColor>#051E5F</quaternaryColor>
+    <quaternaryComplementColor>#FFFFFF</quaternaryComplementColor>
+    <secondaryColor>#C9A43A</secondaryColor>
+    <staticLogoImageUrl>https://lsbc2--lasandbox.sandbox.my.site.com/LPI/resource/PortalLogoWhite</staticLogoImageUrl>
+    <tertiaryColor>#E6E9F0</tertiaryColor>
+    <tertiaryComplementColor>#1B1B1F</tertiaryComplementColor>
+    <zeronaryColor>#051E5F</zeronaryColor>
+    <zeronaryComplementColor>#FFFFFF</zeronaryComplementColor>
+</NetworkBranding>

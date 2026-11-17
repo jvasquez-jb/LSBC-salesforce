@@ -6,6 +6,7 @@
 -->
 <aura:component implements="forceCommunity:availableForAllPageTypes" access="global" description="Resumes a saved portal application from the interviewId in the page address.">
     <aura:attribute name="message" type="String" access="private"/>
+    <aura:attribute name="started" type="Boolean" default="false" access="private"/>
     <aura:handler name="init" value="{!this}" action="{!c.init}"/>
     <aura:if isTrue="{!v.message}">
         <p class="lsbc-resume-message">

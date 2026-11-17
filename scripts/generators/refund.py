@@ -38,6 +38,8 @@ formula('forC_Refundable', 'Currency', '{!GetPayment.Amount__c} - BLANKVALUE({!G
 
 formula('forC_Amount', 'Currency', '{!GetPayment.Amount__c}', 'The payment amount, shown as money.', scale=2)
 formula('forC_RefundAmount', 'Currency', '{!GetPayment.RefundAmount__c}', 'The refund amount, shown as money.', scale=2)
+formula('forT_StatusAfterRefund', 'String', 'IF({!GetPayment.RefundAmount__c} >= {!GetPayment.Amount__c}, "Refunded", TEXT({!GetPayment.Status__c}))',
+        'The payment status once the refund is entered: Refunded only when the whole payment was refunded; after a partial refund the payment keeps its status, because part of it still stands.')
 
 lookup('GetPayment', 'Get Payment', 'Payment__c', [('Id', 'EqualTo', REF('recordId'))],
        ['Id', 'Name', 'Amount__c', 'AppliedAmount__c', 'Status__c', 'RefundStatus__c', 'RefundAmount__c',
@@ -90,7 +92,7 @@ update('CancelRequest', 'Clear Refund Request', [
 ], None, 'CouldNotSaveRefund')
 
 screen('EnterRefund', 'Enter Refund', [
-    display('ER_Request', '<p>Refund of <b>{!forC_RefundAmount}</b> from payment {!GetPayment.Name}, verified on {!GetPayment.RefundVerifiedDate__c}.</p><p>Enter the check sent to the payer. The payment is then marked Refunded.</p>'),
+    display('ER_Request', '<p>Refund of <b>{!forC_RefundAmount}</b> from payment {!GetPayment.Name}, verified on {!GetPayment.RefundVerifiedDate__c}.</p><p>Enter the check sent to the payer. The refund is then marked Refunded; the payment itself is marked Refunded only when all of it was refunded.</p>'),
     inp('ER_CheckNumber', 'String', 'Refund check number', required=True),
     inp('ER_RefundedDate', 'Date', 'Refunded date', required=True, default=REF('$Flow.CurrentDate'),
         rule=("The refunded date can't be in the future or before the refund was verified.",
@@ -100,7 +102,7 @@ update('SaveRefunded', 'Set Refund to Refunded', [
     ('RefundCheckNumber__c', REF('ER_CheckNumber')),
     ('RefundStatus__c', STR('Refunded')),
     ('RefundedDate__c', REF('ER_RefundedDate')),
-    ('Status__c', STR('Refunded')),
+    ('Status__c', REF('forT_StatusAfterRefund')),
 ], None, 'CouldNotSaveRefund')
 
 screen('AlreadyRefunded', 'Already Refunded', [

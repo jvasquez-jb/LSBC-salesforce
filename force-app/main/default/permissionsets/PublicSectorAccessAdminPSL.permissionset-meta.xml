@@ -3,6 +3,21 @@
     <description>Enables user access to all Public Sector objects and features.</description>
     <fieldPermissions>
         <editable>false</editable>
+        <field>PersonExamination.AttemptOrder__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.ComplaintType__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.IncidentDate__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>BusinessLicense.IsReadyToPrint__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -317,6 +332,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>DocumentChecklistItem.DocumentTypeName__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>DocumentChecklistItem.IsSentToBoard__c</field>
         <readable>true</readable>
@@ -379,6 +399,21 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>IndividualApplication.InitiallyLicensedName__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>IndividualApplication.CompletedDate__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>IndividualApplication.EnrolledDate__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>IndividualApplication.TotalCompletedHours__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

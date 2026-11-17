@@ -36,10 +36,6 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Issuer</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
                 <field>Identifier</field>
             </layoutItems>
             <layoutItems>
@@ -69,42 +65,6 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>ContactId</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>UserId</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>IsActive</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>VerifiedDate</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>JurisdictionType</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>VerificationStatus</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>JurisdictionState</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>JurisdictionCountry</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>JurisdictionOther</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>HealthcareProviderId</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Required</behavior>
@@ -137,6 +97,7 @@
         <style>CustomLinks</style>
     </layoutSections>
     <relatedLists>
+        <excludeButtons>New</excludeButtons>
         <fields>Name</fields>
         <fields>LicenseType</fields>
         <fields>Status</fields>
@@ -144,6 +105,7 @@
         <relatedList>IndividualApplication</relatedList>
     </relatedLists>
     <relatedLists>
+        <excludeButtons>New</excludeButtons>
         <fields>Name</fields>
         <fields>LicenseType</fields>
         <fields>Status</fields>
@@ -152,10 +114,11 @@
     </relatedLists>
     <relatedLists>
         <fields>Name</fields>
+        <fields>Description</fields>
         <fields>TotalFeeAmount</fields>
-        <fields>AmountPaid__c</fields>
         <fields>Status</fields>
         <fields>DueDate</fields>
+        <fields>AmountPaid__c</fields>
         <relatedList>RegulatoryTrxnFee</relatedList>
     </relatedLists>
     <relatedLists>

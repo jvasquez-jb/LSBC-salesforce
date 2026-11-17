@@ -3,8 +3,9 @@
     <fullName>PersonAccountCompactLayout</fullName>
     <fields>Name</fields>
     <fields>LegacyKey__c</fields>
-    <fields>Phone</fields>
+    <fields>PersonMobilePhone</fields>
     <fields>PersonEmail</fields>
+    <fields>PersonBirthdate</fields>
     <fields>PersonMailingAddress</fields>
     <label>Person Account Compact Layout</label>
 </CompactLayout>

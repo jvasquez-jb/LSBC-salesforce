@@ -19,9 +19,9 @@
             <actionType>AssignParameterValues</actionType>
             <assignment>
                 <assignedParameter>IsAllowed</assignedParameter>
-                <expression>ISBLANK(LastDuplicateDate) || ISBLANK(PeriodEndDate) || LastDuplicateDate &lt;= ADDMONTHS(PeriodEndDate, -12)</expression>
+                <expression>ISBLANK(LastDuplicateDate) || ISBLANK(PeriodEndDate) || LastDuplicateDate &lt;= IF(ADDMONTHS(PeriodEndDate, -12) &lt;= TODAY(), ADDMONTHS(PeriodEndDate, -12), IF(ADDMONTHS(PeriodEndDate, 12 * (YEAR(TODAY()) - YEAR(PeriodEndDate))) &gt; TODAY(), ADDMONTHS(PeriodEndDate, 12 * (YEAR(TODAY()) - YEAR(PeriodEndDate)) - 12), ADDMONTHS(PeriodEndDate, 12 * (YEAR(TODAY()) - YEAR(PeriodEndDate)))))</expression>
             </assignment>
-            <description>True when no duplicate of the license was issued in the renewal period: the twelve months before its expiration date.</description>
+            <description>True when no duplicate of the license was issued in the current renewal period: the twelve months before its expiration date, or, when the license was renewed early and that period has not started, the yearly period containing today.</description>
             <label>Set Is Allowed</label>
             <name>SetIsAllowed</name>
             <resultIncluded>true</resultIncluded>
@@ -78,7 +78,7 @@
         <variables>
             <collection>false</collection>
             <dataType>Boolean</dataType>
-            <description>True when no duplicate of the license was issued in the renewal period: the twelve months before its expiration date.</description>
+            <description>True when no duplicate of the license was issued in the current renewal period: the twelve months before its expiration date, or, when the license was renewed early and that period has not started, the yearly period containing today.</description>
             <input>false</input>
             <name>IsAllowed</name>
             <output>true</output>

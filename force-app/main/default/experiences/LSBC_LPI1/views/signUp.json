@@ -9,7 +9,7 @@
       "components": [
         {
           "componentAttributes": {
-            "richTextValue": "<!-- Page heading and one-line introduction -->\n<h1 class=\"lsbc-page-title\">Sign Up</h1>\n<p class=\"lsbc-page-intro\">Already licensed in Louisiana? Sign up to renew, apply and pay online.</p>"
+            "richTextValue": "<!-- Page heading and one-line introduction -->\n<h1 class=\"lsbc-page-title\">Sign Up</h1>\n<p class=\"lsbc-page-intro\">Create your login to apply, renew and pay online.</p>"
           },
           "componentName": "forceCommunity:richTextInline",
           "id": "6849f7e6-f7e7-4cc0-a6d5-c4f0a7afbfad",

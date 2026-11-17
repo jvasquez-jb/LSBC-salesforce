@@ -272,19 +272,20 @@
     </relatedLists>
     <relatedLists>
         <fields>Name</fields>
+        <fields>Description</fields>
         <fields>TotalFeeAmount</fields>
-        <fields>AmountPaid__c</fields>
         <fields>Status</fields>
         <fields>DueDate</fields>
+        <fields>AmountPaid__c</fields>
         <relatedList>RegulatoryTrxnFees</relatedList>
     </relatedLists>
     <relatedLists>
         <fields>NAME</fields>
         <fields>ReceivedDate__c</fields>
         <fields>Amount__c</fields>
-        <fields>Method__c</fields>
         <fields>UnappliedAmount__c</fields>
         <fields>Status__c</fields>
+        <fields>Method__c</fields>
         <relatedList>Payment__c.Account__c</relatedList>
     </relatedLists>
     <showEmailCheckbox>false</showEmailCheckbox>

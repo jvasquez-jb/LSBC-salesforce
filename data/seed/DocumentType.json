@@ -340,6 +340,17 @@
       "Description": "Documentation from a professional, or of accommodations provided in another test, supporting an accommodation request.",
       "IsActive": true,
       "Language": "en_US"
+    },
+    {
+      "attributes": {
+        "type": "DocumentType",
+        "referenceId": "CumulativeHoursReport"
+      },
+      "DeveloperName": "CumulativeHoursReport",
+      "MasterLabel": "Cumulative Hours Report",
+      "Description": "The school's cumulative hour report for a student, showing the hours completed. Sent with the completion form.",
+      "IsActive": true,
+      "Language": "en_US"
     }
   ]
 }

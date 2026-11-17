@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>66.0</apiVersion>
+    <customErrors>
+        <name>FeeCodeAlreadyUsed</name>
+        <description>Stops the save with a plain message naming the product that already has the fee code, instead of Salesforce's duplicate-value message.</description>
+        <label>Fee Code Already Used</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <customErrorMessages>
+            <errorMessage>Fee code {!$Record.FeeCode__c} already belongs to the product {!GetProductWithSameFeeCode.Name}. Each fee code belongs to one product: use another code, or change that product instead.</errorMessage>
+            <fieldSelection>FeeCode__c</fieldSelection>
+            <isFieldError>true</isFieldError>
+        </customErrorMessages>
+    </customErrors>
+    <decisions>
+        <name>IsTheFeeCodeAlreadyUsed</name>
+        <label>Is the Fee Code Already Used?</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnectorLabel>No</defaultConnectorLabel>
+        <rules>
+            <name>AlreadyUsed</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>GetProductWithSameFeeCode.Id</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>FeeCodeAlreadyUsed</targetReference>
+            </connector>
+            <label>Yes</label>
+        </rules>
+    </decisions>
+    <description>When a product is saved with a fee code another product already has, stops the save with a message that names that product. The fee code field is unique, so Salesforce would refuse the save anyway, but with a technical message.</description>
+    <environments>Default</environments>
+    <interviewLabel>Record-Trigger: Product Before Save {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Record-Trigger: Product Before Save</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>GetProductWithSameFeeCode</name>
+        <label>Get Product with Same Fee Code</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>IsTheFeeCodeAlreadyUsed</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>FeeCode__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.FeeCode__c</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Id</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Product2</object>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>Name</queriedFields>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <start>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>GetProductWithSameFeeCode</targetReference>
+        </connector>
+        <filterFormula>NOT(ISBLANK({!$Record.FeeCode__c})) &amp;&amp; (ISNEW() || ISCHANGED({!$Record.FeeCode__c}))</filterFormula>
+        <object>Product2</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

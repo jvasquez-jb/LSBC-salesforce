@@ -36,14 +36,17 @@
     </types>
     <types>
         <members>Account.AccountCompactLayout</members>
+        <members>Accreditation.AccreditationCompact</members>
         <members>BusinessLicense.BusinessLicenseCompactLayout</members>
         <members>BusinessLicenseApplication.BusinessLicenseApplicationCompactLayout</members>
         <members>DocumentChecklistItem.DocumentChecklistItemCompactLayout</members>
         <members>IndividualApplication.IndividualApplicationCompactLayout</members>
         <members>Payment__c.PaymentCompactLayout</members>
         <members>PersonAccount.PersonAccountCompactLayout</members>
+        <members>PersonExamination.PersonExaminationCompact</members>
         <members>RecordAlert.RecordAlertCompactLayout</members>
         <members>RegulatoryTrxnFee.RegulatoryTrxnFeeCompactLayout</members>
+        <members>TrainingCourseParticipant.TrainingCourseParticipantCompact</members>
         <name>CompactLayout</name>
     </types>
     <types>
@@ -90,6 +93,8 @@
         <members>BusinessLicenseApplication.IsPremisesLeased__c</members>
         <members>BusinessLicenseApplication.RequestedOpeningDate__c</members>
         <members>BusinessLicenseApplication.ReturnReason__c</members>
+        <members>Case.ComplaintType__c</members>
+        <members>Case.IncidentDate__c</members>
         <members>Contact.HasCloseAffidavit__c</members>
         <members>Contact.HomeParish__c</members>
         <members>Contact.LegacyCertificationNumber__c</members>
@@ -98,6 +103,7 @@
         <members>Contact.SocialSecurityNumber__c</members>
         <members>CourseOffering.ApprovedHours__c</members>
         <members>CourseOffering.School__c</members>
+        <members>DocumentChecklistItem.DocumentTypeName__c</members>
         <members>DocumentChecklistItem.IsSentToBoard__c</members>
         <members>Examination.ExamType__c</members>
         <members>Examination.LicenseType__c</members>
@@ -107,9 +113,11 @@
         <members>IndividualApplication.ApprenticeshipSetting__c</members>
         <members>IndividualApplication.CertifiedDateTime__c</members>
         <members>IndividualApplication.CertifiedName__c</members>
+        <members>IndividualApplication.CompletedDate__c</members>
         <members>IndividualApplication.CourseOffering__c</members>
         <members>IndividualApplication.DecisionReason__c</members>
         <members>IndividualApplication.DisclosureExplanation__c</members>
+        <members>IndividualApplication.EnrolledDate__c</members>
         <members>IndividualApplication.EvaluationAgency__c</members>
         <members>IndividualApplication.Exams__c</members>
         <members>IndividualApplication.FelonyConviction__c</members>
@@ -128,6 +136,7 @@
         <members>IndividualApplication.SundayHours__c</members>
         <members>IndividualApplication.ThursdayHours__c</members>
         <members>IndividualApplication.TookHandsOnPractical__c</members>
+        <members>IndividualApplication.TotalCompletedHours__c</members>
         <members>IndividualApplication.TuesdayHours__c</members>
         <members>IndividualApplication.WednesdayHours__c</members>
         <members>LetterTemplate__mdt.AppliesTo__c</members>
@@ -161,6 +170,7 @@
         <members>PersonEducation.SchoolCity__c</members>
         <members>PersonEducation.SchoolState__c</members>
         <members>PersonExamination.AttemptNumber__c</members>
+        <members>PersonExamination.AttemptOrder__c</members>
         <members>Product2.FeeCode__c</members>
         <members>Product2.RevenueCode__c</members>
         <members>RegulatoryAuthorizationType.CECycleYears__c</members>
@@ -199,6 +209,8 @@
         <members>ApplicationDocumentRequirement.AffidavitPaymentReceipt</members>
         <members>ApplicationDocumentRequirement.AhdFacLocalOccupationalLicense</members>
         <members>ApplicationDocumentRequirement.AhdFacOperatorLicense</members>
+        <members>ApplicationDocumentRequirement.CompletionCumulativeHoursReport</members>
+        <members>ApplicationDocumentRequirement.CompletionPaymentReceipt</members>
         <members>ApplicationDocumentRequirement.DuplicatePaymentReceipt</members>
         <members>ApplicationDocumentRequirement.NewSchoolBusinessPlan</members>
         <members>ApplicationDocumentRequirement.NewSchoolCurriculum</members>
@@ -255,16 +267,20 @@
         <name>CustomMetadata</name>
     </types>
     <types>
+        <members>Accreditation</members>
         <members>ApplicationDocumentRequirement__mdt</members>
         <members>BusinessLicense</members>
         <members>BusinessLicenseApplication</members>
+        <members>CourseOffering</members>
         <members>DocumentChecklistItem</members>
         <members>IndividualApplication</members>
         <members>LetterTemplate__mdt</members>
         <members>PaymentAllocation__c</members>
         <members>Payment__c</members>
+        <members>PersonExamination</members>
         <members>RecordAlert</members>
         <members>RegulatoryTrxnFee</members>
+        <members>TrainingCourseParticipant</members>
         <name>CustomObject</name>
     </types>
     <types>
@@ -314,6 +330,7 @@
         <members>BusinessAndPremisesPremisesInspectionReport</members>
         <members>BusinessAndPremisesSuretyBond</members>
         <members>DisclosuresCourtRecordsAndExplanation</members>
+        <members>EducationAndTrainingCumulativeHoursReport</members>
         <members>EducationAndTrainingCurriculum</members>
         <members>EducationAndTrainingDailySchedule</members>
         <members>EducationAndTrainingEnrollmentContract</members>
@@ -342,6 +359,10 @@
         <name>DuplicateRule</name>
     </types>
     <types>
+        <members>LSBCPortalEmails</members>
+        <members>LSBCPortalEmails/PortalChangePassword</members>
+        <members>LSBCPortalEmails/PortalForgotPassword</members>
+        <members>LSBCPortalEmails/PortalWelcome</members>
         <members>unfiled$public/CaseComplaintAcknowledgement</members>
         <members>unfiled$public/CaseInquiryAcknowledgement</members>
         <name>EmailTemplate</name>
@@ -400,14 +421,18 @@
         <members>RecordTriggerBusinessLicenseBeforeSave</members>
         <members>RecordTriggerDocumentChecklistItemAfterSave</members>
         <members>RecordTriggerIndividualApplicationAfterSave</members>
+        <members>RecordTriggerIndividualApplicationBeforeDelete</members>
         <members>RecordTriggerPaymentAfterSave</members>
         <members>RecordTriggerPaymentAllocationAfterSave</members>
         <members>RecordTriggerPaymentAllocationBeforeDelete</members>
+        <members>RecordTriggerPaymentAllocationBeforeSave</members>
         <members>RecordTriggerPaymentBeforeDelete</members>
         <members>RecordTriggerPersonExaminationAfterSave</members>
+        <members>RecordTriggerProductBeforeSave</members>
         <members>RecordTriggerRegulatoryCodeViolationAfterSave</members>
         <members>RecordTriggerRegulatoryTransactionFeeAfterSave</members>
         <members>RecordTriggerTrainingCourseParticipantAfterSave</members>
+        <members>RecordTriggerTrainingCourseParticipantBeforeDelete</members>
         <members>RecordTriggerUserAfterSave</members>
         <members>RegulatoryTransactionFeeScheduleOverdueFees</members>
         <members>ScreenFlowAccountAddStopCode</members>
@@ -428,6 +453,7 @@
         <members>ScreenFlowDocumentChecklistItemUpload</members>
         <members>ScreenFlowIndividualApplicationAffidavit</members>
         <members>ScreenFlowIndividualApplicationDecide</members>
+        <members>ScreenFlowIndividualApplicationNewLicensure</members>
         <members>ScreenFlowIndividualApplicationReciprocity</members>
         <members>ScreenFlowIndividualApplicationRenewal</members>
         <members>ScreenFlowIndividualApplicationResume</members>
@@ -466,6 +492,7 @@
     </types>
     <types>
         <members>Account-Account Layout</members>
+        <members>AccountContactRelation-Account Contact Relationship Layout</members>
         <members>Accreditation-Accreditation Layout</members>
         <members>BusinessLicense-Business License Layout</members>
         <members>BusinessLicenseApplication-Business License Application Layout</members>
@@ -499,8 +526,10 @@
         <members>BusinessLicense.LicensesReadyToPrint</members>
         <members>BusinessLicenseApplication.ApplicationsAwaitingReview</members>
         <members>IndividualApplication.ApplicationsAwaitingReview</members>
+        <members>Payment__c.AllPayments</members>
         <members>Payment__c.PaymentsReceivedThisWeek</members>
         <members>RecordAlert.OpenStopCodes</members>
+        <members>RegulatoryTrxnFee.DueFees</members>
         <name>ListView</name>
     </types>
     <types>
@@ -511,6 +540,10 @@
     <types>
         <members>LSBC LPI</members>
         <name>Network</name>
+    </types>
+    <types>
+        <members>cbLSBC_LPI</members>
+        <name>NetworkBranding</name>
     </types>
     <types>
         <members>LSBCDataMigration</members>
@@ -693,8 +726,12 @@
     </types>
     <types>
         <members>BusinessLicense.StatusDraftOutOfStateLicense</members>
+        <members>PaymentAllocation__c.FeeItemRequired</members>
+        <members>Payment__c.AmountMinAppliedAmount</members>
         <members>Payment__c.RefundAmountMaxUnappliedAmount</members>
         <members>Payment__c.RefundCheckNumberRequiredRefunded</members>
+        <members>RecordAlert.IsActiveEndRequiresValidUntilDate</members>
+        <members>RecordAlert.SnoozeUntilDateNotAllowed</members>
         <members>RecordAlert.ValidUntilDateNotBeforeEffectiveDate</members>
         <members>RegulatoryCodeViolation.CitedPartyMatchesAccount</members>
         <members>RegulatoryCodeViolation.DescriptionRequiredOtherViolationType</members>

@@ -52,6 +52,10 @@
                 <behavior>Readonly</behavior>
                 <field>IsSentToBoard__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>DocumentTypeName__c</field>
+            </layoutItems>
         </layoutColumns>
         <style>TwoColumnsTopToBottom</style>
     </layoutSections>

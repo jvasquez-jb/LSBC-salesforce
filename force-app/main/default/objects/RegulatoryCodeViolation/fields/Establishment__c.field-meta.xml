@@ -3,7 +3,7 @@
     <fullName>Establishment__c</fullName>
     <deleteConstraint>Restrict</deleteConstraint>
     <description>The salon, school or other business where the violation was found. Only business accounts can be chosen.</description>
-    <inlineHelpText>The business where the violation was found.</inlineHelpText>
+    <inlineHelpText>The salon, school or other business involved. Only businesses can be chosen.</inlineHelpText>
     <label>Establishment</label>
     <lookupFilter>
         <active>true</active>

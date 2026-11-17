@@ -155,7 +155,7 @@
             <assignToReference>varR_FeeItem.Name</assignToReference>
             <operator>Assign</operator>
             <value>
-                <stringValue>Renewal</stringValue>
+                <elementReference>forT_RenewalItemName</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
@@ -183,7 +183,7 @@
             <assignToReference>varR_FeeItem.CalculationInfo</assignToReference>
             <operator>Assign</operator>
             <value>
-                <stringValue>Renewal from the Fee Schedule, doubled for a late school.</stringValue>
+                <elementReference>forT_RenewalCalculationInfo</elementReference>
             </value>
         </assignmentItems>
         <connector>
@@ -319,7 +319,7 @@
             <assignToReference>varR_FeeItem.Name</assignToReference>
             <operator>Assign</operator>
             <value>
-                <stringValue>Late Fee</stringValue>
+                <elementReference>forT_LateFeeItemName</elementReference>
             </value>
         </assignmentItems>
         <assignmentItems>
@@ -595,8 +595,32 @@
             <label>Yes</label>
         </rules>
     </decisions>
-    <description>Raises the fee for renewing one license: the renewal, a late fee for each missed license year up to the cap (or the failure-to-renew fee for a late school), and the restoration exam fee when needed. Amounts come from the Fee Schedule.</description>
+    <description>Raises the fee for renewing one license: the renewal, a late fee for each missed license year up to the cap (or the failure-to-renew fee for a late school), and the restoration exam fee when needed. Amounts come from the Fee Schedule. The fee is filed under the renewal application when one is given, otherwise under the license.</description>
     <environments>Default</environments>
+    <formulas>
+        <name>forT_RenewalItemName</name>
+        <description>The renewal item&apos;s name, with the license type, so a renewal of several licenses lists each one (Cosmetologist renewal).</description>
+        <dataType>String</dataType>
+        <expression>{!GetLicenseType.Name} &amp; &quot; renewal&quot;</expression>
+    </formulas>
+    <formulas>
+        <name>forT_LateFeeItemName</name>
+        <description>The late fee item&apos;s name, with the license type (Cosmetologist late fee).</description>
+        <dataType>String</dataType>
+        <expression>{!GetLicenseType.Name} &amp; &quot; late fee&quot;</expression>
+    </formulas>
+    <formulas>
+        <name>forT_RenewalCalculationInfo</name>
+        <description>How the renewal item was priced, worded for the case: a late school also pays the failure-to-renew fee.</description>
+        <dataType>String</dataType>
+        <expression>IF({!forB_IsSchool} &amp;&amp; {!RunFeeLateCalculation.DelinquentYears} &gt; 0, &quot;Renewal from the Fee Schedule. The school renewed late, so the failure-to-renew fee is charged as well.&quot;, &quot;Renewal from the Fee Schedule.&quot;)</expression>
+    </formulas>
+    <formulas>
+        <name>forT_FeeParentId</name>
+        <description>The record the fee belongs to: the renewal application when one is given, otherwise the license.</description>
+        <dataType>String</dataType>
+        <expression>BLANKVALUE({!varT_ApplicationId}, {!GetBusinessLicense.Id})</expression>
+    </formulas>
     <formulas>
         <name>forD_AsOfDate</name>
         <dataType>Date</dataType>
@@ -692,7 +716,7 @@
         <inputAssignments>
             <field>ParentRecordId</field>
             <value>
-                <elementReference>GetBusinessLicense.Id</elementReference>
+                <elementReference>forT_FeeParentId</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -861,6 +885,14 @@
         </connector>
     </start>
     <status>Active</status>
+    <variables>
+        <name>varT_ApplicationId</name>
+        <description>The renewal application the fee is for. The fee is filed under it; when blank, under the license.</description>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
     <variables>
         <name>varT_BusinessLicenseId</name>
         <description>The license being renewed.</description>

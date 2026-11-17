@@ -36,4 +36,9 @@
         <default>false</default>
         <label>Active</label>
     </standardValue>
+    <standardValue>
+        <fullName>Expired</fullName>
+        <default>false</default>
+        <label>Expired</label>
+    </standardValue>
 </StandardValueSet>

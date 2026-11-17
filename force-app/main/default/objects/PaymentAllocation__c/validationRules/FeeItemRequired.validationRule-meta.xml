@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>FeeItemRequired</fullName>
+    <active>true</active>
+    <description>Every allocation applies money to one fee item; without it the fee's Amount Paid can't be updated. Record Payment and accepted payment receipts always set it.</description>
+    <errorConditionFormula>ISBLANK(FeeItem__c)</errorConditionFormula>
+    <errorDisplayField>FeeItem__c</errorDisplayField>
+    <errorMessage>Choose the fee item this money is applied to.</errorMessage>
+</ValidationRule>

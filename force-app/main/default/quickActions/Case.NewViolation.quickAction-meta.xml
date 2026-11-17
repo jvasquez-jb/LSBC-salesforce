@@ -1,9 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <QuickAction xmlns="http://soap.sforce.com/2006/04/metadata">
-    <description>Records a violation found while working a case, linked to the case. Saving it raises the violation fee against the cited party.</description>
+    <description>Records a violation from a case, linked to it. The Case's Account is filled in as who is cited: a person as Practitioner, a business as Establishment. Saving raises the violation fee against the cited party.</description>
     <fieldOverrides>
         <field>DateCreated</field>
         <formula>NOW()</formula>
+    </fieldOverrides>
+    <fieldOverrides>
+        <field>CitedParty__c</field>
+        <formula>IF(ISBLANK(Case.AccountId), NULL, IF(Case.Account.IsPersonAccount, &quot;Practitioner&quot;, &quot;Establishment&quot;))</formula>
+    </fieldOverrides>
+    <fieldOverrides>
+        <field>Establishment__c</field>
+        <formula>IF(ISBLANK(Case.AccountId) || Case.Account.IsPersonAccount, NULL, Case.AccountId)</formula>
+    </fieldOverrides>
+    <fieldOverrides>
+        <field>Practitioner__c</field>
+        <formula>IF(Case.Account.IsPersonAccount, Case.AccountId, NULL)</formula>
     </fieldOverrides>
     <label>New Violation</label>
     <optionsCreateFeedItem>false</optionsCreateFeedItem>

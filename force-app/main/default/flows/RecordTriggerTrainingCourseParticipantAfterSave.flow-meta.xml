@@ -112,7 +112,7 @@
         <connector>
             <targetReference>GetHolderFirstRecordInSameSave</targetReference>
         </connector>
-        <filterFormula>NOT(ISPICKVAL({!$Record.EntryType__c}, &quot;Continuing Education&quot;)) &amp;&amp; (ISNEW() || ISCHANGED({!$Record.TotalHours}) || ISCHANGED({!$Record.EndDate}) || ISCHANGED({!$Record.CourseOfferingId}))</filterFormula>
+        <filterFormula>NOT(ISPICKVAL({!$Record.EntryType__c}, &quot;Continuing Education&quot;)) &amp;&amp; (ISNEW() || ISCHANGED({!$Record.TotalHours}) || ISCHANGED({!$Record.EndDate}) || ISCHANGED({!$Record.CourseOfferingId}) || ISCHANGED({!$Record.ReceivedDate__c}))</filterFormula>
         <object>TrainingCourseParticipant</object>
         <recordTriggerType>CreateAndUpdate</recordTriggerType>
         <triggerType>RecordAfterSave</triggerType>

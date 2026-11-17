@@ -1,0 +1,79 @@
+diff --git a/force-app/main/default/flows/BusinessLicenseScheduleExpiredAndLapsedLicenses.flow-meta.xml b/force-app/main/default/flows/BusinessLicenseScheduleExpiredAndLapsedLicenses.flow-meta.xml
+index dfbc7f4..35e699a 100644
+--- a/force-app/main/default/flows/BusinessLicenseScheduleExpiredAndLapsedLicenses.flow-meta.xml
++++ b/force-app/main/default/flows/BusinessLicenseScheduleExpiredAndLapsedLicenses.flow-meta.xml
+@@ -1,6 +1,31 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+     <apiVersion>66.0</apiVersion>
++    <decisions>
++        <name>HasTheActiveLicensePassedItsPeriodEnd</name>
++        <label>Has the Active License Passed Its Period End?</label>
++        <locationX>0</locationX>
++        <locationY>0</locationY>
++        <defaultConnector>
++            <targetReference>IsThisInTheWindow</targetReference>
++        </defaultConnector>
++        <defaultConnectorLabel>No</defaultConnectorLabel>
++        <rules>
++            <name>PastPeriodEnd</name>
++            <conditionLogic>and</conditionLogic>
++            <conditions>
++                <leftValueReference>forB_HasExpired</leftValueReference>
++                <operator>EqualTo</operator>
++                <rightValue>
++                    <booleanValue>true</booleanValue>
++                </rightValue>
++            </conditions>
++            <connector>
++                <targetReference>SetStatusToExpired</targetReference>
++            </connector>
++            <label>Yes</label>
++        </rules>
++    </decisions>
+     <decisions>
+         <name>IsThisInTheWindow</name>
+         <label>Is This In The Window?</label>
+@@ -45,8 +70,14 @@
+             <label>Yes</label>
+         </rules>
+     </decisions>
+-    <description>Nightly. Re-checks stop codes for holders whose license expired in the last week, or passed three years expired in the last week, since no record changes on those days. One sync per holder.</description>
++    <description>Nightly. Sets an Active license whose Period End has passed to Expired; that change queues the stop code re-check for its holder (Record-Trigger: Business License After Save). For other licenses, re-checks stop codes for holders whose license expired in the last week, or passed three years expired in the last week, since no record changes on those days. One sync per holder. Revoked, Retired, Deceased and Draft licenses are skipped.</description>
+     <environments>Default</environments>
++    <formulas>
++        <name>forB_HasExpired</name>
++        <description>True when the license is Active and its Period End date is before today.</description>
++        <dataType>Boolean</dataType>
++        <expression>TEXT({!$Record.Status}) = &quot;Active&quot; &amp;&amp; NOT(ISBLANK({!$Record.PeriodEnd})) &amp;&amp; DATEVALUE({!$Record.PeriodEnd}) &lt; TODAY()</expression>
++    </formulas>
+     <formulas>
+         <name>forB_IsInWindow</name>
+         <description>True when the date this schedule watches fell in the last seven days.</description>
+@@ -204,11 +235,25 @@
+         <sortOrder>Asc</sortOrder>
+         <storeOutputAutomatically>true</storeOutputAutomatically>
+     </recordLookups>
++    <recordUpdates>
++        <name>SetStatusToExpired</name>
++        <description>Marks the license Expired. The status change queues the stop code re-check for the holder, so this path doesn't sync directly.</description>
++        <label>Set Status to Expired</label>
++        <locationX>0</locationX>
++        <locationY>0</locationY>
++        <inputAssignments>
++            <field>Status</field>
++            <value>
++                <stringValue>Expired</stringValue>
++            </value>
++        </inputAssignments>
++        <inputReference>$Record</inputReference>
++    </recordUpdates>
+     <start>
+         <locationX>0</locationX>
+         <locationY>0</locationY>
+         <connector>
+-            <targetReference>IsThisInTheWindow</targetReference>
++            <targetReference>HasTheActiveLicensePassedItsPeriodEnd</targetReference>
+         </connector>
+         <filterLogic>and</filterLogic>
+         <filters>

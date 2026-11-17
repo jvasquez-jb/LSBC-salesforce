@@ -6,5 +6,9 @@
         <visible>true</visible>
     </applicationVisibilities>
     <custom>false</custom>
+    <tabVisibilities>
+        <tab>Payment__c</tab>
+        <visibility>DefaultOn</visibility>
+    </tabVisibilities>
     <userLicense>Salesforce</userLicense>
 </Profile>

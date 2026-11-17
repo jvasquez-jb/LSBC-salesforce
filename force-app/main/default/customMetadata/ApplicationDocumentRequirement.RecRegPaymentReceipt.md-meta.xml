@@ -16,7 +16,7 @@
     </values>
     <values>
         <field>Instruction__c</field>
-        <value xsi:type="xsd:string">Correct fee amount.</value>
+        <value xsi:type="xsd:string">The receipt for the fees you paid online.</value>
     </values>
     <values>
         <field>IsRequired__c</field>

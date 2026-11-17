@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AttemptOrder__c</fullName>
+    <description>Puts a person&apos;s exam attempts in order: examination date, then attempt number, then when the record was created. The stop code check takes the attempt that sorts last as the latest, so a fail and a pass on the same day are ordered by attempt number.</description>
+    <externalId>false</externalId>
+    <formula>IF(ISBLANK(ExaminationDate), &quot;0000-00-00&quot;, TEXT(DATEVALUE(ExaminationDate))) &amp; &quot; &quot; &amp; LPAD(TEXT(BLANKVALUE(AttemptNumber__c, 0)), 4, &quot;0&quot;) &amp; &quot; &quot; &amp; TEXT(CreatedDate)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>Used to find the latest attempt: examination date, attempt number, then creation time.</inlineHelpText>
+    <label>Attempt Order</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

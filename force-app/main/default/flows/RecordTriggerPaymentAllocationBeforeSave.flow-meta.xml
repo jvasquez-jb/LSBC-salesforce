@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>66.0</apiVersion>
+    <assignments>
+        <name>SetForYearToFeeItemYear</name>
+        <label>Set For Year to Fee Item Year</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.ForYear__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.FeeItem__r.ForYear__c</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <description>Gives a payment allocation the license year of the fee item it pays. Runs when an allocation is created without a year (for example with New on a payment's Allocations tab) and whenever it is moved to another fee item, so the money shows under the right year in Payments Applied by License Year.</description>
+    <environments>Default</environments>
+    <interviewLabel>Record-Trigger: Payment Allocation Before Save {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Record-Trigger: Payment Allocation Before Save</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>SetForYearToFeeItemYear</targetReference>
+        </connector>
+        <filterFormula>NOT(ISBLANK({!$Record.FeeItem__c})) &amp;&amp; ((ISNEW() &amp;&amp; ISBLANK({!$Record.ForYear__c})) || ISCHANGED({!$Record.FeeItem__c}))</filterFormula>
+        <object>PaymentAllocation__c</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

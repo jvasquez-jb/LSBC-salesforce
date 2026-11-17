@@ -16,6 +16,13 @@ NO_NOTES = {'DocumentChecklistItem', 'RecordAlert'}
 FRONT_TABS = {'Relationships', 'Exams and Accommodations'}
 PERSON = ('{!Record.IsPersonAccount}', 'true')
 BUSINESS = ('{!Record.IsPersonAccount}', 'false')
+SCHOOL = ('{!Record.RecordType.DeveloperName}', 'School')
+
+# Lists shared by several pages. ('ADV', list) is the list from the page layout shown as an enhanced list, which shows
+# every layout column (a plain related list shows only four). Fees, payments and checklist items can't be dynamic lists: Fees isn't
+# enabled for them, a dynamic list can't show a payment's number, and checklist lists show Document Type Name (the label). Their columns are set on each layout.
+CHECKLIST = ('ADV', 'DocumentChecklistItemPR')
+FEES = ('ADV', 'RegulatoryTrxnFees')
 
 # object: (label, description, actions, [ (tab title, [(relatedList, visibility)]) ])
 PAGES = {
@@ -23,17 +30,17 @@ PAGES = {
    'Staff view of a license or permit: its details and history, the applications made against it, and its fees.',
    ['Edit'],
    [('Applications', [('IndividualApplicationPermit', None), ('BusinessLicenseApplicationPermit', None)]),
-    ('Fees', [('RegulatoryTrxnFees', None)])]),
+    ('Fees', [(FEES, None)])]),
  'IndividualApplication': ('Individual Application Record Page',
    'Staff view of an application from a person: its details, document checklist and fees.',
    ['IndividualApplication.Decide', 'IndividualApplication.UploadDocuments', 'EditIARecord', 'IndividualApplication.GenerateLetter'],
-   [('Checklist', [('DocumentChecklistItemPR', None)]),
-    ('Fees', [('RegulatoryTrxnFees', None)])]),
+   [('Checklist', [(CHECKLIST, None)]),
+    ('Fees', [(FEES, None)])]),
  'BusinessLicenseApplication': ('Business License Application Record Page',
    'Staff view of an application for an establishment or school: its details, document checklist and fees.',
    ['BusinessLicenseApplication.Decide', 'BusinessLicenseApplication.UploadDocuments', 'EditRecord', 'BusinessLicenseApplication.GenerateLetter'],
-   [('Checklist', [('DocumentChecklistItemPR', None)]),
-    ('Fees', [('RegulatoryTrxnFees', None)])]),
+   [('Checklist', [(CHECKLIST, None)]),
+    ('Fees', [(FEES, None)])]),
  'RegulatoryTrxnFee': ('Regulatory Transaction Fee Record Page',
    'Staff view of a fee: what is owed, its items by year, and how much is paid.',
    ['Edit'],
@@ -52,8 +59,8 @@ PAGES = {
  'RegulatoryCodeViolation': ('Regulatory Code Violation Record Page',
    'Staff view of a violation: who is cited, its fee and its documents.',
    ['Edit'],
-   [('Fees', [('RegulatoryTrxnFees', None)]),
-    ('Checklist', [('DocumentChecklistItemPR', None)])]),
+   [('Fees', [(FEES, None)]),
+    ('Checklist', [(CHECKLIST, None)])]),
  'PublicComplaint': ('Public Complaint Record Page',
    'Staff view of a complaint: the Cases working it and the people involved.',
    ['Edit'],
@@ -71,7 +78,7 @@ PAGES = {
  'PersonExamination': ('Person Examination Record Page',
    'Staff view of one examination attempt: result, date and documents.',
    ['Edit'],
-   [('Checklist', [('DocumentChecklistItemPR', None)])]),
+   [('Checklist', [(CHECKLIST, None)])]),
  'TrainingCourseParticipant': ('Training Course Participant Record Page',
    'Staff view of a student enrollment at a school, with its hours.',
    ['Edit'], []),
@@ -83,23 +90,24 @@ PAGES = {
    ['Edit'],
    [('Students', [('TCPCourseOffering', None)]),
     ('Student Applications', [('StudentApplications__r', None)]),
-    ('Checklist', [('DocumentChecklistItemPR', None)])]),
+    ('Checklist', [(CHECKLIST, None)])]),
  'DocumentChecklistItem': ('Document Checklist Item Record Page',
    'Staff view of one required document: its status, the file, and Board comments.',
    ['Edit'], []),
  'Account': ('Account Record Page',
-   'Staff view of a person or business: licenses, applications, fees and payments, stop codes, violations and Cases. Person and business accounts see the related lists that apply to them.',
+   'Staff view of a person or business: licenses, applications, fees and payments, stop codes, violations and Cases, and the course offerings of a school. Person and business accounts see the related lists that apply to them.',
    ['Edit', ('Account.NewApplication', PERSON), 'Account.NewLicense', 'Account.RecordPayment', 'Account.GenerateLetter', 'Account.AddStopCode', ('Account.NewViolationPractitioner', PERSON), ('Account.NewViolationEstablishment', BUSINESS)],
    [('Relationships', [('PersonAccountContactRelations', PERSON), ('AccountContactRelations', BUSINESS)]),
     ('Exams and Accommodations', [(('DYN', 'PersonPersonExamContact', 'Person Examinations', ['Name', 'Examination', 'ExaminationDate', 'AttemptNumber__c', 'Result'], ['New']), PERSON),
                                   (('DYN', 'PersonDisabilities', 'Accommodation Requests', ['Name', 'Status', 'Accommodations__c', 'IsAccommodationRequired'], ['New']), PERSON),
                                   (('FLOW', 'ScreenFlowAccountPersonLanguages'), PERSON)]),
     ('Licenses', [('BusinessLicenses', BUSINESS), (('DYN', 'Accreditations', 'Accreditations', ['Name', 'Type', 'AccreditingBody', 'Status', 'EffectiveTo'], ['New']), BUSINESS), (('DYN', 'BusinessLicenses', 'Licenses', ['Name', 'Identifier', 'RegulatoryAuthorizationType', 'Status', 'PeriodEnd']), PERSON)]),
-    ('Applications', [(('DYN', 'IndividualApplicationAccount', 'Individual Applications', ['Name', 'LicenseType', 'Status', 'AppliedDate'], ['New']), PERSON),
-                      (('DYN', 'BusinessLicenseApplicationAccount', 'Business License Applications', ['Name', 'LicenseType', 'Status', 'AppliedDate'], ['New']), BUSINESS)]),
-    ('Fees and Payments', [('RegulatoryTrxnFees', None), ('PaymentsReceived__r', None)]),
+    ('Applications', [(('DYN', 'IndividualApplicationAccount', 'Individual Applications', ['Name', 'LicenseType', 'ApplicationType', 'Status', 'AppliedDate']), PERSON),
+                      (('DYN', 'BusinessLicenseApplicationAccount', 'Business License Applications', ['Name', 'LicenseType', 'ApplicationType', 'Status', 'AppliedDate']), BUSINESS)]),
+    ('Fees and Payments', [(FEES, None), (('ADV', 'PaymentsReceived__r'), None)]),
     ('Stop Codes', [('ALERTCARD', None)]),
-    ('Training', [(('DYN', 'PersonTCPContact', 'Training Course Participants', ['Name', 'CourseOffering', 'EntryType__c', 'TotalHours', 'StartDate', 'EndDate'], ['New']), PERSON)]),
+    ('Training', [(('DYN', 'PersonTCPContact', 'Training Course Participants', ['Name', 'CourseOffering', 'EntryType__c', 'TotalHours', 'StartDate', 'EndDate', 'ReceivedDate__c'], ['New'], ('StartDate', 'Descending')), PERSON),
+                  (('DYN', 'CourseOfferings__r', 'Course Offerings', ['Name', 'Description', 'ApprovedHours__c', 'StartDate', 'EndDate'], ['New']), SCHOOL)]),
     ('Violations', [('PractitionerViolations__r', PERSON), ('EstablishmentViolations__r', BUSINESS)]),
     ('Cases', [('Cases', None)])]),
 }
@@ -134,10 +142,10 @@ class Page:
         return x + '            </componentInstance>\n        </itemInstances>\n'
     def region(self, name, items, typ='Facet'):
         self.regions.append(f'    <flexiPageRegions>\n{"".join(items)}        <name>{name}</name>\n        <type>{typ}</type>\n    </flexiPageRegions>\n')
-    def related(self, rl, vis=None):
+    def related(self, rl, vis=None, override='NONE'):
         return self.comp('force:relatedListSingleContainer', [
             ('parentFieldApiName', f'{self.obj}.Id'), ('relatedListApiName', rl),
-            ('relatedListComponentOverride', 'NONE'), ('rowsToDisplay', '10'), ('showActionBar', 'true')], vis)
+            ('relatedListComponentOverride', override), ('rowsToDisplay', '10'), ('showActionBar', 'true')], vis)
     def flow(self, name, vis=None):
         # A screen flow on the page, given the record's Id as recordId.
         args = '[{"label":"recordId","dataType":"String","supportsRecordId":true,"value":"{!Record.Id}"}]'
@@ -146,20 +154,23 @@ class Page:
         # A dynamic list shows the actions of the same list on the page layout. A list that can't be on the
         # layout gets its actions here (a fifth item, e.g. ['New']), or it shows no New button. Salesforce never shows
         # New on a person account's Licenses (Organization) list, so licenses are added with the New License action.
-        _, rl, label, fields, *acts = spec
+        # An optional sixth item sorts the list: (field, 'Ascending' or 'Descending').
+        _, rl, label, fields, *rest = spec
+        acts = rest[0] if rest else None
+        sort_field, sort_order = rest[1] if len(rest) > 1 else ('__DEFAULT__', 'Default')
         lists = {'relatedListFieldAliases': fields}
         if acts:
-            lists = {'actionNames': acts[0], **lists}
+            lists = {'actionNames': acts, **lists}
         return self.comp('lst:dynamicRelatedList', [
             ('maxRecordsToDisplay', '10'), ('parentFieldApiName', f'{self.obj}.Id'),
             ('relatedListApiName', rl), ('relatedListDisplayType', 'ADVGRID'), ('relatedListLabel', label),
-            ('showActionBar', 'true'), ('sortFieldAlias', '__DEFAULT__'), ('sortFieldOrder', 'Default')], vis,
+            ('showActionBar', 'true'), ('sortFieldAlias', sort_field), ('sortFieldOrder', sort_order)], vis,
             value_lists=lists)
     def tab(self, title, body, active=None):
         p = [('active', active)] if active is not None else []
         return self.comp('flexipage:tab', p + [('body', body), ('title', title)])
-    def tabset(self, facet):
-        return self.comp('flexipage:tabset', [('label', 'Tabs'), ('tabs', facet)])
+    def tabset(self, facet, vis=None):
+        return self.comp('flexipage:tabset', [('label', 'Tabs'), ('tabs', facet)], vis)
 
 def build(obj):
     label, desc, actions, tabs = PAGES[obj]
@@ -180,7 +191,8 @@ def build(obj):
     if obj == 'Account':
         p.region('duplicatesTabContent', [p.comp('runtime_sales_merge:mergeCandidatesPreviewCard', [('displayOption', 'BOTH')])])
         p.region('duplicatesTabs', [p.tab('Duplicates', 'duplicatesTabContent')])
-        left.append(p.tabset('duplicatesTabs'))
+        # Business accounts only: no duplicate rule covers person accounts, so the card would only say so.
+        left.append(p.tabset('duplicatesTabs', BUSINESS))
     p.region('detailTabContent', [p.comp('force:detailPanel')])
     main = [p.tab('Standard.Tab.detail', 'detailTabContent', 'true')]
     hist = 'ActivityHistories' if c['act'] else ('Histories' if c['hist'] else None)
@@ -202,6 +214,7 @@ def build(obj):
                 ('exposedAttributes', '{"Limit":"25","ChildLimit":"5","AggregateAlerts":false}'),
                 ('flexcardName', 'ServiceExcellenceAlertCard')]) if rl == 'ALERTCARD'
                 else p.flow(rl[1], vis) if isinstance(rl, tuple) and rl[0] == 'FLOW'
+                else p.related(rl[1], vis, 'ADVGRID') if isinstance(rl, tuple) and rl[0] == 'ADV'
                 else p.dynamic(rl, vis) if isinstance(rl, tuple) else p.related(rl, vis) for rl, vis in lists])
             ts.append(p.tab(title, body, 'true' if i == first else None))
         p.region('objectTabs', ts)

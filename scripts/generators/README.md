@@ -15,6 +15,7 @@ generated files stay consistent. Run with `python3 -I` from the repo root.
 | `markprinted.py` | `ScreenFlowBusinessLicenseMarkPrinted` | as above |
 | `languages.py` | `ScreenFlowAccountPersonLanguages` (read-only list of a person's languages, on the Account page) | as above |
 | `newapp.py` | `ScreenFlowAccountNewApplication` | as above |
+| `newlicensure.py` | `ScreenFlowIndividualApplicationNewLicensure` (Completion and Initial License: the school's completion form, entered by staff from New Application) | as above |
 | `staffintake.py` | One-off patch that added staff intake (`recordId`, staff flags) to the nine portal forms and three upload and payment flows. Already applied; it skips files it has patched | not needed again |
 
 Portal form flows were written by `flowkit.py`, which is not in this repo.

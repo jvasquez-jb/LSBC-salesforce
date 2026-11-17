@@ -9,7 +9,7 @@
       "components": [
         {
           "componentAttributes": {
-            "richTextValue": "<!-- Page heading and one-line introduction -->\n<h1 class=\"lsbc-page-title\">Apply for a Temporary Permit</h1>\n<p class=\"lsbc-page-intro\">Work at a hair show, pageant, demonstration or movie set in Louisiana with your out-of-state license.</p>"
+            "richTextValue": "<!-- Page heading and one-line introduction -->\n<h1 class=\"lsbc-page-title\">Apply for a Temporary Permit</h1>\n<p class=\"lsbc-page-intro\">A 33-day permit for people licensed in another state, while you wait to test in Louisiana.</p>"
           },
           "componentName": "forceCommunity:richTextInline",
           "id": "4fcb76dd-f9b6-4087-a14e-425688901fdb",

@@ -19,7 +19,7 @@ def build(obj, label_obj, refuse_status, refuse_word, outdir):
         x = f'<recordUpdates><name>{name}</name><label>{e(label)}</label>{loc()}{conn(nxt)}{conn(fault, "faultConnector")}'
         x += f'<filterLogic>and</filterLogic><filters><field>Id</field><operator>EqualTo</operator><value><elementReference>{idref}</elementReference></value></filters>'
         for f, v in assigns:
-            x += f'<inputAssignments><field>{f}</field><value>{val(v)}</value></inputAssignments>'
+            x += f'<inputAssignments><field>{f}</field>' + (f'<value>{val(v)}</value>' if v is not None else '') + '</inputAssignments>'
         els['recordUpdates'].append(x + f'<object>{objname}</object></recordUpdates>')
 
     def choice(name, text, value):
@@ -42,6 +42,7 @@ def build(obj, label_obj, refuse_status, refuse_word, outdir):
     F.var('recordId', 'String', 'The application being decided. Named recordId because the quick action passes the record under that name.', inp=True)
     F.var('varN_OpenItems', 'Number', 'How many required checklist items are not yet accepted.', default=NUM(0), scale=0)
     F.var('varN_UnpaidFees', 'Number', 'How many of the application\'s fees are not fully paid.', default=NUM(0), scale=0)
+    F.var('varN_UnpaidLicenseFees', 'Number', 'For a renewal, how many fees on the license being renewed are not fully paid. The renewal fee is raised on the license, not the application.', default=NUM(0), scale=0)
     F.var('varN_StopCodes', 'Number', 'How many stop codes are active on the holder.', default=NUM(0), scale=0)
     F.var('varDT_NewPeriodEnd', 'DateTime', 'The expiration date from License Expiration Date. The rule returns midnight GMT, so it is kept as a date and time and moved to noon Louisiana time.')
     F.var('varT_OpenItemsText', 'String', 'The open checklist items, one line each, for the summary.')
@@ -54,7 +55,7 @@ def build(obj, label_obj, refuse_status, refuse_word, outdir):
     choice('choice_LetterNo', 'No', 'No')
     els['dynamicChoiceSets'].append(f'<dynamicChoiceSets><name>choice_ReturnReason</name><dataType>Picklist</dataType><displayField xsi:nil="true"/><object xsi:nil="true"/><picklistField>ReturnReason__c</picklistField><picklistObject>{obj}</picklistObject></dynamicChoiceSets>')
 
-    F.formula('forB_Ready', 'Boolean', '{!varN_OpenItems} = 0 && {!varN_UnpaidFees} = 0', 'True when every required document is accepted and every fee is paid, so the application can be approved.')
+    F.formula('forB_Ready', 'Boolean', '{!GetApplication.IsCertified__c} && {!varN_OpenItems} = 0 && {!varN_UnpaidFees} + {!varN_UnpaidLicenseFees} = 0', 'True when the application is certified, every required document is accepted and every fee is paid, so the application can be approved. The forms certify it, on the portal and in staff intake; an application made without a form is not certified.')
     F.formula('forB_IsRenewal', 'Boolean', 'NOT(ISBLANK({!GetApplication.LicensePermitNameId})) && TEXT({!GetApplication.ApplicationType}) = "Renewal"', 'True for a renewal of an existing license.')
     F.formula('forB_IsDuplicate', 'Boolean', 'NOT(ISBLANK({!GetApplication.LicensePermitNameId})) && TEXT({!GetApplication.ApplicationType}) = "Duplicate"', 'True for a duplicate of an existing license: approving it records the date, which allows one duplicate per renewal period.')
     F.formula('forB_IsNewLicense', 'Boolean', 'ISBLANK({!GetApplication.LicensePermitNameId}) && (TEXT({!GetApplication.ApplicationType}) = "New" || ISBLANK(TEXT({!GetApplication.ApplicationType})))', 'True when approving creates a new license.')
@@ -72,14 +73,15 @@ def build(obj, label_obj, refuse_status, refuse_word, outdir):
     F.formula('forT_ItemLine', 'String', '"<li>" & {!LoopThroughOpenItems.Name} & " (" & TEXT({!LoopThroughOpenItems.Status}) & ")</li>"', 'One open checklist item for the summary.')
     F.formula('forT_StopCodeLine', 'String', '"<li>" & {!LoopThroughStopCodes.Subject} & "</li>"', 'One active stop code for the summary.')
     F.formula('forT_Summary', 'String',
-              'IF({!forB_Ready}, "<p><b>Ready to approve:</b> every required document is accepted and the fees are paid.</p>", "<p><b>Not ready to approve.</b></p>")'
+              'IF({!forB_Ready}, "<p><b>Ready to approve:</b> the application is certified, every required document is accepted and the fees are paid.</p>", "<p><b>Not ready to approve.</b></p>")'
+              ' & IF({!GetApplication.IsCertified__c}, "", "<p>The application is not certified. It was not entered through an application form: enter it with New Application on the applicant\'s person account (for a business, the owner\'s or director\'s) so it is certified.</p>")'
               ' & IF({!varN_OpenItems} > 0, "<p>Required documents not yet accepted:</p><ul>" & {!varT_OpenItemsText} & "</ul>", "")'
-              ' & IF({!varN_UnpaidFees} > 0, "<p>Fees not fully paid: " & TEXT({!varN_UnpaidFees}) & "</p>", "")'
+              ' & IF({!varN_UnpaidFees} + {!varN_UnpaidLicenseFees} > 0, "<p>Fees not fully paid: " & TEXT({!varN_UnpaidFees} + {!varN_UnpaidLicenseFees}) & IF({!varN_UnpaidLicenseFees} > 0, " (the renewal fee is on the license: see Fees and Payments on the person)", "") & "</p>", "")'
               ' & IF({!varN_StopCodes} > 0, "<p>Active stop codes on the holder (the license will not print until they end):</p><ul>" & {!varT_StopCodesText} & "</ul>", "")',
               'The review summary shown above the decision.')
 
     F.lookup('GetApplication', 'Get Application', obj, [('Id', 'EqualTo', REF('recordId'))],
-             ['Id', 'Name', 'Status', 'AccountId', 'LicenseTypeId', 'LicensePermitNameId', 'ApplicationType'], 'IsItAlreadyDecided', first=True, sort=None)
+             ['Id', 'Name', 'Status', 'AccountId', 'LicenseTypeId', 'LicensePermitNameId', 'ApplicationType', 'IsCertified__c'], 'IsItAlreadyDecided', first=True, sort=None)
     already = [cond('GetApplication.Status', 'EqualTo', STR('Approved')), cond('GetApplication.Status', 'EqualTo', STR(refuse_status))]
     if not is_person:
         already.append(cond('GetApplication.Status', 'EqualTo', STR('Approved with Conditions')))
@@ -93,7 +95,15 @@ def build(obj, label_obj, refuse_status, refuse_word, outdir):
     F.lookup('GetUnpaidFees', 'Get Unpaid Fees', 'RegulatoryTrxnFee',
              [('ParentRecordId', 'EqualTo', REF('recordId')), ('Status', 'EqualTo', STR('DUE')), ('Status', 'EqualTo', STR('PARTIALLY_PAID'))],
              ['Id'], 'CountUnpaidFees', logic='1 AND (2 OR 3)', sort=None)
-    F.assignment('CountUnpaidFees', 'Count Unpaid Fees', [('varN_UnpaidFees', 'AssignCount', REF('GetUnpaidFees'))], 'GetStopCodes')
+    F.assignment('CountUnpaidFees', 'Count Unpaid Fees', [('varN_UnpaidFees', 'AssignCount', REF('GetUnpaidFees'))], 'IsItALicenseRenewal' if is_person else 'GetStopCodes')
+    if is_person:
+        F.decision('IsItALicenseRenewal', 'Is It a License Renewal?', [
+            ('LicenseRenewal', 'License Renewal', [cond('forB_IsRenewal', 'EqualTo', BOOL(True))], 'GetUnpaidLicenseFees', 'and'),
+        ], 'GetStopCodes', default_label='Not a Renewal')
+        F.lookup('GetUnpaidLicenseFees', 'Get Unpaid License Fees', 'RegulatoryTrxnFee',
+                 [('ParentRecordId', 'EqualTo', REF('GetApplication.LicensePermitNameId')), ('Status', 'EqualTo', STR('DUE')), ('Status', 'EqualTo', STR('PARTIALLY_PAID'))],
+                 ['Id'], 'CountUnpaidLicenseFees', logic='1 AND (2 OR 3)', sort=None)
+        F.assignment('CountUnpaidLicenseFees', 'Count Unpaid License Fees', [('varN_UnpaidLicenseFees', 'AssignCount', REF('GetUnpaidLicenseFees'))], 'GetStopCodes')
     F.lookup('GetStopCodes', 'Get Active Stop Codes', 'RecordAlert',
              [('WhatId', 'EqualTo', REF('GetApplication.AccountId')), ('IsActive', 'EqualTo', BOOL(True))],
              ['Id', 'Subject'], 'CountStopCodes', sort='CreatedDate')
@@ -133,7 +143,8 @@ def build(obj, label_obj, refuse_status, refuse_word, outdir):
     ], 'IsThereALicense', default_label='Other')
     update('RecordDuplicate', 'Set Last Duplicate Date', 'GetApplication.LicensePermitNameId', 'BusinessLicense', [
         ('LastDuplicateDate__c', REF('$Flow.CurrentDate')),
-        ('PrintRequestedDate__c', REF('$Flow.CurrentDate'))], 'ApproveApplication', 'CouldNotSaveDecision')
+        ('PrintRequestedDate__c', REF('$Flow.CurrentDate')),
+        ('PrintedDate__c', None)], 'ApproveApplication', 'CouldNotSaveDecision')
     F.lookup('GetLicense', 'Get License', 'BusinessLicense', [('Id', 'EqualTo', REF('GetApplication.LicensePermitNameId'))],
              ['Id', 'Identifier', 'PeriodEnd', 'RenewalCount__c', 'RegulatoryAuthorizationTypeId'], 'GetLicenseType', first=True, sort=None)
     F.lookup('GetLicenseType', 'Get License Type', 'RegulatoryAuthorizationType', [('Id', 'EqualTo', REF('forT_LicenseTypeId'))],
@@ -157,6 +168,7 @@ def build(obj, label_obj, refuse_status, refuse_word, outdir):
     update('RenewLicense', 'Renew License', 'GetLicense.Id', 'BusinessLicense', [
         ('PeriodEnd', REF('forDT_PeriodEnd')),
         ('PrintRequestedDate__c', REF('$Flow.CurrentDate')),
+        ('PrintedDate__c', None),
         ('RenewalCount__c', REF('forN_RenewalCount')),
         ('Status', STR('Active')),
     ], 'ApproveApplication', 'CouldNotSaveDecision')
@@ -173,9 +185,10 @@ def build(obj, label_obj, refuse_status, refuse_word, outdir):
     F.decision('IsThereALicense', 'Is There a License to Print?', [
         ('HasLicense', 'Yes', [cond('GetApplication.LicensePermitNameId', 'IsNull', BOOL(False))], 'RequestPrint', 'and')], 'ApproveApplication')
     update('RequestPrint', 'Set Print Requested Date', 'GetApplication.LicensePermitNameId', 'BusinessLicense', [
-        ('PrintRequestedDate__c', REF('$Flow.CurrentDate'))], 'ApproveApplication', 'CouldNotSaveDecision')
+        ('PrintRequestedDate__c', REF('$Flow.CurrentDate')),
+        ('PrintedDate__c', None)], 'ApproveApplication', 'CouldNotSaveDecision')
     update('ApproveApplication', 'Set Application to Approved', 'recordId', obj, [
-        ('LicensePermitNameId', REF('forT_LicenseId')), ('Status', STR('Approved'))], 'Approved', 'CouldNotSaveDecision')
+        ('ApprovedDate', REF('$Flow.CurrentDateTime')), ('LicensePermitNameId', REF('forT_LicenseId')), ('Status', STR('Approved'))], 'Approved', 'CouldNotSaveDecision')
     F.screen('Approved', 'Approved', [
         F.display('AP_Message', '<p><b>{!GetApplication.Name} is approved.</b></p><p>The license is marked ready to print. It prints once the holder has no active stop codes.</p>'),
     ], None, next_label='Done')
@@ -196,12 +209,21 @@ def build(obj, label_obj, refuse_status, refuse_word, outdir):
     ], None, next_label='Done')
 
     update('SaveRefusal', f'Set Application to {refuse_status}', 'recordId', obj, [
-        ('DecisionReason__c', REF('DA_Reason')), ('Status', STR(refuse_status))], 'Refused', 'CouldNotSaveDecision')
+        ('DecisionReason__c', REF('DA_Reason')), ('Status', STR(refuse_status))], 'AreThereFeesToCancel', 'CouldNotSaveDecision')
+    F.decision('AreThereFeesToCancel', 'Are There Fees to Cancel?', [
+        ('FeesToCancel', 'Yes', [cond('varN_UnpaidFees', 'GreaterThan', NUM(0))], 'CancelUnpaidFees', 'and')], 'Refused')
+    els['recordUpdates'].append(
+        f'<recordUpdates><name>CancelUnpaidFees</name><description>The application is {refuse_status.lower()}, so its fees still Due or Partially Paid are canceled: they are no longer owed.</description>'
+        f'<label>Set Unpaid Fees to Canceled</label>{loc()}{conn("Refused")}{conn("CouldNotSaveDecision", "faultConnector")}<filterLogic>1 AND (2 OR 3)</filterLogic>'
+        '<filters><field>ParentRecordId</field><operator>EqualTo</operator><value><elementReference>recordId</elementReference></value></filters>'
+        '<filters><field>Status</field><operator>EqualTo</operator><value><stringValue>DUE</stringValue></value></filters>'
+        '<filters><field>Status</field><operator>EqualTo</operator><value><stringValue>PARTIALLY_PAID</stringValue></value></filters>'
+        '<inputAssignments><field>Status</field><value><stringValue>CANCELED</stringValue></value></inputAssignments><object>RegulatoryTrxnFee</object></recordUpdates>')
     F.screen('Refused', refuse_status, [
-        F.display('RF_Message', f'<p><b>{{!GetApplication.Name}} is {refuse_status.lower()}.</b> The reason is saved on the application.</p>'),
+        F.display('RF_Message', f'<p><b>{{!GetApplication.Name}} is {refuse_status.lower()}.</b> The reason is saved on the application, and its unpaid fees are canceled.</p>'),
     ], None, next_label='Done')
     F.screen('NotReady', 'Not Ready to Approve', [
-        F.display('NR_Message', '<p><b>This application can\'t be approved yet.</b> Approve is available only when every required document is accepted and the fees are paid.</p>{!forT_Summary}'),
+        F.display('NR_Message', '<p><b>This application can\'t be approved yet.</b> Approve is available only when the application is certified, every required document is accepted and the fees are paid.</p>{!forT_Summary}'),
     ], 'Decide', next_label='Back to Decision')
     F.screen('AlreadyDecided', 'Already Decided', [
         F.display('AD_Message', '<p>{!GetApplication.Name} is already {!GetApplication.Status}, so there is nothing to decide.</p>'),
@@ -212,10 +234,10 @@ def build(obj, label_obj, refuse_status, refuse_word, outdir):
 
     refusal_text = ('refused (Denied)' if is_person else 'refused (Canceled, until a Denied status is added)')
     desc = (f'Records staff\'s decision on a {label_obj.lower()}, from the Decide action. It first shows what stands in the way: required '
-            f'documents not yet accepted, fees not fully paid, and active stop codes on the holder. Approve is allowed only when the documents are accepted and the fees paid. '
+            f'documents not yet accepted, fees not fully paid, and active stop codes on the holder. Approve is allowed only when the application is certified (entered through a form, on the portal or by staff), the documents are accepted and the fees paid. '
             f'Approving a new application creates the license with the number staff enter, its expiration date from License Expiration Date; approving a renewal moves the '
-            f'existing license\'s expiration on and adds one to its renewal count; approving a duplicate records the date on the license as its Last Duplicate Date. Either way the license is marked ready to print and the application is Approved. '
-            f'A return records the reason and can create the return letter; an application can also be {refusal_text}, with the reason saved.')
+            f'existing license\'s expiration on and adds one to its renewal count; approving a duplicate records the date on the license as its Last Duplicate Date. Either way the license is marked ready to print (its Printed Date is cleared, so a license printed earlier goes back in the print queue) and the application is Approved with today as its Approved Date. '
+            f'A return records the reason and can create the return letter; an application can also be {refusal_text}, with the reason saved and its unpaid fees set to Canceled.')
     label = f'Screen Flow: {label_obj} Decide'
     head = ('<?xml version="1.0" encoding="UTF-8"?>\n<Flow xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">'
             '<apiVersion>66.0</apiVersion>')

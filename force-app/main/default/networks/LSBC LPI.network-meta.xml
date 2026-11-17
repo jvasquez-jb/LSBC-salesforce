@@ -2,13 +2,13 @@
 <Network xmlns="http://soap.sforce.com/2006/04/metadata">
     <allowInternalUserLogin>false</allowInternalUserLogin>
     <allowMembersToFlag>false</allowMembersToFlag>
-    <changePasswordTemplate>unfiled$public/CommunityChangePasswordEmailTemplate</changePasswordTemplate>
+    <changePasswordTemplate>LSBCPortalEmails/PortalChangePassword</changePasswordTemplate>
     <communityRoles/>
     <disablePvtPagesForPwdResetInLWR>false</disablePvtPagesForPwdResetInLWR>
     <disableReputationRecordConversations>true</disableReputationRecordConversations>
     <emailDomainSubstitutionEnabled>false</emailDomainSubstitutionEnabled>
-    <emailSenderAddress>jvasquez@journeyblazers.com.invalid</emailSenderAddress>
-    <emailSenderName>LSBC LPI</emailSenderName>
+    <emailSenderAddress>jvasquez@journeyblazers.com</emailSenderAddress>
+    <emailSenderName>Louisiana State Board of Cosmetology</emailSenderName>
     <embeddedLoginEnabled>false</embeddedLoginEnabled>
     <enableApexCDNCaching>true</enableApexCDNCaching>
     <enableCustomVFErrorPageOverrides>false</enableCustomVFErrorPageOverrides>
@@ -32,7 +32,7 @@
     <enableTopicAssignmentRules>true</enableTopicAssignmentRules>
     <enableTopicSuggestions>false</enableTopicSuggestions>
     <enableUpDownVote>false</enableUpDownVote>
-    <forgotPasswordTemplate>unfiled$public/CommunityForgotPasswordEmailTemplate</forgotPasswordTemplate>
+    <forgotPasswordTemplate>LSBCPortalEmails/PortalForgotPassword</forgotPasswordTemplate>
     <gatherCustomerSentimentData>false</gatherCustomerSentimentData>
     <headlessForgotPasswordTemplate>unfiled$public/CommunityHeadlessForgotPasswordTemplate</headlessForgotPasswordTemplate>
     <headlessRegistrationTemplate>unfiled$public/CommunityHeadlessRegistrationTemplate</headlessRegistrationTemplate>
@@ -61,5 +61,5 @@
         <standardTab>Chatter</standardTab>
     </tabs>
     <urlPathPrefix>LPI</urlPathPrefix>
-    <welcomeTemplate>unfiled$public/CommunityWelcomeEmailTemplate</welcomeTemplate>
+    <welcomeTemplate>LSBCPortalEmails/PortalWelcome</welcomeTemplate>
 </Network>

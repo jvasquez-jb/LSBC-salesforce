@@ -14,15 +14,35 @@
             </value>
         </assignmentItems>
     </assignments>
+    <assignments>
+        <name>SetContactIdToPersonContact</name>
+        <label>Set Contact Id to Person Contact</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.ContactId</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.Account.PersonContactId</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
     <decisions>
-        <name>IsTheContactAPerson</name>
-        <label>Is the Contact a Person?</label>
+        <name>WhichPersonLinkIsMissing</name>
+        <label>Which Person Link Is Missing?</label>
         <locationX>0</locationX>
         <locationY>0</locationY>
         <defaultConnectorLabel>No</defaultConnectorLabel>
         <rules>
-            <name>Person</name>
+            <name>OrganizationMissing</name>
             <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.AccountId</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
             <conditions>
                 <leftValueReference>$Record.Contact.IsPersonAccount</leftValueReference>
                 <operator>EqualTo</operator>
@@ -33,10 +53,32 @@
             <connector>
                 <targetReference>SetAccountIdToPersonAccount</targetReference>
             </connector>
-            <label>Yes</label>
+            <label>Organization Missing</label>
+        </rules>
+        <rules>
+            <name>ContactMissing</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.ContactId</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Account.IsPersonAccount</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>SetContactIdToPersonContact</targetReference>
+            </connector>
+            <label>Contact Missing</label>
         </rules>
     </decisions>
-    <description>When a license is saved with a Contact but no Organization, and the Contact is a person, fills in Organization with that person's account. Licenses show on the person's Licenses tab and are checked for stop codes by Organization, so a license with only the Contact filled in would otherwise be missed by both.</description>
+    <description>Keeps a person's license linked both ways. When a license is saved with a Contact but no Organization, and the Contact is a person, fills in Organization with that person's account: licenses show on the person's Licenses tab and are checked for stop codes by Organization. When it is saved with a person as Organization but no Contact (for example from New License on the person), fills in Contact with that person, as on migrated licenses.</description>
     <environments>Default</environments>
     <interviewLabel>Record-Trigger: Business License Before Save {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Record-Trigger: Business License Before Save</label>
@@ -63,9 +105,9 @@
         <locationX>0</locationX>
         <locationY>0</locationY>
         <connector>
-            <targetReference>IsTheContactAPerson</targetReference>
+            <targetReference>WhichPersonLinkIsMissing</targetReference>
         </connector>
-        <filterFormula>ISBLANK({!$Record.AccountId}) &amp;&amp; NOT(ISBLANK({!$Record.ContactId}))</filterFormula>
+        <filterFormula>(ISBLANK({!$Record.AccountId}) &amp;&amp; NOT(ISBLANK({!$Record.ContactId}))) || (ISBLANK({!$Record.ContactId}) &amp;&amp; NOT(ISBLANK({!$Record.AccountId})))</filterFormula>
         <object>BusinessLicense</object>
         <recordTriggerType>CreateAndUpdate</recordTriggerType>
         <triggerType>RecordBeforeSave</triggerType>

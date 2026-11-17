@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DueFees</fullName>
+    <columns>Name</columns>
+    <columns>Description</columns>
+    <columns>TotalFeeAmount</columns>
+    <columns>AmountPaid__c</columns>
+    <columns>DueDate</columns>
+    <columns>Status</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Status</field>
+        <operation>equals</operation>
+        <value>DUE,PARTIALLY_PAID</value>
+    </filters>
+    <label>Fees Due</label>
+</ListView>

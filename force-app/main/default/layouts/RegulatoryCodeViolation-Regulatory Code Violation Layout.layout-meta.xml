@@ -31,14 +31,6 @@
                 <behavior>Edit</behavior>
                 <field>CorrectiveActionDescription</field>
             </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>InspectionId</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>ResponseContextId</field>
-            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -64,14 +56,6 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>ResolutionNotes</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>InspectionAssmntIndId</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>ResponseId</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
@@ -104,6 +88,33 @@
         <style>TwoColumnsLeftToRight</style>
     </layoutSections>
     <layoutSections>
+        <customLabel>true</customLabel>
+        <detailHeading>true</detailHeading>
+        <editHeading>true</editHeading>
+        <label>Inspection</label>
+        <layoutColumns>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>InspectionId</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>ResponseContextId</field>
+            </layoutItems>
+        </layoutColumns>
+        <layoutColumns>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>InspectionAssmntIndId</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>ResponseId</field>
+            </layoutItems>
+        </layoutColumns>
+        <style>TwoColumnsLeftToRight</style>
+    </layoutSections>
+    <layoutSections>
         <customLabel>false</customLabel>
         <detailHeading>false</detailHeading>
         <editHeading>false</editHeading>
@@ -118,18 +129,19 @@
     </relatedLists>
     <relatedLists>
         <fields>Name</fields>
+        <fields>Description</fields>
         <fields>TotalFeeAmount</fields>
-        <fields>AmountPaid__c</fields>
         <fields>Status</fields>
         <fields>DueDate</fields>
+        <fields>AmountPaid__c</fields>
         <relatedList>RegulatoryTrxnFees</relatedList>
     </relatedLists>
     <relatedLists>
         <fields>Name</fields>
-        <fields>DocumentType</fields>
+        <fields>DocumentTypeName__c</fields>
+        <fields>Status</fields>
         <fields>IsRequired</fields>
         <fields>IsSentToBoard__c</fields>
-        <fields>Status</fields>
         <relatedList>DocumentChecklistItem</relatedList>
     </relatedLists>
     <relatedLists>

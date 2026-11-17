@@ -93,27 +93,6 @@
                   ],
                   "tabKey": "returnedApps",
                   "tabName": "My Returned Applications"
-                },
-                {
-                  "UUID": "77fd6499-823b-4124-ab5c-f699a6736e91",
-                  "allowGuestUser": false,
-                  "locked": false,
-                  "seedComponents": [
-                    {
-                      "attributes": {
-                        "enableInlineEdit": "false",
-                        "filterName": "DraftPreliminaryApplicationRef",
-                        "layout": "FULL",
-                        "scope": "PreliminaryApplicationRef",
-                        "showActionBar": "false",
-                        "showChartsPanel": "false",
-                        "showPinnedList": "false"
-                      },
-                      "fqn": "forceCommunity:objectHome"
-                    }
-                  ],
-                  "tabKey": "draftApps",
-                  "tabName": "My Draft Applications"
                 }
               ],
               "useOverflowMenu": false
@@ -183,38 +162,6 @@
               "id": "afc87761-560d-47c0-b8d4-01a1fade33dc",
               "regionLabel": "My Returned Applications",
               "regionName": "returnedApps",
-              "renditionMap": {},
-              "type": "region"
-            },
-            {
-              "components": [
-                {
-                  "componentAttributes": {
-                    "enableInlineEdit": false,
-                    "filterName": "DraftPreliminaryApplicationRef",
-                    "layout": "FULL",
-                    "pageSize": 25,
-                    "scope": "PreliminaryApplicationRef",
-                    "showActionBar": false,
-                    "showChartsPanel": false,
-                    "showDisplay": "showall",
-                    "showFilterPanel": true,
-                    "showImageIcon": true,
-                    "showManualRefreshButton": true,
-                    "showObjectName": true,
-                    "showPinnedList": false,
-                    "showSearchBar": true
-                  },
-                  "componentName": "forceCommunity:objectHome",
-                  "id": "93f11dcd-dece-4c6e-b4a2-29c8a2dea547",
-                  "renderPriority": "NEUTRAL",
-                  "renditionMap": {},
-                  "type": "component"
-                }
-              ],
-              "id": "77fd6499-823b-4124-ab5c-f699a6736e91",
-              "regionLabel": "My Draft Applications",
-              "regionName": "draftApps",
               "renditionMap": {},
               "type": "region"
             }

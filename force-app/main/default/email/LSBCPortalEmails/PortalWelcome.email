@@ -1,0 +1,11 @@
+Hello {!Receiving_User.FirstName},
+
+Your login for the Louisiana State Board of Cosmetology licensing portal has been created. Click the link below to set your password. The link works once.
+
+{!Community_Url}
+
+Your username is {!Receiving_User.Username}. After you set your password, click Log in on the portal to renew, apply and pay online.
+
+If you didn't sign up, you can ignore this email, or call the Board at 225-756-3404.
+
+Louisiana State Board of Cosmetology

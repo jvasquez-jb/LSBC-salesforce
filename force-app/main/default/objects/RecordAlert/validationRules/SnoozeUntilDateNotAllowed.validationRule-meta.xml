@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SnoozeUntilDateNotAllowed</fullName>
+    <active>true</active>
+    <description>Stop codes can't be snoozed: a stop code stays in the Alerts box until End Stop Code or the automations end it. This stops the Alerts box's Snooze for 24 Hours.</description>
+    <errorConditionFormula>ISCHANGED(SnoozeUntilDate) &amp;&amp; NOT(ISBLANK(SnoozeUntilDate))</errorConditionFormula>
+    <errorMessage>Stop codes can't be snoozed. Use End Stop Code on the stop code to end it.</errorMessage>
+</ValidationRule>

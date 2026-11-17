@@ -13,12 +13,22 @@
         <field>BusinessLicenseApplication$AppliedDate</field>
     </columns>
     <columns>
+        <field>CDF1</field>
+    </columns>
+    <columns>
         <field>BusinessLicenseApplication$RequirementsCompleteDate</field>
     </columns>
     <columns>
         <field>BusinessLicenseApplication$WasReturned</field>
     </columns>
-    <description>Establishment, facility and school applications submitted and not yet decided, by status and license type, oldest first.</description>
+    <customDetailFormulas>
+        <calculatedFormula>IF(ISBLANK(BusinessLicenseApplication.AppliedDate), BusinessLicenseApplication.CreatedDate, BusinessLicenseApplication.AppliedDate)</calculatedFormula>
+        <dataType>DateTime</dataType>
+        <developerName>CDF1</developerName>
+        <label>Received</label>
+        <scale>2</scale>
+    </customDetailFormulas>
+    <description>Establishment, facility and school applications submitted and not yet decided, by status and license type, oldest first by Applied Date (Created Date when it is blank).</description>
     <filter>
         <criteriaItems>
             <column>BusinessLicenseApplication$Status</column>
@@ -49,7 +59,7 @@
     <showDetails>true</showDetails>
     <showGrandTotal>true</showGrandTotal>
     <showSubTotals>true</showSubTotals>
-    <sortColumn>BusinessLicenseApplication$AppliedDate</sortColumn>
+    <sortColumn>CDF1</sortColumn>
     <sortOrder>Asc</sortOrder>
     <timeFrameFilter>
         <dateColumn>BusinessLicenseApplication$AppliedDate</dateColumn>

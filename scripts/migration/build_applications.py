@@ -50,7 +50,7 @@ else:
     with open(os.path.join(root, "load", "applications.csv"), "w", newline="") as fh:
         w = csv.writer(fh, lineterminator="\n")
         w.writerow(["RecordTypeId", "AccountId", "Category", "ApplicationType", "ApplicationPath__c", "Status",
-                    "AppliedDate", "LicenseTypeId", "OriginatingState__c"])
+                    "AppliedDate", "LicenseTypeId", "OriginatingState__c", "IsCertified__c"])
         n = 0
         for a, d, cur, orig, hrs in rows:
             acct = ids.get(xp[a])
@@ -58,6 +58,6 @@ else:
                 continue
             st = STATES.get((orig or cur or "").strip().upper(), "")
             w.writerow([RECIPROCITY_RT, acct, "License", "New", "Regular", "Submitted", f"{d[:10]}T17:00:00.000Z",
-                        types[TYPE.get((hrs or "").strip().upper(), "Cosmetologist")], st])
+                        types[TYPE.get((hrs or "").strip().upper(), "Cosmetologist")], st, "true"])  # signed on paper in CLOSE: Decide needs it certified
             n += 1
     print(f"{n} applications")

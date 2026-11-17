@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IsActiveEndRequiresValidUntilDate</fullName>
+    <active>true</active>
+    <description>A stop code is ended only by End Stop Code or the automations, which set its end date (Valid Until Date) as they make it inactive. This stops the Alerts box's Dismiss, which only unticks Active and would end the stop code without an end date.</description>
+    <errorConditionFormula>ISCHANGED(IsActive) &amp;&amp; NOT(IsActive) &amp;&amp; NOT(ISCHANGED(ValidUntilDate))</errorConditionFormula>
+    <errorMessage>Stop codes can't be dismissed. Use End Stop Code on the stop code to end it.</errorMessage>
+</ValidationRule>

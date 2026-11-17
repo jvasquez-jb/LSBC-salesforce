@@ -258,7 +258,7 @@
             <label>Yes</label>
         </rules>
     </decisions>
-    <description>Runs from the Record Complaint action on a Case. Staff confirm the complaint details, the establishment and practitioner it is about, and the complainant (pre-filled from the sender of the email or form). It creates a Public Complaint linked to the Case, adds the establishment, practitioner and known complainant as participants, sets the Case Type to Complaint and moves the Case from the General Inquiries queue to Complaint Intake. A Case can have only one complaint. If any step fails, nothing is saved.</description>
+    <description>Runs from the Record Complaint action on a Case. Staff confirm the complaint details (complaint type and incident date are pre-filled from the Case when the public complaint form set them), the establishment and practitioner it is about, and the complainant (pre-filled from the sender of the email or form). It creates a Public Complaint linked to the Case, adds the establishment, practitioner and known complainant as participants, sets the Case Type to Complaint, saves the confirmed complaint type and incident date on the Case, sets the Case's Account to the establishment (or practitioner) the complaint is about (so New Violation on the Case cites it; the complainant stays the Case's Contact), and moves the Case from the General Inquiries queue to Complaint Intake. A Case can have only one complaint. If any step fails, nothing is saved.</description>
     <dynamicChoiceSets>
         <name>pickChoice_ComplaintType</name>
         <dataType>Picklist</dataType>
@@ -272,6 +272,12 @@
         <picklistObject>PublicComplaint</picklistObject>
     </dynamicChoiceSets>
     <environments>Default</environments>
+    <formulas>
+        <name>forT_CaseAccountId</name>
+        <description>The Case's new Account: the establishment the complaint is about, else the practitioner, else the Case's current Account.</description>
+        <dataType>String</dataType>
+        <expression>BLANKVALUE({!forT_ComplaintAccountId}, {!GetCase.AccountId})</expression>
+    </formulas>
     <formulas>
         <name>forB_AskedToStayConfidential</name>
         <description>True when the complaint came from the portal&apos;s File a Complaint form and the complainant asked to stay confidential: that form records the answer in the Case description. Pre-ticks Keep the complainant&apos;s identity confidential; staff can change it.</description>
@@ -617,7 +623,7 @@
     </recordRollbacks>
     <recordUpdates>
         <name>SetCaseTypeAndOwner</name>
-        <label>Set Case Type to Complaint and Owner</label>
+        <label>Set Case Type, Owner, Account and Complaint Details</label>
         <locationX>0</locationX>
         <locationY>0</locationY>
         <connector>
@@ -646,6 +652,24 @@
                 <elementReference>forT_NewOwnerId</elementReference>
             </value>
         </inputAssignments>
+        <inputAssignments>
+            <field>AccountId</field>
+            <value>
+                <elementReference>forT_CaseAccountId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>ComplaintType__c</field>
+            <value>
+                <elementReference>RC_ComplaintType</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>IncidentDate__c</field>
+            <value>
+                <elementReference>RC_IncidentDate</elementReference>
+            </value>
+        </inputAssignments>
         <object>Case</object>
     </recordUpdates>
     <screens>
@@ -663,6 +687,9 @@
             <name>RC_ComplaintType</name>
             <choiceReferences>pickChoice_ComplaintType</choiceReferences>
             <dataType>String</dataType>
+            <defaultValue>
+                <elementReference>GetCase.ComplaintType__c</elementReference>
+            </defaultValue>
             <fieldText>Complaint type</fieldText>
             <fieldType>DropdownBox</fieldType>
             <isRequired>true</isRequired>
@@ -670,6 +697,9 @@
         <fields>
             <name>RC_IncidentDate</name>
             <dataType>Date</dataType>
+            <defaultValue>
+                <elementReference>GetCase.IncidentDate__c</elementReference>
+            </defaultValue>
             <fieldText>Date of the incident</fieldText>
             <fieldType>InputField</fieldType>
             <helpText>When the incident happened. Use the best date the complainant can give.</helpText>

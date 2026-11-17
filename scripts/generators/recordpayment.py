@@ -135,6 +135,10 @@ formula('forC_Applied', 'Currency', '{!RP_Amount} - {!varC_Remaining}', 'The tot
 formula('forB_CountsTowardItem', 'Boolean',
         '{!LoopThroughAllocations.FeeItem__c} = {!LoopThroughFeeItems.Id} && TEXT({!LoopThroughAllocations.Payment__r.Status__c}) <> "Returned"',
         'True when the allocation is on the fee item being shown and its payment was not returned.')
+formula('forT_FeeParent', 'String', 'IF(ISBLANK({!forT_FeeParentName}), "", " (for " & {!forT_FeeParentName} & ")")',
+        'The record the fee is for, such as the application number, shown next to each fee item.')
+formula('forT_FeeParentName', 'String', 'BLANKVALUE({!GetFeeIndividualApplication.Name}, BLANKVALUE({!GetFeeBusinessApplication.Name}, BLANKVALUE({!GetFeeViolation.Name}, {!GetFeeLicense.Name})))',
+        'The name of the record the fee is for: an application, violation or license.')
 formula('forT_Year', 'String', 'IF(ISBLANK({!LoopThroughFeeItems.ForYear__c}), "", " (" & {!LoopThroughFeeItems.ForYear__c} & ")")',
         'The fee item\'s license year in brackets, or nothing when it has none.')
 
@@ -180,10 +184,16 @@ decision('DoesItCountTowardItem', 'Does the Allocation Count Toward This Item?',
 assignment('AddToItemAllocated', 'Add Allocation to Item Allocated',
            [('varC_ItemAllocated', 'Add', REF('LoopThroughAllocations.Amount__c'))], 'LoopThroughAllocations')
 decision('IsThereSomethingToApply', 'Is There Something to Apply to This Item?',
-         [('Apply', 'Yes', [cond('forC_Outstanding', 'GreaterThan', NUM(0)), cond('varC_Remaining', 'GreaterThan', NUM(0))], 'ApplyToFeeItem', 'and')],
+         [('Apply', 'Yes', [cond('forC_Outstanding', 'GreaterThan', NUM(0)), cond('varC_Remaining', 'GreaterThan', NUM(0))], 'GetFeeIndividualApplication', 'and')],
          'LoopThroughFeeItems')
+# The fee's parent record (polymorphic, so Flow can't read its Name directly): look it up on each kind of record.
+for nm, lb, obj, nxt in [('GetFeeIndividualApplication', 'Get Fee Individual Application', 'IndividualApplication', 'GetFeeBusinessApplication'),
+                         ('GetFeeBusinessApplication', 'Get Fee Business Application', 'BusinessLicenseApplication', 'GetFeeViolation'),
+                         ('GetFeeViolation', 'Get Fee Violation', 'RegulatoryCodeViolation', 'GetFeeLicense'),
+                         ('GetFeeLicense', 'Get Fee License', 'BusinessLicense', 'ApplyToFeeItem')]:
+    lookup(nm, lb, obj, [('Id', 'EqualTo', REF('LoopThroughFeeItems.RegulatoryTrxnFee.ParentRecordId'))], ['Id', 'Name'], nxt, first=True, sort=None)
 screen('ApplyToFeeItem', 'Apply to Fee Item', [
-    display('AFI_Item', '<p><b>{!LoopThroughFeeItems.Name}{!forT_Year}</b></p><p>Still owed: <b>{!forC_Outstanding}</b><br/>Left on the payment to apply: <b>{!varC_Remaining}</b></p>'),
+    display('AFI_Item', '<p><b>{!LoopThroughFeeItems.Name}{!forT_Year}</b></p><p>Fee {!LoopThroughFeeItems.RegulatoryTrxnFee.Name}: {!LoopThroughFeeItems.RegulatoryTrxnFee.Description}{!forT_FeeParent}</p><p>Still owed: <b>{!forC_Outstanding}</b><br/>Left on the payment to apply: <b>{!varC_Remaining}</b></p>'),
     inp('AFI_Amount', 'Currency', 'Apply to this item', required=True, scale=2, default=REF('forC_Suggested'), reset=True,
         help='Enter 0 to leave this item unpaid.',
         rule=('Enter an amount from 0 up to what the item still owes and what is left on the payment.',

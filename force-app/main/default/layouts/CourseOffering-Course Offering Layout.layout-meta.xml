@@ -69,10 +69,10 @@
     </relatedLists>
     <relatedLists>
         <fields>Name</fields>
-        <fields>DocumentType</fields>
+        <fields>DocumentTypeName__c</fields>
+        <fields>Status</fields>
         <fields>IsRequired</fields>
         <fields>IsSentToBoard__c</fields>
-        <fields>Status</fields>
         <relatedList>DocumentChecklistItem</relatedList>
     </relatedLists>
     <relatedLists>

@@ -23,6 +23,7 @@ with open(out, "w", newline="", encoding="utf-8") as fh:
         if not code:
             continue
         name = re.sub(r"\s+", " ", (desc or "").strip()) or f"Fee {code}"
+        name = re.sub(r"Cosmetolgist", "Cosmetologist", name)  # CLOSE misspells two fee descriptions
         is_active = code in current
         w.writerow([code, name[:255], (str(rev).strip() if rev is not None else "")[:10], "true" if is_active else "false"])
         n += 1

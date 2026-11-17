@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DocumentTypeName__c</fullName>
+    <description>The document type's label, such as Passport Photo. Shown in checklist lists on application, violation, exam and course offering pages, where the Document Type lookup shows the type's API name instead.</description>
+    <externalId>false</externalId>
+    <formula>DocumentType.MasterLabel</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>The kind of document, from Document Type.</inlineHelpText>
+    <label>Document Type Name</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

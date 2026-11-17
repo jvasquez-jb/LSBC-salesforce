@@ -908,6 +908,13 @@
     <description>Works out which automatic stop codes apply to one Account (person, school or salon) using the Stop Code rules, then opens holds that should be open and ends automatic holds that no longer apply. Staff-set holds are never touched, and code 1 is ended by staff. If a code has more than one open hold, the extras are ended and the oldest kept. Runs in system context so the result does not depend on who saved the record.</description>
     <environments>Default</environments>
     <formulas>
+        <name>forN_LatestPracticalAttemptNumber</name>
+        <description>The latest practical attempt&apos;s number (0 when blank). A failed station from an earlier attempt on the same day doesn&apos;t count against a later attempt.</description>
+        <dataType>Number</dataType>
+        <expression>BLANKVALUE({!GetLatestPracticalAttempt.AttemptNumber__c}, 0)</expression>
+        <scale>0</scale>
+    </formulas>
+    <formulas>
         <name>forD_AsOfDate</name>
         <dataType>Date</dataType>
         <expression>IF(ISBLANK({!varD_AsOfDate}), TODAY(), {!varD_AsOfDate})</expression>
@@ -2029,7 +2036,7 @@
         </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
         <object>PersonExamination</object>
-        <sortField>ExaminationDate</sortField>
+        <sortField>AttemptOrder__c</sortField>
         <sortOrder>Desc</sortOrder>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
@@ -2180,7 +2187,7 @@
         </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
         <object>PersonExamination</object>
-        <sortField>ExaminationDate</sortField>
+        <sortField>AttemptOrder__c</sortField>
         <sortOrder>Desc</sortOrder>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
@@ -2210,7 +2217,7 @@
         </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
         <object>PersonExamination</object>
-        <sortField>ExaminationDate</sortField>
+        <sortField>AttemptOrder__c</sortField>
         <sortOrder>Desc</sortOrder>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
@@ -2223,7 +2230,7 @@
         <connector>
             <targetReference>GetLatestStateAttempt</targetReference>
         </connector>
-        <filterLogic>and</filterLogic>
+        <filterLogic>1 AND 2 AND 3 AND 4 AND (5 OR 6)</filterLogic>
         <filters>
             <field>ContactId</field>
             <operator>EqualTo</operator>
@@ -2250,6 +2257,20 @@
             <operator>GreaterThanOrEqualTo</operator>
             <value>
                 <elementReference>GetLatestPracticalAttempt.ExaminationDate</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>AttemptNumber__c</field>
+            <operator>GreaterThanOrEqualTo</operator>
+            <value>
+                <elementReference>forN_LatestPracticalAttemptNumber</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>AttemptNumber__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>true</booleanValue>
             </value>
         </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
@@ -2282,7 +2303,7 @@
         </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
         <object>PersonExamination</object>
-        <sortField>ExaminationDate</sortField>
+        <sortField>AttemptOrder__c</sortField>
         <sortOrder>Desc</sortOrder>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>

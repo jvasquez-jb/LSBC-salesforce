@@ -52,14 +52,6 @@
                 <behavior>Edit</behavior>
                 <field>Phone</field>
             </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Industry</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>NumberOfEmployees</field>
-            </layoutItems>
         
             <layoutItems>
                 <behavior>Edit</behavior>
@@ -234,11 +226,9 @@
     </quickActionList>
     <relatedLists>
         <fields>CONTACT.FULL_NAME</fields>
-        <fields>CONTACT.ACCOUNT_NAME</fields>
-        <fields>CONTACT.TITLE</fields>
+        <fields>ACCCONRELATION.ROLES</fields>
         <fields>CONTACT.EMAIL</fields>
         <fields>CONTACT.PHONE1</fields>
-        <fields>ACCCONRELATION.ROLES</fields>
         <relatedList>RelatedAccountContactRelationList</relatedList>
     </relatedLists>
     <relatedLists>
@@ -301,26 +291,27 @@
     <relatedLists>
         <fields>Name</fields>
         <fields>Identifier</fields>
-        <fields>RegulatoryAuthorizationType</fields>
         <fields>Status</fields>
         <fields>PeriodEnd</fields>
+        <fields>RegulatoryAuthorizationType</fields>
         <relatedList>BusinessLicenses</relatedList>
     </relatedLists>
     <relatedLists>
         <fields>Name</fields>
+        <fields>Description</fields>
         <fields>TotalFeeAmount</fields>
-        <fields>AmountPaid__c</fields>
         <fields>Status</fields>
         <fields>DueDate</fields>
+        <fields>AmountPaid__c</fields>
         <relatedList>RegulatoryTrxnFees</relatedList>
     </relatedLists>
     <relatedLists>
         <fields>NAME</fields>
         <fields>ReceivedDate__c</fields>
         <fields>Amount__c</fields>
-        <fields>Method__c</fields>
         <fields>UnappliedAmount__c</fields>
         <fields>Status__c</fields>
+        <fields>Method__c</fields>
         <relatedList>Payment__c.Account__c</relatedList>
     </relatedLists>
     <relatedObjects>ParentId</relatedObjects>

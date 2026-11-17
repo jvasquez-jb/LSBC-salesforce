@@ -2,6 +2,38 @@
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>66.0</apiVersion>
     <assignments>
+        <name>AddSubmissionApplication</name>
+        <label>Add Application to Parent List</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignmentItems>
+            <assignToReference>varT_ParentIds</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>LoopThroughSameSubmission.Id</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>LoopThroughSameSubmission</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>AddReceiptParent</name>
+        <label>Add Receipt's Record to Parent List</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignmentItems>
+            <assignToReference>varT_ParentIds</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>varT_ParentRecordId</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>GetOpenFees</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
         <name>AddFeeId</name>
         <label>Add Fee Id</label>
         <locationX>0</locationX>
@@ -90,7 +122,7 @@
         <locationX>0</locationX>
         <locationY>0</locationY>
         <defaultConnector>
-            <targetReference>GetOpenFees</targetReference>
+            <targetReference>GetReceiptApplication</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>No</defaultConnectorLabel>
         <rules>
@@ -150,10 +182,24 @@
             <label>Yes</label>
         </rules>
     </decisions>
-    <description>Records an online (PayStar) payment once staff accept its receipt. Takes the accepted Payment Receipt checklist item and the record it belongs to (an application or a violation), creates one Card payment for the total of that record&apos;s fees that are still Due, and splits it across their fee items with each item&apos;s license year. The fees then turn Paid through the payment allocation trigger. Does nothing when this receipt already has a payment (the Checklist Item field on Payment is unique) or nothing is due. Called by Record-Trigger: Document Checklist Item After Save. Runs in system context to read fees.</description>
+    <description>Records an online (PayStar) payment once staff accept its receipt. Takes the accepted Payment Receipt checklist item and the record it belongs to (an application or a violation), creates one Card payment for the total of that record&apos;s fees that are still Due (for an individual application, also the fees of the other applications certified with it on the same form, such as several licenses renewed at once), and splits it across their fee items with each item&apos;s license year. The fees then turn Paid through the payment allocation trigger. Does nothing when this receipt already has a payment (the Checklist Item field on Payment is unique) or nothing is due. Called by Record-Trigger: Document Checklist Item After Save. Runs in system context to read fees.</description>
     <environments>Default</environments>
     <interviewLabel>Subflow: Payment Receipt Payment Create {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Subflow: Payment Receipt Payment Create</label>
+    <loops>
+        <name>LoopThroughSameSubmission</name>
+        <label>Loop Through Same Submission</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <collectionReference>GetSameSubmission</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <nextValueConnector>
+            <targetReference>AddSubmissionApplication</targetReference>
+        </nextValueConnector>
+        <noMoreValuesConnector>
+            <targetReference>AddReceiptParent</targetReference>
+        </noMoreValuesConnector>
+    </loops>
     <loops>
         <name>LoopThroughFees</name>
         <label>Loop Through Fees</label>
@@ -270,6 +316,68 @@
         <inputReference>varR_Allocations</inputReference>
     </recordCreates>
     <recordLookups>
+        <name>GetReceiptApplication</name>
+        <description>The individual application the receipt belongs to, if it is one.</description>
+        <label>Get Receipt Application</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>GetSameSubmission</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>varT_ParentRecordId</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>IndividualApplication</object>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>AccountId</queriedFields>
+        <queriedFields>CertifiedDateTime__c</queriedFields>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>GetSameSubmission</name>
+        <description>The other applications certified together with it on one form (for example several licenses renewed at once). One receipt pays them all.</description>
+        <label>Get Applications from the Same Submission</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>LoopThroughSameSubmission</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>AccountId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>GetReceiptApplication.AccountId</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>CertifiedDateTime__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>GetReceiptApplication.CertifiedDateTime__c</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>CertifiedDateTime__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <object>IndividualApplication</object>
+        <queriedFields>Id</queriedFields>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
         <name>GetExistingPayment</name>
         <label>Get Existing Payment for This Receipt</label>
         <locationX>0</locationX>
@@ -303,9 +411,9 @@
         <filterLogic>and</filterLogic>
         <filters>
             <field>ParentRecordId</field>
-            <operator>EqualTo</operator>
+            <operator>In</operator>
             <value>
-                <elementReference>varT_ParentRecordId</elementReference>
+                <elementReference>varT_ParentIds</elementReference>
             </value>
         </filters>
         <filters>
@@ -365,6 +473,14 @@
         </connector>
     </start>
     <status>Active</status>
+    <variables>
+        <name>varT_ParentIds</name>
+        <description>The records whose due fees the receipt pays: the receipt's record and, for an individual application, the others certified with it on the same form.</description>
+        <dataType>String</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
     <variables>
         <name>varT_ChecklistItemId</name>
         <description>The accepted Payment Receipt checklist item.</description>

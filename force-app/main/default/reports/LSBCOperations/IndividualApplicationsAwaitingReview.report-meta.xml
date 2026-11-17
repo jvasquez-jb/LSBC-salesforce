@@ -13,12 +13,22 @@
         <field>IndividualApplication$AppliedDate</field>
     </columns>
     <columns>
+        <field>CDF1</field>
+    </columns>
+    <columns>
         <field>IndividualApplication$RequirementsCompleteDate</field>
     </columns>
     <columns>
         <field>IndividualApplication$WasReturned</field>
     </columns>
-    <description>Individual applications submitted and not yet decided, by status and license type, oldest first.</description>
+    <customDetailFormulas>
+        <calculatedFormula>IF(ISBLANK(IndividualApplication.AppliedDate), IndividualApplication.CreatedDate, IndividualApplication.AppliedDate)</calculatedFormula>
+        <dataType>DateTime</dataType>
+        <developerName>CDF1</developerName>
+        <label>Received</label>
+        <scale>2</scale>
+    </customDetailFormulas>
+    <description>Individual applications submitted and not yet decided, by status and license type, oldest first by Applied Date (Created Date when it is blank).</description>
     <filter>
         <criteriaItems>
             <column>IndividualApplication$Status</column>
@@ -49,7 +59,7 @@
     <showDetails>true</showDetails>
     <showGrandTotal>true</showGrandTotal>
     <showSubTotals>true</showSubTotals>
-    <sortColumn>IndividualApplication$AppliedDate</sortColumn>
+    <sortColumn>CDF1</sortColumn>
     <sortOrder>Asc</sortOrder>
     <timeFrameFilter>
         <dateColumn>IndividualApplication$AppliedDate</dateColumn>
