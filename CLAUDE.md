@@ -198,6 +198,13 @@ Raised by later phases while Phase 2 is paused. Pick these up when it resumes.
   start time is read in org time: the stop code schedules run 00:30–01:00 Pacific (02:30–03:00
   Louisiana), so `TODAY()` is the same date in both zones. Whether to switch the org to
   America/Chicago is Jonathan's call: it changes what "today" means everywhere.
+- UAT test data (from the 16–17 Nov 2026 end-to-end run): brand-new records created on screen, named
+  `UAT <Area> <Role>` (UAT Stop …, UAT Fees …, UAT Staff …, UAT Signup …, UAT Portal …, UAT Rules …, UAT Page …,
+  UAT Completion Student, UATTest New/Second Applicant). The UAT doc's "Test records" and "Set up your test records"
+  sections list them and their portal logins. UAT runs on these, never on StopCodeTest records. Staff never delete
+  licences or applications: test licences are set to Revoked, applications closed with Decide.
+- Never use a delete-by-conditions element in a flow (Delete Records with filters): it faults when nothing matches.
+  Look up the records, check the collection isn't empty, then delete the collection.
 - Stop code test records in LSBC-Partial are named `StopCodeTest …` (a person, a salon, a school, and
   four Cosmetologist exams: national, practical, state and restoration).
   Reuse them; delete them before UAT data goes in. Phase 5 added `StopCodeTest Registrant`,
