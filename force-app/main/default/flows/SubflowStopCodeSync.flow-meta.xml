@@ -2316,7 +2316,7 @@
         <connector>
             <targetReference>RunStopCodeSchool</targetReference>
         </connector>
-        <filterLogic>and</filterLogic>
+        <filterLogic>1 AND 2 AND (3 OR 4)</filterLogic>
         <filters>
             <field>AccountId</field>
             <operator>EqualTo</operator>
@@ -2337,6 +2337,11 @@
             <value>
                 <elementReference>forD_AsOfDate</elementReference>
             </value>
+        </filters>
+        <filters>
+            <field>EffectiveFrom</field>
+            <operator>IsNull</operator>
+            <value><booleanValue>true</booleanValue></value>
         </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
         <object>Accreditation</object>
