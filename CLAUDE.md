@@ -106,7 +106,11 @@ Raised by later phases while Phase 2 is paused. Pick these up when it resumes.
 3. Field history on `RecordAlert` `ValidUntilDate` and `IsActive` (`SEC-05`).
 4. BRE Designer for LSBC's long-term admin (5 seats, included in the licence; 3 used by the build team).
 5. Confirm system-context rule flows are acceptable under the private-by-default model.
-6. Portal users need `BRECmtyRuntime` (Phase 5).
+6. Portal users need `BRECmtyRuntime` (Phase 5); it comes with the Public Sector community licence
+   (Salesforce, 19 Nov 2026). Guests can't hold it and no guest flow calls a rule. Production has only 100
+   portal logins, 100 `PublicSectorCmtyAccessPSL` and 100 `BRECmtyRuntime` seats against about 40,000 active
+   licences, and `RecordTriggerUserAfterSave` assigns both seats at sign-up: more seats needed before the
+   portal is published (Client Questions, with the AE).
 7. History on `RegulatoryTrxnFeeItem` is not enabled, so Change Year notes the change in the item's
    Comments. Enable field history on `ForYear__c` if the object supports it (`SEC-05`).
 8. Who can create violations (`RegulatoryCodeViolation`) and run Record Complaint, and who can edit
