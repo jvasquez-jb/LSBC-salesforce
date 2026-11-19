@@ -1,4 +1,5 @@
-/* LSBC portal theme: editorial look (white masthead, serif headlines, black and white with logo navy and seal gold).
+/* LSBC portal theme: editorial look (pale blue-grey page and masthead, serif headlines, black type, logo navy links, cool slate accents;
+   colours chosen by the Board, 19 Nov 2026).
    Source of truth for the theme's custom CSS: scripts/generators/portaltheme.py copies this file into
    experiences/LSBC_LPI1/themes/licensePermits.json. Edit here, rerun the script, deploy and publish. */
 
@@ -10,13 +11,14 @@
 :root {
   --lsbc-ink: #111111;        /* text, buttons, rules */
   --lsbc-navy: #091580;       /* the logo's navy: links */
-  --lsbc-gold: #C9A44A;       /* the seal's gold: accents on dark backgrounds only */
+  --lsbc-page: #D3DCE8;       /* the Board's pale cool blue-grey: page and masthead background */
+  --lsbc-slate: #4A4D78;      /* the Board's cool slate blue: icon circles and accents */
   --lsbc-grey: #5A5A5A;       /* secondary text (AA on white) */
-  --lsbc-rule: #E3E3E3;       /* hairlines */
+  --lsbc-rule: #B7C2D2;       /* hairlines on the blue-grey */
   --lsbc-serif: "Playfair Display", Georgia, "Times New Roman", serif;
   --lsbc-sans: "Montserrat", "Helvetica Neue", Arial, sans-serif;
 }
-body, .siteforceStarterBody, .comm-page-home, .body { background: #FFFFFF !important; color: var(--lsbc-ink); font-family: var(--lsbc-sans); }
+body, .siteforceStarterBody, .comm-page-home, .body { background: var(--lsbc-page) !important; color: var(--lsbc-ink); font-family: var(--lsbc-sans); }
 body { font-size: 16px; }
 a { color: var(--lsbc-navy); }
 h1, h2, h3 { font-family: var(--lsbc-serif); font-weight: 600; color: var(--lsbc-ink); }
@@ -27,7 +29,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 /* ---------- Masthead ---------- */
 /* Utility line above the logo (Vogue / AD) */
 .themeHeaderInner::before { content: "Louisiana State Board of Cosmetology \00a0\00b7\00a0 Est. 1924"; display: block; text-align: center; font: 500 11px/1 var(--lsbc-sans); letter-spacing: 0.18em; text-transform: uppercase; color: var(--lsbc-ink); padding: 12px 16px; border-bottom: 1px solid var(--lsbc-rule); align-self: stretch; width: 100%; box-sizing: border-box; }
-.themeHeader, .themeHeader .themeBgImage { background: #FFFFFF !important; }
+.themeHeader, .themeHeader .themeBgImage { background: var(--lsbc-page) !important; }
 .themeHeader .themeBottomBorder { background: var(--lsbc-ink) !important; height: 1px !important; }
 /* Logo centred and large; account links pinned right */
 .themeHeaderTopRow { height: auto !important; }
@@ -75,7 +77,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .lpiInnerHero .content { width: 100% !important; display: flex; flex-direction: column; text-align: center; justify-content: flex-start !important; }
 .lpiInnerHero .content > .slds-grid { display: block !important; margin: 0 !important; }
 .lpiInnerHero .contentTitle { font-family: var(--lsbc-serif) !important; font-weight: 500 !important; font-size: 4.5rem !important; line-height: 1.05 !important; letter-spacing: -0.01em; color: #FFFFFF !important; margin: 0 0 2.5rem !important; padding: 0 !important; min-height: 0 !important; height: auto !important; }
-.lpiInnerHero .contentTitle::before { content: "Louisiana State Board of Cosmetology"; display: block; font: 500 12px/1 var(--lsbc-sans); letter-spacing: 0.22em; text-transform: uppercase; color: var(--lsbc-gold); margin: 0 0 1.5rem; }
+.lpiInnerHero .contentTitle::before { content: "Louisiana State Board of Cosmetology"; display: block; font: 500 12px/1 var(--lsbc-sans); letter-spacing: 0.22em; text-transform: uppercase; color: var(--lsbc-page); margin: 0 0 1.5rem; }
 .lpiInnerHero .contentSubtitle { display: none !important; }
 .lpiInnerHero .searchRegion { width: 100% !important; max-width: 760px; margin: 0 auto !important; }
 .lpiInnerHero .searchRegion, .lpiInnerHero .searchRegion > div, .lpiInnerHero .forceCommunityThemeSearchHero { position: static !important; transform: none !important; padding: 0 !important; }
@@ -83,7 +85,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .lpiInnerHero .search-box { display: flex !important; align-items: center; height: 4rem; background: #FFFFFF; border: 0 !important; border-radius: 0 !important; overflow: hidden; }
 .lpiInnerHero .search-box input, .lpiInnerHero .search-box input[type="text"], .lpiInnerHero input[type="search"] { border: 0 !important; height: 100% !important; box-shadow: none !important; border-radius: 0 !important; font: 400 1.125rem var(--lsbc-sans) !important; color: var(--lsbc-ink) !important; padding-left: 0.75rem !important; }
 .lpiInnerHero .search-box .search-inputSearchButton { border: 0 !important; background: transparent !important; height: 100%; margin-left: 1rem; }
-.lpiInnerHero .search-box:focus-within { outline: 2px solid var(--lsbc-gold); outline-offset: 4px; }
+.lpiInnerHero .search-box:focus-within { outline: 2px solid var(--lsbc-page); outline-offset: 4px; }
 
 /* ---------- Shared editorial pieces ---------- */
 .lsbc-wrap { max-width: 1240px; margin: 0 auto; padding: 0 24px; }
@@ -125,6 +127,11 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .forceCommunityFlexTileLayout .js-content-title:hover h3 { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 5px; }
 .forceCommunityFlexTileLayout .js-content-subtitle { margin: 0 !important; font: 400 1rem/1.55 var(--lsbc-sans) !important; }
 .forceCommunityFlexTileLayout .js-content-metadata:empty, .forceCommunityFlexTileLayout .js-content-metadata { display: none; }
+
+/* Carousel controls in ink, not the template blue */
+.js-dynamic-collection .slds-carousel__indicator-action { border-color: var(--lsbc-ink) !important; background: transparent !important; }
+.js-dynamic-collection .slds-carousel__indicator-action.slds-is-active { background: var(--lsbc-ink) !important; }
+.js-dynamic-collection button svg, .js-dynamic-collection .slds-button__icon { fill: var(--lsbc-ink) !important; }
 
 /* Need more help: two columns under a rubric */
 .lsbc-help { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin: 0 0 96px; }

@@ -18,10 +18,11 @@ ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)
 SITE = os.path.join(ROOT, 'force-app/main/default/experiences/LSBC_LPI1')
 SRC = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'portal')
 
-INK, NAVY, GOLD = '#111111', '#091580', '#C9A44A'
+INK, NAVY = '#111111', '#091580'
+PAGE, SLATE = '#D3DCE8', '#4A4D78'  # the Board's pale cool blue-grey and cool slate blue (19 Nov 2026)
 
 HEADER = {  # forceCommunity:themeHeaderStacked, on every layout
-    'background': 'background: #FFFFFF',
+    'background': 'background: ' + PAGE,
     'backgroundOverlayColor': 'rgba(0, 0, 0, 0)',
     'borderBottomColor': INK,
     'borderTopColor': 'rgba(0, 0, 0, 0)',
@@ -59,7 +60,7 @@ SEARCH = {  # forceCommunity:themeSearch in the header of inner pages
 HERO = {  # forceCommunity:themeHeroStarter on the home layout
     'bgImage': 'background: #0E0E0E',
     'bgOverlayColor': 'rgba(0, 0, 0, 0)',
-    'subtitleTextColor': GOLD,
+    'subtitleTextColor': PAGE,
     'titleTextColor': '#FFFFFF',
     'titleText': 'How can we help?',
 }
@@ -85,7 +86,7 @@ BRANDING = {
     '_LinkColorDarker': '#060E57',
     'LoginBackgroundColor': '#000000',
     'TextColor': INK,
-    '_DxpPageBackgroundColor': '#FFFFFF',
+    '_DxpPageBackgroundColor': PAGE,
     '_HoverColor': 'rgba(0, 0, 0, 0.04)',
     '_PrimaryAccentColor1': INK,
     '_PrimaryAccentColor2': '#000000',
