@@ -28,7 +28,7 @@
               "collectionLayoutDefinition" : {
                 "attributes" : {
                   "contentIndicatorSpacing" : "none",
-                  "limitItems" : 5,
+                  "limitItems" : 6,
                   "pauseButtonPlacement" : "left",
                   "progressionPace" : 5,
                   "shouldAutoScroll" : false,
@@ -44,7 +44,7 @@
               "dataProviderDefinition" : {
                 "attributes" : {
                   "dataProviderInfo" : {
-                    "apiName" : "Board_News_and_Publications"
+                    "apiName" : "Board_Documents_and_Publications"
                   },
                   "dataProviderType" : "NamedCollection"
                 },
@@ -102,7 +102,7 @@
                   "metadataTextColor" : "",
                   "metadataTextDecoration" : "",
                   "showDateTime" : false,
-                  "showExcerpt" : true,
+                  "showExcerpt" : false,
                   "showEyebrow" : true,
                   "showEyebrowHighlight" : false,
                   "showFeaturedMedia" : false,
@@ -113,7 +113,7 @@
                   "showMetadata2Highlight" : false,
                   "showTitle" : true,
                   "showTitleHighlight" : false,
-                  "subTitle" : "{!CurrentItem.excerpt}",
+                  "subTitle" : "",
                   "subTitleFontSize" : "regular",
                   "subTitleTextColor" : "#5A5A5A",
                   "textAlignment" : "left",
