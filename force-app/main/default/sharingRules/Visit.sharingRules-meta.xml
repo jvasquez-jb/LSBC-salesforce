@@ -1,12 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
     <sharingCriteriaRules>
-        <fullName>VisitAllToAllStaff</fullName>
+        <fullName>VisitAllToFrontDeskSupervisor</fullName>
         <accessLevel>Read</accessLevel>
-        <description>All records, shared with AllStaff. From the LSBC Access Matrix.</description>
-        <label>Visit All To All Staff</label>
+        <description>All records, shared with FrontDeskSupervisor. From the LSBC Access Matrix.</description>
+        <label>Visit All To Front Desk Supervisor</label>
         <sharedTo>
-            <group>AllStaff</group>
+            <group>FrontDeskSupervisor</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value></value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>VisitAllToFrontDesk</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>All records, shared with FrontDesk. From the LSBC Access Matrix.</description>
+        <label>Visit All To Front Desk</label>
+        <sharedTo>
+            <group>FrontDesk</group>
         </sharedTo>
         <criteriaItems>
             <field>Name</field>

@@ -1001,29 +1001,48 @@
         <members>Account.AccountSchoolToProgramManagerEdit</members>
         <members>Account.AccountSchoolToStudentRegistrationEdit</members>
         <members>Account.AccountSchoolToTestingDesk</members>
-        <members>Accreditation.AccreditationAllToAllStaff</members>
+        <members>Accreditation.AccreditationAllToComplianceOfficer</members>
+        <members>Accreditation.AccreditationAllToExecutiveDirector</members>
+        <members>Accreditation.AccreditationAllToFrontDeskSupervisor</members>
         <members>Accreditation.AccreditationAllToProblemDeskEdit</members>
         <members>Accreditation.AccreditationAllToProgramManagerEdit</members>
+        <members>Accreditation.AccreditationAllToReciprocityDesk</members>
+        <members>Accreditation.AccreditationAllToTestingDesk</members>
         <members>BusinessLicense.BusinessLicenseAllToAllStaff</members>
         <members>BusinessLicense.BusinessLicenseAllToFrontDeskSupervisorEdit</members>
         <members>BusinessLicense.BusinessLicenseAllToProblemDeskEdit</members>
         <members>BusinessLicense.BusinessLicenseAllToProgramManagerEdit</members>
         <members>BusinessLicense.BusinessLicenseAllToReciprocityDeskEdit</members>
         <members>BusinessLicense.BusinessLicenseAllToRenewalDeskEdit</members>
-        <members>BusinessLicenseApplication.BusinessLicenseApplicationAllToAllStaff</members>
         <members>BusinessLicenseApplication.BusinessLicenseApplicationAllToComplianceOfficerEdit</members>
+        <members>BusinessLicenseApplication.BusinessLicenseApplicationAllToExecutiveDirector</members>
+        <members>BusinessLicenseApplication.BusinessLicenseApplicationAllToFinance</members>
+        <members>BusinessLicenseApplication.BusinessLicenseApplicationAllToFrontDesk</members>
+        <members>BusinessLicenseApplication.BusinessLicenseApplicationAllToFrontDeskSupervisor</members>
+        <members>BusinessLicenseApplication.BusinessLicenseApplicationAllToInspector</members>
+        <members>BusinessLicenseApplication.BusinessLicenseApplicationAllToMailroom</members>
+        <members>BusinessLicenseApplication.BusinessLicenseApplicationAllToProblemDesk</members>
         <members>BusinessLicenseApplication.BusinessLicenseApplicationAllToProgramManagerEdit</members>
+        <members>BusinessLicenseApplication.BusinessLicenseApplicationAllToRenewalDesk</members>
+        <members>BusinessLicenseApplication.BusinessLicenseApplicationAllToStudentRegistration</members>
+        <members>BusinessLicenseApplication.BusinessLicenseApplicationAllToTestingDesk</members>
         <members>BusinessLicenseApplication.BusinessLicenseApplicationNewToFrontDeskEdit</members>
         <members>BusinessLicenseApplication.BusinessLicenseApplicationNewToFrontDeskSupervisorEdit</members>
         <members>BusinessLicenseApplication.BusinessLicenseApplicationRenewalToRenewalDeskEdit</members>
-        <members>Case.CaseAllToAllStaff</members>
         <members>Case.CaseAllToComplianceOfficerEdit</members>
+        <members>Case.CaseAllToExecutiveDirector</members>
         <members>Case.CaseAllToFrontDeskEdit</members>
         <members>Case.CaseAllToFrontDeskSupervisorEdit</members>
         <members>Case.CaseAllToInspectorEdit</members>
         <members>Case.CaseAllToProblemDeskEdit</members>
         <members>Case.CaseAllToProgramManagerEdit</members>
-        <members>ComplaintCase.ComplaintCaseAllToAllStaff</members>
+        <members>ComplaintCase.ComplaintCaseAllToComplianceOfficer</members>
+        <members>ComplaintCase.ComplaintCaseAllToExecutiveDirector</members>
+        <members>ComplaintCase.ComplaintCaseAllToFrontDesk</members>
+        <members>ComplaintCase.ComplaintCaseAllToFrontDeskSupervisor</members>
+        <members>ComplaintCase.ComplaintCaseAllToInspector</members>
+        <members>ComplaintCase.ComplaintCaseAllToProblemDesk</members>
+        <members>ComplaintCase.ComplaintCaseAllToProgramManager</members>
         <members>CourseOffering.CourseOfferingAllToProgramManagerEdit</members>
         <members>DocumentChecklistItem.DocumentChecklistItemAccommodationToProgramManagerEdit</members>
         <members>DocumentChecklistItem.DocumentChecklistItemAccommodationToReciprocityDeskEdit</members>
@@ -1059,27 +1078,47 @@
         <members>PersonDisability.PersonDisabilityAllToProgramManagerEdit</members>
         <members>PersonDisability.PersonDisabilityAllToReciprocityDeskEdit</members>
         <members>PersonDisability.PersonDisabilityAllToTestingDeskEdit</members>
-        <members>PersonEducation.PersonEducationAllToAllStaff</members>
+        <members>PersonEducation.PersonEducationAllToComplianceOfficer</members>
+        <members>PersonEducation.PersonEducationAllToExecutiveDirector</members>
         <members>PersonEducation.PersonEducationAllToFrontDeskSupervisorEdit</members>
+        <members>PersonEducation.PersonEducationAllToMailroom</members>
+        <members>PersonEducation.PersonEducationAllToProblemDesk</members>
         <members>PersonEducation.PersonEducationAllToProgramManagerEdit</members>
         <members>PersonEducation.PersonEducationAllToReciprocityDeskEdit</members>
+        <members>PersonEducation.PersonEducationAllToRenewalDesk</members>
         <members>PersonEducation.PersonEducationAllToStudentRegistrationEdit</members>
-        <members>PersonExamination.PersonExaminationAllToAllStaff</members>
+        <members>PersonEducation.PersonEducationAllToTestingDesk</members>
+        <members>PersonExamination.PersonExaminationAllToComplianceOfficer</members>
+        <members>PersonExamination.PersonExaminationAllToExecutiveDirector</members>
+        <members>PersonExamination.PersonExaminationAllToFinance</members>
+        <members>PersonExamination.PersonExaminationAllToFrontDeskSupervisor</members>
+        <members>PersonExamination.PersonExaminationAllToInspector</members>
+        <members>PersonExamination.PersonExaminationAllToMailroom</members>
+        <members>PersonExamination.PersonExaminationAllToProblemDesk</members>
         <members>PersonExamination.PersonExaminationAllToProgramManagerEdit</members>
+        <members>PersonExamination.PersonExaminationAllToReciprocityDesk</members>
+        <members>PersonExamination.PersonExaminationAllToRenewalDesk</members>
+        <members>PersonExamination.PersonExaminationAllToStudentRegistration</members>
         <members>PersonExamination.PersonExaminationAllToTestingDeskEdit</members>
-        <members>PublicComplaint.PublicComplaintAllToAllStaff</members>
         <members>PublicComplaint.PublicComplaintAllToComplianceOfficerEdit</members>
+        <members>PublicComplaint.PublicComplaintAllToExecutiveDirector</members>
         <members>PublicComplaint.PublicComplaintAllToFrontDeskEdit</members>
         <members>PublicComplaint.PublicComplaintAllToFrontDeskSupervisorEdit</members>
         <members>PublicComplaint.PublicComplaintAllToInspectorEdit</members>
         <members>PublicComplaint.PublicComplaintAllToProblemDeskEdit</members>
         <members>PublicComplaint.PublicComplaintAllToProgramManagerEdit</members>
-        <members>RecordAlert.RecordAlertAllToAllStaff</members>
         <members>RecordAlert.RecordAlertAllToComplianceOfficerEdit</members>
+        <members>RecordAlert.RecordAlertAllToExecutiveDirector</members>
+        <members>RecordAlert.RecordAlertAllToFinance</members>
         <members>RecordAlert.RecordAlertAllToFrontDeskEdit</members>
         <members>RecordAlert.RecordAlertAllToFrontDeskSupervisorEdit</members>
+        <members>RecordAlert.RecordAlertAllToInspector</members>
+        <members>RecordAlert.RecordAlertAllToMailroom</members>
         <members>RecordAlert.RecordAlertAllToProblemDeskEdit</members>
         <members>RecordAlert.RecordAlertAllToProgramManagerEdit</members>
+        <members>RecordAlert.RecordAlertAllToReciprocityDesk</members>
+        <members>RecordAlert.RecordAlertAllToRenewalDesk</members>
+        <members>RecordAlert.RecordAlertAllToTestingDesk</members>
         <members>RegulatoryAuthorizationType.RegulatoryAuthorizationTypeAllToProgramManagerEdit</members>
         <members>RegulatoryCodeViolation.RegulatoryCodeViolationAllToAllStaff</members>
         <members>RegulatoryCodeViolation.RegulatoryCodeViolationAllToComplianceOfficerEdit</members>
@@ -1096,12 +1135,18 @@
         <members>RegulatoryTrxnFee.RegulatoryTrxnFeeAllToReciprocityDeskEdit</members>
         <members>RegulatoryTrxnFee.RegulatoryTrxnFeeAllToRenewalDeskEdit</members>
         <members>RegulatoryTrxnFee.RegulatoryTrxnFeeAllToStudentRegistrationEdit</members>
-        <members>TrainingCourseParticipant.TrainingCourseParticipantAllToAllStaff</members>
+        <members>TrainingCourseParticipant.TrainingCourseParticipantAllToComplianceOfficer</members>
+        <members>TrainingCourseParticipant.TrainingCourseParticipantAllToExecutiveDirector</members>
+        <members>TrainingCourseParticipant.TrainingCourseParticipantAllToFrontDeskSupervisor</members>
         <members>TrainingCourseParticipant.TrainingCourseParticipantAllToProblemDeskEdit</members>
+        <members>TrainingCourseParticipant.TrainingCourseParticipantAllToProgramManager</members>
+        <members>TrainingCourseParticipant.TrainingCourseParticipantAllToReciprocityDesk</members>
+        <members>TrainingCourseParticipant.TrainingCourseParticipantAllToStudentRegistration</members>
         <members>TrainingCourseParticipant.TrainingCourseParticipantAllToTestingDeskEdit</members>
         <members>TrnCourse.TrnCourseAllToFrontDeskSupervisorEdit</members>
         <members>TrnCourse.TrnCourseAllToProgramManagerEdit</members>
-        <members>Visit.VisitAllToAllStaff</members>
+        <members>Visit.VisitAllToFrontDesk</members>
+        <members>Visit.VisitAllToFrontDeskSupervisor</members>
         <members>Visit.VisitAllToInspectorEdit</members>
         <members>Visit.VisitAllToProgramManagerEdit</members>
         <name>SharingCriteriaRule</name>

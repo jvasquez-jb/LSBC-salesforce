@@ -444,7 +444,12 @@ EXTRA_RULES += [('RegulatoryCodeViolationAllToAllStaff', 'RegulatoryCodeViolatio
 EXTRA_RULES += [(f'RegulatoryCodeViolationAllTo{d}Edit', 'RegulatoryCodeViolation', d, 'Edit', 'All records',
                  [('Name', 'notEqual', '')]) for d in ('ComplianceOfficer', 'ProgramManager', 'Inspector')]
 EXTRA_RULES += [('ExaminationAllToAllStaff', 'Examination', 'AllStaff', 'Read', 'All records', [('Name', 'notEqual', '')]),
-                ('ComplaintCaseAllToAllStaff', 'ComplaintCase', 'AllStaff', 'Read', 'All records', [('Name', 'notEqual', '')])]
+                ]
+# Complaint-case links follow complaints: read for every desk that reads complaints (no AllStaff, so no desk
+# without complaint access reaches a case's account through them).
+EXTRA_RULES += [(f'ComplaintCaseAllTo{d}', 'ComplaintCase', d, 'Read', 'All records', [('Name', 'notEqual', '')])
+                for d in ('ExecutiveDirector', 'ComplianceOfficer', 'FrontDeskSupervisor', 'FrontDesk', 'ProblemDesk',
+                          'ProgramManager', 'Inspector')]
 for name, obj, group, level, which, items in EXTRA_RULES:
     label = re.sub(r'(?<=[a-z])(?=[A-Z])', ' ', name)
     crit = ''.join(f'        <criteriaItems>\n            <field>{f}</field>\n            <operation>{op}</operation>\n'

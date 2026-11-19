@@ -1,12 +1,147 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
     <sharingCriteriaRules>
-        <fullName>PersonExaminationAllToAllStaff</fullName>
+        <fullName>PersonExaminationAllToExecutiveDirector</fullName>
         <accessLevel>Read</accessLevel>
-        <description>All records, shared with AllStaff. From the LSBC Access Matrix.</description>
-        <label>Person Examination All To All Staff</label>
+        <description>All records, shared with ExecutiveDirector. From the LSBC Access Matrix.</description>
+        <label>Person Examination All To Executive Director</label>
         <sharedTo>
-            <group>AllStaff</group>
+            <group>ExecutiveDirector</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value></value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>PersonExaminationAllToComplianceOfficer</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>All records, shared with ComplianceOfficer. From the LSBC Access Matrix.</description>
+        <label>Person Examination All To Compliance Officer</label>
+        <sharedTo>
+            <group>ComplianceOfficer</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value></value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>PersonExaminationAllToFinance</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>All records, shared with Finance. From the LSBC Access Matrix.</description>
+        <label>Person Examination All To Finance</label>
+        <sharedTo>
+            <group>Finance</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value></value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>PersonExaminationAllToFrontDeskSupervisor</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>All records, shared with FrontDeskSupervisor. From the LSBC Access Matrix.</description>
+        <label>Person Examination All To Front Desk Supervisor</label>
+        <sharedTo>
+            <group>FrontDeskSupervisor</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value></value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>PersonExaminationAllToMailroom</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>All records, shared with Mailroom. From the LSBC Access Matrix.</description>
+        <label>Person Examination All To Mailroom</label>
+        <sharedTo>
+            <group>Mailroom</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value></value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>PersonExaminationAllToProblemDesk</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>All records, shared with ProblemDesk. From the LSBC Access Matrix.</description>
+        <label>Person Examination All To Problem Desk</label>
+        <sharedTo>
+            <group>ProblemDesk</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value></value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>PersonExaminationAllToRenewalDesk</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>All records, shared with RenewalDesk. From the LSBC Access Matrix.</description>
+        <label>Person Examination All To Renewal Desk</label>
+        <sharedTo>
+            <group>RenewalDesk</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value></value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>PersonExaminationAllToReciprocityDesk</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>All records, shared with ReciprocityDesk. From the LSBC Access Matrix.</description>
+        <label>Person Examination All To Reciprocity Desk</label>
+        <sharedTo>
+            <group>ReciprocityDesk</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value></value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>PersonExaminationAllToStudentRegistration</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>All records, shared with StudentRegistration. From the LSBC Access Matrix.</description>
+        <label>Person Examination All To Student Registration</label>
+        <sharedTo>
+            <group>StudentRegistration</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value></value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>PersonExaminationAllToInspector</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>All records, shared with Inspector. From the LSBC Access Matrix.</description>
+        <label>Person Examination All To Inspector</label>
+        <sharedTo>
+            <group>Inspector</group>
         </sharedTo>
         <criteriaItems>
             <field>Name</field>

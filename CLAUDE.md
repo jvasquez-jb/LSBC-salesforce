@@ -134,7 +134,12 @@ Still open:
   RegulatoryCode needs RegulatoryAuthority): `DEPENDS` in the generator. A muting entry that mutes Edit must also
   mute Delete and Modify All; muting Read mutes everything. Account can be Private only with Opportunity Private in
   the same deployment. "All records" criteria rules use `Name` (Case: `CaseNumber`) not equal to blank; `CreatedDate`
-  is refused. Rerun the generator after any flow generator: it sets the staff action flows' run mode and run
+  is refused. Read goes to AllStaff only when every desk reads the object; otherwise to each desk that reads it
+  (and to "Edit (some)" desks for the rest): a case shared to AllStaff gave every desk read on its account through
+  implicit parent sharing, even desks with no case permission. Removing a rule needs a destructive-changes manifest
+  (`--manifest` + `--post-destructive-changes`); deploying the sharing rules file doesn't delete it.
+  `python3 scripts/checks/desk_access.py <test user id> [Desk,...]` moves a test user through the desks and compares
+  record access, staff flows and custom permissions with the matrix; all 13 desks passed on 19 Nov 2026. Rerun the generator after any flow generator: it sets the staff action flows' run mode and run
   restriction. Refresh `security_fields.json` when fields are added (query in the generator's docstring).
 - Admin access comes from the permission set group `force__Public_Sector_Solutions_Admin`.
   Field access for PSS objects is granted by `PublicSectorAccessAdminPSL` in that group (added to the
