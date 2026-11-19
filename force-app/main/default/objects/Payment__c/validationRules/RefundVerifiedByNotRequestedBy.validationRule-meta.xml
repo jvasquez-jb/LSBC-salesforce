@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>RefundVerifiedByNotRequestedBy</fullName>
+    <active>true</active>
+    <description>A refund is verified by someone other than the person who requested it.</description>
+    <errorConditionFormula>AND(
+    ISCHANGED(RefundVerifiedBy__c),
+    NOT(ISBLANK(RefundVerifiedBy__c)),
+    RefundVerifiedBy__c = RefundRequestedByUser__c
+)</errorConditionFormula>
+    <errorDisplayField>RefundVerifiedBy__c</errorDisplayField>
+    <errorMessage>Someone other than the person who requested this refund must verify it.</errorMessage>
+</ValidationRule>

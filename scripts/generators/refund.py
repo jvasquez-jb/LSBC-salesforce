@@ -43,7 +43,8 @@ formula('forT_StatusAfterRefund', 'String', 'IF({!GetPayment.RefundAmount__c} >=
 
 lookup('GetPayment', 'Get Payment', 'Payment__c', [('Id', 'EqualTo', REF('recordId'))],
        ['Id', 'Name', 'Amount__c', 'AppliedAmount__c', 'Status__c', 'RefundStatus__c', 'RefundAmount__c',
-        'RefundRequestedBy__c', 'RefundRequestedDate__c', 'RefundVerifiedDate__c', 'RefundCheckNumber__c', 'RefundedDate__c'],
+        'RefundRequestedBy__c', 'RefundRequestedByUser__c', 'RefundRequestedDate__c', 'RefundVerifiedDate__c', 'RefundCheckNumber__c',
+        'RefundedDate__c'],
        'WhatStepIsTheRefundAt', first=True, sort=None)
 
 decision('WhatStepIsTheRefundAt', 'What Step Is the Refund At?', [
@@ -68,6 +69,7 @@ screen('RequestRefund', 'Request Refund', [
 update('SaveRequest', 'Set Refund to Requested', [
     ('RefundAmount__c', REF('RR_Amount')),
     ('RefundRequestedBy__c', REF('RR_Department')),
+    ('RefundRequestedByUser__c', REF('$User.Id')),
     ('RefundRequestedDate__c', REF('$Flow.CurrentDate')),
     ('RefundStatus__c', STR('Requested')),
 ], None, 'CouldNotSaveRefund')
@@ -77,8 +79,11 @@ screen('VerifyRefund', 'Verify Refund', [
     radio('VR_Decision', 'Decision', ['choice_Verify', 'choice_Cancel']),
 ], 'VerifyOrCancel')
 decision('VerifyOrCancel', 'Verify or Cancel?', [
-    ('Verify', 'Verify', [cond('VR_Decision', 'EqualTo', STR('Verify'))], 'SaveVerified', 'and'),
+    ('Verify', 'Verify', [cond('VR_Decision', 'EqualTo', STR('Verify'))], 'IsTheVerifierTheRequester', 'and'),
 ], 'CancelRequest', default_label='Cancel')
+decision('IsTheVerifierTheRequester', 'Is the Verifier the Requester?', [
+    ('SamePerson', 'Same Person', [cond('GetPayment.RefundRequestedByUser__c', 'EqualTo', REF('$User.Id'))], 'VerifierIsRequester', 'and'),
+], 'SaveVerified', default_label='Someone Else')
 update('SaveVerified', 'Set Refund to Verified', [
     ('RefundStatus__c', STR('Verified')),
     ('RefundVerifiedBy__c', REF('$User.Id')),
@@ -87,6 +92,7 @@ update('SaveVerified', 'Set Refund to Verified', [
 update('CancelRequest', 'Clear Refund Request', [
     ('RefundAmount__c', REF('varC_Blank')),
     ('RefundRequestedBy__c', REF('varT_Blank')),
+    ('RefundRequestedByUser__c', REF('varT_Blank')),
     ('RefundRequestedDate__c', REF('varD_Blank')),
     ('RefundStatus__c', REF('varT_Blank')),
 ], None, 'CouldNotSaveRefund')
@@ -105,6 +111,9 @@ update('SaveRefunded', 'Set Refund to Refunded', [
     ('Status__c', REF('forT_StatusAfterRefund')),
 ], None, 'CouldNotSaveRefund')
 
+screen('VerifierIsRequester', 'Someone Else Must Verify', [
+    display('VIR_Message', '<p>You requested this refund, so someone else must verify it. Nothing changed.</p>'),
+], None, next_label='Done')
 screen('AlreadyRefunded', 'Already Refunded', [
     display('AR_Message', '<p>This refund is complete: <b>{!forC_RefundAmount}</b> was sent on check {!GetPayment.RefundCheckNumber__c} on {!GetPayment.RefundedDate__c}.</p>'),
 ], None, next_label='Done')
@@ -119,7 +128,7 @@ screen('CouldNotSaveRefund', 'Could Not Save Refund', [
 ], None)
 
 desc = ('Moves a refund on a payment through its three steps, from the Refund action on the payment. With no refund yet, staff request one: '
-        'the amount (up to what is not applied to fees) and the requesting department. A requested refund is verified by the front desk, or cancelled. '
+        'the amount (up to what is not applied to fees) and the requesting department. A requested refund is verified, or cancelled, by someone other than the person who requested it. '
         'A verified refund is entered once the check is issued, with the check number and date; the payment then shows Refunded and its unapplied '
         'amount drops by the refund. A returned payment, or one fully applied to fees, cannot be refunded here.')
 

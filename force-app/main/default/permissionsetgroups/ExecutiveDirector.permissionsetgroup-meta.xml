@@ -8,5 +8,6 @@
     <permissionSets>CaseRead</permissionSets>
     <permissionSets>ReportsRead</permissionSets>
     <permissionSets>ReferenceDataMaintenance</permissionSets>
+    <permissionSets>ConfidentialComplainantAccess</permissionSets>
     <status>Updated</status>
 </PermissionSetGroup>

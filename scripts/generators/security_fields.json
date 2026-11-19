@@ -181,6 +181,7 @@
  "Payment__c.PayerName__c": true,
  "Payment__c.RefundAmount__c": true,
  "Payment__c.RefundCheckNumber__c": true,
+ "Payment__c.RefundRequestedByUser__c": true,
  "Payment__c.RefundRequestedBy__c": true,
  "Payment__c.RefundRequestedDate__c": true,
  "Payment__c.RefundStatus__c": true,

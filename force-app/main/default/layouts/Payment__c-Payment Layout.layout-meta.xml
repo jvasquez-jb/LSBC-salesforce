@@ -86,6 +86,10 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
+                <field>RefundRequestedByUser__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
                 <field>RefundRequestedDate__c</field>
             </layoutItems>
         </layoutColumns>

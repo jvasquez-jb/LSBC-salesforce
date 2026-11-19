@@ -13,9 +13,11 @@
     <permissionSets>ExamAdministration</permissionSets>
     <permissionSets>AccommodationAccess</permissionSets>
     <permissionSets>SchoolOversight</permissionSets>
+    <permissionSets>CaseRead</permissionSets>
     <permissionSets>CaseWork</permissionSets>
     <permissionSets>InspectionWork</permissionSets>
     <permissionSets>ReportsRead</permissionSets>
     <permissionSets>ReferenceDataMaintenance</permissionSets>
+    <permissionSets>ConfidentialComplainantAccess</permissionSets>
     <status>Updated</status>
 </PermissionSetGroup>

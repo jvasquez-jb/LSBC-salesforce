@@ -248,6 +248,7 @@
         <members>Payment__c.ReceivedDate__c</members>
         <members>Payment__c.RefundAmount__c</members>
         <members>Payment__c.RefundCheckNumber__c</members>
+        <members>Payment__c.RefundRequestedByUser__c</members>
         <members>Payment__c.RefundRequestedBy__c</members>
         <members>Payment__c.RefundRequestedDate__c</members>
         <members>Payment__c.RefundStatus__c</members>
@@ -479,6 +480,7 @@
         <members>PortalBusinessOwner</members>
         <members>PortalLicensee</members>
         <members>PortalSchoolAdministrator</members>
+        <members>ViewConfidentialComplainant</members>
         <name>CustomPermission</name>
     </types>
     <types>
@@ -780,6 +782,7 @@
         <members>BondsAndApprovals</members>
         <members>CaseRead</members>
         <members>CaseWork</members>
+        <members>ConfidentialComplainantAccess</members>
         <members>ExamAdministration</members>
         <members>HoldManagement</members>
         <members>IdentityAccess</members>
@@ -1162,6 +1165,7 @@
         <members>Payment__c.AmountMinAppliedAmount</members>
         <members>Payment__c.RefundAmountMaxUnappliedAmount</members>
         <members>Payment__c.RefundCheckNumberRequiredRefunded</members>
+        <members>Payment__c.RefundVerifiedByNotRequestedBy</members>
         <members>RecordAlert.IsActiveEndRequiresValidUntilDate</members>
         <members>RecordAlert.SnoozeUntilDateNotAllowed</members>
         <members>RecordAlert.ValidUntilDateNotBeforeEffectiveDate</members>

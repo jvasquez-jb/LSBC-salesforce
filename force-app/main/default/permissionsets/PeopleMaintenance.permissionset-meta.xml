@@ -206,6 +206,10 @@
         <field>Contact.TitleType</field>
         <readable>true</readable>
     </fieldPermissions>
+    <flowAccesses>
+        <enabled>true</enabled>
+        <flow>ScreenFlowCaseApplyAddressChange</flow>
+    </flowAccesses>
     <hasActivationRequired>false</hasActivationRequired>
     <label>People Maintenance</label>
     <license>PublicSectorAccessPSL</license>

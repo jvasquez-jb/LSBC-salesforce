@@ -176,6 +176,53 @@ class Page:
     def tabset(self, facet, vis=None):
         return self.comp('flexipage:tabset', [('label', 'Tabs'), ('tabs', facet)], vis)
 
+# Pages whose Details tab shows the layout's sections as field sections instead of the layout panel, so a section
+# can be hidden record by record: {object: {section label: (booleanFilter, [(left value, right value), ...])}}.
+# Public Complaint: the complainant shows only when the complaint isn't confidential or the user may see it.
+SECTION_RULES = {
+    'PublicComplaint': {'Complainant': ('1 OR 2', [('{!Record.IsReporterConfidential}', 'false'),
+                                                   ('{!$Permission.CustomPermission.ViewConfidentialComplainant}', 'true')])},
+}
+
+def layout_sections(p, obj):
+    """The object's page layout as Dynamic Forms field sections, with SECTION_RULES visibility."""
+    import glob
+    import re as _re
+    path = sorted(glob.glob(os.path.join(os.path.dirname(OUT.rstrip('/')), 'layouts', f'{obj}-*.layout-meta.xml')))[0]
+    lay = open(path).read()
+    out = []
+    for si, sec in enumerate(_re.findall(r'<layoutSections>(.*?)</layoutSections>', lay, _re.S)):
+        label = _re.search(r'<label>([^<]*)</label>', sec).group(1)
+        cols = _re.findall(r'<layoutColumns>(.*?)</layoutColumns>', sec, _re.S)
+        fields = [[(f, b) for b, f in _re.findall(r'<behavior>(\w+)</behavior>\s*<field>([\w.]+)</field>', c)] for c in cols]
+        if not any(fields):
+            continue
+        col_items = []
+        for ci, flds in enumerate(fields):
+            facet = f'Facet-{obj}-s{si}c{ci}'
+            items = ''.join(
+                '        <itemInstances>\n            <fieldInstance>\n                <fieldInstanceProperties>\n'
+                '                    <name>uiBehavior</name>\n'
+                f'                    <value>{"readonly" if b == "Readonly" else "required" if b == "Required" else "none"}</value>\n'
+                '                </fieldInstanceProperties>\n'
+                f'                <fieldItem>Record.{f}</fieldItem>\n                <identifier>Record{f.replace(".", "")}Field</identifier>\n'
+                '            </fieldInstance>\n        </itemInstances>\n' for f, b in flds)
+            p.regions.append(f'    <flexiPageRegions>\n{items}        <name>{facet}</name>\n        <type>Facet</type>\n    </flexiPageRegions>\n')
+            col_items.append(p.comp('flexipage:column', [('body', facet)]))
+        cols_facet = f'Facet-{obj}-s{si}'
+        p.region(cols_facet, col_items)
+        comp = p.comp('flexipage:fieldSection', [('columns', cols_facet), ('horizontalAlignment', 'false'), ('label', label)])
+        rule = SECTION_RULES.get(obj, {}).get(label)
+        if rule:
+            crit = ''.join('                    <criteria>\n'
+                           f'                        <leftValue>{escape(l)}</leftValue>\n                        <operator>EQUAL</operator>\n'
+                           f'                        <rightValue>{r}</rightValue>\n                    </criteria>\n' for l, r in rule[1])
+            vis = (f'                <visibilityRule>\n                    <booleanFilter>{rule[0]}</booleanFilter>\n{crit}'
+                   '                </visibilityRule>\n')
+            comp = comp.replace('            </componentInstance>\n', vis + '            </componentInstance>\n', 1)
+        out.append(comp)
+    return out
+
 def build(obj):
     label, desc, actions, tabs = PAGES[obj]
     c = caps(obj); p = Page(obj)
@@ -197,7 +244,7 @@ def build(obj):
         p.region('duplicatesTabs', [p.tab('Duplicates', 'duplicatesTabContent')])
         # Business accounts only: no duplicate rule covers person accounts, so the card would only say so.
         left.append(p.tabset('duplicatesTabs', BUSINESS))
-    p.region('detailTabContent', [p.comp('force:detailPanel')])
+    p.region('detailTabContent', layout_sections(p, obj) if obj in SECTION_RULES else [p.comp('force:detailPanel')])
     main = [p.tab('Standard.Tab.detail', 'detailTabContent', 'true')]
     # History is the record's field history (who changed which field, from what to what). Calls, tasks and
     # emails stay in the Activities panel on the right.
