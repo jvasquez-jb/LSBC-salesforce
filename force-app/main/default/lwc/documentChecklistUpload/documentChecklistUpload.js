@@ -10,8 +10,9 @@ const STATUS_TEXT = {
     Rejected: 'Returned by the Board'
 };
 
-// Documents that reach the Board by mail or straight from another state or company: no upload here.
-const SENT_TO_BOARD_TEXT = 'Not uploaded here: provide it as the instruction says (by mail, sent straight from another state or organization, or shown at the inspection). Staff add it when it arrives, and you can submit without it.';
+// Documents that reach the Board by mail or straight from another state or company. The applicant may upload a copy
+// so review can start, but the official document still has to arrive as the instruction says.
+const SENT_TO_BOARD_TEXT = 'Provide it as the instruction says (by mail, sent straight from another state or organization, or shown at the inspection). You can submit without it. If you have a copy, you may upload it here so we can start reviewing; the official document must still reach the Board.';
 
 export default class DocumentChecklistUpload extends LightningElement {
     @api applicationId;
@@ -74,7 +75,8 @@ export default class DocumentChecklistUpload extends LightningElement {
                     // A returned item's file is moved to the application by the checklist trigger, which frees it.
                     // Only New and Returned (Rejected) items can take a file: a Pending or Accepted item already holds one,
                     // even when the portal user can't see it (a file staff uploaded is visible to staff only).
-                    canUpload: (item.status === 'New' || item.status === 'Rejected') && !(item.fileNames && item.fileNames.length) && (!item.isSentToBoard || this.allowSentToBoard),
+                    // Documents sent to the Board take an optional copy, on the portal as well as for staff.
+                    canUpload: (item.status === 'New' || item.status === 'Rejected') && !(item.fileNames && item.fileNames.length),
                     hasFiles: item.fileNames && item.fileNames.length > 0,
                     filesText: (item.fileNames || []).join(', ')
                 });

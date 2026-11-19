@@ -55,10 +55,10 @@ Illinois,Cosmetology,19000101,99991231,Call Office,Call Office,Call Office,Row h
 Illinois,Esthetician,19000101,99991231,Call Office,Call Office,Call Office,Row highlighted yellow (Step Three: contact the office)
 Illinois,Instructor,19000101,99991231,Call Office,Call Office,Call Office,Row highlighted yellow (Step Three: contact the office)
 Illinois,Manicurist,19000101,99991231,Call Office,Call Office,Call Office,Row highlighted yellow (Step Three: contact the office)
-Indiana,Cosmetology,20060101,20051231,State;Practical,State;National;Practical,State;National;Practical,
-Indiana,Esthetician,20060101,20051231,State;Practical,State;National;Practical,State;National;Practical,
-Indiana,Instructor,20060101,20051231,State;Practical,State;National;Practical,State;National;Practical,
-Indiana,Manicurist,20060101,20051231,State;Practical,State;National;Practical,State;National;Practical,
+Indiana,Cosmetology,20070101,20061231,State;Practical,State;National;Practical,State;National;Practical,"Printed as 2006 / after 2006. A licence issued in 2006 takes the earlier exams; the later exams start 1 January 2007 (Board, 19 Nov 2026)."
+Indiana,Esthetician,20070101,20061231,State;Practical,State;National;Practical,State;National;Practical,"Printed as 2006 / after 2006. A licence issued in 2006 takes the earlier exams; the later exams start 1 January 2007 (Board, 19 Nov 2026)."
+Indiana,Instructor,20070101,20061231,State;Practical,State;National;Practical,State;National;Practical,"Printed as 2006 / after 2006. A licence issued in 2006 takes the earlier exams; the later exams start 1 January 2007 (Board, 19 Nov 2026)."
+Indiana,Manicurist,20070101,20061231,State;Practical,State;National;Practical,State;National;Practical,"Printed as 2006 / after 2006. A licence issued in 2006 takes the earlier exams; the later exams start 1 January 2007 (Board, 19 Nov 2026)."
 Iowa,Cosmetology,20000101,19991231,State;National;Practical,State;Practical,State;Practical,
 Iowa,Esthetician,20000101,19991231,State;National;Practical,State;Practical,State;Practical,
 Iowa,Instructor,20000101,19991231,State;National;Practical,State;Practical,State;Practical,
@@ -171,10 +171,10 @@ Texas,Cosmetology,20030301,20050228,State;National,State,State;National,
 Texas,Esthetician,20030301,20050228,State;National,State,State;National,
 Texas,Instructor,19000101,99991231,Not Applicable,Not Applicable,Not Applicable,Table legend: N/A- DOES NOT HAVE A TRANSFERRABLE INSTRUCTOR LICENSE
 Texas,Manicurist,20030301,20050228,State;National,State,State;National,
-Utah,Cosmetology,19000101,99991231,Call Office,Call Office,Call Office,No date printed but exams differ by column: unclear | Read as Call Office: the table gives different exams per column with no dates.
-Utah,Esthetician,19000101,99991231,Call Office,Call Office,Call Office,No date printed but exams differ by column: unclear | Read as Call Office: the table gives different exams per column with no dates.
+Utah,Cosmetology,19000101,99991231,State,State,State,"Utah has always given the NIC national and practical exams, so only the state exam is needed (Board, 17 Nov 2026)."
+Utah,Esthetician,19000101,99991231,State,State,State,"Utah has always given the NIC national and practical exams, so only the state exam is needed (Board, 17 Nov 2026)."
 Utah,Instructor,19000101,99991231,State;Practical,State;Practical,State;Practical,
-Utah,Manicurist,19000101,99991231,Call Office,Call Office,Call Office,No date printed but exams differ by column: unclear | Read as Call Office: the table gives different exams per column with no dates.
+Utah,Manicurist,19000101,99991231,State,State,State,"Utah has always given the NIC national and practical exams, so only the state exam is needed (Board, 17 Nov 2026)."
 Vermont,Cosmetology,20220101,20211231,State;National,State,State,
 Vermont,Esthetician,20220101,20211231,State;National,State,State,
 Vermont,Instructor,20220101,20211231,State;National;Practical,State;Practical,State;Practical,

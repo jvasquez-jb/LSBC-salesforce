@@ -265,7 +265,8 @@ Raised by later phases while Phase 2 is paused. Pick these up when it resumes.
   (`ScreenFlowIndividualApplicationResume`); Continue opens `/continue-application?interviewId=`,
   where the Aura `flowResume` component resumes it. `Subflow: Preliminary Application Discard`
   deletes a draft; the nightly `PreliminaryApplicationReferenceScheduleExpiredDrafts` (01:15) runs it
-  after 30 days untouched. New forms follow the same pattern.
+  after 30 days untouched. A form start discards at most three abandoned drafts (`IsTheDiscardLimitReached`): discarding
+  14 in one go passed the 100-query limit. New forms follow the same pattern.
 - CLOSE migration (the Board's legacy system): load scripts in `scripts/migration` (see its README).
   Work only from the de-identified copy `../LSBC-Migration/extract/lsbc_deid.sqlite`, where every
   SSN-shaped applicant ID and certificate number is a mock starting `000`; never open the raw export

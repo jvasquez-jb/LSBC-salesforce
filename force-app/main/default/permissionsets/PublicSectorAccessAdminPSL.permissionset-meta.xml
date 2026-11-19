@@ -443,6 +443,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>IndividualApplication.HasNonTransferableLicenseType__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>IndividualApplication.LicenseByApprenticeship__c</field>
         <readable>true</readable>
     </fieldPermissions>

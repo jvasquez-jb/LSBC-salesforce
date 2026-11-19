@@ -39,8 +39,8 @@
         "referenceId": "MilitaryId"
       },
       "DeveloperName": "MilitaryId",
-      "MasterLabel": "Military ID",
-      "Description": "A copy of the applicant's military ID.",
+      "MasterLabel": "Military ID or Orders",
+      "Description": "A copy of the applicant's military ID or military orders.",
       "IsActive": true,
       "Language": "en_US"
     },

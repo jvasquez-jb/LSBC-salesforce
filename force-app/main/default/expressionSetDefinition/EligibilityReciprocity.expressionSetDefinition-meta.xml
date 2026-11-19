@@ -248,9 +248,9 @@
             <actionType>AssignParameterValues</actionType>
             <assignment>
                 <assignedParameter>CannotTransfer</assignedParameter>
-                <expression>Outcome == "Cannot Transfer"</expression>
+                <expression>Outcome == "Cannot Transfer" || IsLicenseByApprenticeship == true || HasNonTransferableLicenseType == true</expression>
             </assignment>
-            <description>The license cannot be transferred to Louisiana.</description>
+            <description>The license cannot be transferred to Louisiana: the state table says so, it was not earned at a licensed or certified school, or its type is one the Board does not accept.</description>
             <label>Set Cannot Transfer</label>
             <name>SetCannotTransfer</name>
             <resultIncluded>true</resultIncluded>
@@ -276,6 +276,24 @@
             <shouldShowExplExternally>false</shouldShowExplExternally>
             <stepType>BusinessKnowledgeModel</stepType>
         </steps>
+        <variables>
+            <collection>false</collection>
+            <dataType>Boolean</dataType>
+            <description>True when the applicant got the license by apprenticeship, experience or online training rather than at a licensed or certified school.</description>
+            <input>true</input>
+            <name>IsLicenseByApprenticeship</name>
+            <output>false</output>
+            <type>Variable</type>
+        </variables>
+        <variables>
+            <collection>false</collection>
+            <dataType>Boolean</dataType>
+            <description>True when the applicant says the license is one of the types the Board does not accept, such as Hairdresser or Cosmetician.</description>
+            <input>true</input>
+            <name>HasNonTransferableLicenseType</name>
+            <output>false</output>
+            <type>Variable</type>
+        </variables>
         <variables>
             <collection>false</collection>
             <dataType>Date</dataType>

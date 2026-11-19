@@ -122,6 +122,7 @@
         <members>IndividualApplication.Exams__c</members>
         <members>IndividualApplication.FelonyConviction__c</members>
         <members>IndividualApplication.FridayHours__c</members>
+        <members>IndividualApplication.HasNonTransferableLicenseType__c</members>
         <members>IndividualApplication.InitiallyLicensedName__c</members>
         <members>IndividualApplication.IsCertified__c</members>
         <members>IndividualApplication.IsLouisianaResident__c</members>

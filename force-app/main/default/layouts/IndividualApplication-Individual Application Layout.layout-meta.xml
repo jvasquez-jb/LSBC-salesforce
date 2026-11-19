@@ -135,6 +135,10 @@
                 <field>LicenseByApprenticeship__c</field>
             </layoutItems>
             <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>HasNonTransferableLicenseType__c</field>
+            </layoutItems>
+            <layoutItems>
                 <behavior>Edit</behavior>
                 <field>ApprenticeshipSetting__c</field>
             </layoutItems>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-    <label>Military: Military Id</label>
+    <label>Military: Military ID or Orders</label>
     <protected>false</protected>
     <values>
         <field>ApplicationPath__c</field>
@@ -16,7 +16,7 @@
     </values>
     <values>
         <field>Instruction__c</field>
-        <value xsi:type="xsd:string">a copy of my military id</value>
+        <value xsi:type="xsd:string">a copy of my military ID or military orders</value>
     </values>
     <values>
         <field>IsRequired__c</field>

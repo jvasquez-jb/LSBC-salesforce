@@ -7,7 +7,7 @@
         <restricted>true</restricted>
         <valueSetName>YesNo</valueSetName>
     </valueSet>
-    <description>The applicant's answer on a reciprocity application to whether they obtained their out-of-state license by apprenticeship or experience rather than schooling. Licenses obtained that way are not accepted for reciprocity.</description>
-    <inlineHelpText>Yes if the out-of-state license was obtained by apprenticeship or experience.</inlineHelpText>
+    <description>The applicant's answer on a reciprocity application to whether they got their out-of-state license by apprenticeship, experience or online training rather than at a licensed or certified school. Licenses obtained that way are not accepted for reciprocity, so a Yes stops the application.</description>
+    <inlineHelpText>Yes if the out-of-state license was obtained by apprenticeship, experience or online training rather than at a licensed or certified school.</inlineHelpText>
     <label>License By Apprenticeship</label>
 </CustomField>
