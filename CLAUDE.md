@@ -176,6 +176,10 @@ Raised by later phases while Phase 2 is paused. Pick these up when it resumes.
     Never redeploy the whole `expressionSetDefinition` file once a version in it is active: that is
     what fails with "LatestVersionSnapshotId not found". Tested 19 Nov 2026 on `EligibilityInstructorCE`.
     Version descriptions max 255 characters. Decision matrices take new versions too (`FeeSchedule` V3).
+  - Rule calls are metered: usage entitlement `RulesEngineCallsLimit` is 2,500 a month (sandbox, 19 Nov
+    2026). The build uses far more (about 2,600 licence expiries a month each run the hold check, plus
+    renewals); an add-on is with the AE. Don't add rule calls per record in schedules or triggers without
+    counting them.
   - Every expression set variable must be an input, an output or a constant. A working variable
     that is neither breaks the Flow action ("type mapping … is not a supported type"), though the
     REST test passes. Fold working values into the output formulas.
