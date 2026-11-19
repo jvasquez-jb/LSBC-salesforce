@@ -342,7 +342,9 @@ Still open:
   writes `trackHistory` (a minimal field file for standard fields) and `enableHistory`; record pages' History tab
   is field history (`pagegen.py`). Person `__pc` fields can't be tracked through metadata: tick Home Parish,
   Certification Number, Maiden Name in Account Set History Tracking (sandbox and production). Person Other Address
-  can't be tracked. Document Checklist Item has no History list on a page. Case is at its 20-field limit.
+  can't be tracked. Document Checklist Item has no History list on a page. Case is at its 20-field limit. The History
+  tab shows only if the object's page layout has the history related list (`RelatedEntityHistoryList`): add it to
+  the layout of any object that gets history.
 - Address change (person accounts only): portal `ScreenFlowCaseAddressChangeRequest` (`/change-address`) opens a
   Case (Type Address Change, General Inquiries) with `Requested*__c` fields and a Proof of Address checklist item;
   staff run `Case.ApplyAddressChange` (`ScreenFlowCaseApplyAddressChange`), which updates the mailing address,
