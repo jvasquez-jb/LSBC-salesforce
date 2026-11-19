@@ -1,61 +1,51 @@
 {
   "appPageId" : "39740273-a4f0-4311-b732-31661924917d",
   "componentName" : "siteforce:sldsOneColLayout",
-  "dataProviders" : [ ],
+  "dataProviders" : [],
   "id" : "92bf375e-ed38-43b1-a740-0d45b804d6d1",
   "label" : "Home",
-  "regions" : [ {
-    "id" : "aa6b033f-1c02-437d-a6d3-9e98c5a35760",
-    "regionName" : "header",
-    "type" : "region"
-  }, {
-    "components" : [ {
-      "componentAttributes" : {
-        "richTextValue" : "<!-- Popular tasks: two columns of links, each row with a chevron (styled in the theme CSS) -->\n<section class=\"lsbc-section\" aria-labelledby=\"lsbc-popular-title\">\n  <h2 class=\"lsbc-section__title\" id=\"lsbc-popular-title\">Popular tasks</h2>\n  <div class=\"lsbc-popular\">\n\n    <!-- Left column -->\n    <div class=\"lsbc-popular__col\">\n      <a href=\"/LPI/s/renew-license-permit\">Renew my license</a>\n      <a href=\"/LPI/s/search-license-permit-holder\">Look up a license</a>\n      <a href=\"/LPI/s/apply-license-permit\">Apply for reciprocity</a>\n    </div>\n\n    <!-- Right column -->\n    <div class=\"lsbc-popular__col\">\n      <a href=\"/LPI/s/renew-license-permit\">Request a duplicate license</a>\n      <a href=\"/LPI/s/view-fees\">Pay a fee</a>\n      <a href=\"/LPI/s/file-a-complaint\">File a complaint</a>\n    </div>\n\n  </div>\n</section>"
-      },
-      "componentName" : "forceCommunity:htmlBlock",
-      "id" : "83076612-e9a9-442a-bcb4-a66b2fa20e20",
-      "renderPriority" : "NEUTRAL",
-      "renditionMap" : { },
-      "type" : "component"
-    }, {
-      "componentAttributes" : {
-        "richTextValue" : "<!-- All topics: 3 x 2 grid of tiles, each an icon and a label (icons are decorative, so alt is empty) -->\n<section class=\"lsbc-section\" aria-labelledby=\"lsbc-topics-title\">\n  <h2 class=\"lsbc-section__title\" id=\"lsbc-topics-title\">All topics</h2>\n  <div class=\"lsbc-topics\">\n    <!-- Renew a license or request a duplicate -->\n    <a class=\"lsbc-tile\" href=\"/LPI/s/renew-license-permit\">\n      <img src=\"/sfsites/c/resource/PortalIconLicense\" alt=\"\">\n      <span>Licenses &amp; Renewals</span>\n    </a>\n    <!-- Start an application -->\n    <a class=\"lsbc-tile\" href=\"/LPI/s/apply-license-permit\">\n      <img src=\"/sfsites/c/resource/PortalIconApply\" alt=\"\">\n      <span>Apply for a License</span>\n    </a>\n    <!-- Public license search -->\n    <a class=\"lsbc-tile\" href=\"/LPI/s/search-license-permit-holder\">\n      <img src=\"/sfsites/c/resource/PortalIconLookup\" alt=\"\">\n      <span>Look Up a License</span>\n    </a>\n    <!-- School directory -->\n    <a class=\"lsbc-tile\" href=\"/LPI/s/find-a-school\">\n      <img src=\"/sfsites/c/resource/PortalIconSchool\" alt=\"\">\n      <span>Find a School</span>\n    </a>\n    <!-- Paper forms and reference documents -->\n    <a class=\"lsbc-tile\" href=\"/LPI/s/forms-and-resources\">\n      <img src=\"/sfsites/c/resource/PortalIconForms\" alt=\"\">\n      <span>Forms &amp; Resources</span>\n    </a>\n    <!-- Public complaint form -->\n    <a class=\"lsbc-tile\" href=\"/LPI/s/file-a-complaint\">\n      <img src=\"/sfsites/c/resource/PortalIconComplaint\" alt=\"\">\n      <span>File a Complaint</span>\n    </a>\n\n  </div>\n</section>"
-      },
-      "componentName" : "forceCommunity:htmlBlock",
-      "id" : "1aaa3c58-0373-4185-9025-eaa24288eff4",
-      "renderPriority" : "NEUTRAL",
-      "renditionMap" : { },
-      "type" : "component"
-    }, {
-      "componentAttributes" : {
-        "richTextValue" : "<!-- Need more help: grey band with two cards (contact the Board, file a complaint) -->\n<section class=\"lsbc-help\" aria-labelledby=\"lsbc-help-title\">\n  <h2 id=\"lsbc-help-title\">Need more help?</h2>\n  <!-- Office hours: placeholder until the Board confirms them -->\n  <p>Our office is open Monday to Friday.</p>\n\n  <div class=\"lsbc-help__cards\">\n\n    <!-- Card 1: phone and postal address -->\n    <div class=\"lsbc-help__card\">\n      <img src=\"/sfsites/c/resource/PortalIconContact\" alt=\"\">\n      <div>\n        <a href=\"tel:+12257563404\">Contact the Board</a>\n        <p>Call 225-756-3404, or write to 11622 Sunbelt Court, Baton Rouge, Louisiana 70809.</p>\n      </div>\n    </div>\n\n    <!-- Card 2: public complaint form -->\n    <div class=\"lsbc-help__card\">\n      <img src=\"/sfsites/c/resource/PortalIconComplaint\" alt=\"\">\n      <div>\n        <a href=\"/LPI/s/file-a-complaint\">File a Complaint</a>\n        <p>Report a salon, school or practitioner. You can stay anonymous.</p>\n      </div>\n    </div>\n\n  </div>\n</section>"
-      },
-      "componentName" : "forceCommunity:htmlBlock",
-      "id" : "d6718a38-160f-4df5-8858-62f1f4dcfb84",
-      "renderPriority" : "NEUTRAL",
-      "renditionMap" : { },
-      "type" : "component"
-    } ],
-    "id" : "bbba2927-1054-4109-baa8-44327bb50455",
-    "regionName" : "footer",
-    "type" : "region"
-  }, {
-    "components" : [ {
-      "componentAttributes" : {
-        "customHeadTags" : "",
-        "description" : "",
-        "title" : "Home"
-      },
-      "componentName" : "forceCommunity:seoAssistant",
-      "id" : "415bfb08-956f-40ae-bbd4-ce8c06218b0b",
-      "renditionMap" : { },
-      "type" : "component"
-    } ],
-    "id" : "df90cc17-db89-4044-b5bc-026885ddf264",
-    "regionName" : "sfdcHiddenRegion",
-    "type" : "region"
-  } ],
+  "regions" : [
+    {
+      "id" : "aa6b033f-1c02-437d-a6d3-9e98c5a35760",
+      "regionName" : "header",
+      "type" : "region"
+    },
+    {
+      "components" : [
+        {
+          "componentAttributes" : {
+            "richTextValue" : "<!-- Home page body (one HTML block under the hero). Styled in theme.css -->\n<div class=\"lsbc-wrap\">\n\n  <!-- Topics: round links with an icon and a label (Architectural Digest style). Icons are decorative -->\n  <nav class=\"lsbc-circles\" aria-label=\"Topics\">\n    <a class=\"lsbc-circle\" href=\"/LPI/s/renew-license-permit\"><span class=\"lsbc-circle__ring\"><img src=\"/sfsites/c/resource/PortalIconLicense\" alt=\"\"></span><span class=\"lsbc-circle__label\">Renew a license</span></a>\n    <a class=\"lsbc-circle\" href=\"/LPI/s/apply-license-permit\"><span class=\"lsbc-circle__ring\"><img src=\"/sfsites/c/resource/PortalIconApply\" alt=\"\"></span><span class=\"lsbc-circle__label\">Apply</span></a>\n    <a class=\"lsbc-circle\" href=\"/LPI/s/search-license-permit-holder\"><span class=\"lsbc-circle__ring\"><img src=\"/sfsites/c/resource/PortalIconLookup\" alt=\"\"></span><span class=\"lsbc-circle__label\">Look up a license</span></a>\n    <a class=\"lsbc-circle\" href=\"/LPI/s/find-a-school\"><span class=\"lsbc-circle__ring\"><img src=\"/sfsites/c/resource/PortalIconSchool\" alt=\"\"></span><span class=\"lsbc-circle__label\">Find a school</span></a>\n    <a class=\"lsbc-circle\" href=\"/LPI/s/forms-and-resources\"><span class=\"lsbc-circle__ring\"><img src=\"/sfsites/c/resource/PortalIconForms\" alt=\"\"></span><span class=\"lsbc-circle__label\">Forms</span></a>\n    <a class=\"lsbc-circle\" href=\"/LPI/s/file-a-complaint\"><span class=\"lsbc-circle__ring\"><img src=\"/sfsites/c/resource/PortalIconComplaint\" alt=\"\"></span><span class=\"lsbc-circle__label\">File a complaint</span></a>\n  </nav>\n\n  <!-- Promo strip between hairlines (Vogue style) -->\n  <div class=\"lsbc-promo\">\n    <img src=\"/sfsites/c/resource/PortalSeal\" alt=\"\">\n    <p>Renew, pay and track your applications online, any time.</p>\n    <a class=\"lsbc-button\" href=\"/LPI/s/renew-license-permit\">Renew now</a>\n  </div>\n\n  <!-- Popular tasks: kicker, serif headline, one line each -->\n  <section aria-labelledby=\"lsbc-popular-title\">\n    <h2 class=\"lsbc-rubric\" id=\"lsbc-popular-title\">Popular tasks</h2>\n    <div class=\"lsbc-stories\">\n      <article class=\"lsbc-story\"><span class=\"lsbc-kicker\">Licenses</span><h3><a href=\"/LPI/s/renew-license-permit\">Renew my license</a></h3><p>Renew before it expires and avoid the late fee.</p></article>\n      <article class=\"lsbc-story\"><span class=\"lsbc-kicker\">Public search</span><h3><a href=\"/LPI/s/search-license-permit-holder\">Look up a license</a></h3><p>Check a practitioner, salon or school before you book.</p></article>\n      <article class=\"lsbc-story\"><span class=\"lsbc-kicker\">New to Louisiana</span><h3><a href=\"/LPI/s/apply-license-permit\">Apply for reciprocity</a></h3><p>Licensed in another state? Transfer your license here.</p></article>\n      <article class=\"lsbc-story\"><span class=\"lsbc-kicker\">Licenses</span><h3><a href=\"/LPI/s/renew-license-permit\">Request a duplicate license</a></h3><p>Replace a lost or damaged license.</p></article>\n      <article class=\"lsbc-story\"><span class=\"lsbc-kicker\">Payments</span><h3><a href=\"/LPI/s/view-fees\">Pay a fee</a></h3><p>See what you owe and pay online.</p></article>\n      <article class=\"lsbc-story\"><span class=\"lsbc-kicker\">Public safety</span><h3><a href=\"/LPI/s/file-a-complaint\">File a complaint</a></h3><p>Report a salon, school or practitioner. You can stay anonymous.</p></article>\n    </div>\n  </section>\n\n  <!-- Need more help -->\n  <section aria-labelledby=\"lsbc-help-title\">\n    <h2 class=\"lsbc-rubric\" id=\"lsbc-help-title\">Need more help?</h2>\n    <div class=\"lsbc-help\">\n      <div class=\"lsbc-help__item\">\n        <span class=\"lsbc-kicker\">Contact the Board</span>\n        <h3><a href=\"tel:+12257563404\">225-756-3404</a></h3>\n        <!-- Office hours: placeholder until the Board confirms them -->\n        <p>Monday to Friday. 11622 Sunbelt Court, Baton Rouge, Louisiana 70809.</p>\n      </div>\n      <div class=\"lsbc-help__item\">\n        <span class=\"lsbc-kicker\">Report a concern</span>\n        <h3><a href=\"/LPI/s/file-a-complaint\">File a complaint</a></h3>\n        <p>Report a salon, school or practitioner. You can stay anonymous.</p>\n      </div>\n    </div>\n  </section>\n\n</div>"
+          },
+          "componentName" : "forceCommunity:htmlBlock",
+          "id" : "83076612-e9a9-442a-bcb4-a66b2fa20e20",
+          "renderPriority" : "NEUTRAL",
+          "renditionMap" : {},
+          "type" : "component"
+        }
+      ],
+      "id" : "bbba2927-1054-4109-baa8-44327bb50455",
+      "regionName" : "footer",
+      "type" : "region"
+    },
+    {
+      "components" : [
+        {
+          "componentAttributes" : {
+            "customHeadTags" : "",
+            "description" : "",
+            "title" : "Home"
+          },
+          "componentName" : "forceCommunity:seoAssistant",
+          "id" : "415bfb08-956f-40ae-bbd4-ce8c06218b0b",
+          "renditionMap" : {},
+          "type" : "component"
+        }
+      ],
+      "id" : "df90cc17-db89-4044-b5bc-026885ddf264",
+      "regionName" : "sfdcHiddenRegion",
+      "type" : "region"
+    }
+  ],
   "themeLayoutType" : "Home",
   "type" : "view",
   "viewType" : "home"

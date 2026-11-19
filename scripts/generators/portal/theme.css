@@ -1,0 +1,213 @@
+/* LSBC portal theme: editorial look (white masthead, serif headlines, black and white with logo navy and seal gold).
+   Source of truth for the theme's custom CSS: scripts/generators/portaltheme.py copies this file into
+   experiences/LSBC_LPI1/themes/licensePermits.json. Edit here, rerun the script, deploy and publish. */
+
+/* Fonts, served from the PortalFonts static resource (Playfair Display and Montserrat, SIL Open Font Licence) */
+@font-face { font-family: "Playfair Display"; font-style: normal; font-weight: 400 900; font-display: swap; src: url("/sfsites/c/resource/PortalFonts/playfair.woff2") format("woff2"); }
+@font-face { font-family: "Playfair Display"; font-style: italic; font-weight: 400 900; font-display: swap; src: url("/sfsites/c/resource/PortalFonts/playfair-italic.woff2") format("woff2"); }
+@font-face { font-family: "Montserrat"; font-style: normal; font-weight: 100 900; font-display: swap; src: url("/sfsites/c/resource/PortalFonts/montserrat.woff2") format("woff2"); }
+
+:root {
+  --lsbc-ink: #111111;        /* text, buttons, rules */
+  --lsbc-navy: #091580;       /* the logo's navy: links */
+  --lsbc-gold: #C9A44A;       /* the seal's gold: accents on dark backgrounds only */
+  --lsbc-grey: #5A5A5A;       /* secondary text (AA on white) */
+  --lsbc-rule: #E3E3E3;       /* hairlines */
+  --lsbc-serif: "Playfair Display", Georgia, "Times New Roman", serif;
+  --lsbc-sans: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+}
+body, .siteforceStarterBody, .comm-page-home, .body { background: #FFFFFF !important; color: var(--lsbc-ink); font-family: var(--lsbc-sans); }
+body { font-size: 16px; }
+a { color: var(--lsbc-navy); }
+h1, h2, h3 { font-family: var(--lsbc-serif); font-weight: 600; color: var(--lsbc-ink); }
+
+/* Keyboard focus everywhere */
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px solid var(--lsbc-navy) !important; outline-offset: 3px; }
+
+/* ---------- Masthead ---------- */
+/* Utility line above the logo (Vogue / AD) */
+.themeHeaderInner::before { content: "Louisiana State Board of Cosmetology \00a0\00b7\00a0 Est. 1924"; display: block; text-align: center; font: 500 11px/1 var(--lsbc-sans); letter-spacing: 0.18em; text-transform: uppercase; color: var(--lsbc-ink); padding: 12px 16px; border-bottom: 1px solid var(--lsbc-rule); align-self: stretch; width: 100%; box-sizing: border-box; }
+.themeHeader, .themeHeader .themeBgImage { background: #FFFFFF !important; }
+.themeHeader .themeBottomBorder { background: var(--lsbc-ink) !important; height: 1px !important; }
+/* Logo centred and large; account links pinned right */
+.themeHeaderTopRow { height: auto !important; }
+.themeHeaderTopRowInner { position: relative; justify-content: center !important; padding: 22px 20px 18px !important; height: auto !important; }
+.themeHeaderTopRowInner .themeLogo { flex: none !important; width: auto !important; max-width: none !important; margin: 0 auto !important; }
+.forceCommunityThemeLogo, .forceCommunityThemeLogo .logoImage { width: 270px !important; height: 96px !important; }
+.forceCommunityThemeLogo .logoImage { background-size: contain !important; background-position: center !important; background-repeat: no-repeat !important; }
+.themeHeaderTopRowInner .themeUtils { position: absolute !important; right: 24px; top: 50%; transform: translateY(-50%); width: auto !important; }
+/* Header search (inner pages) sits on the left, like Cosmopolitan */
+.themeHeaderTopRowInner .themeSearch, .themeHeaderTopRowInner .forceCommunityThemeSearch { position: absolute !important; left: 24px; top: 50%; transform: translateY(-50%); width: 300px !important; max-width: 24vw; }
+.themeHeader .forceCommunityThemeSearch input { border-radius: 0 !important; border: 1px solid var(--lsbc-ink) !important; background: #FFFFFF !important; color: var(--lsbc-ink) !important; font-family: var(--lsbc-sans) !important; }
+/* Navigation row: centred, small uppercase, tracked */
+.themeHeaderBottomRow { border-top: 1px solid var(--lsbc-rule); }
+.themeHeaderBottomRowInner { justify-content: center !important; }
+.themeNav, .themeNav > div, .comm-navigation { width: auto !important; }
+.comm-navigation .visible-links { justify-content: center !important; align-items: center !important; gap: 0.5rem; }
+.comm-navigation__top-level-item-link, .comm-navigation__top-level-item-link:hover, .comm-navigation__top-level-item-link:focus,
+.comm-navigation__top-level-item button, .comm-navigation .slds-button { background: transparent !important; color: var(--lsbc-ink) !important; font: 500 12px/1 var(--lsbc-sans) !important; letter-spacing: 0.16em !important; text-transform: uppercase !important; text-shadow: none !important; }
+.comm-navigation__top-level-item-link:hover { text-decoration: underline; text-underline-offset: 6px; }
+.comm-navigation__top-level-item-link--active { box-shadow: none !important; text-decoration: underline !important; text-decoration-thickness: 2px !important; text-underline-offset: 8px !important; }
+.comm-navigation__top-level-item-link--active::after, .comm-navigation__top-level-item-link--active::before { display: none !important; }
+.comm-navigation__top-level-item, .comm-navigation__top-level-item-link { border-bottom: 0 !important; box-shadow: none !important; }
+.comm-navigation svg, .comm-navigation .slds-button__icon { fill: var(--lsbc-ink) !important; }
+.comm-navigation .slds-dropdown { border-radius: 0 !important; border: 1px solid var(--lsbc-ink) !important; box-shadow: none !important; }
+/* Sign up (text link) and Log in (square black button), like Vogue's Subscribe */
+.themeProfileMenu [data-region-name="themeHeaderProfileMenu"] { display: flex; align-items: center; gap: 1.5rem; }
+.lsbc-signup, .lsbc-signup:visited { color: var(--lsbc-ink) !important; font: 500 12px/1 var(--lsbc-sans); letter-spacing: 0.16em; text-transform: uppercase; text-decoration: none; white-space: nowrap; }
+.lsbc-signup:hover, .lsbc-signup:focus { text-decoration: underline; text-underline-offset: 5px; }
+.themeProfileMenu:not(:has(.profile-loginButton)) .lsbc-signup { display: none !important; }
+.profile-loginButton { background: var(--lsbc-ink) !important; border: 1px solid var(--lsbc-ink) !important; color: #FFFFFF !important; border-radius: 0 !important; font: 500 12px/1 var(--lsbc-sans) !important; letter-spacing: 0.16em; text-transform: uppercase; padding: 10px 16px !important; height: auto !important; }
+.profile-loginButton:hover, .profile-loginButton:focus { background: var(--lsbc-navy) !important; border-color: var(--lsbc-navy) !important; }
+.themeProfileMenu .comm-user-profile-menu__trigger, .themeProfileMenu .profileName, .themeProfileMenu .triggerLink { color: var(--lsbc-ink) !important; }
+
+/* ---------- Home hero: black, a large serif headline, one square search box ---------- */
+.lpiInnerHero { padding: 104px 0 96px !important; min-height: 0 !important; height: auto !important; overflow: hidden; }
+.lpiInnerHero .bgImage { background: #0E0E0E !important; z-index: 0 !important; }
+/* The search box inside the hero carries the same class: no padding, no seal there */
+.lpiInnerHero.forceCommunityThemeSearch { padding: 0 !important; overflow: visible !important; }
+.lpiInnerHero.forceCommunityThemeSearch::after { content: none !important; }
+.lpiInnerHero .forceCommunityThemeSearchHero *, .lpiInnerHero .search-box { border-color: transparent !important; border-radius: 0 !important; box-shadow: none !important; }
+/* The 2026 seal, faint, at the right edge */
+.lpiInnerHero::after { content: ""; position: absolute; right: -90px; top: 50%; width: 460px; height: 460px; transform: translateY(-50%); background: url("/sfsites/c/resource/PortalSeal") center / contain no-repeat; opacity: 0.09; pointer-events: none; }
+.lpiInnerHero .contentContainer, .lpiInnerHero .widthContainer, .lpiInnerHero .content { height: auto !important; min-height: 0 !important; position: relative; z-index: 1; }
+.lpiInnerHero .widthContainer { width: 100% !important; max-width: 1040px; padding: 0 20px; }
+.lpiInnerHero .content { width: 100% !important; display: flex; flex-direction: column; text-align: center; justify-content: flex-start !important; }
+.lpiInnerHero .content > .slds-grid { display: block !important; margin: 0 !important; }
+.lpiInnerHero .contentTitle { font-family: var(--lsbc-serif) !important; font-weight: 500 !important; font-size: 4.5rem !important; line-height: 1.05 !important; letter-spacing: -0.01em; color: #FFFFFF !important; margin: 0 0 2.5rem !important; padding: 0 !important; min-height: 0 !important; height: auto !important; }
+.lpiInnerHero .contentTitle::before { content: "Louisiana State Board of Cosmetology"; display: block; font: 500 12px/1 var(--lsbc-sans); letter-spacing: 0.22em; text-transform: uppercase; color: var(--lsbc-gold); margin: 0 0 1.5rem; }
+.lpiInnerHero .contentSubtitle { display: none !important; }
+.lpiInnerHero .searchRegion { width: 100% !important; max-width: 760px; margin: 0 auto !important; }
+.lpiInnerHero .searchRegion, .lpiInnerHero .searchRegion > div, .lpiInnerHero .forceCommunityThemeSearchHero { position: static !important; transform: none !important; padding: 0 !important; }
+.lpiInnerHero .forceCommunityThemeSearchHero, .lpiInnerHero .search-wrapper, .lpiInnerHero form { width: 100% !important; max-width: none !important; }
+.lpiInnerHero .search-box { display: flex !important; align-items: center; height: 4rem; background: #FFFFFF; border: 0 !important; border-radius: 0 !important; overflow: hidden; }
+.lpiInnerHero .search-box input, .lpiInnerHero .search-box input[type="text"], .lpiInnerHero input[type="search"] { border: 0 !important; height: 100% !important; box-shadow: none !important; border-radius: 0 !important; font: 400 1.125rem var(--lsbc-sans) !important; color: var(--lsbc-ink) !important; padding-left: 0.75rem !important; }
+.lpiInnerHero .search-box .search-inputSearchButton { border: 0 !important; background: transparent !important; height: 100%; margin-left: 1rem; }
+.lpiInnerHero .search-box:focus-within { outline: 2px solid var(--lsbc-gold); outline-offset: 4px; }
+
+/* ---------- Shared editorial pieces ---------- */
+.lsbc-wrap { max-width: 1240px; margin: 0 auto; padding: 0 24px; }
+/* Section heading: small capitals centred between two hairlines (Vogue) */
+.lsbc-rubric { font: 500 13px/1 var(--lsbc-sans) !important; letter-spacing: 0.2em; text-transform: uppercase; text-align: center; color: var(--lsbc-ink) !important; border-top: 1px solid var(--lsbc-rule); border-bottom: 1px solid var(--lsbc-rule); padding: 20px 0; margin: 0 0 40px; }
+.lsbc-kicker { display: block; font: 500 11px/1.2 var(--lsbc-sans); letter-spacing: 0.18em; text-transform: uppercase; color: var(--lsbc-ink); margin: 0 0 10px; }
+.lsbc-button, .lsbc-button:visited { display: inline-block; background: var(--lsbc-ink); color: #FFFFFF !important; font: 500 12px/1 var(--lsbc-sans); letter-spacing: 0.16em; text-transform: uppercase; text-decoration: none; padding: 16px 22px; border-radius: 0; white-space: nowrap; }
+.lsbc-button:hover, .lsbc-button:focus { background: var(--lsbc-navy); color: #FFFFFF !important; text-decoration: none; }
+
+/* Topic circles (Architectural Digest) */
+.lsbc-circles { display: flex; justify-content: center; flex-wrap: wrap; gap: 24px 48px; padding: 64px 0 56px; }
+.lsbc-circle, .lsbc-circle:visited { display: flex; flex-direction: column; align-items: center; gap: 16px; width: 128px; text-decoration: none; color: var(--lsbc-ink) !important; }
+.lsbc-circle__ring { display: flex; align-items: center; justify-content: center; width: 104px; height: 104px; border-radius: 50%; border: 1.5px solid var(--lsbc-ink); padding: 4px; background-clip: content-box; transition: border-color 0.15s; }
+.lsbc-circle__ring img { width: 100%; height: 100%; border-radius: 50%; }
+.lsbc-circle__label { font: 500 11px/1.4 var(--lsbc-sans); letter-spacing: 0.14em; text-transform: uppercase; text-align: center; }
+.lsbc-circle:hover .lsbc-circle__ring, .lsbc-circle:focus .lsbc-circle__ring { border-color: var(--lsbc-navy); border-width: 3px; padding: 2.5px; }
+.lsbc-circle:hover .lsbc-circle__label { text-decoration: underline; text-underline-offset: 4px; }
+
+/* Promo strip between hairlines (Vogue / AD) */
+.lsbc-promo { display: flex; align-items: center; justify-content: center; gap: 28px; border-top: 1px solid var(--lsbc-rule); border-bottom: 1px solid var(--lsbc-rule); padding: 22px 16px; margin: 0 0 56px; }
+.lsbc-promo img { width: 52px; height: 52px; flex: none; }
+.lsbc-promo p { margin: 0; font: 400 1.15rem/1.4 var(--lsbc-sans); color: var(--lsbc-ink); }
+
+/* Story grid: kicker, serif headline, one-line description (Vogue cards, text only) */
+.lsbc-stories { display: grid; grid-template-columns: repeat(3, 1fr); gap: 48px 40px; margin: 0 0 88px; }
+.lsbc-story { border-top: 1px solid var(--lsbc-ink); padding-top: 20px; }
+.lsbc-story h3 { margin: 0 0 10px !important; font: 500 1.6rem/1.2 var(--lsbc-serif) !important; }
+.lsbc-story h3 a, .lsbc-story h3 a:visited { color: var(--lsbc-ink); text-decoration: none; }
+.lsbc-story h3 a:hover, .lsbc-story h3 a:focus { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 5px; }
+.lsbc-story p { margin: 0; font: 400 1rem/1.55 var(--lsbc-sans); color: var(--lsbc-grey); }
+
+/* Need more help: two columns under a rubric */
+.lsbc-help { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin: 0 0 96px; }
+.lsbc-help__item { text-align: center; padding: 8px 24px; }
+.lsbc-help__item + .lsbc-help__item { border-left: 1px solid var(--lsbc-rule); }
+.lsbc-help__item h3 { margin: 0 0 12px !important; font: 500 2rem/1.2 var(--lsbc-serif) !important; }
+.lsbc-help__item h3 a, .lsbc-help__item h3 a:visited { color: var(--lsbc-ink); text-decoration: none; }
+.lsbc-help__item h3 a:hover, .lsbc-help__item h3 a:focus { text-decoration: underline; text-underline-offset: 6px; }
+.lsbc-help__item p { margin: 0; font: 400 1rem/1.6 var(--lsbc-sans); color: var(--lsbc-grey); }
+
+/* ---------- Footer: black, white logo, uppercase link columns (Vogue) ---------- */
+.lsbc-footer { background: #000000; color: #FFFFFF; padding: 72px 0 40px; font-family: var(--lsbc-sans); }
+.lsbc-footer__grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 48px; }
+.lsbc-footer__wordmark { width: 230px; display: block; margin: 0 0 20px; }
+.lsbc-footer__about { margin: 0 0 28px; max-width: 30rem; font: 400 1rem/1.6 var(--lsbc-sans); color: #E6E6E6; }
+.lsbc-footer__seal { width: 72px; height: 72px; display: block; }
+.lsbc-footer__heading { margin: 0 0 24px !important; font: 600 13px/1 var(--lsbc-sans) !important; letter-spacing: 0.2em !important; text-transform: uppercase; color: #FFFFFF !important; }
+.lsbc-footer__links { list-style: none !important; margin: 0 !important; padding: 0 !important; }
+.lsbc-footer__links li::before, .lsbc-footer__links li::marker { content: none !important; display: none !important; }
+.lsbc-footer__links li { margin: 0 0 18px !important; padding: 0 !important; list-style: none !important; }
+.lsbc-footer a, .lsbc-footer a:visited { color: #FFFFFF !important; text-decoration: none; font: 400 12px/1.3 var(--lsbc-sans); letter-spacing: 0.14em; text-transform: uppercase; }
+.lsbc-footer a:hover, .lsbc-footer a:focus { text-decoration: underline; text-underline-offset: 5px; }
+.lsbc-footer__base { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px 32px; border-top: 1px solid #3A3A3A; margin-top: 48px; padding-top: 24px; font: 400 13px/1.5 var(--lsbc-sans); color: #CFCFCF; }
+.lsbc-footer__base p { margin: 0; }
+.lsbc-footer__base a, .lsbc-footer__base a:visited { font-size: 13px; letter-spacing: 0; text-transform: none; text-decoration: underline; }
+
+/* ---------- Inner pages ---------- */
+.lsbc-section { max-width: 1000px; margin: 0 auto; padding: 0 1rem 3rem; }
+.lsbc-section > p { font: 400 1rem/1.6 var(--lsbc-sans); color: var(--lsbc-grey); margin: 0 0 1.5rem; }
+.lsbc-page-title, .lsbc-page-intro { max-width: 1000px; margin-left: auto !important; margin-right: auto !important; padding: 0 1rem; }
+.lsbc-page-title { font: 500 3rem/1.1 var(--lsbc-serif) !important; color: var(--lsbc-ink) !important; margin-top: 3.5rem !important; margin-bottom: 1rem !important; }
+.lsbc-page-intro { font: 400 1.1rem/1.6 var(--lsbc-sans); color: var(--lsbc-grey); margin-bottom: 2.5rem !important; }
+/* Forms and documents list: hairlines, serif names */
+.lsbc-doclist { list-style: none; padding: 0; margin: 0 0 2rem; border-top: 1px solid var(--lsbc-ink); }
+.lsbc-doclist__item { padding: 1.25rem 0; border-bottom: 1px solid var(--lsbc-rule); }
+.lsbc-doclist a, .lsbc-doclist a:visited { font: 500 1.25rem/1.3 var(--lsbc-serif); color: var(--lsbc-ink); text-decoration: none; }
+.lsbc-doclist a:hover, .lsbc-doclist a:focus { text-decoration: underline; text-underline-offset: 4px; }
+.lsbc-doclist__item span { display: block; margin-top: 0.35rem; font: 400 1rem/1.5 var(--lsbc-sans); color: var(--lsbc-grey); }
+.lsbc-doclist__sub { display: block; margin-top: 0.5rem; }
+.lsbc-doclist__sub a, .lsbc-doclist__sub a:visited { font: 500 12px/1.4 var(--lsbc-sans) !important; letter-spacing: 0.12em; text-transform: uppercase; color: var(--lsbc-navy); }
+/* Portal forms (flows) sit in the same column; square black buttons */
+.forceCommunityFlowCommunity { max-width: 1000px; margin: 0 auto 4rem !important; padding: 0 1rem; }
+.forceCommunityFlowCommunity .slds-button, .forceCommunityFlowCommunity button.slds-button { border-radius: 0 !important; font-family: var(--lsbc-sans) !important; letter-spacing: 0.08em; }
+.forceCommunityFlowCommunity .slds-button_brand, .forceCommunityFlowCommunity .slds-button--brand { background: var(--lsbc-ink) !important; border-color: var(--lsbc-ink) !important; color: #FFFFFF !important; }
+.forceCommunityFlowCommunity .slds-button_brand:hover, .forceCommunityFlowCommunity .slds-button--brand:hover { background: var(--lsbc-navy) !important; border-color: var(--lsbc-navy) !important; }
+.forceCommunityFlowCommunity .slds-input, .forceCommunityFlowCommunity .slds-textarea, .forceCommunityFlowCommunity .slds-select, .forceCommunityFlowCommunity .slds-combobox__input { border-radius: 0 !important; }
+.forceCommunityFlowCommunity h1, .forceCommunityFlowCommunity h2 { font-family: var(--lsbc-serif); }
+
+/* ---------- Login pages: black page, white logo, white square card ---------- */
+.lsbc-login-header { text-align: center; padding: 2.5rem 1rem 0; }
+.lsbc-login-header__logo { width: 15rem; max-width: 70%; }
+.lsbc-login-intro { text-align: center; color: #FFFFFF; margin: 1.75rem auto 1.5rem; max-width: 26rem; }
+.lsbc-login-intro__seal { width: 4rem; height: 4rem; display: block; margin: 0 auto 1rem; }
+.lsbc-login-intro h1 { font: 500 2.25rem/1.15 var(--lsbc-serif); color: #FFFFFF; margin: 0 0 0.5rem; }
+.lsbc-login-intro p { font: 400 1rem/1.5 var(--lsbc-sans); color: #E6E6E6; margin: 0; }
+.salesforceIdentityLoginForm2, .salesforceIdentityForgotPassword2 { background: #FFFFFF; border-radius: 0; padding: 2rem 1.75rem 1.5rem; max-width: 26rem; margin: 0 auto; box-shadow: none; }
+.salesforceIdentityLoginForm2 a, .salesforceIdentityLoginForm2 a:visited { color: var(--lsbc-navy) !important; font-weight: 600; }
+.salesforceIdentityLoginForm2 button, .salesforceIdentityForgotPassword2 button { background: var(--lsbc-ink) !important; border-color: var(--lsbc-ink) !important; border-radius: 0 !important; text-transform: uppercase; letter-spacing: 0.14em; font-family: var(--lsbc-sans) !important; }
+.salesforceIdentityLoginForm2 input, .salesforceIdentityForgotPassword2 input { border-radius: 0 !important; }
+.lsbc-login-help { text-align: center; color: #E6E6E6; margin: 1.5rem auto 3rem; }
+.lsbc-login-help a, .lsbc-login-help a:visited { color: #FFFFFF !important; text-decoration: underline; }
+.lsbc-login-help p { margin: 0 0 0.4rem; }
+.lsbc-login-help__address { margin-top: 1.5rem !important; font-size: 0.9rem; color: #BDBDBD; }
+
+/* ---------- Phone ---------- */
+@media (max-width: 768px) {
+  .themeHeaderInner::before { font-size: 10px; letter-spacing: 0.12em; padding: 10px 12px; }
+  /* Phone masthead: menu button left, logo centred, Log in right */
+  .header, .themeHeader, .themeHeaderInner, .themeHeader .themeBgImage { height: auto !important; min-height: 0 !important; }
+  .themeHeaderTopRow { position: static !important; top: auto !important; }
+  .themeHeaderTopRowInner { padding: 12px 16px !important; }
+  .themeNavTriggerContainer { position: absolute !important; left: 16px; top: 50%; transform: translateY(-50%); width: auto !important; }
+  .themeBurgerLine { background: var(--lsbc-ink) !important; }
+  .forceCommunityThemeLogo, .forceCommunityThemeLogo .logoImage { width: 132px !important; height: 47px !important; }
+  .themeHeaderTopRowInner .themeUtils { right: 16px; }
+  .profile-loginButton { padding: 9px 12px !important; letter-spacing: 0.1em; white-space: nowrap; width: auto !important; max-width: none !important; overflow: visible !important; text-overflow: clip !important; }
+  .themeHeaderBottomRow { border-top: 0; }
+  .themeHeaderTopRowInner .themeSearch, .themeHeaderTopRowInner .forceCommunityThemeSearch { display: none !important; }
+  .lsbc-signup { display: none !important; }
+  .lpiInnerHero { padding: 56px 0 56px !important; }
+  .lpiInnerHero::after { width: 260px; height: 260px; right: -110px; }
+  .lpiInnerHero .contentTitle { font-size: 2.6rem !important; margin-bottom: 1.75rem !important; }
+  .lpiInnerHero .contentTitle::before { font-size: 10px; letter-spacing: 0.16em; margin-bottom: 1rem; }
+  .lpiInnerHero .search-box { height: 3.5rem; }
+  .lsbc-wrap { padding: 0 16px; }
+  .lsbc-circles { gap: 24px 12px; padding: 40px 0 36px; }
+  .lsbc-circle { width: 30%; }
+  .lsbc-circle__ring { width: 84px; height: 84px; }
+  .lsbc-promo { flex-direction: column; text-align: center; gap: 16px; margin-bottom: 48px; }
+  .lsbc-stories { grid-template-columns: 1fr; gap: 32px; margin-bottom: 56px; }
+  .lsbc-help { grid-template-columns: 1fr; gap: 32px; margin-bottom: 64px; }
+  .lsbc-help__item + .lsbc-help__item { border-left: 0; border-top: 1px solid var(--lsbc-rule); padding-top: 32px; }
+  .lsbc-footer { padding: 48px 0 32px; }
+  .lsbc-footer__grid { grid-template-columns: 1fr 1fr; gap: 36px 24px; }
+  .lsbc-footer__brand { grid-column: 1 / -1; }
+  .lsbc-page-title { font-size: 2.25rem !important; margin-top: 2rem !important; }
+}

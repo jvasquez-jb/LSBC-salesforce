@@ -1150,6 +1150,7 @@
         <name>StandardValueSet</name>
     </types>
     <types>
+        <members>PortalFonts</members>
         <members>PortalIconApplications</members>
         <members>PortalIconApply</members>
         <members>PortalIconComplaint</members>
