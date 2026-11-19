@@ -124,7 +124,9 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .forceCommunityFlexTileLayout .js-content-eyebrow { margin: 0 0 10px !important; font: 500 11px/1.2 var(--lsbc-sans) !important; letter-spacing: 0.18em; text-transform: uppercase; }
 .forceCommunityFlexTileLayout .js-content-title, .forceCommunityFlexTileLayout .js-content-title:hover { text-decoration: none !important; }
 .forceCommunityFlexTileLayout h3 { margin: 0 0 10px !important; font: 500 1.6rem/1.2 var(--lsbc-serif) !important; color: var(--lsbc-ink); }
-.forceCommunityFlexTileLayout .js-content-title:hover h3 { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 5px; }
+/* News items have no detail page (an Aura site's CMS detail page takes only Document and Image content), so the
+   card title isn't a link: the excerpt is the whole item */
+.js-dynamic-collection .js-content-navlink { pointer-events: none; cursor: default; }
 .forceCommunityFlexTileLayout .js-content-subtitle { margin: 0 !important; font: 400 1rem/1.55 var(--lsbc-sans) !important; }
 .forceCommunityFlexTileLayout .js-content-metadata:empty, .forceCommunityFlexTileLayout .js-content-metadata { display: none; }
 
