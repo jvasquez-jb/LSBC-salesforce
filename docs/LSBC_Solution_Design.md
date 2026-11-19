@@ -436,7 +436,7 @@ Deposit Number. A deposit is not only a finance artifact.
 
 Phase 6 note: LSBC confirmed no deposit number is needed on a payment (10 Nov 2026), so `Payment__c`
 has none and printing is not batched by deposit. The print queue (Phase 6) works from the licence
-instead.
+instead, in batches by approval date (Print Requested Date), which LSBC confirmed on 17 Nov 2026.
 
 ---
 
@@ -1001,11 +1001,22 @@ LSBC moves across, which remains LSBC's content to remediate.
 CLOSE-backed search at lsbc.louisiana.gov stops working when CLOSE retires. The build team has
 loaded CLOSE's current licences into the sandbox (section 7), so a production load would fill the
 search. Two things stand in the way. Whether that load is in scope, and at what volume, is not agreed
-(`OPEN-05`, `OPEN-53`). And migrated licences carry no licence number, so a search by number finds
-no one licensed before go-live, and neither does portal sign-up (`OPEN-40`). Search by name works.
+(`OPEN-05`, `OPEN-53`). Migrated licences now carry their holder's number where CLOSE has one that
+can be used (`OPEN-40`, below); search by name works for everyone.
 
-`PT-14` `[PROPOSED]` **Salon licence numbers begin with 777.** Staff manually switch modes today
-rather than the system recognising the prefix. Derive it.
+`PT-14` `[SETTLED]` **Licence numbers belong to the person** (William, 18 Nov 2026). CLOSE gives each
+person one number, `APPLICANTS.OLD_CERT_NBR_NUM`: the next value of a counter followed by the birth
+month and day (MMDD), shared by every licence they hold. Salesforce keeps it on the person as
+**Certification Number** (`Contact.CertificationNumber__c`, unique). Decide issues it on a person's
+first licence: it creates a **Certification Number Counter** record, whose auto-number is the counter
+(an auto-number can't hand the same value out twice), and adds the birth month and day; a person who
+already has a number keeps it. Because `BusinessLicense.Identifier` is unique in the org, each licence's
+License Number is the certification number, a dash and the licence type's code (`1846410407-C`, the
+CLOSE code, held in the type's standard `RegulatoryAuthCode`). The printed licence shows the plain
+certification number. Sign-up, public search and the shop form's manager check match the number typed,
+or any licence starting with it and a dash. Salons are 77 plus a counter and schools are numbered by
+staff, so business licences still take the number staff type in Decide until William says whether
+salons share the people counter (`OPEN-40`). Permits use the holder's number, as any person licence does.
 
 ### 3.4 Staff-facing
 
@@ -1085,8 +1096,15 @@ The **Licenses Ready to Print** list view shows every licence with Ready to Prin
 and not printed since; a formula, because a list view cannot compare two dates). Staff print, tick
 the licences and click **Mark Printed**: each holder is checked with `SubflowStopCodePrintCheck`, a
 licence whose holder has an active stop code is skipped and stays in the list, and the rest get
-today's Printed Date. The printed licence itself (LSBC's three-part stock) waits for its layout from
-LSBC.
+today's Printed Date. The **Licenses Ready to Print** report groups the queue by Print Requested Date
+(the approval day, oldest first), then licence type, so staff print one day's batch at a time.
+**Print Licenses** on the list view opens the ticked licences as a PDF laid out on LSBC's three-part
+stock (form LBC-19, 8.5 x 11 in: a wall certificate, the renewal stub with the 3.5 x 2 in wallet card,
+and a second wall certificate), one sheet per licence (`LicensePdf`, `LicensePdfController`). It leaves
+out licences not waiting to print and holders with an active stop code, the same check as Mark Printed,
+and marks nothing printed. Positions were measured from LSBC's scan of a blank sheet; they are checked on
+blank stock LSBC is mailing, and the page takes `dx` and `dy` (inches) to nudge a printer's offset. The
+governor's name is the custom label License Governor Name.
 
 ### 3.5 Where components are used
 
@@ -1504,8 +1522,10 @@ per holder and licence type, renewals rolled into Renewal Count). Records match 
 `LegacyKey__c` on Account, `BusinessLicense` and `Accreditation`, never on the SSN, which was not
 loaded. It raised four gaps:
 
-- **Licence number.** CLOSE has none apart from the applicant ID, so `Identifier` is blank. Sign-up
-  (`PT-09`) and public search (`PT-10`) match on it, so migrated licensees can't sign up until it is set.
+- **Licence number.** Settled 19 Nov 2026 (`PT-14`): `build_certification_numbers.py` loads each
+  person's CLOSE number as their Certification Number where it ends in their birth month and day
+  (21,191 people) and sets their licences' License Number to it plus the type code (18,371 licences).
+  The 87,973 nine-digit numbers are left out: they look like social security numbers (`OPEN-40`).
 - **Instructor types.** CLOSE has three; the build has one, which codes 7 and 9 treat as needing both a
   cosmetologist and an esthetician licence. About 600 instructors were held on load.
 - **Booth renters.** Code 6 needs a cosmetologist licence; `DM-03` says any operator licence. Settled
@@ -1526,7 +1546,7 @@ Shield. The 10 Nov load was made before that copy existed. The sandbox carries t
 never deployed. Two of the gaps above are closed in the build: three instructor licence types, Manager,
 Microdermabrasion and Make-up Application, every CLOSE fee code, and renewals and late fees priced per
 licence type in `FeeSchedule` version 3. Version 4 adds initial, duplicate, affidavit and violation fees per licence type or cited party, and the continuing-education seminars load as course offerings and attendances (see `DM-16`).
-Licence numbers (`OPEN-40`) remain open; the booth renter base licence (`OPEN-50`) was settled on 12 Nov 2026.
+Licence numbers are loaded where usable; the nine-digit ones (`OPEN-40`) remain open; the booth renter base licence (`OPEN-50`) was settled on 12 Nov 2026.
 
 **What is loaded (sandbox, 11 Nov 2026).**
 
@@ -1668,14 +1688,14 @@ more than leaving a door open.
 | `OPEN-30` | The records list request | A paid request for lists, fulfilled by IT. A product with a fee that appears nowhere in the design | Kiwan |
 | `OPEN-31` | The staff wish list | Submitted previously and not located. May carry expectations not captured anywhere | The group |
 | `OPEN-33` | The card service charge | Applies to card payments, raising a $525 restoration to roughly $540. All card payments, or only at the counter? | Carnita or the front desk |
-| `OPEN-40` | Licence numbers for migrated licences | CLOSE has no licence number apart from the applicant ID, which is shaped like a social security number, so `Identifier` is blank on every migrated licence. Portal sign-up and search by number find no migrated licensee (`PT-09`, `PT-13`, `PT-14`) | Before the production load |
+| `OPEN-40` | The rest of the licence numbers | Each person's CLOSE number is loaded where it ends in their birth month and day (`PT-14`). 87,973 people, mostly added before 2009, have a nine-digit number shaped like a social security number: whether it is their SSN decides whether it can be loaded or they get a new one. Also open with William: whether salons share the people counter, and what the "L" before the number on a printed licence means | Before the production load |
 | `OPEN-41` | Numbering new licences | Decide approves a licence, and staff type its number until the rule is known: a running number per type, salons starting 777 (`PT-14`) | Staff go-live |
 | `OPEN-43` | Refunding money already applied to a fee | Refund covers only money not applied to a fee. Staff would take money off a fee by hand first, with no record of why (`DM-18b`) | Staff go-live |
 | `OPEN-44` | Notarised forms and the certification step | Will the Board accept the portal's certification (checkbox, typed name, time) in place of notarisation, for example the contractual fees certificate (`BR-03a`, `PT-19`)? | Portal publish |
 | `OPEN-45` | LSBC mailboxes and sending addresses | Email-to-Case needs LSBC's complaint and inquiry mailboxes forwarded by OTS, and acknowledgements and portal emails need a verified LSBC sender, with DKIM and SPF (`CM-01`, `PT-09b`) | Staff go-live |
 | `OPEN-46` | Letter wording and letterhead | The four letters use placeholder wording and a placeholder letterhead (`PT-16`) | Staff go-live |
 | `OPEN-47` | Counting affidavits | Answered 12 Nov 2026: the first affidavit ever is free, $15 per licence after that, and CLOSE comments mark earlier ones. Code 87 is discontinued (`BR-26`, `BR-07`) | Closed |
-| `OPEN-48` | The printed licence layout | The print queue tracks what needs printing, but nothing can print onto the three-part stock until we have a sample (`PT-16`) | Staff go-live |
+| `OPEN-48` | The printed licence layout | Built from LSBC's scan (17 Nov 2026); alignment is confirmed only by printing on blank stock, which LSBC is mailing (`PT-16`) | Staff go-live |
 | `OPEN-53` | Scope: migration and the payment ledger | Migration is listed out of scope, but the build team has loaded CLOSE data (section 7). That load is more than licence records: it includes three years of finance history, 120,554 payments with 173,806 allocations, in the custom ledger. The ledger itself grew from violations to every fee (`DM-18a`). Both need a change order or an agreed reading of the SOW | Project manager, before this document goes to LSBC |
 | `OPEN-54` | Real data in the sandbox | Real CLOSE data has been in LSBC-Partial since 10 Nov with security unbuilt and Shield in January. Confirm who may log in, and that offshore resources have no access to agency data | Project manager, immediate |
 | `OPEN-56` | Unpaid CLOSE balances and printing | Non Payment needs a due date, and the 13,212 migrated balances ($487,682) have none, so they hold nothing at go-live. CLOSE has 63 Non Payment holds open; Salesforce has 2, so licences CLOSE holds for non-payment will print. A policy choice for LSBC and finance, not a data fix: which balances, if any, should hold printing, and from what due date (`DM-18`, `BR-02`) | Staff go-live |
@@ -1728,7 +1748,7 @@ board meeting; and `OPEN-38`, freelance operators without a fixed salon, which n
 legislation.
 
 **Several decide the production load and what the public sees:** `OPEN-40` licence numbers (the
-largest: without them no migrated licensee can sign up), `OPEN-56` unpaid CLOSE balances that hold nothing, and `OPEN-06` website scope.
+largest: about 88,000 people with a nine-digit number can't sign up until it is settled), `OPEN-56` unpaid CLOSE balances that hold nothing, and `OPEN-06` website scope.
 
 **Several are needed for staff go-live on January 27:** `OPEN-41`, `OPEN-43`, and `OPEN-45` to `OPEN-48`.
 
@@ -1912,3 +1932,4 @@ the source.
 | 19 Nov 2026 | Business Rules Engine licensing confirmed by Salesforce: rule runtime for staff comes with the core Public Sector licence, checked on the running user even in system context, including the Default Workflow User for scheduled flows. 5 Designer seats are included. Sandboxes don't enforce the licence, so this can't be tested before production. |
 | 19 Nov 2026 | Date of birth moved to the new custom field `Contact.DateOfBirth__c` (`OPEN-51`, `SEC-04`): Shield can't encrypt the standard `Birthdate`. Sign Up, Applicant Details, both Decide flows, Threading Permit, the Person Account layouts and the CLOSE load use it; the 35,589 migrated dates were copied and the standard field emptied. |
 | 19 Nov 2026 | Rule changes are new expression set versions (`OPEN-52`): a version deploys on its own as `ExpressionSetDefinitionVersion` with the next rank while the old one stays active, tested on `EligibilityInstructorCE` (V2 deployed as Draft, then Active beside V1, then removed). Editing an active version in place is retired. |
+| 19 Nov 2026 | Licence numbers (`PT-14`, `OPEN-40`, `PT-16`, `DM-19`): a person's Certification Number (`Contact.CertificationNumber__c`) is issued by Decide from the new Certification Number Counter plus the birth month and day, as CLOSE does; each licence's License Number is that number, a dash and the type code (`RegulatoryAuthCode`), because `Identifier` is unique. Sign-up, public search and the manager check match a number with or without the code. 21,191 people and 18,371 licences loaded from CLOSE. Licenses Ready to Print groups by approval date; Print Licenses prints onto the three-part stock (LBC-19). The Print Name on License flag is not used (William) and isn't migrated. |

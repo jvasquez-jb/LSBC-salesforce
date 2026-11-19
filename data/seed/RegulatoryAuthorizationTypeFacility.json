@@ -9,7 +9,8 @@
       "RegulatoryAuthCategory": "License",
       "ExpirationBasis__c": "January 31",
       "TermLength__c": 12,
-      "DurationType": "Month"
+      "DurationType": "Month",
+      "RegulatoryAuthCode": "TF"
     },
     {
       "attributes": {
@@ -20,7 +21,8 @@
       "RegulatoryAuthCategory": "License",
       "ExpirationBasis__c": "January 31",
       "TermLength__c": 12,
-      "DurationType": "Month"
+      "DurationType": "Month",
+      "RegulatoryAuthCode": "AF"
     }
   ]
 }

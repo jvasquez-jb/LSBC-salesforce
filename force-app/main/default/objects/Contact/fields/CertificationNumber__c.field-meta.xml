@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CertificationNumber__c</fullName>
+    <caseSensitive>false</caseSensitive>
+    <description>The person's license number, printed as Certification No. on every license they hold. It is the next value of the Certification Number Counter followed by the person's birth month and day (MMDD), as in the previous system. Set by Decide when the person's first license is approved, or loaded from the previous system. Every license the person holds carries the same number in its License Number.</description>
+    <externalId>true</externalId>
+    <inlineHelpText>The person's license number, shared by all their licenses. Set when their first license is approved.</inlineHelpText>
+    <label>Certification Number</label>
+    <length>12</length>
+    <required>false</required>
+    <type>Text</type>
+    <unique>true</unique>
+</CustomField>

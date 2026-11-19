@@ -1,0 +1,72 @@
+<apex:page standardController="BusinessLicense" recordSetVar="licenses" extensions="LicensePdfController" renderAs="pdf"
+    applyHtmlTag="false" applyBodyTag="false" showHeader="false" sidebar="false" standardStylesheets="false">
+<!--
+    Prints onto the Board's three-part license stock (form LBC-19, 8.5 x 11 in), one sheet per license.
+    Every position below is in inches from the top-left corner of the sheet, measured from a scan of the
+    blank stock. The bottom certificate repeats the top one 7.36 in lower (its Type and Date lines sit 0.06 in higher).
+    To nudge everything for a printer, add dx and dy (inches) to the page address, e.g. &dx=0.05&dy=-0.1.
+-->
+<html>
+<head>
+    <style type="text/css">
+        @page { size: 8.5in 11in; margin: 0; }
+        body { margin: 0; font-family: sans-serif; font-size: 10pt; color: #000000; }
+        .sheet { position: relative; width: 8.5in; height: 11in; page-break-after: always; }
+        .last { page-break-after: auto; }
+        .f { position: absolute; white-space: nowrap; }
+        .num { font-size: 11pt; font-weight: bold; }
+        .exp { width: 1.6in; text-align: center; font-weight: bold; }
+        .gov { width: 1.3in; text-align: center; font-style: italic; }
+        .wallet { font-size: 8pt; }
+        .empty { padding: 1in; font-size: 12pt; }
+    </style>
+</head>
+<body>
+<apex:outputPanel rendered="{!sheets.size == 0}" layout="block" styleClass="empty">
+    No licenses to print. A license prints only while it is waiting to print (Ready to Print) and its holder has no active stop code.
+    <apex:outputText value=" {!skippedCount} selected license(s) were left out." rendered="{!skippedCount > 0}"/>
+</apex:outputPanel>
+<apex:variable var="i" value="{!0}"/>
+<apex:repeat value="{!sheets}" var="s">
+<apex:variable var="i" value="{!i + 1}"/>
+<div class="sheet {!IF(i == sheets.size, 'last', '')}" style="left: {!offsetX}in; top: {!offsetY}in;">
+    <!-- Top wall certificate -->
+    <div class="f num" style="left: 0.30in; top: 0.45in;">{!s.certificationNumber}</div>
+    <div class="f exp" style="left: 6.55in; top: 0.72in;">{!s.expirationDate}</div>
+    <div class="f gov" style="left: 1.25in; top: 1.02in;">{!governor}</div>
+    <div class="f" style="left: 3.68in; top: 1.10in;">{!s.typeLine}</div>
+    <div class="f" style="left: 3.68in; top: 1.40in;">{!s.issueDate}</div>
+    <div class="f" style="left: 1.65in; top: 2.18in;">
+        <div><b>{!s.holderName}</b></div>
+        <apex:repeat value="{!s.addressLines}" var="line"><div>{!line}</div></apex:repeat>
+    </div>
+
+    <!-- Renewal stub -->
+    <div class="f num" style="left: 0.30in; top: 4.05in;">{!s.certificationNumber}</div>
+    <div class="f" style="left: 1.65in; top: 5.85in;">
+        <div><b>{!s.holderName}</b></div>
+        <apex:repeat value="{!s.addressLines}" var="line"><div>{!line}</div></apex:repeat>
+    </div>
+    <div class="f" style="left: 2.35in; top: 6.97in;">{!s.expirationDate}</div>
+
+    <!-- Wallet card -->
+    <div class="f wallet" style="left: 6.40in; top: 5.96in;"><b>{!s.holderName}</b></div>
+    <div class="f wallet" style="left: 6.40in; top: 6.26in;">{!s.walletType}</div>
+    <div class="f wallet" style="left: 6.40in; top: 6.56in;">{!s.certificationNumber}</div>
+    <div class="f wallet" style="left: 6.40in; top: 6.85in;">{!s.walletExpiration}</div>
+
+    <!-- Bottom wall certificate: the top one 7.36 in lower; Type and Date 0.06 in higher to sit on their lines -->
+    <div class="f num" style="left: 0.30in; top: 7.81in;">{!s.certificationNumber}</div>
+    <div class="f exp" style="left: 6.55in; top: 8.08in;">{!s.expirationDate}</div>
+    <div class="f gov" style="left: 1.25in; top: 8.38in;">{!governor}</div>
+    <div class="f" style="left: 3.68in; top: 8.40in;">{!s.typeLine}</div>
+    <div class="f" style="left: 3.68in; top: 8.70in;">{!s.issueDate}</div>
+    <div class="f" style="left: 1.65in; top: 9.54in;">
+        <div><b>{!s.holderName}</b></div>
+        <apex:repeat value="{!s.addressLines}" var="line"><div>{!line}</div></apex:repeat>
+    </div>
+</div>
+</apex:repeat>
+</body>
+</html>
+</apex:page>

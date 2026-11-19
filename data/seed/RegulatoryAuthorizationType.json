@@ -15,7 +15,8 @@
       "CompletionThresholdHours__c": 1500,
       "RequiresNationalExam__c": true,
       "RequiresPracticalExam__c": true,
-      "RequiresStateExam__c": true
+      "RequiresStateExam__c": true,
+      "RegulatoryAuthCode": "C"
     },
     {
       "attributes": {
@@ -30,7 +31,8 @@
       "Program__c": "@CourseManicurist",
       "RequiresNationalExam__c": true,
       "RequiresPracticalExam__c": true,
-      "RequiresStateExam__c": true
+      "RequiresStateExam__c": true,
+      "RegulatoryAuthCode": "M"
     },
     {
       "attributes": {
@@ -45,7 +47,8 @@
       "Program__c": "@CourseEsthetician",
       "RequiresNationalExam__c": true,
       "RequiresPracticalExam__c": true,
-      "RequiresStateExam__c": true
+      "RequiresStateExam__c": true,
+      "RegulatoryAuthCode": "E"
     },
     {
       "attributes": {
@@ -57,7 +60,8 @@
       "ExpirationBasis__c": "Holders Birthday",
       "TermLength__c": 12,
       "DurationType": "Month",
-      "Program__c": "@CourseShampooAssistant"
+      "Program__c": "@CourseShampooAssistant",
+      "RegulatoryAuthCode": "SA"
     },
     {
       "attributes": {
@@ -76,7 +80,8 @@
       "RequiresStateExam__c": true,
       "RequiresCE__c": true,
       "CEHoursRequired__c": 16,
-      "CECycleYears__c": 2
+      "CECycleYears__c": 2,
+      "RegulatoryAuthCode": "CI"
     },
     {
       "attributes": {
@@ -95,7 +100,8 @@
       "RequiresStateExam__c": true,
       "RequiresCE__c": true,
       "CEHoursRequired__c": 16,
-      "CECycleYears__c": 2
+      "CECycleYears__c": 2,
+      "RegulatoryAuthCode": "EI"
     },
     {
       "attributes": {
@@ -114,7 +120,8 @@
       "RequiresStateExam__c": true,
       "RequiresCE__c": true,
       "CEHoursRequired__c": 16,
-      "CECycleYears__c": 2
+      "CECycleYears__c": 2,
+      "RegulatoryAuthCode": "MI"
     },
     {
       "attributes": {
@@ -130,7 +137,8 @@
       "CompletionThresholdHours__c": 500,
       "RequiresNationalExam__c": true,
       "RequiresPracticalExam__c": true,
-      "RequiresStateExam__c": true
+      "RequiresStateExam__c": true,
+      "RegulatoryAuthCode": "AH"
     },
     {
       "attributes": {
@@ -141,7 +149,8 @@
       "RegulatoryAuthCategory": "Permit",
       "ExpirationBasis__c": "Holders Birthday",
       "TermLength__c": 12,
-      "DurationType": "Month"
+      "DurationType": "Month",
+      "RegulatoryAuthCode": "T"
     },
     {
       "attributes": {
@@ -153,7 +162,8 @@
       "ExpirationBasis__c": "Holders Birthday",
       "TermLength__c": 12,
       "DurationType": "Month",
-      "LateFeeGraceDays__c": 30
+      "LateFeeGraceDays__c": 30,
+      "RegulatoryAuthCode": "MP"
     },
     {
       "attributes": {
@@ -164,7 +174,8 @@
       "RegulatoryAuthCategory": "Permit",
       "ExpirationBasis__c": "January 31",
       "TermLength__c": 12,
-      "DurationType": "Month"
+      "DurationType": "Month",
+      "RegulatoryAuthCode": "B"
     },
     {
       "attributes": {
@@ -175,7 +186,8 @@
       "RegulatoryAuthCategory": "Permit",
       "ExpirationBasis__c": "From Issue Date",
       "TermLength__c": 33,
-      "DurationType": "Day"
+      "DurationType": "Day",
+      "RegulatoryAuthCode": "TP"
     },
     {
       "attributes": {
@@ -186,7 +198,8 @@
       "RegulatoryAuthCategory": "License",
       "ExpirationBasis__c": "January 31",
       "TermLength__c": 12,
-      "DurationType": "Month"
+      "DurationType": "Month",
+      "RegulatoryAuthCode": "SH"
     },
     {
       "attributes": {
@@ -197,7 +210,8 @@
       "RegulatoryAuthCategory": "License",
       "ExpirationBasis__c": "January 31",
       "TermLength__c": 12,
-      "DurationType": "Month"
+      "DurationType": "Month",
+      "RegulatoryAuthCode": "SC"
     },
     {
       "attributes": {
@@ -208,7 +222,8 @@
       "RegulatoryAuthCategory": "License",
       "ExpirationBasis__c": "January 31",
       "TermLength__c": 12,
-      "DurationType": "Month"
+      "DurationType": "Month",
+      "RegulatoryAuthCode": "MA"
     },
     {
       "attributes": {
@@ -220,7 +235,8 @@
       "ExpirationBasis__c": "Holders Birthday",
       "TermLength__c": 12,
       "DurationType": "Month",
-      "Program__c": "@CourseMicrodermabrasion"
+      "Program__c": "@CourseMicrodermabrasion",
+      "RegulatoryAuthCode": "MB"
     },
     {
       "attributes": {
@@ -231,7 +247,8 @@
       "RegulatoryAuthCategory": "Permit",
       "ExpirationBasis__c": "Holders Birthday",
       "TermLength__c": 12,
-      "DurationType": "Month"
+      "DurationType": "Month",
+      "RegulatoryAuthCode": "MU"
     }
   ]
 }

@@ -86,6 +86,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Contact.CertificationNumber__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Contact.LegacyCertificationNumber__c</field>
         <readable>true</readable>
     </fieldPermissions>

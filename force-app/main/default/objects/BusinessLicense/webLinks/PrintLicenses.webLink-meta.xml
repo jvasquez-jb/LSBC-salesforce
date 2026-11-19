@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PrintLicenses</fullName>
+    <availability>online</availability>
+    <description>On the Licenses Ready to Print list view: opens the ticked licenses as a PDF laid out on the three-part license stock, one sheet per license, for printing. Licenses not waiting to print and holders with an active stop code are left out. It does not mark anything printed: run Mark Printed after the sheets print correctly.</description>
+    <displayType>massActionButton</displayType>
+    <linkType>page</linkType>
+    <masterLabel>Print Licenses</masterLabel>
+    <openType>replace</openType>
+    <page>LicensePdf</page>
+    <protected>false</protected>
+    <requireRowSelection>true</requireRowSelection>
+</WebLink>

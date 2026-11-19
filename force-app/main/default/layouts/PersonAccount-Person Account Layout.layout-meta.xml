@@ -49,6 +49,10 @@
                 <field>LegacyCertificationNumber__pc</field>
             </layoutItems>
             <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>CertificationNumber__pc</field>
+            </layoutItems>
+            <layoutItems>
                 <behavior>Edit</behavior>
                 <field>SocialSecurityCardReceived__pc</field>
             </layoutItems>

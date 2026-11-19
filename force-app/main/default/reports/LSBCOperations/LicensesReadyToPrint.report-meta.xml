@@ -15,10 +15,7 @@
     <columns>
         <field>BusinessLicense$PeriodEnd</field>
     </columns>
-    <columns>
-        <field>BusinessLicense$PrintRequestedDate__c</field>
-    </columns>
-    <description>Licenses approved, renewed or replaced and not printed since, by license type.</description>
+    <description>Licenses approved, renewed or replaced and not printed since, in batches by the day they were approved (Print Requested Date), then by license type. Staff print one day's batch at a time, oldest first.</description>
     <filter>
         <criteriaItems>
             <column>BusinessLicense$IsReadyToPrint__c</column>
@@ -29,6 +26,11 @@
         </criteriaItems>
     </filter>
     <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>BusinessLicense$PrintRequestedDate__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
     <groupingsDown>
         <dateGranularity>Day</dateGranularity>
         <field>BusinessLicense$RegulatoryAuthorizationType.Name</field>

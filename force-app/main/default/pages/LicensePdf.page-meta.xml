@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ApexPage xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>66.0</apiVersion>
+    <availableInTouch>false</availableInTouch>
+    <confirmationTokenRequired>false</confirmationTokenRequired>
+    <description>Prints the ticked licenses onto the Board's three-part license stock (LBC-19), one sheet per license. Opened by Print Licenses on the Licenses Ready to Print list view; skips licenses not waiting to print and holders with an active stop code.</description>
+    <label>License PDF</label>
+</ApexPage>

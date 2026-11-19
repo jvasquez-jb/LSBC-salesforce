@@ -139,7 +139,9 @@ Raised by later phases while Phase 2 is paused. Pick these up when it resumes.
     Operations. The dashboard runs as the viewer, so it follows record access.
 19. The Home page shows only a View Dashboard link: Lightning pages can't embed a dashboard that runs as
     the viewer. Decide: run it as a fixed user, or put report charts on Home.
-20. Portal users have no access to `PreliminaryApplicationRef` (drafts). Files can't be attached to a draft
+20. Staff who run Decide need create and read on `CertificationNumberCounter__c` (it issues certification
+    numbers), and staff who print need the `LicensePdf` page and `LicensePdfController` class.
+21. Portal users have no access to `PreliminaryApplicationRef` (drafts). Files can't be attached to a draft
     from the portal; documents go on checklist items, accommodation documents via the person account.
 
 ## Org notes
@@ -314,3 +316,13 @@ Raised by later phases while Phase 2 is paused. Pick these up when it resumes.
   Registrant Six, paid), and letter PDFs in Files on
   `IA-0000000003`, `StopCodeTest School` and `BLA`/Account test records. Delete them with the other
   StopCodeTest data.
+- Licence numbers (William, 18 Nov 2026): a person's number is CLOSE's `APPLICANTS.OLD_CERT_NBR_NUM`, a
+  counter plus the birth month and day (MMDD), shared by all their licences. It lives on the person as
+  `Contact.CertificationNumber__c`; Decide issues it from `CertificationNumberCounter__c` (auto-number = the
+  counter; set its next value at cutover from CLOSE's last). `BusinessLicense.Identifier` is unique, so a person's
+  licence's License Number is `<number>-<RegulatoryAuthCode>` (`1846410407-C`); lookups by number match it or
+  `<number>-*`. Business licences still take a typed number in Decide (salons 77 + counter, schools staff-set) until
+  William answers whether salons share the counter. The 9-digit CLOSE numbers (SSN-shaped) aren't loaded.
+  `LegacyCertificationNumber__c` is kept, unused. Test person: `UAT Number Applicant` (1846410407, IA-0000000205/206).
+- Licence printing: Print Licenses (list view Licenses Ready to Print) opens `LicensePdf` on the LBC-19 three-part
+  stock; positions in inches in the page, nudged with `dx`/`dy`. Governor: custom label `LicenseGovernorName`.

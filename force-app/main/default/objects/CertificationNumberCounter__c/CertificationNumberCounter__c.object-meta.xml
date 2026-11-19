@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Hands out the counter part of new certification numbers. Decide creates one record each time a person gets their first license; the record's auto-number is the next counter value, and the person's Certification Number is that value followed by their birth month and day. Each record also shows who the number went to. Never delete or edit these records: the auto-number is what keeps two people from getting the same number. Before go-live, set the auto-number's next value to one above the last value the previous system issued.</description>
+    <enableActivities>false</enableActivities>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>false</enableSearch>
+    <label>Certification Number Counter</label>
+    <nameField>
+        <displayFormat>{000000}</displayFormat>
+        <label>Counter Value</label>
+        <startingNumber>184641</startingNumber>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Certification Number Counters</pluralLabel>
+    <sharingModel>ReadWrite</sharingModel>
+    <externalSharingModel>Private</externalSharingModel>
+    <visibility>Public</visibility>
+</CustomObject>

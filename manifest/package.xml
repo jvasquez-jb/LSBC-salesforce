@@ -6,12 +6,15 @@
         <members>LetterPdfController</members>
         <members>LetterPdfControllerTest</members>
         <members>LetterPdfSaveAction</members>
+        <members>LicensePdfController</members>
+        <members>LicensePdfControllerTest</members>
         <members>PortalUserRegistration</members>
         <members>PortalUserRegistrationTest</members>
         <name>ApexClass</name>
     </types>
     <types>
         <members>LetterPdf</members>
+        <members>LicensePdf</members>
         <name>ApexPage</name>
     </types>
     <types>
@@ -95,6 +98,8 @@
         <members>BusinessLicenseApplication.ReturnReason__c</members>
         <members>Case.ComplaintType__c</members>
         <members>Case.IncidentDate__c</members>
+        <members>CertificationNumberCounter__c.Contact__c</members>
+        <members>Contact.CertificationNumber__c</members>
         <members>Contact.DateOfBirth__c</members>
         <members>Contact.HasCloseAffidavit__c</members>
         <members>Contact.HomeParish__c</members>
@@ -200,6 +205,7 @@
         <name>CustomField</name>
     </types>
     <types>
+        <members>LicenseGovernorName</members>
         <members>PayStarPaymentUrl</members>
         <name>CustomLabel</name>
     </types>
@@ -274,6 +280,7 @@
         <members>ApplicationDocumentRequirement__mdt</members>
         <members>BusinessLicense</members>
         <members>BusinessLicenseApplication</members>
+        <members>CertificationNumberCounter__c</members>
         <members>CourseOffering</members>
         <members>DocumentChecklistItem</members>
         <members>IndividualApplication</members>
@@ -500,6 +507,7 @@
         <members>BusinessLicense-Business License Layout</members>
         <members>BusinessLicenseApplication-Business License Application Layout</members>
         <members>Case-Custom Case Layout</members>
+        <members>CertificationNumberCounter__c-Certification Number Counter Layout</members>
         <members>CourseOffering-Course Offering Layout</members>
         <members>DocumentChecklistItem-Document Checklist Item Layout</members>
         <members>Examination-Examination Layout</members>
@@ -745,6 +753,7 @@
     </types>
     <types>
         <members>BusinessLicense.MarkPrinted</members>
+        <members>BusinessLicense.PrintLicenses</members>
         <name>WebLink</name>
     </types>
     <version>68.0</version>
