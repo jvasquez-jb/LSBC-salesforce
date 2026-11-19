@@ -6,6 +6,6 @@
     <label>Initially Licensed Name</label>
     <length>120</length>
     <required>false</required>
-    <trackHistory>false</trackHistory>
+    <trackHistory>true</trackHistory>
     <type>Text</type>
 </CustomField>

@@ -9,10 +9,12 @@ DESCRIBE = sys.argv[2]
 def caps(obj):
     d = json.load(open(os.path.join(DESCRIBE, obj + '.json')))['result']
     rels = {c['relationshipName'] for c in d['childRelationships'] if c['relationshipName']}
-    return {'act': 'ActivityHistories' in rels and obj not in NO_NOTES, 'hist': 'Histories' in rels and obj != 'DocumentChecklistItem',
+    return {'act': 'ActivityHistories' in rels and obj not in NO_NOTES, 'hist': 'Histories' in rels and obj not in NO_HISTORY_LIST,
             'feed': d.get('feedEnabled', False), 'rels': rels}
 
 NO_NOTES = {'DocumentChecklistItem', 'RecordAlert'}
+# Field history is tracked on checklist items, but Salesforce offers no history related list for them (use a report).
+NO_HISTORY_LIST = {'DocumentChecklistItem'}
 FRONT_TABS = {'Relationships', 'Exams and Accommodations'}
 PERSON = ('{!Record.IsPersonAccount}', 'true')
 BUSINESS = ('{!Record.IsPersonAccount}', 'false')
@@ -195,7 +197,9 @@ def build(obj):
         left.append(p.tabset('duplicatesTabs', BUSINESS))
     p.region('detailTabContent', [p.comp('force:detailPanel')])
     main = [p.tab('Standard.Tab.detail', 'detailTabContent', 'true')]
-    hist = 'ActivityHistories' if c['act'] else ('Histories' if c['hist'] else None)
+    # History is the record's field history (who changed which field, from what to what). Calls, tasks and
+    # emails stay in the Activities panel on the right.
+    hist = 'Histories' if c['hist'] else None
     if hist:
         p.region('historyTabContent', [p.related(hist)])
         main.append(p.tab('History', 'historyTabContent', 'false'))

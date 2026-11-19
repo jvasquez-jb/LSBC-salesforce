@@ -5,6 +5,6 @@
     <inlineHelpText>Set automatically when a duplicate of this license is approved.</inlineHelpText>
     <label>Last Duplicate Date</label>
     <required>false</required>
-    <trackHistory>false</trackHistory>
+    <trackHistory>true</trackHistory>
     <type>Date</type>
 </CustomField>

@@ -7,4 +7,5 @@
     <description>The city of the school the person attended. Schools outside Louisiana are not accounts, so the location is kept here.</description>
     <inlineHelpText>City where the school is.</inlineHelpText>
     <label>School City</label>
+    <trackHistory>true</trackHistory>
 </CustomField>

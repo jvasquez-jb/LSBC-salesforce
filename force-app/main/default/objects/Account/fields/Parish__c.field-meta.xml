@@ -11,4 +11,5 @@
         <restricted>true</restricted>
         <valueSetName>Parish</valueSetName>
     </valueSet>
+    <trackHistory>true</trackHistory>
 </CustomField>

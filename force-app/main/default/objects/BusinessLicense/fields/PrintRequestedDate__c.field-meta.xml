@@ -6,4 +6,5 @@
     <label>Print Requested Date</label>
     <required>false</required>
     <type>Date</type>
+    <trackHistory>true</trackHistory>
 </CustomField>

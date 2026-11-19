@@ -6,4 +6,5 @@
     <inlineHelpText>Ticked when the applicant confirms the certification statement.</inlineHelpText>
     <label>Applicant Certified</label>
     <type>Checkbox</type>
+    <trackHistory>true</trackHistory>
 </CustomField>

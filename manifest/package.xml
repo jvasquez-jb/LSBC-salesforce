@@ -61,13 +61,33 @@
         <name>CustomApplication</name>
     </types>
     <types>
+        <members>Account.BillingAddress</members>
         <members>Account.LegacyKey__c</members>
         <members>Account.MaximumStudentCapacity__c</members>
+        <members>Account.Name</members>
+        <members>Account.OwnerId</members>
         <members>Account.Parish__c</members>
+        <members>Account.PersonEmail</members>
+        <members>Account.PersonHomePhone</members>
+        <members>Account.PersonMailingAddress</members>
+        <members>Account.PersonMobilePhone</members>
+        <members>Account.Phone</members>
+        <members>Account.ShippingAddress</members>
         <members>Account.StopCodeSyncPending__c</members>
         <members>Account.TaxIdentificationNumber__c</members>
+        <members>Accreditation.AccountId</members>
+        <members>Accreditation.AccreditationRating</members>
+        <members>Accreditation.AccreditingBody</members>
         <members>Accreditation.BondAmount__c</members>
+        <members>Accreditation.EffectiveFrom</members>
+        <members>Accreditation.EffectiveTo</members>
+        <members>Accreditation.LastFullSurveyDate</members>
+        <members>Accreditation.LastOnsiteSurveyDate</members>
         <members>Accreditation.LegacyKey__c</members>
+        <members>Accreditation.Name</members>
+        <members>Accreditation.Status</members>
+        <members>Accreditation.SubType</members>
+        <members>Accreditation.Type</members>
         <members>Accreditation.Underwriter__c</members>
         <members>ApplicationDocumentRequirement__mdt.ApplicationPath__c</members>
         <members>ApplicationDocumentRequirement__mdt.ApplicationType__c</members>
@@ -78,26 +98,56 @@
         <members>ApplicationDocumentRequirement__mdt.LicenseType__c</members>
         <members>ApplicationDocumentRequirement__mdt.RecordType__c</members>
         <members>ApplicationDocumentRequirement__mdt.SortOrder__c</members>
+        <members>BusinessLicense.AccountId</members>
         <members>BusinessLicense.ConsecutiveCEUCycles__c</members>
+        <members>BusinessLicense.ContactId</members>
+        <members>BusinessLicense.Identifier</members>
         <members>BusinessLicense.InstructorStatus__c</members>
+        <members>BusinessLicense.IsActive</members>
         <members>BusinessLicense.IsMasterInstructor__c</members>
         <members>BusinessLicense.IsReadyToPrint__c</members>
         <members>BusinessLicense.LastCEUDate__c</members>
         <members>BusinessLicense.LastDuplicateDate__c</members>
         <members>BusinessLicense.LegacyKey__c</members>
+        <members>BusinessLicense.Name</members>
+        <members>BusinessLicense.PeriodEnd</members>
+        <members>BusinessLicense.PeriodStart</members>
         <members>BusinessLicense.PrintRequestedDate__c</members>
         <members>BusinessLicense.PrintedDate__c</members>
+        <members>BusinessLicense.RegulatoryAuthorizationTypeId</members>
         <members>BusinessLicense.RenewalCount__c</members>
+        <members>BusinessLicense.Status</members>
+        <members>BusinessLicense.VerificationStatus</members>
+        <members>BusinessLicenseApplication.AccountId</members>
+        <members>BusinessLicenseApplication.AmountPaid</members>
+        <members>BusinessLicenseApplication.ApplicationType</members>
+        <members>BusinessLicenseApplication.AppliedDate</members>
+        <members>BusinessLicenseApplication.ApprovedDate</members>
+        <members>BusinessLicenseApplication.Category</members>
         <members>BusinessLicenseApplication.CertifiedDateTime__c</members>
         <members>BusinessLicenseApplication.CertifiedName__c</members>
         <members>BusinessLicenseApplication.DecisionReason__c</members>
         <members>BusinessLicenseApplication.DirectionsToLocation__c</members>
         <members>BusinessLicenseApplication.IsCertified__c</members>
         <members>BusinessLicenseApplication.IsPremisesLeased__c</members>
+        <members>BusinessLicenseApplication.LicenseTypeId</members>
+        <members>BusinessLicenseApplication.PaymentDate</members>
+        <members>BusinessLicenseApplication.PrimaryOwnerId</members>
         <members>BusinessLicenseApplication.RequestedOpeningDate__c</members>
         <members>BusinessLicenseApplication.ReturnReason__c</members>
+        <members>BusinessLicenseApplication.Status</members>
+        <members>BusinessLicenseApplication.WasReturned</members>
+        <members>Case.AccountId</members>
         <members>Case.ComplaintType__c</members>
+        <members>Case.ContactId</members>
         <members>Case.IncidentDate__c</members>
+        <members>Case.Origin</members>
+        <members>Case.OwnerId</members>
+        <members>Case.Priority</members>
+        <members>Case.Reason</members>
+        <members>Case.Status</members>
+        <members>Case.Subject</members>
+        <members>Case.Type</members>
         <members>CertificationNumberCounter__c.Contact__c</members>
         <members>Contact.CertificationNumber__c</members>
         <members>Contact.DateOfBirth__c</members>
@@ -108,15 +158,39 @@
         <members>Contact.SocialSecurityCardReceived__c</members>
         <members>Contact.SocialSecurityNumber__c</members>
         <members>CourseOffering.ApprovedHours__c</members>
+        <members>CourseOffering.CourseNameId</members>
+        <members>CourseOffering.Description</members>
+        <members>CourseOffering.EndDate</members>
+        <members>CourseOffering.LocationId</members>
+        <members>CourseOffering.Name</members>
         <members>CourseOffering.School__c</members>
+        <members>CourseOffering.StartDate</members>
+        <members>DocumentChecklistItem.Comments</members>
+        <members>DocumentChecklistItem.DocumentTypeId</members>
         <members>DocumentChecklistItem.DocumentTypeName__c</members>
+        <members>DocumentChecklistItem.IsAccepted</members>
         <members>DocumentChecklistItem.IsSentToBoard__c</members>
+        <members>DocumentChecklistItem.Name</members>
+        <members>DocumentChecklistItem.ParentRecordId</members>
+        <members>DocumentChecklistItem.ReceivedDocumentId</members>
+        <members>DocumentChecklistItem.Status</members>
+        <members>DocumentChecklistItem.ValidatedById</members>
+        <members>DocumentChecklistItem.ValidationDateTime</members>
+        <members>Examination.Description</members>
         <members>Examination.ExamType__c</members>
         <members>Examination.LicenseType__c</members>
+        <members>Examination.Name</members>
+        <members>Examination.Status</members>
+        <members>IndividualApplication.AccountId</members>
         <members>IndividualApplication.AffidavitMailingAddress__c</members>
         <members>IndividualApplication.AffidavitRecipientState__c</members>
+        <members>IndividualApplication.AmountPaid</members>
         <members>IndividualApplication.ApplicationPath__c</members>
+        <members>IndividualApplication.ApplicationType</members>
+        <members>IndividualApplication.AppliedDate</members>
         <members>IndividualApplication.ApprenticeshipSetting__c</members>
+        <members>IndividualApplication.ApprovedDate</members>
+        <members>IndividualApplication.Category</members>
         <members>IndividualApplication.CertifiedDateTime__c</members>
         <members>IndividualApplication.CertifiedName__c</members>
         <members>IndividualApplication.CompletedDate__c</members>
@@ -134,17 +208,21 @@
         <members>IndividualApplication.IsLouisianaResident__c</members>
         <members>IndividualApplication.LicenseByApprenticeship__c</members>
         <members>IndividualApplication.LicenseObtainedByFraud__c</members>
+        <members>IndividualApplication.LicenseTypeId</members>
         <members>IndividualApplication.MondayHours__c</members>
         <members>IndividualApplication.NoShowFeeAcknowledged__c</members>
         <members>IndividualApplication.OriginatingState__c</members>
+        <members>IndividualApplication.PaymentDate</members>
         <members>IndividualApplication.PriorLicenseAction__c</members>
         <members>IndividualApplication.ReturnReason__c</members>
         <members>IndividualApplication.SaturdayHours__c</members>
+        <members>IndividualApplication.Status</members>
         <members>IndividualApplication.SundayHours__c</members>
         <members>IndividualApplication.ThursdayHours__c</members>
         <members>IndividualApplication.TookHandsOnPractical__c</members>
         <members>IndividualApplication.TotalCompletedHours__c</members>
         <members>IndividualApplication.TuesdayHours__c</members>
+        <members>IndividualApplication.WasReturned</members>
         <members>IndividualApplication.WednesdayHours__c</members>
         <members>LetterTemplate__mdt.AppliesTo__c</members>
         <members>LetterTemplate__mdt.Body__c</members>
@@ -174,12 +252,73 @@
         <members>Payment__c.UnappliedAmount__c</members>
         <members>PersonDisability.AccommodationDetails__c</members>
         <members>PersonDisability.Accommodations__c</members>
+        <members>PersonDisability.EndDate</members>
+        <members>PersonDisability.IsAccommodationRequired</members>
+        <members>PersonDisability.Name</members>
+        <members>PersonDisability.StartDate</members>
+        <members>PersonDisability.Status</members>
+        <members>PersonDisability.Type</members>
+        <members>PersonDisability.VerificationDate</members>
+        <members>PersonDisability.VerificationStatus</members>
+        <members>PersonDisability.VerifiedBy</members>
+        <members>PersonEducation.AccountId</members>
+        <members>PersonEducation.CompletionDate</members>
+        <members>PersonEducation.ContactId</members>
+        <members>PersonEducation.EducationLevel</members>
+        <members>PersonEducation.GraduationDate</members>
+        <members>PersonEducation.Identifier</members>
+        <members>PersonEducation.Name</members>
         <members>PersonEducation.SchoolCity__c</members>
         <members>PersonEducation.SchoolState__c</members>
+        <members>PersonEducation.StartDate</members>
+        <members>PersonEducation.Status</members>
+        <members>PersonEducation.VerificationStatus</members>
         <members>PersonExamination.AttemptNumber__c</members>
         <members>PersonExamination.AttemptOrder__c</members>
+        <members>PersonExamination.ContactId</members>
+        <members>PersonExamination.EffectiveFrom</members>
+        <members>PersonExamination.EffectiveTo</members>
+        <members>PersonExamination.ExaminationDate</members>
+        <members>PersonExamination.ExaminationId</members>
+        <members>PersonExamination.InstitutionName</members>
+        <members>PersonExamination.Result</members>
+        <members>PersonExamination.Score</members>
+        <members>PersonExamination.VerificationDateTime</members>
+        <members>PersonExamination.VerificationStatus</members>
+        <members>Product2.Description</members>
+        <members>Product2.Family</members>
         <members>Product2.FeeCode__c</members>
+        <members>Product2.IsActive</members>
+        <members>Product2.Name</members>
+        <members>Product2.ProductCode</members>
         <members>Product2.RevenueCode__c</members>
+        <members>PublicComplaint.AccountId</members>
+        <members>PublicComplaint.BusinessName</members>
+        <members>PublicComplaint.ComplaintCaseId</members>
+        <members>PublicComplaint.ComplaintSubType</members>
+        <members>PublicComplaint.ComplaintType</members>
+        <members>PublicComplaint.Email</members>
+        <members>PublicComplaint.FirstName</members>
+        <members>PublicComplaint.IncidentDate</members>
+        <members>PublicComplaint.IsReporterConfidential</members>
+        <members>PublicComplaint.LastName</members>
+        <members>PublicComplaint.MobileNumber</members>
+        <members>PublicComplaint.Priority</members>
+        <members>PublicComplaint.ReceivedDate</members>
+        <members>PublicComplaint.ResolutionSummary</members>
+        <members>PublicComplaint.SourceType</members>
+        <members>PublicComplaint.Status</members>
+        <members>PublicComplaint.Subject</members>
+        <members>RecordAlert.Description</members>
+        <members>RecordAlert.EffectiveDate</members>
+        <members>RecordAlert.IsActive</members>
+        <members>RecordAlert.ParentId</members>
+        <members>RecordAlert.RecordAlertCategoryId</members>
+        <members>RecordAlert.Severity</members>
+        <members>RecordAlert.SnoozeUntilDate</members>
+        <members>RecordAlert.Subject</members>
+        <members>RecordAlert.ValidUntilDate</members>
+        <members>RecordAlert.WhatId</members>
         <members>RegulatoryAuthorizationType.CECycleYears__c</members>
         <members>RegulatoryAuthorizationType.CEHoursRequired__c</members>
         <members>RegulatoryAuthorizationType.CompletionThresholdHours__c</members>
@@ -195,13 +334,43 @@
         <members>RegulatoryAuthorizationType.TestingThresholdHours__c</members>
         <members>RegulatoryCodeViolation.Case__c</members>
         <members>RegulatoryCodeViolation.CitedParty__c</members>
+        <members>RegulatoryCodeViolation.ComplianceDueDate</members>
+        <members>RegulatoryCodeViolation.DateCreated</members>
+        <members>RegulatoryCodeViolation.DateResolved</members>
+        <members>RegulatoryCodeViolation.Description</members>
         <members>RegulatoryCodeViolation.Establishment__c</members>
         <members>RegulatoryCodeViolation.Practitioner__c</members>
+        <members>RegulatoryCodeViolation.Priority</members>
+        <members>RegulatoryCodeViolation.RecurrenceCount</members>
+        <members>RegulatoryCodeViolation.RegulatoryCodeId</members>
+        <members>RegulatoryCodeViolation.ResolutionNotes</members>
+        <members>RegulatoryCodeViolation.Status</members>
+        <members>RegulatoryCodeViolation.ViolationTypeId</members>
+        <members>RegulatoryTrxnFee.AccountId</members>
         <members>RegulatoryTrxnFee.AmountPaid__c</members>
+        <members>RegulatoryTrxnFee.CalculationDate</members>
+        <members>RegulatoryTrxnFee.Comments</members>
+        <members>RegulatoryTrxnFee.Description</members>
+        <members>RegulatoryTrxnFee.DueDate</members>
+        <members>RegulatoryTrxnFee.ParentRecordId</members>
+        <members>RegulatoryTrxnFee.Status</members>
+        <members>RegulatoryTrxnFeeItem.Comments</members>
+        <members>RegulatoryTrxnFeeItem.FeeAmount</members>
         <members>RegulatoryTrxnFeeItem.FeeProduct__c</members>
         <members>RegulatoryTrxnFeeItem.ForYear__c</members>
+        <members>RegulatoryTrxnFeeItem.Name</members>
+        <members>TrainingCourseParticipant.ContactId</members>
+        <members>TrainingCourseParticipant.CourseOfferingId</members>
+        <members>TrainingCourseParticipant.EndDate</members>
         <members>TrainingCourseParticipant.EntryType__c</members>
+        <members>TrainingCourseParticipant.InstitutionName</members>
         <members>TrainingCourseParticipant.ReceivedDate__c</members>
+        <members>TrainingCourseParticipant.Result</members>
+        <members>TrainingCourseParticipant.StartDate</members>
+        <members>TrainingCourseParticipant.TotalCredits</members>
+        <members>TrainingCourseParticipant.TotalHours</members>
+        <members>TrainingCourseParticipant.VerificationDateTime</members>
+        <members>TrainingCourseParticipant.VerificationStatus</members>
         <name>CustomField</name>
     </types>
     <types>
@@ -281,6 +450,7 @@
         <members>BusinessLicense</members>
         <members>BusinessLicenseApplication</members>
         <members>CertificationNumberCounter__c</members>
+        <members>Contact</members>
         <members>CourseOffering</members>
         <members>DocumentChecklistItem</members>
         <members>IndividualApplication</members>

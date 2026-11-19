@@ -6,4 +6,5 @@
     <label>Last CEU Date</label>
     <required>false</required>
     <type>Date</type>
+    <trackHistory>true</trackHistory>
 </CustomField>

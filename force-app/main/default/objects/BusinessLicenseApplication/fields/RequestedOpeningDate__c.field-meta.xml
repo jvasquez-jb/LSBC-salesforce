@@ -6,4 +6,5 @@
     <description>The date the owner plans to open the shop or facility, as given on the application.</description>
     <inlineHelpText>The planned opening date.</inlineHelpText>
     <label>Requested Opening Date</label>
+    <trackHistory>true</trackHistory>
 </CustomField>

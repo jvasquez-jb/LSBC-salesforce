@@ -7,4 +7,5 @@
     <length>80</length>
     <required>false</required>
     <type>Text</type>
+    <trackHistory>true</trackHistory>
 </CustomField>

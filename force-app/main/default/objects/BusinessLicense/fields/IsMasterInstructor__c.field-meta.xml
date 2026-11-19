@@ -6,4 +6,5 @@
     <inlineHelpText>Tick when the instructor has earned master instructor status.</inlineHelpText>
     <label>Master Instructor</label>
     <type>Checkbox</type>
+    <trackHistory>true</trackHistory>
 </CustomField>

@@ -5,6 +5,6 @@
     <inlineHelpText>The date the student enrolled, from the completion form.</inlineHelpText>
     <label>Date Enrolled</label>
     <required>false</required>
-    <trackHistory>false</trackHistory>
+    <trackHistory>true</trackHistory>
     <type>Date</type>
 </CustomField>

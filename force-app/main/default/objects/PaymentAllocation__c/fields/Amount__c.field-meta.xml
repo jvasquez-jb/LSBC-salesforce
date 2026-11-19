@@ -8,4 +8,5 @@
     <required>true</required>
     <scale>2</scale>
     <type>Currency</type>
+    <trackHistory>true</trackHistory>
 </CustomField>

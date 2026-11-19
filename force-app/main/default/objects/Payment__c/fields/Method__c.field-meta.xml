@@ -32,4 +32,5 @@
             </value>
         </valueSetDefinition>
     </valueSet>
+    <trackHistory>true</trackHistory>
 </CustomField>

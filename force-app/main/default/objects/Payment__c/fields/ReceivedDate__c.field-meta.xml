@@ -6,4 +6,5 @@
     <label>Received Date</label>
     <required>true</required>
     <type>Date</type>
+    <trackHistory>true</trackHistory>
 </CustomField>

@@ -20,4 +20,5 @@
     <relationshipName>EstablishmentViolations</relationshipName>
     <required>false</required>
     <type>Lookup</type>
+    <trackHistory>true</trackHistory>
 </CustomField>

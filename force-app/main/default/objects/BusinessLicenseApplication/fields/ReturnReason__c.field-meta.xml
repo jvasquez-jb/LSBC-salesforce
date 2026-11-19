@@ -10,4 +10,5 @@
         <restricted>true</restricted>
         <valueSetName>ApplicationReturnReason</valueSetName>
     </valueSet>
+    <trackHistory>true</trackHistory>
 </CustomField>

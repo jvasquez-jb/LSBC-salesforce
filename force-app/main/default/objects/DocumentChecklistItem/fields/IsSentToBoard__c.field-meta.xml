@@ -8,4 +8,5 @@
     <defaultValue>false</defaultValue>
     <trackTrending>false</trackTrending>
     <type>Checkbox</type>
+    <trackHistory>true</trackHistory>
 </CustomField>

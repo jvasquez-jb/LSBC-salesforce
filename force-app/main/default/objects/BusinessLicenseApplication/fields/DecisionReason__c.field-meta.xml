@@ -7,4 +7,5 @@
     <length>5000</length>
     <type>LongTextArea</type>
     <visibleLines>4</visibleLines>
+    <trackHistory>true</trackHistory>
 </CustomField>

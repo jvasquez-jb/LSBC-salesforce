@@ -10,4 +10,5 @@
     <type>Text</type>
     <unique>true</unique>
     <caseSensitive>false</caseSensitive>
+    <trackHistory>true</trackHistory>
 </CustomField>

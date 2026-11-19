@@ -6,4 +6,5 @@
     <description>Ticked when a new school's building is leased. A copy of the lease is then required.</description>
     <inlineHelpText>Tick if the property or building is leased.</inlineHelpText>
     <label>Premises Leased</label>
+    <trackHistory>true</trackHistory>
 </CustomField>

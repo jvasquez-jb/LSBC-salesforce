@@ -63,4 +63,5 @@
         </valueSetDefinition>
     </valueSet>
     <visibleLines>5</visibleLines>
+    <trackHistory>true</trackHistory>
 </CustomField>

@@ -8,4 +8,5 @@
     <description>The most students a school may have enrolled at any one time, as stated on its new school application.</description>
     <inlineHelpText>For school accounts only.</inlineHelpText>
     <label>Maximum Student Capacity</label>
+    <trackHistory>true</trackHistory>
 </CustomField>
