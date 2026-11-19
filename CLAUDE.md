@@ -122,6 +122,10 @@ Still open:
    School Forms, and moving portal-created establishments to an LSBC queue on approval.
 3. The long-term LSBC admin who gets the Business Rules Engine Designer seat and edits Letter Templates (name
    needed from Erin).
+4. Who may publish Board documents on the portal (CMS contributor on the LSBC Portal Content workspace: William,
+   others?). Admins only today.
+5. Who may edit notes and activities they didn't write (Erin's audit concern, 18 Nov 2026). Salesforce already
+   stamps Created By and Last Modified By on every note.
 
 ## Org notes
 
@@ -331,3 +335,34 @@ Still open:
   `SystemModeWithSharing` and the run restriction) before deploying them. Test person: `UAT Number Applicant` (1846410407, IA-0000000205/206).
 - Licence printing: Print Licenses (list view Licenses Ready to Print) opens `LicensePdf` on the LBC-19 three-part
   stock; positions in inches in the page, nudged with `dx`/`dy`. Governor: custom label `LicenseGovernorName`.
+  The stub's wallet card is left blank (William, 18 Nov 2026); a $25 wallet duplicate waits for the Board.
+- Staff Home (`LSBCLicensingHomePage`, template home:desktopTemplate): work queues on top, Open Stop Codes in the
+  right-hand `sidebar` region (visible without scrolling), payments and the LSBC Operations dashboard below.
+- Field history: `scripts/generators/history.py` (FIELDS per object, at most 20; never the SSN or date of birth)
+  writes `trackHistory` (a minimal field file for standard fields) and `enableHistory`; record pages' History tab
+  is field history (`pagegen.py`). Person `__pc` fields can't be tracked through metadata: tick Home Parish,
+  Certification Number, Maiden Name in Account Set History Tracking (sandbox and production). Person Other Address
+  can't be tracked. Document Checklist Item has no History list on a page. Case is at its 20-field limit.
+- Address change (person accounts only): portal `ScreenFlowCaseAddressChangeRequest` (`/change-address`) opens a
+  Case (Type Address Change, General Inquiries) with `Requested*__c` fields and a Proof of Address checklist item;
+  staff run `Case.ApplyAddressChange` (`ScreenFlowCaseApplyAddressChange`), which updates the mailing address,
+  stamps `AddressChangeAppliedDate__c` and closes the Case. Both from `scripts/generators/addresschange.py`.
+- Portal look: `scripts/generators/portaltheme.py` writes the theme CSS, footer, home page, header/hero settings and
+  branding set from `scripts/generators/portal/` (theme.css, footer.html, home.html, news_collection.json). Edit
+  there, rerun, deploy `experiences/LSBC_LPI1` and the `Portal*` static resources, publish. Anything changed in
+  Experience Builder must be retrieved and copied back there first, or the next run overwrites it. Colours are
+  the Board's (19 Nov 2026): page `#D3DCE8`, icons `#4A4D78`, ink `#111111`, links `#091580`, no gold. Fonts from
+  `PortalFonts`. Icon links carry `?v=2`: raise it when the icons change, or browsers keep the old ones.
+- Board Documents and Publications (portal home): enhanced CMS workspace LSBC Portal Content, channel LSBC LPI
+  (added in Workspace Settings > Channels: a channel can't be created by API). Items are CMS Documents (PDFs),
+  not News: an Aura site's CMS detail page takes only Document or Image. Manual collection Board Documents and
+  Publications (portal Experience Workspaces > Content Management > Collections; UI only), shown by the
+  `forceCommunity:dynamicCollection` in `news_collection.json`. Samples: `data/cms/samples`, loaded and published by
+  `scripts/cms/load_portal_news.py` (multipart upload). Guests see published CMS content through the Network's
+  `enableGuestFileAccess` (Jonathan, 19 Nov 2026). The Document detail page (Builder: New Page > CMS Content Page >
+  Document) is still to create; until then theme.css makes the cards unlinked (`pointer-events: none` on
+  `.js-content-navlink`): remove that line once it exists. Old News items and collection are unused leftovers.
+- Self-registration is the Sign Up flow page (`/sign-up`); the template Register page (`/SelfRegister`) is unused
+  and kept (Jonathan, 19 Nov 2026).
+- Staff app LSBC Licensing: image is content asset `LSBCSeal2026` (a deploy can't add a version to an existing
+  asset, so new images get a new asset), header colour `#091580`.
