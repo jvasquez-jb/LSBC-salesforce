@@ -80,6 +80,20 @@ def build(obj, label_obj, refuse_status, refuse_word, outdir):
                   'True when the holder has no date of birth but it is needed: the license expires on the birthday, or the holder needs a certification number, which ends in the birth month and day.')
     else:
         F.formula('forB_BirthdayMissing', 'Boolean', 'TEXT({!GetLicenseType.ExpirationBasis__c}) = "Holders Birthday" && ISBLANK({!GetHolder.DateOfBirth__pc})', 'True when the license expires on the holder\'s birthday but the holder has no date of birth.')
+        F.formula('forB_IssuesNumber', 'Boolean',
+                  'CONTAINS(";SH;TF;AF;", ";" & {!GetApplication.LicenseType.RegulatoryAuthCode} & ";")',
+                  'True for the license types that give the establishment a certification number from the Establishment Number Counter: Salon, Threading Facility and Alternative Hair Design Facility. Schools are numbered by staff.')
+        F.formula('forB_NumberIsAutomatic', 'Boolean',
+                  '{!forB_IsNewLicense} && ({!forB_IssuesNumber} || NOT(ISBLANK({!GetApplication.Account.CertificationNumber__c})))',
+                  'True when the new license\'s number is set automatically: the establishment already has a certification number (its manager license, for example), or this license type issues one. Otherwise staff type the number.')
+        F.formula('forB_NeedsNumber', 'Boolean', '{!forB_IsNewLicense} && {!forB_IssuesNumber} && ISBLANK({!GetHolder.CertificationNumber__c})',
+                  'True when approving creates the establishment\'s first numbered license, so it needs a certification number.')
+        F.formula('forT_CertificationNumber', 'String',
+                  'IF(ISBLANK({!GetHolder.CertificationNumber__c}), IF({!forB_NeedsNumber}, {!GetCounter.Name}, ""), {!GetHolder.CertificationNumber__c})',
+                  'The establishment\'s certification number, issued now if it needs one; blank for a school.')
+        F.formula('forT_NewLicenseNumber', 'String',
+                  'IF(ISBLANK({!forT_CertificationNumber}), {!DA_LicenseNumber}, {!forT_CertificationNumber} & IF(ISBLANK({!GetLicenseType.RegulatoryAuthCode}), "", "-" & {!GetLicenseType.RegulatoryAuthCode}))',
+                  'The new license\'s License Number: the establishment\'s certification number, a dash and the license type\'s code (779947961-SH), or the number staff typed when the establishment has none (a school).')
     F.formula('forN_BirthMonth', 'Number', 'IF(ISBLANK({!GetHolder.DateOfBirth__pc}), 1, MONTH({!GetHolder.DateOfBirth__pc}))', 'The holder\'s birth month, for licenses that expire on the birthday.', scale=0)
     F.formula('forN_BirthDay', 'Number', 'IF(ISBLANK({!GetHolder.DateOfBirth__pc}), 1, DAY({!GetHolder.DateOfBirth__pc}))', 'The holder\'s birth day, for licenses that expire on the birthday.', scale=0)
     F.formula('forDT_PeriodEnd', 'DateTime', '{!varDT_NewPeriodEnd} + (17 / 24)', 'The new expiration date at noon Louisiana time (the rule returns midnight GMT), so it shows as the same date in every US time zone.')
@@ -140,7 +154,7 @@ def build(obj, label_obj, refuse_status, refuse_word, outdir):
                    f'<visibilityRule><conditionLogic>or</conditionLogic>{outcome_is("Return")}{outcome_is("Refuse")}</visibilityRule></fields>')
     number = ('<fields><name>DA_LicenseNumber</name><dataType>String</dataType><fieldText>License number</fieldText><fieldType>InputField</fieldType>'
               '<helpText>The number to print on the new license.</helpText><isRequired>true</isRequired>'
-              f'<visibilityRule><conditionLogic>and</conditionLogic>{outcome_is("Approve")}{cond("forB_IsNewLicense", "EqualTo", BOOL(True))}{cond("forB_Ready", "EqualTo", BOOL(True))}</visibilityRule></fields>')
+              f'<visibilityRule><conditionLogic>and</conditionLogic>{outcome_is("Approve")}{cond("forB_IsNewLicense", "EqualTo", BOOL(True))}{cond("forB_Ready", "EqualTo", BOOL(True))}{cond("forB_NumberIsAutomatic", "EqualTo", BOOL(False))}</visibilityRule></fields>')
     F.screen('Decide', 'Decide', [
         F.display('DA_Application', '<p><b>{!GetApplication.Name}</b>: {!GetApplication.ApplicationType}, status {!GetApplication.Status}.</p>'),
         F.display('DA_Summary', '{!forT_Summary}'),
@@ -167,7 +181,7 @@ def build(obj, label_obj, refuse_status, refuse_word, outdir):
     F.lookup('GetLicenseType', 'Get License Type', 'RegulatoryAuthorizationType', [('Id', 'EqualTo', REF('forT_LicenseTypeId'))],
              ['Id', 'Name', 'ExpirationBasis__c', 'TermLength__c', 'RegulatoryAuthCode'], 'GetHolder', first=True, sort=None)
     F.lookup('GetHolder', 'Get Holder', 'Account', [('Id', 'EqualTo', REF('GetApplication.AccountId'))],
-             ['Id', 'Name', 'DateOfBirth__pc'] + (['PersonContactId', 'CertificationNumber__pc'] if is_person else []),
+             ['Id', 'Name', 'DateOfBirth__pc'] + (['PersonContactId', 'CertificationNumber__pc'] if is_person else ['CertificationNumber__c']),
              'IsTheBirthdayNeeded', first=True, sort=None)
     F.decision('IsTheBirthdayNeeded', 'Is a Missing Birthday Needed?', [
         ('BirthdayMissing', 'Yes', [cond('forB_BirthdayMissing', 'EqualTo', BOOL(True))], 'NoBirthday', 'and')], 'CalculateExpiration')
@@ -186,16 +200,23 @@ def build(obj, label_obj, refuse_status, refuse_word, outdir):
         ('BirthDay', REF('forN_BirthDay')),
     ], 'IsItARenewal', 'CouldNotSaveDecision')
     F.decision('IsItARenewal', 'Is It a Renewal?', [('IsRenewal', 'Yes', [cond('forB_IsRenewal', 'EqualTo', BOOL(True))], 'RenewLicense', 'and')],
-               'DoesTheHolderNeedANumber' if is_person else 'CreateLicense')
+               'DoesTheHolderNeedANumber')
+    F.decision('DoesTheHolderNeedANumber', 'Does the Holder Need a Certification Number?', [
+        ('NeedsNumber', 'Yes', [cond('forB_NeedsNumber', 'EqualTo', BOOL(True))], 'CreateCounter', 'and')], 'CreateLicense', default_label='Has a Number or Not Numbered')
     if is_person:
-        F.decision('DoesTheHolderNeedANumber', 'Does the Holder Need a Certification Number?', [
-            ('NeedsNumber', 'Yes', [cond('forB_NeedsNumber', 'EqualTo', BOOL(True))], 'CreateCounter', 'and')], 'CreateLicense', default_label='Has a Number')
         F.create_one('CreateCounter', 'Create Certification Number Counter', 'CertificationNumberCounter__c', [
             ('Contact__c', REF('GetHolder.PersonContactId'))], 'GetCounter', 'CouldNotSaveDecision')
         F.lookup('GetCounter', 'Get Certification Number Counter', 'CertificationNumberCounter__c', [('Id', 'EqualTo', REF('CreateCounter'))],
                  ['Id', 'Name'], 'SetCertificationNumber', first=True, sort=None)
         update('SetCertificationNumber', 'Set Certification Number', 'GetHolder.Id', 'Account', [
             ('CertificationNumber__pc', REF('forT_NewCertificationNumber'))], 'CreateLicense', 'CouldNotSaveDecision')
+    else:
+        F.create_one('CreateCounter', 'Create Establishment Number Counter', 'EstablishmentNumberCounter__c', [
+            ('Account__c', REF('GetHolder.Id'))], 'GetCounter', 'CouldNotSaveDecision')
+        F.lookup('GetCounter', 'Get Establishment Number Counter', 'EstablishmentNumberCounter__c', [('Id', 'EqualTo', REF('CreateCounter'))],
+                 ['Id', 'Name'], 'SetCertificationNumber', first=True, sort=None)
+        update('SetCertificationNumber', 'Set Certification Number', 'GetHolder.Id', 'Account', [
+            ('CertificationNumber__c', REF('GetCounter.Name'))], 'CreateLicense', 'CouldNotSaveDecision')
     update('RenewLicense', 'Renew License', 'GetLicense.Id', 'BusinessLicense', [
         ('PeriodEnd', REF('forDT_PeriodEnd')),
         ('PrintRequestedDate__c', REF('$Flow.CurrentDate')),
@@ -205,7 +226,7 @@ def build(obj, label_obj, refuse_status, refuse_word, outdir):
     ], 'ApproveApplication', 'CouldNotSaveDecision')
     F.create_one('CreateLicense', 'Create License', 'BusinessLicense', [
         ('AccountId', REF('GetApplication.AccountId')),
-        ('Identifier', REF('forT_NewLicenseNumber' if is_person else 'DA_LicenseNumber')),
+        ('Identifier', REF('forT_NewLicenseNumber')),
         ('Name', REF('forT_LicenseName')),
         ('PeriodEnd', REF('forDT_PeriodEnd')),
         ('PeriodStart', REF('forDT_PeriodStart')),
@@ -268,9 +289,9 @@ def build(obj, label_obj, refuse_status, refuse_word, outdir):
             f'documents not yet accepted, fees not fully paid, and active stop codes on the holder. Approve is allowed only when the application is certified (entered through a form, on the portal or by staff), the documents are accepted and the fees paid. '
             + ('Approving a new application creates the license with License Number set to the holder\'s certification number, a dash and the license type\'s code '
                '(a person\'s first license gets a new certification number: the next Certification Number Counter value followed by their birth month and day, saved on the person), its expiration date'
-               if is_person else 'Approving a new application creates the license with the number staff enter, its expiration date') +
+               if is_person else 'Approving a new application creates the license with License Number set to the establishment\'s certification number, a dash and the license type\'s code '
+               '(a salon\'s or facility\'s first license gets a new number from the Establishment Number Counter, saved on the establishment; a school\'s license takes the number staff enter), its expiration date') +
             f' from License Expiration Date; approving a renewal moves the '
-            f'existing license\'s expiration on and adds one to its renewal count; approving a duplicate records the date on the license as its Last Duplicate Date. from License Expiration Date; approving a renewal moves the '
             f'existing license\'s expiration on and adds one to its renewal count; approving a duplicate records the date on the license as its Last Duplicate Date. Either way the license is marked ready to print (its Printed Date is cleared, so a license printed earlier goes back in the print queue) and the application is Approved with today as its Approved Date. '
             f'A return records the reason and can create the return letter; an application can also be {refusal_text}, with the reason saved and its unpaid fees set to Canceled.')
     label = f'Screen Flow: {label_obj} Decide'

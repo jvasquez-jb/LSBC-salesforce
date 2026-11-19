@@ -28,6 +28,10 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
+                <field>CertificationNumber__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
                 <field>StopCodeSyncPending__c</field>
             </layoutItems>
             <layoutItems>

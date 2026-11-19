@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CertificationNumber__c</fullName>
+    <caseSensitive>false</caseSensitive>
+    <description>The establishment's license number, printed as Certification No. on its licenses: 77 followed by a counter, as in the previous system. Set by Decide from the Establishment Number Counter when a salon, threading facility or alternative hair design facility gets its first license, or loaded from the previous system. Every license the establishment holds, including its manager license, carries this number in its License Number. Schools are numbered by staff and leave this blank. A person's number is on the person (Contact), not here.</description>
+    <externalId>true</externalId>
+    <inlineHelpText>The establishment's license number, shared by all its licenses. Set when its first license is approved.</inlineHelpText>
+    <label>Certification Number</label>
+    <length>12</length>
+    <required>false</required>
+    <type>Text</type>
+    <unique>true</unique>
+    <trackHistory>true</trackHistory>
+</CustomField>

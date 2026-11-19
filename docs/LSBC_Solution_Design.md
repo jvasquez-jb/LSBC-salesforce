@@ -1012,11 +1012,16 @@ first licence: it creates a **Certification Number Counter** record, whose auto-
 (an auto-number can't hand the same value out twice), and adds the birth month and day; a person who
 already has a number keeps it. Because `BusinessLicense.Identifier` is unique in the org, each licence's
 License Number is the certification number, a dash and the licence type's code (`1846410407-C`, the
-CLOSE code, held in the type's standard `RegulatoryAuthCode`). The printed licence shows the plain
-certification number. Sign-up, public search and the shop form's manager check match the number typed,
-or any licence starting with it and a dash. Salons are 77 plus a counter and schools are numbered by
-staff, so business licences still take the number staff type in Decide until William says whether
-salons share the people counter (`OPEN-40`). Permits use the holder's number, as any person licence does.
+CLOSE code, held in the type's standard `RegulatoryAuthCode`). The printed licence shows the
+certification number with an L in front (L1846410407), as CLOSE printed it so licensees know it is their
+licence number. Sign-up, public search and the shop form's manager check match the number typed, with or
+without the L, or any licence starting with it and a dash. Establishments have their own counter (William,
+19 Nov 2026): a salon, threading facility or alternative hair design facility gets **Certification Number**
+on the business account (`Account.CertificationNumber__c`) from the **Establishment Number Counter**, 77
+followed by the counter, on its first licence; all its licences, the manager licence included, carry it
+(`779947961-SH`). CLOSE's salon numbers (`SHOPS.OLD_SHOP_ID`) have two digits after the 77 that are not
+part of the counter; new numbers start above the highest CLOSE number, so none collide (`OPEN-40`).
+Schools are numbered by staff. Permits use the holder's number, as any person licence does.
 
 ### 3.4 Staff-facing
 
@@ -1533,7 +1538,11 @@ loaded. It raised four gaps:
 - **Licence number.** Settled 19 Nov 2026 (`PT-14`): `build_certification_numbers.py` loads each
   person's CLOSE number as their Certification Number where it ends in their birth month and day
   (21,191 people) and sets their licences' License Number to it plus the type code (18,371 licences).
-  The 87,973 nine-digit numbers are left out: they look like social security numbers (`OPEN-40`).
+  The nine-digit numbers are generated numbers, not social security numbers (William, 19 Nov 2026): the
+  de-identified copy masked them, so `extract_certification_numbers.py` read them from the raw export once,
+  keeping only those that end in the birth month and day and match no applicant ID, SSN or tax ID. With
+  them, 35,451 people are numbered. 7,385 salons and facilities are loaded with their CLOSE salon number
+  (`SHOPS.OLD_SHOP_ID`), and 39,963 licences carry their holder's number.
 - **Instructor types.** CLOSE has three; the build has one, which codes 7 and 9 treat as needing both a
   cosmetologist and an esthetician licence. About 600 instructors were held on load.
 - **Booth renters.** Code 6 needs a cosmetologist licence; `DM-03` says any operator licence. Settled
@@ -1554,7 +1563,7 @@ Shield. The 10 Nov load was made before that copy existed. The sandbox carries t
 never deployed. Two of the gaps above are closed in the build: three instructor licence types, Manager,
 Microdermabrasion and Make-up Application, every CLOSE fee code, and renewals and late fees priced per
 licence type in `FeeSchedule` version 3. Version 4 adds initial, duplicate, affidavit and violation fees per licence type or cited party, and the continuing-education seminars load as course offerings and attendances (see `DM-16`).
-Licence numbers are loaded where usable; the nine-digit ones (`OPEN-40`) remain open; the booth renter base licence (`OPEN-50`) was settled on 12 Nov 2026.
+Licence numbers are loaded for people and establishments (`PT-14`); the booth renter base licence (`OPEN-50`) was settled on 12 Nov 2026.
 
 **What is loaded (sandbox, 11 Nov 2026).**
 
@@ -1696,8 +1705,8 @@ more than leaving a door open.
 | `OPEN-30` | The records list request | A paid request for lists, fulfilled by IT. A product with a fee that appears nowhere in the design | Kiwan |
 | `OPEN-31` | The staff wish list | Submitted previously and not located. May carry expectations not captured anywhere | The group |
 | `OPEN-33` | The card service charge | Applies to card payments, raising a $525 restoration to roughly $540. All card payments, or only at the counter? | Carnita or the front desk |
-| `OPEN-40` | The rest of the licence numbers | Each person's CLOSE number is loaded where it ends in their birth month and day (`PT-14`). 87,973 people, mostly added before 2009, have a nine-digit number shaped like a social security number: whether it is their SSN decides whether it can be loaded or they get a new one. Also open with William: whether salons share the people counter, and what the "L" before the number on a printed licence means | Before the production load |
-| `OPEN-41` | Numbering new licences | Decide approves a licence, and staff type its number until the rule is known: a running number per type, salons starting 777 (`PT-14`) | Staff go-live |
+| `OPEN-40` | The rest of the licence numbers | Settled 19 Nov 2026 with `PT-14` except one point: people's and establishments' CLOSE numbers are loaded, the nine-digit ones included (generated, not SSNs, William). Still asked of William: what the two digits after 77 in CLOSE's salon numbers are (new numbers use a plain counter above the highest CLOSE number), and the last values of both CLOSE counters at cutover | Before the production load |
+| `OPEN-41` | Numbering new licences | Settled with `PT-14`: Decide numbers a person's licences from the Certification Number Counter and a salon's or facility's from the Establishment Number Counter; staff type a school's number |
 | `OPEN-43` | Refunding money already applied to a fee | Refund covers only money not applied to a fee. Staff would take money off a fee by hand first, with no record of why (`DM-18b`) | Staff go-live |
 | `OPEN-44` | Notarised forms and the certification step | Will the Board accept the portal's certification (checkbox, typed name, time) in place of notarisation, for example the contractual fees certificate (`BR-03a`, `PT-19`)? | Portal publish |
 | `OPEN-45` | LSBC mailboxes and sending addresses | Email-to-Case needs LSBC's complaint and inquiry mailboxes forwarded by OTS, and acknowledgements and portal emails need a verified LSBC sender, with DKIM and SPF (`CM-01`, `PT-09b`) | Staff go-live |
@@ -1756,10 +1765,9 @@ resumes (5.1).
 board meeting; and `OPEN-38`, freelance operators without a fixed salon, which needs board rules or
 legislation.
 
-**Several decide the production load and what the public sees:** `OPEN-40` licence numbers (the
-largest: about 88,000 people with a nine-digit number can't sign up until it is settled), `OPEN-56` unpaid CLOSE balances that hold nothing, and `OPEN-06` website scope.
+**Several decide the production load and what the public sees:** `OPEN-56` unpaid CLOSE balances that hold nothing, and `OPEN-06` website scope.
 
-**Several are needed for staff go-live on January 27:** `OPEN-41`, `OPEN-43`, and `OPEN-45` to `OPEN-48`.
+**Several are needed for staff go-live on January 27:** `OPEN-43`, and `OPEN-45` to `OPEN-48`.
 
 **The rest are configuration detail**, each with a named owner who has already been asked.
 
@@ -1947,3 +1955,4 @@ the source.
 | 19 Nov 2026 | `SEC-01c` settled: the Board agreed the access matrix's Sharing Settings on 18 Nov 2026, and the other tabs were rebuilt to match. Program Manager edits almost everything, accommodations included (`SEC-08`); Executive Director and Program Manager edit Fee Products; Reciprocity Desk, Student Registration, Testing Desk and Inspection Supervisor report to Program Manager. Each desk group gets a muting permission set so it never exceeds its Sharing Settings. The remaining Phase 2 questions (violations, complaint confidentiality, queues, refunds, report folders, portal establishments, accommodation documents, letter templates) follow the build team's recommendations in the Client Questions doc, adjusted to the agreed Sharing Settings, at Erin Marceaux's request. The workbook is now `LSBC Access Matrix.xlsx`. |
 | 19 Nov 2026 | Phase 2 security built from the access matrix (`SEC-01c`): permission sets, desk groups with muting sets, sharing rules, org-wide defaults (Account, Case, Opportunity Private; License Type, Training Course, Course Offering Public Read Only), profile LSBC Standard User, report folder sharing, queue members. Staff action flows now run in system context with sharing, restricted to the desks that use them. |
 | 19 Nov 2026 | Refund: a new Refund Requested By User field and a validation rule stop the requester verifying their own refund (`DM-18b`). Confidential complainant: the Public Complaint page shows the Complainant section only when the complaint isn't confidential or the user holds View Confidential Complainant (Executive Director, Compliance Officer, Program Manager, admins) (`CM-02`). |
+| 19 Nov 2026 | Establishment numbers and the nine-digit person numbers (`PT-14`, `OPEN-40`, `OPEN-41`), from William's answers: salons, threading and alternative hair design facilities get Certification Number on the business account from the new Establishment Number Counter (77 plus a counter), and their licences, manager licence included, carry it with the type code. CLOSE's nine-digit person numbers are generated, not SSNs, so they are loaded (read from the raw export once by `extract_certification_numbers.py`), as are the salon numbers (`SHOPS.OLD_SHOP_ID`): 35,451 people, 7,385 establishments. Printed licences show the number with an L in front, and sign-up, public search and the manager check accept it typed with the L. |

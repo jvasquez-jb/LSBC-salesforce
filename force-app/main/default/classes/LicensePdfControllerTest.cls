@@ -23,7 +23,7 @@ private class LicensePdfControllerTest {
         Assert.areEqual(1, controller.sheets.size(), 'Only the license waiting to print gets a sheet');
         Assert.areEqual(1, controller.skippedCount);
         LicensePdfController.Sheet sheet = controller.sheets[0];
-        Assert.areEqual('1293580101', sheet.certificationNumber, 'A person prints their certification number');
+        Assert.areEqual('L1293580101', sheet.certificationNumber, 'A person prints their certification number, with the L in front');
         Assert.areEqual('Test Cosmetologist-Renewal', sheet.typeLine);
         Assert.areEqual('Deneros, Denada', sheet.holderName);
         Assert.areEqual('January 1, 2028', sheet.expirationDate);
@@ -43,6 +43,20 @@ private class LicensePdfControllerTest {
         Assert.areEqual(0.1, controller.offsetX);
         Assert.areEqual(0, controller.offsetY);
         Assert.areEqual(1, controller.sheets.size());
+    }
+
+    @IsTest
+    static void printsTheEstablishmentNumber() {
+        Account salon = new Account(Name = 'Test Salon', CertificationNumber__c = '779947961', BillingStreet = '2 Test St', BillingCity = 'Baton Rouge');
+        insert salon;
+        Id licenseType = [SELECT Id FROM RegulatoryAuthorizationType LIMIT 1].Id;
+        BusinessLicense license = new BusinessLicense(Name = 'Salon', AccountId = salon.Id, RegulatoryAuthorizationTypeId = licenseType,
+            Identifier = '779947961-SH', PrintRequestedDate__c = Date.today(), Status = 'Active');
+        insert license;
+        LicensePdfController.Sheet sheet = new LicensePdfController(new List<Id>{ license.Id }).sheets[0];
+        Assert.areEqual('L779947961', sheet.certificationNumber, 'An establishment prints its certification number');
+        Assert.areEqual('Test Salon', sheet.holderName);
+        Assert.areEqual('Test Cosmetologist-New', sheet.typeLine);
     }
 
     @IsTest

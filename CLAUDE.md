@@ -310,8 +310,16 @@ Still open:
   `Contact.CertificationNumber__c`; Decide issues it from `CertificationNumberCounter__c` (auto-number = the
   counter; set its next value at cutover from CLOSE's last). `BusinessLicense.Identifier` is unique, so a person's
   licence's License Number is `<number>-<RegulatoryAuthCode>` (`1846410407-C`); lookups by number match it or
-  `<number>-*`. Business licences still take a typed number in Decide (salons 77 + counter, schools staff-set) until
-  William answers whether salons share the counter. The 9-digit CLOSE numbers (SSN-shaped) aren't loaded.
-  `LegacyCertificationNumber__c` is kept, unused. Test person: `UAT Number Applicant` (1846410407, IA-0000000205/206).
+  `<number>-*`, with or without the L printed in front (L1846410407). Establishments (William, 19 Nov 2026): salons,
+  threading and alternative hair design facilities get their own number, `Account.CertificationNumber__c`, from
+  `EstablishmentNumberCounter__c` (auto-number `77{0000000}`, starting above the highest CLOSE number, 779947960);
+  their licences, manager licence included, are `<number>-<code>`. CLOSE's salon number is `SHOPS.OLD_SHOP_ID`
+  (`CERT_NBR_NUM`, the shop key, is usually the owner's applicant ID or a tax ID: never load it). Schools keep a typed
+  number. The 9-digit person numbers are generated, not SSNs (William): the de-identified copy masks them, so
+  `scripts/migration/extract_certification_numbers.py` reads the raw export once (counts only) and writes the checked
+  ones to table `CERTIFICATION_NUMBERS` in the copy; `build_certification_numbers.py` loads from it and refuses any
+  nine-digit value not in it. 35,451 people and 7,385 establishments loaded. `LegacyCertificationNumber__c` is kept,
+  unused. Running `decide.py` resets the Decide flows' run mode: rerun `security.py` (or restore
+  `SystemModeWithSharing` and the run restriction) before deploying them. Test person: `UAT Number Applicant` (1846410407, IA-0000000205/206).
 - Licence printing: Print Licenses (list view Licenses Ready to Print) opens `LicensePdf` on the LBC-19 three-part
   stock; positions in inches in the page, nudged with `dx`/`dy`. Governor: custom label `LicenseGovernorName`.

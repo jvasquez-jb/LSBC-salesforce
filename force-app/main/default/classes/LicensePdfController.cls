@@ -8,9 +8,10 @@
  * code, the same check Mark Printed makes. Printing does not mark anything printed: staff run
  * Mark Printed once the sheets have printed correctly.
  *
- * The number printed is the holder's Certification Number for a person (shared by all their
- * licenses) and the License Number for a business. The governor's name comes from the custom label
- * License Governor Name.
+ * The number printed is the holder's Certification Number (a person's or an establishment's, shared by
+ * all their licenses), or the License Number when the holder has none (a school). It prints with an L in
+ * front, as the previous system printed it, so licensees know it is their license number. The governor's
+ * name comes from the custom label License Governor Name.
  */
 public with sharing class LicensePdfController {
     public List<Sheet> sheets { get; private set; }
@@ -51,7 +52,7 @@ public with sharing class LicensePdfController {
         List<BusinessLicense> licenses = [
             SELECT Id, Identifier, PeriodEnd, PrintRequestedDate__c, LastDuplicateDate__c, RenewalCount__c, IsReadyToPrint__c,
                 RegulatoryAuthorizationType.Name, AccountId, Account.Name, Account.IsPersonAccount, Account.FirstName, Account.LastName,
-                Account.CertificationNumber__pc, Account.PersonMailingStreet, Account.PersonMailingCity, Account.PersonMailingState,
+                Account.CertificationNumber__pc, Account.CertificationNumber__c, Account.PersonMailingStreet, Account.PersonMailingCity, Account.PersonMailingState,
                 Account.PersonMailingPostalCode, Account.BillingStreet, Account.BillingCity, Account.BillingState, Account.BillingPostalCode
             FROM BusinessLicense
             WHERE Id IN :licenseIds
@@ -87,8 +88,8 @@ public with sharing class LicensePdfController {
 
         public Sheet(BusinessLicense license) {
             Account holder = license.Account;
-            certificationNumber = holder.IsPersonAccount && String.isNotBlank(holder.CertificationNumber__pc)
-                ? holder.CertificationNumber__pc : license.Identifier;
+            String holderNumber = holder.IsPersonAccount ? holder.CertificationNumber__pc : holder.CertificationNumber__c;
+            certificationNumber = 'L' + (String.isNotBlank(holderNumber) ? holderNumber : license.Identifier);
             String typeName = license.RegulatoryAuthorizationType.Name;
             typeLine = typeName + '-' + reason(license);
             issueDate = license.PrintRequestedDate__c == null ? ''

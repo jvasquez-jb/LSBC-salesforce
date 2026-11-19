@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <deploymentStatus>Deployed</deploymentStatus>
+    <description>Hands out new establishment certification numbers: 77 followed by a counter, as in the previous system. Decide creates one record each time a salon, threading facility or alternative hair design facility gets its first license; the record's auto-number is the establishment's new Certification Number. Each record also shows which establishment it went to. Never delete or edit these records: the auto-number is what keeps two establishments from getting the same number. The counter starts above the highest number loaded from the previous system; before go-live, check it is still above the last number that system issued.</description>
+    <enableActivities>false</enableActivities>
+    <enableHistory>false</enableHistory>
+    <enableReports>true</enableReports>
+    <enableSearch>false</enableSearch>
+    <label>Establishment Number Counter</label>
+    <nameField>
+        <displayFormat>77{0000000}</displayFormat>
+        <label>Certification Number</label>
+        <startingNumber>9947961</startingNumber>
+        <type>AutoNumber</type>
+    </nameField>
+    <pluralLabel>Establishment Number Counters</pluralLabel>
+    <sharingModel>ReadWrite</sharingModel>
+    <externalSharingModel>Private</externalSharingModel>
+    <visibility>Public</visibility>
+</CustomObject>

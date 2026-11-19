@@ -63,6 +63,7 @@
     </types>
     <types>
         <members>Account.BillingAddress</members>
+        <members>Account.CertificationNumber__c</members>
         <members>Account.LegacyKey__c</members>
         <members>Account.MaximumStudentCapacity__c</members>
         <members>Account.Name</members>
@@ -183,6 +184,7 @@
         <members>DocumentChecklistItem.Status</members>
         <members>DocumentChecklistItem.ValidatedById</members>
         <members>DocumentChecklistItem.ValidationDateTime</members>
+        <members>EstablishmentNumberCounter__c.Account__c</members>
         <members>Examination.Description</members>
         <members>Examination.ExamType__c</members>
         <members>Examination.LicenseType__c</members>
@@ -464,6 +466,7 @@
         <members>Contact</members>
         <members>CourseOffering</members>
         <members>DocumentChecklistItem</members>
+        <members>EstablishmentNumberCounter__c</members>
         <members>IndividualApplication</members>
         <members>LetterTemplate__mdt</members>
         <members>Opportunity</members>
@@ -715,6 +718,7 @@
         <members>CertificationNumberCounter__c-Certification Number Counter Layout</members>
         <members>CourseOffering-Course Offering Layout</members>
         <members>DocumentChecklistItem-Document Checklist Item Layout</members>
+        <members>EstablishmentNumberCounter__c-Establishment Number Counter Layout</members>
         <members>Examination-Examination Layout</members>
         <members>IndividualApplication-Individual Application Layout</members>
         <members>LetterTemplate__mdt-Letter Template Layout</members>
