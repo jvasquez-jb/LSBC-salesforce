@@ -85,70 +85,48 @@ you are working on before building, and section 9 for what the org actually prov
 |---|---|---|
 | 0 | Foundation: Person Accounts, record types, repo, doc corrections | Done |
 | 1 | Data model (section 1), encrypted field list | Done |
-| 2 | Security (5.1), `OPEN-11` ACR sharing spike | In progress. Board agreed Sharing Settings in `docs/LSBC Access Matrix.xlsx` (18 Nov 2026); the decisions for the carry-over items are in design 5.1 |
+| 2 | Security (5.1), `OPEN-11` ACR sharing spike | In progress. Staff security built 19 Nov 2026 from the agreed access matrix; `OPEN-11` and the items under Phase 2 status still open |
 | 3 | Business rules (section 2) | Done. Eligibility rules built, called from Phase 5 and 6 |
 | 4 | Cases and violations (section 4) | Done |
 | 5 | Portal (section 3) | Done. School Administrator and Business Owner forms wait for Phase 2 |
 | 6 | Staff tools, reports, cutover (PT-15–17, DM-18c, section 5) | Done. Staff app LSBC Licensing; access waits for Phase 2 |
 
-### Phase 2 carry-over
+### Phase 2 status
 
-Raised by later phases while Phase 2 was paused. Each is now decided (design 5.1, from the access
-matrix and the build team's recommendations, which the Board accepted); build them in Phase 2.
+Built 19 Nov 2026 (commit `d9c3eb7`) from `docs/LSBC Access Matrix.xlsx` by `scripts/generators/security.py`:
+18 permission sets, a permission set group per desk with a `<Desk>Muting` set capping it at the desk's Sharing
+Settings column, 142 sharing rules, org-wide defaults (Account, Case, Opportunity Private; License Type, Training
+Course, Course Offering Public Read Only), profile `LSBC Standard User`, public groups (members:
+`scripts/apex/SecurityGroupMembers.apex`), queue members, report folder sharing. The staff action flows run in
+system context with sharing and only for the desks whose blocks grant them. Field history (carry-over 3, 7, 11)
+and the staff Home page (19) were built by the demo-feedback session. Still open:
 
-1. Staff need Run Flow and the core Public Sector licence, which includes rule runtime (Account Executive,
-   19 Nov 2026; no separate `BRERuntime` licence exists or is needed). Production checks it on the user who
-   saves the record, even in system context, and on the Default Workflow User (Process Automation Settings) that
-   every scheduled flow runs as; in production that must be an LSBC user. System Administrators are not exempt.
-   Sandboxes don't enforce it (Erin Marceaux, with none, runs the nightly stop code schedule), so it can't be
-   tested here. The org has 5 Public Sector Access seats today; more licences for staff arrive in January 2027.
-2. Who can add and end manual stop codes: `RecordAlert` create/edit, its org-wide default, and the
-   Add Stop Code action.
-3. Field history on `RecordAlert` `ValidUntilDate` and `IsActive` (`SEC-05`).
-4. BRE Designer for LSBC's long-term admin (5 seats, included in the licence; 3 used by the build team).
-5. Confirm system-context rule flows are acceptable under the private-by-default model.
-6. Portal users need `BRECmtyRuntime` (Phase 5); it comes with the Public Sector community licence
-   (Salesforce, 19 Nov 2026). Guests can't hold it and no guest flow calls a rule. Production has only 100
-   portal logins, 100 `PublicSectorCmtyAccessPSL` and 100 `BRECmtyRuntime` seats against about 40,000 active
-   licences, and `RecordTriggerUserAfterSave` assigns both seats at sign-up: more seats needed before the
-   portal is published (Client Questions, with the AE).
-7. History on `RegulatoryTrxnFeeItem` is not enabled, so Change Year notes the change in the item's
-   Comments. Enable field history on `ForYear__c` if the object supports it (`SEC-05`).
-8. Who can create violations (`RegulatoryCodeViolation`) and run Record Complaint, and who can edit
-   Amount Paid (flow-set; keep it read-only for staff).
-9. `PublicComplaint` confidentiality: who sees the complainant on a complaint with
-   `IsReporterConfidential` ticked, and the object's org-wide default.
-10. Queue membership for Complaint Intake and General Inquiries (staff, not Jonathan). Members are
-    data (`GroupMember`), not in the queue metadata.
-11. Field history on violation `Status` and `PublicComplaint.IsReporterConfidential` (`SEC-05`).
-12. Establishments created by the portal shop and facility applications are owned by the applicant's
-    portal user (that is how the owner sees them). Decide staff access to them, and whether ownership
-    moves to an LSBC user or queue once the application is approved.
-13. The School Administrator and Business Owner portal audiences (access over Account Contact
-    Relations, `OPEN-11`) and the 17 School Forms; staff access to portal submissions.
-14. The LSBC Licensing app is visible only to System Administrator (in `profiles/Admin`). Give the
-    staff profile or permission sets app visibility, the record pages and the Home page.
-15. Staff access to the Phase 6 actions and flows: Record Payment, Refund, Generate Letter, Decide,
-    End Stop Code, Mark Printed, Print Licenses, New Application, Upload Documents. Decide whether the refund
-    verifier must differ from the requester (only a department name is recorded now).
-16. Field access for the Phase 6 fields (`Payment__c` CheckDate, PayerName, ChecklistItem;
-    DecisionReason on both applications; BusinessLicense PrintRequestedDate, PrintedDate,
-    IsReadyToPrint). Refund fields stay read-only on the layout: only the Refund flow sets them.
-17. Apex class and Visualforce access for letters: `LetterPdfController`, `LetterPdfSaveAction`,
-    page `LetterPdf`. Who may edit Letter Template custom metadata.
-18. Sharing for report folders LSBC Finance and LSBC Operations and dashboard folder LSBC
-    Operations. The dashboard runs as the viewer, so it follows record access.
-19. The Home page shows only a View Dashboard link: Lightning pages can't embed a dashboard that runs as
-    the viewer. Decide: run it as a fixed user, or put report charts on Home.
-20. Staff who run Decide need create and read on `CertificationNumberCounter__c` (it issues certification
-    numbers), and staff who print need the `LicensePdf` page and `LicensePdfController` class.
-21. Portal users have no access to `PreliminaryApplicationRef` (drafts). Files can't be attached to a draft
-    from the portal; documents go on checklist items, accommodation documents via the person account.
+1. Licences: the org has 5 Salesforce user licences, all held by admins, so no desk test user can be created.
+   Every staff user needs the Public Sector Access licence (5 seats today; more in January 2027), and in
+   production so does the Default Workflow User. Portal seats (100) are with the Account Executive.
+2. Refund verifier must differ from the requester (decided). Needs the requesting user recorded (today
+   `RefundRequestedBy__c` is a department name) and a validation rule: names to propose to Jonathan.
+3. Confidential complainant: only Compliance Officer, Program Manager and Executive Director see the reporter
+   when `IsReporterConfidential` is ticked (decided). Field access can't vary by record, so the Public Complaint
+   record page needs a visibility rule on a custom permission: names to propose to Jonathan.
+4. `OPEN-11`: School Administrator and Business Owner portal access over Account Contact Relations, the 17
+   School Forms, and moving portal-created establishments to an LSBC queue on approval.
+5. The long-term LSBC admin who gets the Business Rules Engine Designer seat and edits Letter Templates (name
+   needed from Erin).
 
 ## Org notes
 
 - Business Account record types deployed: `Establishment` (default), `School`, `Organization` (`DM-01a`).
 - Person Accounts are enabled. The record type is labelled `Person`; its developer name stays `PersonAccount`.
+- Staff access (Phase 2): edit `docs/LSBC Access Matrix.xlsx`, run `python3 -I scripts/generators/security.py`, deploy
+  permission sets, muting sets, then groups, then sharing rules. A permission set carrying the Public Sector Access
+  licence can't grant apps, Apex or Visualforce: those sit on the `LSBC Standard User` profile. Read on an object
+  sometimes needs read on another (applications need License Type, Account needs Contact, Visit needs Location,
+  RegulatoryCode needs RegulatoryAuthority): `DEPENDS` in the generator. A muting entry that mutes Edit must also
+  mute Delete and Modify All; muting Read mutes everything. Account can be Private only with Opportunity Private in
+  the same deployment. "All records" criteria rules use `Name` (Case: `CaseNumber`) not equal to blank; `CreatedDate`
+  is refused. Rerun the generator after any flow generator: it sets the staff action flows' run mode and run
+  restriction. Refresh `security_fields.json` when fields are added (query in the generator's docstring).
 - Admin access comes from the permission set group `force__Public_Sector_Solutions_Admin`.
   Field access for PSS objects is granted by `PublicSectorAccessAdminPSL` in that group (added to the
   group in Phase 1; after changing it, wait for the group status to return to Updated). Add new

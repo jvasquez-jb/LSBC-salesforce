@@ -1249,11 +1249,17 @@ reach production only if that load goes ahead (`OPEN-05`). The cases themselves 
 
 ### 5.1 Security model
 
-**Build status: in progress.** The Board went through the access matrix desk by desk on 18 Nov 2026
-(`SEC-01c`) and agreed its Sharing Settings. For the rest, Erin Marceaux asked the build team to go with
-its recommendations, which follow that tab. The later phases were built so they don't depend on this:
-rule flows run in system context, and until the staff permission sets deploy only System Administrator
-sees the LSBC Licensing app. What the later phases left for security is now decided:
+**Build status: built 19 Nov 2026, except `OPEN-11`.** The Board went through the access matrix desk by
+desk on 18 Nov 2026 (`SEC-01c`) and agreed its Sharing Settings. For the rest, Erin Marceaux asked the build team
+to go with its recommendations, which follow that tab. `scripts/generators/security.py` builds everything from
+the workbook: 18 permission sets, a permission set group per desk with a muting set that caps it at its Sharing
+Settings column, and 142 sharing rules. The staff action flows (Decide, Record Payment, Refund, Generate Letter,
+Add and End Stop Code, Mark Printed, New Application, Record Complaint, Change Year) run in system context
+**with sharing**: the user acts only on records shared with them, and the flow makes the writes a desk's own
+permissions wouldn't (a licence created by Decide at Front Desk). Each runs only for the desks whose permission
+sets grant it. Still to build: the refund verifier rule and the confidential complainant rule (names to agree),
+and `OPEN-11`. No desk can be tested as a real user yet: the org's five Salesforce licences are all held by
+admins. What the later phases left for security is now decided:
 
 | Area | Decision |
 |---|---|
@@ -1939,3 +1945,4 @@ the source.
 | 19 Nov 2026 | `OPEN-57` opened: the org allows 2,500 rule calls a month and 100 portal users' licences, far below the build's volume and the licensee population; sizing is with the Account Executive. |
 | 19 Nov 2026 | `OPEN-57`: Jonathan kept the portal as built (logins trued up at LSBC's renewal) and put moving rules out of the rules engine on hold. |
 | 19 Nov 2026 | `SEC-01c` settled: the Board agreed the access matrix's Sharing Settings on 18 Nov 2026, and the other tabs were rebuilt to match. Program Manager edits almost everything, accommodations included (`SEC-08`); Executive Director and Program Manager edit Fee Products; Reciprocity Desk, Student Registration, Testing Desk and Inspection Supervisor report to Program Manager. Each desk group gets a muting permission set so it never exceeds its Sharing Settings. The remaining Phase 2 questions (violations, complaint confidentiality, queues, refunds, report folders, portal establishments, accommodation documents, letter templates) follow the build team's recommendations in the Client Questions doc, adjusted to the agreed Sharing Settings, at Erin Marceaux's request. The workbook is now `LSBC Access Matrix.xlsx`. |
+| 19 Nov 2026 | Phase 2 security built from the access matrix (`SEC-01c`): permission sets, desk groups with muting sets, sharing rules, org-wide defaults (Account, Case, Opportunity Private; License Type, Training Course, Course Offering Public Read Only), profile LSBC Standard User, report folder sharing, queue members. Staff action flows now run in system context with sharing, restricted to the desks that use them. |

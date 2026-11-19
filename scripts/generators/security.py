@@ -8,7 +8,11 @@ Writes, under force-app/main/default:
   sharingRules/<Object>.sharingRules-meta.xml           from the Sharing Rules tab
 
 Field access comes from scripts/generators/security_fields.json (every field the admin can be given access to,
-from FieldPermissions); refresh it when fields are added. Fields a page layout shows read-only stay read-only.
+from FieldPermissions); refresh it when fields are added:
+  sf data query --json -q "SELECT Field, PermissionsEdit FROM FieldPermissions WHERE SobjectType IN (<objects>)
+    AND ParentId IN (SELECT PermissionSetId FROM PermissionSetAssignment WHERE AssigneeId = '<admin user id>')"
+  then keep each Field with PermissionsEdit or-ed across rows, leaving out Contact.MockSocialSecurityNumber__c.
+Fields a page layout shows read-only stay read-only.
 
 Run from the repo root:  python3 -I scripts/generators/security.py
 """
