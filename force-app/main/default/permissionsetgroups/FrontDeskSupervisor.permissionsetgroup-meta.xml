@@ -4,16 +4,20 @@
     <hasActivationRequired>false</hasActivationRequired>
     <label>Front Desk Supervisor</label>
     <mutingPermissionSets>FrontDeskSupervisorMuting</mutingPermissionSets>
-    <permissionSets>LicensingRead</permissionSets>
-    <permissionSets>PeopleMaintenance</permissionSets>
-    <permissionSets>LicenseMaintenance</permissionSets>
     <permissionSets>ApplicationProcessing</permissionSets>
-    <permissionSets>PaymentEntry</permissionSets>
-    <permissionSets>RefundProcessing</permissionSets>
-    <permissionSets>HoldManagement</permissionSets>
-    <permissionSets>IdentityAccess</permissionSets>
-    <permissionSets>SchoolOversight</permissionSets>
+    <permissionSets>ApplicationProcessingExtra</permissionSets>
     <permissionSets>CaseWork</permissionSets>
+    <permissionSets>HoldManagement</permissionSets>
+    <permissionSets>HoldManagementExtra</permissionSets>
+    <permissionSets>IdentityAccess</permissionSets>
+    <permissionSets>LicenseMaintenance</permissionSets>
+    <permissionSets>LicensingRead</permissionSets>
+    <permissionSets>LicensingReadExtra</permissionSets>
+    <permissionSets>PaymentEntry</permissionSets>
+    <permissionSets>PaymentEntryExtra</permissionSets>
+    <permissionSets>PeopleMaintenance</permissionSets>
+    <permissionSets>RefundProcessing</permissionSets>
     <permissionSets>ReportsRead</permissionSets>
+    <permissionSets>SchoolOversight</permissionSets>
     <status>Updated</status>
 </PermissionSetGroup>

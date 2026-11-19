@@ -4,11 +4,14 @@
     <hasActivationRequired>false</hasActivationRequired>
     <label>Student Registration</label>
     <mutingPermissionSets>StudentRegistrationMuting</mutingPermissionSets>
-    <permissionSets>LicensingRead</permissionSets>
-    <permissionSets>PeopleMaintenance</permissionSets>
     <permissionSets>ApplicationProcessing</permissionSets>
-    <permissionSets>PaymentEntry</permissionSets>
+    <permissionSets>ApplicationProcessingExtra</permissionSets>
     <permissionSets>IdentityAccess</permissionSets>
+    <permissionSets>LicensingRead</permissionSets>
+    <permissionSets>LicensingReadExtra</permissionSets>
+    <permissionSets>PaymentEntry</permissionSets>
+    <permissionSets>PaymentEntryExtra</permissionSets>
+    <permissionSets>PeopleMaintenance</permissionSets>
     <permissionSets>StudentHours</permissionSets>
     <status>Updated</status>
 </PermissionSetGroup>

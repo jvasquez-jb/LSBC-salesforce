@@ -99,7 +99,16 @@ Settings column, 142 sharing rules, org-wide defaults (Account, Case, Opportunit
 Course, Course Offering Public Read Only), profile `LSBC Standard User`, public groups (members:
 `scripts/apex/SecurityGroupMembers.apex`), queue members, report folder sharing. The staff action flows run in
 system context with sharing and only for the desks whose blocks grant them. Field history (carry-over 3, 7, 11)
-and the staff Home page (19) were built by the demo-feedback session. Also built (`f7749da`): the refund verifier must differ from the requester (`Payment__c.RefundRequestedByUser__c`, rule `RefundVerifiedByNotRequestedBy`); confidential complainants show only to holders of `ViewConfidentialComplainant` (permission set `ConfidentialComplainantAccess`: Executive Director, Compliance Officer, Program Manager, admins), through field sections on the Public Complaint page (`SECTION_RULES` in `pagegen.py`). Administrators get every gated staff flow through `PublicSectorAccessAdminPSL`. A Public Sector-licensed set can't hold custom permissions either.
+and the staff Home page (19) were built by the demo-feedback session. Also built (`f7749da`): the refund verifier must differ from the requester (`Payment__c.RefundRequestedByUser__c`, rule `RefundVerifiedByNotRequestedBy`); confidential complainants show only to holders of `ViewConfidentialComplainant` (permission set `ConfidentialComplainantAccess`: Executive Director, Compliance Officer, Program Manager, admins), through field sections on the Public Complaint page (`SECTION_RULES` in `pagegen.py`). Administrators get every gated staff flow through `PublicSectorAccessAdminPSL`. A Public Sector-licensed set can't hold custom permissions either, and it silently drops Payment, Payment
+Allocation, Certification Number Counter, Fee Product, Record Alert and Document Checklist Item (deploy succeeds,
+permissions missing): the generator puts those in an unlicensed `<Block>Extra` set in the same groups (`NON_PSL`).
+A set's licence can't be removed once created. Tim Owens' user (System Administrator) is a desk test user while he
+is away: profile LSBC Standard User, role FrontDesk, group FrontDesk, Public Sector Access licence; his
+`LSBCDataMigration` assignment was removed. Restore: System Administrator profile, role SystemAdministrator,
+`LSBCDataMigration`, remove the FrontDesk group and the licence. Check access with `UserRecordAccess` and the
+group's `ObjectPermissions` (via `PermissionSetAssignment.PermissionSetId`). A checklist item takes its access
+from its parent application, so sharing rules can't keep the accommodation documentation from desks that see the
+application (open).
 
 Still open:
 

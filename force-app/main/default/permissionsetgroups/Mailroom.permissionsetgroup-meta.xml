@@ -4,8 +4,11 @@
     <hasActivationRequired>false</hasActivationRequired>
     <label>Mailroom</label>
     <mutingPermissionSets>MailroomMuting</mutingPermissionSets>
-    <permissionSets>LicensingRead</permissionSets>
     <permissionSets>ApplicationProcessing</permissionSets>
+    <permissionSets>ApplicationProcessingExtra</permissionSets>
+    <permissionSets>LicensingRead</permissionSets>
+    <permissionSets>LicensingReadExtra</permissionSets>
     <permissionSets>PaymentEntry</permissionSets>
+    <permissionSets>PaymentEntryExtra</permissionSets>
     <status>Updated</status>
 </PermissionSetGroup>

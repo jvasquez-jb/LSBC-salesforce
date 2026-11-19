@@ -5,7 +5,9 @@
     <label>Finance</label>
     <mutingPermissionSets>FinanceMuting</mutingPermissionSets>
     <permissionSets>LicensingRead</permissionSets>
+    <permissionSets>LicensingReadExtra</permissionSets>
     <permissionSets>PaymentEntry</permissionSets>
+    <permissionSets>PaymentEntryExtra</permissionSets>
     <permissionSets>RefundProcessing</permissionSets>
     <permissionSets>ReportsRead</permissionSets>
     <status>Updated</status>

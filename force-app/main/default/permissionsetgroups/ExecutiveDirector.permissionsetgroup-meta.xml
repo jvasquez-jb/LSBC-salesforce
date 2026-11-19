@@ -4,10 +4,12 @@
     <hasActivationRequired>false</hasActivationRequired>
     <label>Executive Director</label>
     <mutingPermissionSets>ExecutiveDirectorMuting</mutingPermissionSets>
-    <permissionSets>LicensingRead</permissionSets>
     <permissionSets>CaseRead</permissionSets>
-    <permissionSets>ReportsRead</permissionSets>
-    <permissionSets>ReferenceDataMaintenance</permissionSets>
     <permissionSets>ConfidentialComplainantAccess</permissionSets>
+    <permissionSets>LicensingRead</permissionSets>
+    <permissionSets>LicensingReadExtra</permissionSets>
+    <permissionSets>ReferenceDataMaintenance</permissionSets>
+    <permissionSets>ReferenceDataMaintenanceExtra</permissionSets>
+    <permissionSets>ReportsRead</permissionSets>
     <status>Updated</status>
 </PermissionSetGroup>

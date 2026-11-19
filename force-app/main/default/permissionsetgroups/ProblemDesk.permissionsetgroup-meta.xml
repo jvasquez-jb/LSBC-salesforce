@@ -4,14 +4,17 @@
     <hasActivationRequired>false</hasActivationRequired>
     <label>Problem Desk</label>
     <mutingPermissionSets>ProblemDeskMuting</mutingPermissionSets>
-    <permissionSets>LicensingRead</permissionSets>
-    <permissionSets>PeopleMaintenance</permissionSets>
-    <permissionSets>LicenseMaintenance</permissionSets>
-    <permissionSets>PaymentEntry</permissionSets>
-    <permissionSets>HoldManagement</permissionSets>
-    <permissionSets>IdentityAccess</permissionSets>
-    <permissionSets>StudentHours</permissionSets>
     <permissionSets>BondsAndApprovals</permissionSets>
     <permissionSets>CaseWork</permissionSets>
+    <permissionSets>HoldManagement</permissionSets>
+    <permissionSets>HoldManagementExtra</permissionSets>
+    <permissionSets>IdentityAccess</permissionSets>
+    <permissionSets>LicenseMaintenance</permissionSets>
+    <permissionSets>LicensingRead</permissionSets>
+    <permissionSets>LicensingReadExtra</permissionSets>
+    <permissionSets>PaymentEntry</permissionSets>
+    <permissionSets>PaymentEntryExtra</permissionSets>
+    <permissionSets>PeopleMaintenance</permissionSets>
+    <permissionSets>StudentHours</permissionSets>
     <status>Updated</status>
 </PermissionSetGroup>

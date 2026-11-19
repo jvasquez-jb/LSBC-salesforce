@@ -4,20 +4,25 @@
     <hasActivationRequired>false</hasActivationRequired>
     <label>Program Manager</label>
     <mutingPermissionSets>ProgramManagerMuting</mutingPermissionSets>
-    <permissionSets>LicensingRead</permissionSets>
-    <permissionSets>PeopleMaintenance</permissionSets>
-    <permissionSets>LicenseMaintenance</permissionSets>
-    <permissionSets>ApplicationProcessing</permissionSets>
-    <permissionSets>PaymentEntry</permissionSets>
-    <permissionSets>HoldManagement</permissionSets>
-    <permissionSets>ExamAdministration</permissionSets>
     <permissionSets>AccommodationAccess</permissionSets>
-    <permissionSets>SchoolOversight</permissionSets>
+    <permissionSets>ApplicationProcessing</permissionSets>
+    <permissionSets>ApplicationProcessingExtra</permissionSets>
     <permissionSets>CaseRead</permissionSets>
     <permissionSets>CaseWork</permissionSets>
-    <permissionSets>InspectionWork</permissionSets>
-    <permissionSets>ReportsRead</permissionSets>
-    <permissionSets>ReferenceDataMaintenance</permissionSets>
     <permissionSets>ConfidentialComplainantAccess</permissionSets>
+    <permissionSets>ExamAdministration</permissionSets>
+    <permissionSets>HoldManagement</permissionSets>
+    <permissionSets>HoldManagementExtra</permissionSets>
+    <permissionSets>InspectionWork</permissionSets>
+    <permissionSets>LicenseMaintenance</permissionSets>
+    <permissionSets>LicensingRead</permissionSets>
+    <permissionSets>LicensingReadExtra</permissionSets>
+    <permissionSets>PaymentEntry</permissionSets>
+    <permissionSets>PaymentEntryExtra</permissionSets>
+    <permissionSets>PeopleMaintenance</permissionSets>
+    <permissionSets>ReferenceDataMaintenance</permissionSets>
+    <permissionSets>ReferenceDataMaintenanceExtra</permissionSets>
+    <permissionSets>ReportsRead</permissionSets>
+    <permissionSets>SchoolOversight</permissionSets>
     <status>Updated</status>
 </PermissionSetGroup>

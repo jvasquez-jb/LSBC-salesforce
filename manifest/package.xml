@@ -779,22 +779,27 @@
     <types>
         <members>AccommodationAccess</members>
         <members>ApplicationProcessing</members>
+        <members>ApplicationProcessingExtra</members>
         <members>BondsAndApprovals</members>
         <members>CaseRead</members>
         <members>CaseWork</members>
         <members>ConfidentialComplainantAccess</members>
         <members>ExamAdministration</members>
         <members>HoldManagement</members>
+        <members>HoldManagementExtra</members>
         <members>IdentityAccess</members>
         <members>InspectionWork</members>
         <members>LSBCDataMigration</members>
         <members>LicenseMaintenance</members>
         <members>LicensingRead</members>
+        <members>LicensingReadExtra</members>
         <members>PaymentEntry</members>
+        <members>PaymentEntryExtra</members>
         <members>PeopleMaintenance</members>
         <members>PortalLicensee</members>
         <members>PublicSectorAccessAdminPSL</members>
         <members>ReferenceDataMaintenance</members>
+        <members>ReferenceDataMaintenanceExtra</members>
         <members>RefundProcessing</members>
         <members>ReportsRead</members>
         <members>SchoolOversight</members>
