@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>CaseAllToAllStaff</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>All records, shared with AllStaff. From the LSBC Access Matrix.</description>
+        <label>Case All To All Staff</label>
+        <sharedTo>
+            <group>AllStaff</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>CaseNumber</field>
+            <operation>notEqual</operation>
+            <value></value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>CaseAllToComplianceOfficerEdit</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>All records, shared with ComplianceOfficer. From the LSBC Access Matrix.</description>
+        <label>Case All To Compliance Officer Edit</label>
+        <sharedTo>
+            <group>ComplianceOfficer</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>CaseNumber</field>
+            <operation>notEqual</operation>
+            <value></value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>CaseAllToFrontDeskSupervisorEdit</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>All records, shared with FrontDeskSupervisor. From the LSBC Access Matrix.</description>
+        <label>Case All To Front Desk Supervisor Edit</label>
+        <sharedTo>
+            <group>FrontDeskSupervisor</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>CaseNumber</field>
+            <operation>notEqual</operation>
+            <value></value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>CaseAllToFrontDeskEdit</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>All records, shared with FrontDesk. From the LSBC Access Matrix.</description>
+        <label>Case All To Front Desk Edit</label>
+        <sharedTo>
+            <group>FrontDesk</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>CaseNumber</field>
+            <operation>notEqual</operation>
+            <value></value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>CaseAllToProblemDeskEdit</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>All records, shared with ProblemDesk. From the LSBC Access Matrix.</description>
+        <label>Case All To Problem Desk Edit</label>
+        <sharedTo>
+            <group>ProblemDesk</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>CaseNumber</field>
+            <operation>notEqual</operation>
+            <value></value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>CaseAllToProgramManagerEdit</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>All records, shared with ProgramManager. From the LSBC Access Matrix.</description>
+        <label>Case All To Program Manager Edit</label>
+        <sharedTo>
+            <group>ProgramManager</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>CaseNumber</field>
+            <operation>notEqual</operation>
+            <value></value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>CaseAllToInspectorEdit</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>All records, shared with Inspector. From the LSBC Access Matrix.</description>
+        <label>Case All To Inspector Edit</label>
+        <sharedTo>
+            <group>Inspector</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>CaseNumber</field>
+            <operation>notEqual</operation>
+            <value></value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+</SharingRules>

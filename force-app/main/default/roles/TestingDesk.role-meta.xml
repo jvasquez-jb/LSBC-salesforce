@@ -5,5 +5,5 @@
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>Testing Desk</name>
     <opportunityAccessLevel>Edit</opportunityAccessLevel>
-    <parentRole>ProgrammeManager</parentRole>
+    <parentRole>ProgramManager</parentRole>
 </Role>

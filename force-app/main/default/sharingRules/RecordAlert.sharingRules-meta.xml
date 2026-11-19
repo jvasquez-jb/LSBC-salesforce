@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>RecordAlertAllToAllStaff</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>All records, shared with AllStaff. From the LSBC Access Matrix.</description>
+        <label>Record Alert All To All Staff</label>
+        <sharedTo>
+            <group>AllStaff</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value></value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>RecordAlertAllToComplianceOfficerEdit</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>All records, shared with ComplianceOfficer. From the LSBC Access Matrix.</description>
+        <label>Record Alert All To Compliance Officer Edit</label>
+        <sharedTo>
+            <group>ComplianceOfficer</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value></value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>RecordAlertAllToFrontDeskSupervisorEdit</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>All records, shared with FrontDeskSupervisor. From the LSBC Access Matrix.</description>
+        <label>Record Alert All To Front Desk Supervisor Edit</label>
+        <sharedTo>
+            <group>FrontDeskSupervisor</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value></value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>RecordAlertAllToFrontDeskEdit</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>All records, shared with FrontDesk. From the LSBC Access Matrix.</description>
+        <label>Record Alert All To Front Desk Edit</label>
+        <sharedTo>
+            <group>FrontDesk</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value></value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>RecordAlertAllToProblemDeskEdit</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>All records, shared with ProblemDesk. From the LSBC Access Matrix.</description>
+        <label>Record Alert All To Problem Desk Edit</label>
+        <sharedTo>
+            <group>ProblemDesk</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value></value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>RecordAlertAllToProgramManagerEdit</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>All records, shared with ProgramManager. From the LSBC Access Matrix.</description>
+        <label>Record Alert All To Program Manager Edit</label>
+        <sharedTo>
+            <group>ProgramManager</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value></value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+</SharingRules>

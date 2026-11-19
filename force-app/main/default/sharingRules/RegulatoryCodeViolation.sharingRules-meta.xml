@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>RegulatoryCodeViolationAllToAllStaff</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>All records, shared with AllStaff. Follows the LSBC Access Matrix.</description>
+        <label>Regulatory Code Violation All To All Staff</label>
+        <sharedTo>
+            <group>AllStaff</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value></value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>RegulatoryCodeViolationAllToComplianceOfficerEdit</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>All records, shared with ComplianceOfficer. Follows the LSBC Access Matrix.</description>
+        <label>Regulatory Code Violation All To Compliance Officer Edit</label>
+        <sharedTo>
+            <group>ComplianceOfficer</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value></value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>RegulatoryCodeViolationAllToProgramManagerEdit</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>All records, shared with ProgramManager. Follows the LSBC Access Matrix.</description>
+        <label>Regulatory Code Violation All To Program Manager Edit</label>
+        <sharedTo>
+            <group>ProgramManager</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value></value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>RegulatoryCodeViolationAllToInspectorEdit</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>All records, shared with Inspector. Follows the LSBC Access Matrix.</description>
+        <label>Regulatory Code Violation All To Inspector Edit</label>
+        <sharedTo>
+            <group>Inspector</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value></value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+</SharingRules>

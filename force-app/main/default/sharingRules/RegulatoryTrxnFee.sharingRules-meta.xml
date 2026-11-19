@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>RegulatoryTrxnFeeAllToAllStaff</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>All records, shared with AllStaff. From the LSBC Access Matrix.</description>
+        <label>Regulatory Trxn Fee All To All Staff</label>
+        <sharedTo>
+            <group>AllStaff</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value></value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>RegulatoryTrxnFeeAllToFinanceEdit</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>All records, shared with Finance. From the LSBC Access Matrix.</description>
+        <label>Regulatory Trxn Fee All To Finance Edit</label>
+        <sharedTo>
+            <group>Finance</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value></value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>RegulatoryTrxnFeeAllToFrontDeskSupervisorEdit</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>All records, shared with FrontDeskSupervisor. From the LSBC Access Matrix.</description>
+        <label>Regulatory Trxn Fee All To Front Desk Supervisor Edit</label>
+        <sharedTo>
+            <group>FrontDeskSupervisor</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value></value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>RegulatoryTrxnFeeAllToFrontDeskEdit</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>All records, shared with FrontDesk. From the LSBC Access Matrix.</description>
+        <label>Regulatory Trxn Fee All To Front Desk Edit</label>
+        <sharedTo>
+            <group>FrontDesk</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value></value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>RegulatoryTrxnFeeAllToMailroomEdit</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>All records, shared with Mailroom. From the LSBC Access Matrix.</description>
+        <label>Regulatory Trxn Fee All To Mailroom Edit</label>
+        <sharedTo>
+            <group>Mailroom</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value></value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>RegulatoryTrxnFeeAllToProblemDeskEdit</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>All records, shared with ProblemDesk. From the LSBC Access Matrix.</description>
+        <label>Regulatory Trxn Fee All To Problem Desk Edit</label>
+        <sharedTo>
+            <group>ProblemDesk</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value></value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>RegulatoryTrxnFeeAllToRenewalDeskEdit</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>All records, shared with RenewalDesk. From the LSBC Access Matrix.</description>
+        <label>Regulatory Trxn Fee All To Renewal Desk Edit</label>
+        <sharedTo>
+            <group>RenewalDesk</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value></value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>RegulatoryTrxnFeeAllToReciprocityDeskEdit</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>All records, shared with ReciprocityDesk. From the LSBC Access Matrix.</description>
+        <label>Regulatory Trxn Fee All To Reciprocity Desk Edit</label>
+        <sharedTo>
+            <group>ReciprocityDesk</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value></value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>RegulatoryTrxnFeeAllToStudentRegistrationEdit</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>All records, shared with StudentRegistration. From the LSBC Access Matrix.</description>
+        <label>Regulatory Trxn Fee All To Student Registration Edit</label>
+        <sharedTo>
+            <group>StudentRegistration</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value></value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>RegulatoryTrxnFeeAllToProgramManagerEdit</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>All records, shared with ProgramManager. From the LSBC Access Matrix.</description>
+        <label>Regulatory Trxn Fee All To Program Manager Edit</label>
+        <sharedTo>
+            <group>ProgramManager</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value></value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>RegulatoryTrxnFeeAllToInspectorEdit</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>All records, shared with Inspector. From the LSBC Access Matrix.</description>
+        <label>Regulatory Trxn Fee All To Inspector Edit</label>
+        <sharedTo>
+            <group>Inspector</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value></value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+</SharingRules>

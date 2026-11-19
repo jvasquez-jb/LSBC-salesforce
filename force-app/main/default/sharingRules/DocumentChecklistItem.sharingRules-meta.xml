@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>DocumentChecklistItemStandardToAllStaff</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Every checklist item except the accommodation documentation, shared with AllStaff. Follows the LSBC Access Matrix.</description>
+        <label>Document Checklist Item Standard To All Staff</label>
+        <sharedTo>
+            <group>AllStaff</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value>Documentation for Disability Related Needs</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>DocumentChecklistItemStandardToComplianceOfficerEdit</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Every checklist item except the accommodation documentation, shared with ComplianceOfficer. Follows the LSBC Access Matrix.</description>
+        <label>Document Checklist Item Standard To Compliance Officer Edit</label>
+        <sharedTo>
+            <group>ComplianceOfficer</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value>Documentation for Disability Related Needs</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>DocumentChecklistItemStandardToFrontDeskSupervisorEdit</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Every checklist item except the accommodation documentation, shared with FrontDeskSupervisor. Follows the LSBC Access Matrix.</description>
+        <label>Document Checklist Item Standard To Front Desk Supervisor Edit</label>
+        <sharedTo>
+            <group>FrontDeskSupervisor</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value>Documentation for Disability Related Needs</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>DocumentChecklistItemStandardToFrontDeskEdit</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Every checklist item except the accommodation documentation, shared with FrontDesk. Follows the LSBC Access Matrix.</description>
+        <label>Document Checklist Item Standard To Front Desk Edit</label>
+        <sharedTo>
+            <group>FrontDesk</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value>Documentation for Disability Related Needs</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>DocumentChecklistItemStandardToRenewalDeskEdit</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Every checklist item except the accommodation documentation, shared with RenewalDesk. Follows the LSBC Access Matrix.</description>
+        <label>Document Checklist Item Standard To Renewal Desk Edit</label>
+        <sharedTo>
+            <group>RenewalDesk</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value>Documentation for Disability Related Needs</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>DocumentChecklistItemStandardToReciprocityDeskEdit</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Every checklist item except the accommodation documentation, shared with ReciprocityDesk. Follows the LSBC Access Matrix.</description>
+        <label>Document Checklist Item Standard To Reciprocity Desk Edit</label>
+        <sharedTo>
+            <group>ReciprocityDesk</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value>Documentation for Disability Related Needs</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>DocumentChecklistItemStandardToStudentRegistrationEdit</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Every checklist item except the accommodation documentation, shared with StudentRegistration. Follows the LSBC Access Matrix.</description>
+        <label>Document Checklist Item Standard To Student Registration Edit</label>
+        <sharedTo>
+            <group>StudentRegistration</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value>Documentation for Disability Related Needs</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>DocumentChecklistItemStandardToProgramManagerEdit</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Every checklist item except the accommodation documentation, shared with ProgramManager. Follows the LSBC Access Matrix.</description>
+        <label>Document Checklist Item Standard To Program Manager Edit</label>
+        <sharedTo>
+            <group>ProgramManager</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value>Documentation for Disability Related Needs</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>DocumentChecklistItemAccommodationToReciprocityDeskEdit</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>The accommodation documentation (health information), shared with ReciprocityDesk. Follows the LSBC Access Matrix.</description>
+        <label>Document Checklist Item Accommodation To Reciprocity Desk Edit</label>
+        <sharedTo>
+            <group>ReciprocityDesk</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>equals</operation>
+            <value>Documentation for Disability Related Needs</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>DocumentChecklistItemAccommodationToTestingDeskEdit</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>The accommodation documentation (health information), shared with TestingDesk. Follows the LSBC Access Matrix.</description>
+        <label>Document Checklist Item Accommodation To Testing Desk Edit</label>
+        <sharedTo>
+            <group>TestingDesk</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>equals</operation>
+            <value>Documentation for Disability Related Needs</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>DocumentChecklistItemAccommodationToProgramManagerEdit</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>The accommodation documentation (health information), shared with ProgramManager. Follows the LSBC Access Matrix.</description>
+        <label>Document Checklist Item Accommodation To Program Manager Edit</label>
+        <sharedTo>
+            <group>ProgramManager</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>equals</operation>
+            <value>Documentation for Disability Related Needs</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+</SharingRules>

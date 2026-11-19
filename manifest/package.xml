@@ -445,22 +445,27 @@
         <name>CustomMetadata</name>
     </types>
     <types>
+        <members>Account</members>
         <members>Accreditation</members>
         <members>ApplicationDocumentRequirement__mdt</members>
         <members>BusinessLicense</members>
         <members>BusinessLicenseApplication</members>
+        <members>Case</members>
         <members>CertificationNumberCounter__c</members>
         <members>Contact</members>
         <members>CourseOffering</members>
         <members>DocumentChecklistItem</members>
         <members>IndividualApplication</members>
         <members>LetterTemplate__mdt</members>
+        <members>Opportunity</members>
         <members>PaymentAllocation__c</members>
         <members>Payment__c</members>
         <members>PersonExamination</members>
         <members>RecordAlert</members>
+        <members>RegulatoryAuthorizationType</members>
         <members>RegulatoryTrxnFee</members>
         <members>TrainingCourseParticipant</members>
+        <members>TrnCourse</members>
         <name>CustomObject</name>
     </types>
     <types>
@@ -671,6 +676,23 @@
         <name>GlobalValueSet</name>
     </types>
     <types>
+        <members>AllStaff</members>
+        <members>ComplianceOfficer</members>
+        <members>ExecutiveDirector</members>
+        <members>Finance</members>
+        <members>FrontDesk</members>
+        <members>FrontDeskSupervisor</members>
+        <members>Inspector</members>
+        <members>Mailroom</members>
+        <members>ProblemDesk</members>
+        <members>ProgramManager</members>
+        <members>ReciprocityDesk</members>
+        <members>RenewalDesk</members>
+        <members>StudentRegistration</members>
+        <members>TestingDesk</members>
+        <name>Group</name>
+    </types>
+    <types>
         <members>Account-Account Layout</members>
         <members>AccountContactRelation-Account Contact Relationship Layout</members>
         <members>Accreditation-Accreditation Layout</members>
@@ -714,6 +736,22 @@
         <name>ListView</name>
     </types>
     <types>
+        <members>ComplianceOfficerMuting</members>
+        <members>ExecutiveDirectorMuting</members>
+        <members>FinanceMuting</members>
+        <members>FrontDeskMuting</members>
+        <members>FrontDeskSupervisorMuting</members>
+        <members>InspectorMuting</members>
+        <members>MailroomMuting</members>
+        <members>ProblemDeskMuting</members>
+        <members>ProgramManagerMuting</members>
+        <members>ReciprocityDeskMuting</members>
+        <members>RenewalDeskMuting</members>
+        <members>StudentRegistrationMuting</members>
+        <members>TestingDeskMuting</members>
+        <name>MutingPermissionSet</name>
+    </types>
+    <types>
         <members>Default_User_Profile_Menu</members>
         <members>SFDC_Default_Navigation_LSBC_LPI</members>
         <name>NavigationMenu</name>
@@ -727,13 +765,44 @@
         <name>NetworkBranding</name>
     </types>
     <types>
+        <members>AccommodationAccess</members>
+        <members>ApplicationProcessing</members>
+        <members>BondsAndApprovals</members>
+        <members>CaseRead</members>
+        <members>CaseWork</members>
+        <members>ExamAdministration</members>
+        <members>HoldManagement</members>
+        <members>IdentityAccess</members>
+        <members>InspectionWork</members>
         <members>LSBCDataMigration</members>
+        <members>LicenseMaintenance</members>
+        <members>LicensingRead</members>
+        <members>PaymentEntry</members>
+        <members>PeopleMaintenance</members>
         <members>PortalLicensee</members>
         <members>PublicSectorAccessAdminPSL</members>
+        <members>ReferenceDataMaintenance</members>
+        <members>RefundProcessing</members>
+        <members>ReportsRead</members>
+        <members>SchoolOversight</members>
+        <members>StudentHours</members>
         <name>PermissionSet</name>
     </types>
     <types>
+        <members>ComplianceOfficer</members>
+        <members>ExecutiveDirector</members>
+        <members>Finance</members>
+        <members>FrontDesk</members>
+        <members>FrontDeskSupervisor</members>
+        <members>Inspector</members>
+        <members>Mailroom</members>
         <members>PortalLicenseeAccess</members>
+        <members>ProblemDesk</members>
+        <members>ProgramManager</members>
+        <members>ReciprocityDesk</members>
+        <members>RenewalDesk</members>
+        <members>StudentRegistration</members>
+        <members>TestingDesk</members>
         <members>force__Public_Sector_Solutions_Admin</members>
         <name>PermissionSetGroup</name>
     </types>
@@ -741,6 +810,7 @@
         <members>Admin</members>
         <members>LSBC LPI Profile</members>
         <members>LSBC Portal User</members>
+        <members>LSBC Standard User</members>
         <name>Profile</name>
     </types>
     <types>
@@ -853,7 +923,7 @@
         <members>Inspector</members>
         <members>Mailroom</members>
         <members>ProblemDesk</members>
-        <members>ProgrammeManager</members>
+        <members>ProgramManager</members>
         <members>ReciprocityDesk</members>
         <members>RenewalDesk</members>
         <members>StudentRegistration</members>
@@ -864,6 +934,176 @@
     <types>
         <members>Flow</members>
         <name>Settings</name>
+    </types>
+    <types>
+        <members>Account.AccountEstablishmentToComplianceOfficer</members>
+        <members>Account.AccountEstablishmentToExecutiveDirector</members>
+        <members>Account.AccountEstablishmentToFinance</members>
+        <members>Account.AccountEstablishmentToFrontDeskEdit</members>
+        <members>Account.AccountEstablishmentToFrontDeskSupervisorEdit</members>
+        <members>Account.AccountEstablishmentToInspector</members>
+        <members>Account.AccountEstablishmentToMailroom</members>
+        <members>Account.AccountEstablishmentToProblemDeskEdit</members>
+        <members>Account.AccountEstablishmentToProgramManagerEdit</members>
+        <members>Account.AccountEstablishmentToRenewalDeskEdit</members>
+        <members>Account.AccountEstablishmentToStudentRegistrationEdit</members>
+        <members>Account.AccountEstablishmentToTestingDesk</members>
+        <members>Account.AccountOrganizationToAllStaff</members>
+        <members>Account.AccountOrganizationToFrontDeskEdit</members>
+        <members>Account.AccountOrganizationToFrontDeskSupervisorEdit</members>
+        <members>Account.AccountOrganizationToProblemDeskEdit</members>
+        <members>Account.AccountOrganizationToProgramManagerEdit</members>
+        <members>Account.AccountOrganizationToReciprocityDeskEdit</members>
+        <members>Account.AccountOrganizationToRenewalDeskEdit</members>
+        <members>Account.AccountOrganizationToStudentRegistrationEdit</members>
+        <members>Account.AccountPersonToAllStaff</members>
+        <members>Account.AccountPersonToFrontDeskEdit</members>
+        <members>Account.AccountPersonToFrontDeskSupervisorEdit</members>
+        <members>Account.AccountPersonToProblemDeskEdit</members>
+        <members>Account.AccountPersonToProgramManagerEdit</members>
+        <members>Account.AccountPersonToReciprocityDeskEdit</members>
+        <members>Account.AccountPersonToRenewalDeskEdit</members>
+        <members>Account.AccountPersonToStudentRegistrationEdit</members>
+        <members>Account.AccountSchoolToComplianceOfficer</members>
+        <members>Account.AccountSchoolToExecutiveDirector</members>
+        <members>Account.AccountSchoolToFinance</members>
+        <members>Account.AccountSchoolToFrontDeskEdit</members>
+        <members>Account.AccountSchoolToFrontDeskSupervisorEdit</members>
+        <members>Account.AccountSchoolToInspector</members>
+        <members>Account.AccountSchoolToMailroom</members>
+        <members>Account.AccountSchoolToProblemDeskEdit</members>
+        <members>Account.AccountSchoolToProgramManagerEdit</members>
+        <members>Account.AccountSchoolToStudentRegistrationEdit</members>
+        <members>Account.AccountSchoolToTestingDesk</members>
+        <members>Accreditation.AccreditationAllToAllStaff</members>
+        <members>Accreditation.AccreditationAllToProblemDeskEdit</members>
+        <members>Accreditation.AccreditationAllToProgramManagerEdit</members>
+        <members>BusinessLicense.BusinessLicenseAllToAllStaff</members>
+        <members>BusinessLicense.BusinessLicenseAllToFrontDeskSupervisorEdit</members>
+        <members>BusinessLicense.BusinessLicenseAllToProblemDeskEdit</members>
+        <members>BusinessLicense.BusinessLicenseAllToProgramManagerEdit</members>
+        <members>BusinessLicense.BusinessLicenseAllToReciprocityDeskEdit</members>
+        <members>BusinessLicense.BusinessLicenseAllToRenewalDeskEdit</members>
+        <members>BusinessLicenseApplication.BusinessLicenseApplicationAllToAllStaff</members>
+        <members>BusinessLicenseApplication.BusinessLicenseApplicationAllToComplianceOfficerEdit</members>
+        <members>BusinessLicenseApplication.BusinessLicenseApplicationAllToProgramManagerEdit</members>
+        <members>BusinessLicenseApplication.BusinessLicenseApplicationNewToFrontDeskEdit</members>
+        <members>BusinessLicenseApplication.BusinessLicenseApplicationNewToFrontDeskSupervisorEdit</members>
+        <members>BusinessLicenseApplication.BusinessLicenseApplicationRenewalToRenewalDeskEdit</members>
+        <members>Case.CaseAllToAllStaff</members>
+        <members>Case.CaseAllToComplianceOfficerEdit</members>
+        <members>Case.CaseAllToFrontDeskEdit</members>
+        <members>Case.CaseAllToFrontDeskSupervisorEdit</members>
+        <members>Case.CaseAllToInspectorEdit</members>
+        <members>Case.CaseAllToProblemDeskEdit</members>
+        <members>Case.CaseAllToProgramManagerEdit</members>
+        <members>ComplaintCase.ComplaintCaseAllToAllStaff</members>
+        <members>CourseOffering.CourseOfferingAllToProgramManagerEdit</members>
+        <members>DocumentChecklistItem.DocumentChecklistItemAccommodationToProgramManagerEdit</members>
+        <members>DocumentChecklistItem.DocumentChecklistItemAccommodationToReciprocityDeskEdit</members>
+        <members>DocumentChecklistItem.DocumentChecklistItemAccommodationToTestingDeskEdit</members>
+        <members>DocumentChecklistItem.DocumentChecklistItemStandardToAllStaff</members>
+        <members>DocumentChecklistItem.DocumentChecklistItemStandardToComplianceOfficerEdit</members>
+        <members>DocumentChecklistItem.DocumentChecklistItemStandardToFrontDeskEdit</members>
+        <members>DocumentChecklistItem.DocumentChecklistItemStandardToFrontDeskSupervisorEdit</members>
+        <members>DocumentChecklistItem.DocumentChecklistItemStandardToProgramManagerEdit</members>
+        <members>DocumentChecklistItem.DocumentChecklistItemStandardToReciprocityDeskEdit</members>
+        <members>DocumentChecklistItem.DocumentChecklistItemStandardToRenewalDeskEdit</members>
+        <members>DocumentChecklistItem.DocumentChecklistItemStandardToStudentRegistrationEdit</members>
+        <members>Examination.ExaminationAllToAllStaff</members>
+        <members>IndividualApplication.IndividualApplicationAllToAllStaff</members>
+        <members>IndividualApplication.IndividualApplicationAllToComplianceOfficerEdit</members>
+        <members>IndividualApplication.IndividualApplicationAllToProgramManagerEdit</members>
+        <members>IndividualApplication.IndividualApplicationNewLicensureToFrontDeskEdit</members>
+        <members>IndividualApplication.IndividualApplicationNewLicensureToFrontDeskSupervisorEdit</members>
+        <members>IndividualApplication.IndividualApplicationNewLicensureToStudentRegistrationEdit</members>
+        <members>IndividualApplication.IndividualApplicationReciprocityToReciprocityDeskEdit</members>
+        <members>IndividualApplication.IndividualApplicationRenewalToRenewalDeskEdit</members>
+        <members>Payment__c.PaymentAllToAllStaff</members>
+        <members>Payment__c.PaymentAllToFinanceEdit</members>
+        <members>Payment__c.PaymentAllToFrontDeskEdit</members>
+        <members>Payment__c.PaymentAllToFrontDeskSupervisorEdit</members>
+        <members>Payment__c.PaymentAllToInspectorEdit</members>
+        <members>Payment__c.PaymentAllToMailroomEdit</members>
+        <members>Payment__c.PaymentAllToProblemDeskEdit</members>
+        <members>Payment__c.PaymentAllToProgramManagerEdit</members>
+        <members>Payment__c.PaymentAllToReciprocityDeskEdit</members>
+        <members>Payment__c.PaymentAllToRenewalDeskEdit</members>
+        <members>Payment__c.PaymentAllToStudentRegistrationEdit</members>
+        <members>PersonDisability.PersonDisabilityAllToProgramManagerEdit</members>
+        <members>PersonDisability.PersonDisabilityAllToReciprocityDeskEdit</members>
+        <members>PersonDisability.PersonDisabilityAllToTestingDeskEdit</members>
+        <members>PersonEducation.PersonEducationAllToAllStaff</members>
+        <members>PersonEducation.PersonEducationAllToFrontDeskSupervisorEdit</members>
+        <members>PersonEducation.PersonEducationAllToProgramManagerEdit</members>
+        <members>PersonEducation.PersonEducationAllToReciprocityDeskEdit</members>
+        <members>PersonEducation.PersonEducationAllToStudentRegistrationEdit</members>
+        <members>PersonExamination.PersonExaminationAllToAllStaff</members>
+        <members>PersonExamination.PersonExaminationAllToProgramManagerEdit</members>
+        <members>PersonExamination.PersonExaminationAllToTestingDeskEdit</members>
+        <members>PublicComplaint.PublicComplaintAllToAllStaff</members>
+        <members>PublicComplaint.PublicComplaintAllToComplianceOfficerEdit</members>
+        <members>PublicComplaint.PublicComplaintAllToFrontDeskEdit</members>
+        <members>PublicComplaint.PublicComplaintAllToFrontDeskSupervisorEdit</members>
+        <members>PublicComplaint.PublicComplaintAllToInspectorEdit</members>
+        <members>PublicComplaint.PublicComplaintAllToProblemDeskEdit</members>
+        <members>PublicComplaint.PublicComplaintAllToProgramManagerEdit</members>
+        <members>RecordAlert.RecordAlertAllToAllStaff</members>
+        <members>RecordAlert.RecordAlertAllToComplianceOfficerEdit</members>
+        <members>RecordAlert.RecordAlertAllToFrontDeskEdit</members>
+        <members>RecordAlert.RecordAlertAllToFrontDeskSupervisorEdit</members>
+        <members>RecordAlert.RecordAlertAllToProblemDeskEdit</members>
+        <members>RecordAlert.RecordAlertAllToProgramManagerEdit</members>
+        <members>RegulatoryAuthorizationType.RegulatoryAuthorizationTypeAllToProgramManagerEdit</members>
+        <members>RegulatoryCodeViolation.RegulatoryCodeViolationAllToAllStaff</members>
+        <members>RegulatoryCodeViolation.RegulatoryCodeViolationAllToComplianceOfficerEdit</members>
+        <members>RegulatoryCodeViolation.RegulatoryCodeViolationAllToInspectorEdit</members>
+        <members>RegulatoryCodeViolation.RegulatoryCodeViolationAllToProgramManagerEdit</members>
+        <members>RegulatoryTrxnFee.RegulatoryTrxnFeeAllToAllStaff</members>
+        <members>RegulatoryTrxnFee.RegulatoryTrxnFeeAllToFinanceEdit</members>
+        <members>RegulatoryTrxnFee.RegulatoryTrxnFeeAllToFrontDeskEdit</members>
+        <members>RegulatoryTrxnFee.RegulatoryTrxnFeeAllToFrontDeskSupervisorEdit</members>
+        <members>RegulatoryTrxnFee.RegulatoryTrxnFeeAllToInspectorEdit</members>
+        <members>RegulatoryTrxnFee.RegulatoryTrxnFeeAllToMailroomEdit</members>
+        <members>RegulatoryTrxnFee.RegulatoryTrxnFeeAllToProblemDeskEdit</members>
+        <members>RegulatoryTrxnFee.RegulatoryTrxnFeeAllToProgramManagerEdit</members>
+        <members>RegulatoryTrxnFee.RegulatoryTrxnFeeAllToReciprocityDeskEdit</members>
+        <members>RegulatoryTrxnFee.RegulatoryTrxnFeeAllToRenewalDeskEdit</members>
+        <members>RegulatoryTrxnFee.RegulatoryTrxnFeeAllToStudentRegistrationEdit</members>
+        <members>TrainingCourseParticipant.TrainingCourseParticipantAllToAllStaff</members>
+        <members>TrainingCourseParticipant.TrainingCourseParticipantAllToProblemDeskEdit</members>
+        <members>TrainingCourseParticipant.TrainingCourseParticipantAllToTestingDeskEdit</members>
+        <members>TrnCourse.TrnCourseAllToFrontDeskSupervisorEdit</members>
+        <members>TrnCourse.TrnCourseAllToProgramManagerEdit</members>
+        <members>Visit.VisitAllToAllStaff</members>
+        <members>Visit.VisitAllToInspectorEdit</members>
+        <members>Visit.VisitAllToProgramManagerEdit</members>
+        <name>SharingCriteriaRule</name>
+    </types>
+    <types>
+        <members>Account</members>
+        <members>Accreditation</members>
+        <members>BusinessLicense</members>
+        <members>BusinessLicenseApplication</members>
+        <members>Case</members>
+        <members>ComplaintCase</members>
+        <members>CourseOffering</members>
+        <members>DocumentChecklistItem</members>
+        <members>Examination</members>
+        <members>IndividualApplication</members>
+        <members>Payment__c</members>
+        <members>PersonDisability</members>
+        <members>PersonEducation</members>
+        <members>PersonExamination</members>
+        <members>PublicComplaint</members>
+        <members>RecordAlert</members>
+        <members>RegulatoryAuthorizationType</members>
+        <members>RegulatoryCodeViolation</members>
+        <members>RegulatoryTrxnFee</members>
+        <members>TrainingCourseParticipant</members>
+        <members>TrnCourse</members>
+        <members>Visit</members>
+        <name>SharingRules</name>
     </types>
     <types>
         <members>PortalLicenseeOwnRecords</members>

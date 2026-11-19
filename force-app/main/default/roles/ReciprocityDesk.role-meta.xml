@@ -5,5 +5,5 @@
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>Reciprocity Desk</name>
     <opportunityAccessLevel>Edit</opportunityAccessLevel>
-    <parentRole>ExecutiveDirector</parentRole>
+    <parentRole>ProgramManager</parentRole>
 </Role>

@@ -9,7 +9,7 @@
         <dataType>String</dataType>
         <expression>LEFT(&quot;Year changed from &quot; &amp; {!GetFeeItem.ForYear__c} &amp; &quot; to &quot; &amp; {!CY_NewYear} &amp; &quot; by &quot; &amp; {!$User.FirstName} &amp; &quot; &quot; &amp; {!$User.LastName} &amp; &quot; on &quot; &amp; TEXT(TODAY()) &amp; &quot;. &quot; &amp; BLANKVALUE({!GetFeeItem.Comments}, &quot;&quot;), 255)</expression>
     </formulas>
-    <interviewLabel>Screen Flow: Regulatory Transaction Fee Item Change Year {!$Flow.CurrentDateTime}</interviewLabel>
+    <interviewLabel>Screen Flow: Regulatory Transaction Fee Item Change Year {!$Flow.CurrentDateTime}</interviewLabel><isAdditionalPermissionRequiredToRun>true</isAdditionalPermissionRequiredToRun>
     <label>Screen Flow: Regulatory Transaction Fee Item Change Year</label>
     <processMetadataValues>
         <name>BuilderType</name>
@@ -128,7 +128,7 @@
         <showFooter>true</showFooter>
         <showHeader>true</showHeader>
     </screens>
-    <start>
+    <runInMode>SystemModeWithSharing</runInMode><start>
         <locationX>0</locationX>
         <locationY>0</locationY>
         <connector>

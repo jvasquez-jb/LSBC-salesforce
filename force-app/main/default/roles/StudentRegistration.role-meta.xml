@@ -5,5 +5,5 @@
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <name>Student Registration</name>
     <opportunityAccessLevel>Edit</opportunityAccessLevel>
-    <parentRole>ExecutiveDirector</parentRole>
+    <parentRole>ProgramManager</parentRole>
 </Role>

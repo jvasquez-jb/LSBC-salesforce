@@ -320,7 +320,7 @@
         <dataType>String</dataType>
         <expression>IF({!GetCase.OwnerId} = {!GetGeneralInquiriesQueue.Id} &amp;&amp; NOT(ISBLANK({!GetComplaintIntakeQueue.Id})), {!GetComplaintIntakeQueue.Id}, {!GetCase.OwnerId})</expression>
     </formulas>
-    <interviewLabel>Screen Flow: Case Record Complaint {!$Flow.CurrentDateTime}</interviewLabel>
+    <interviewLabel>Screen Flow: Case Record Complaint {!$Flow.CurrentDateTime}</interviewLabel><isAdditionalPermissionRequiredToRun>true</isAdditionalPermissionRequiredToRun>
     <label>Screen Flow: Case Record Complaint</label>
     <processMetadataValues>
         <name>BuilderType</name>
@@ -907,7 +907,7 @@
         <showFooter>true</showFooter>
         <showHeader>true</showHeader>
     </screens>
-    <start>
+    <runInMode>SystemModeWithSharing</runInMode><start>
         <locationX>0</locationX>
         <locationY>0</locationY>
         <connector>

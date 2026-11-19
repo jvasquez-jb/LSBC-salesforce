@@ -142,5 +142,5 @@
         <searchResultsAdditionalFields>School__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>ApprovedHours__c</searchResultsAdditionalFields>
     </searchLayouts>
-    <sharingModel>Private</sharingModel>
+    <sharingModel>Read</sharingModel>
 </CustomObject>

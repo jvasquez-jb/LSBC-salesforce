@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>PersonEducationAllToAllStaff</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>All records, shared with AllStaff. From the LSBC Access Matrix.</description>
+        <label>Person Education All To All Staff</label>
+        <sharedTo>
+            <group>AllStaff</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value></value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>PersonEducationAllToFrontDeskSupervisorEdit</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>All records, shared with FrontDeskSupervisor. From the LSBC Access Matrix.</description>
+        <label>Person Education All To Front Desk Supervisor Edit</label>
+        <sharedTo>
+            <group>FrontDeskSupervisor</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value></value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>PersonEducationAllToReciprocityDeskEdit</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>All records, shared with ReciprocityDesk. From the LSBC Access Matrix.</description>
+        <label>Person Education All To Reciprocity Desk Edit</label>
+        <sharedTo>
+            <group>ReciprocityDesk</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value></value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>PersonEducationAllToStudentRegistrationEdit</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>All records, shared with StudentRegistration. From the LSBC Access Matrix.</description>
+        <label>Person Education All To Student Registration Edit</label>
+        <sharedTo>
+            <group>StudentRegistration</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value></value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>PersonEducationAllToProgramManagerEdit</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>All records, shared with ProgramManager. From the LSBC Access Matrix.</description>
+        <label>Person Education All To Program Manager Edit</label>
+        <sharedTo>
+            <group>ProgramManager</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value></value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+</SharingRules>

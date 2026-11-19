@@ -153,7 +153,7 @@
         <dataType>DateTime</dataType>
         <expression>DATETIMEVALUE(&quot;4000-12-31 00:00:00&quot;)</expression>
     </formulas>
-    <interviewLabel>Screen Flow: Account Add Stop Code {!$Flow.CurrentDateTime}</interviewLabel>
+    <interviewLabel>Screen Flow: Account Add Stop Code {!$Flow.CurrentDateTime}</interviewLabel><isAdditionalPermissionRequiredToRun>true</isAdditionalPermissionRequiredToRun>
     <label>Screen Flow: Account Add Stop Code</label>
     <processMetadataValues>
         <name>BuilderType</name>
@@ -345,7 +345,7 @@
         <showFooter>true</showFooter>
         <showHeader>true</showHeader>
     </screens>
-    <start>
+    <runInMode>SystemModeWithSharing</runInMode><start>
         <locationX>0</locationX>
         <locationY>0</locationY>
         <connector>

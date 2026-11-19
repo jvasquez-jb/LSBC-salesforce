@@ -2,6 +2,13 @@
 <Queue xmlns="http://soap.sforce.com/2006/04/metadata">
     <doesSendEmailToMembers>false</doesSendEmailToMembers>
     <name>General Inquiries</name>
+    <queueMembers>
+        <publicGroups>
+            <publicGroup>FrontDeskSupervisor</publicGroup>
+            <publicGroup>FrontDesk</publicGroup>
+            <publicGroup>ProblemDesk</publicGroup>
+        </publicGroups>
+    </queueMembers>
     <queueSobject>
         <sobjectType>Case</sobjectType>
     </queueSobject>
