@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <FlexiPage xmlns="http://soap.sforce.com/2006/04/metadata">
-    <description>Staff home in the LSBC Licensing app: applications awaiting review and licenses to print on top, this week's payments on the left, open stop codes and the LSBC Operations dashboard on the right. Lists show only records the user can see.</description>
+    <description>Staff home in the LSBC Licensing app: applications awaiting review and licenses to print on top, open stop codes in the right-hand column, this week's payments and the LSBC Operations dashboard below. Lists show only records the user can see.</description>
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
@@ -69,20 +69,6 @@
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
-                    <name>entityName</name>
-                    <value>RecordAlert</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>filterName</name>
-                    <value>OpenStopCodes</value>
-                </componentInstanceProperties>
-                <componentName>flexipage:filterListCard</componentName>
-                <identifier>flexipage_filterListCard4</identifier>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
                     <name>dashboardName</name>
                     <value>LSBCOperations</value>
                 </componentInstanceProperties>
@@ -99,6 +85,24 @@
             </componentInstance>
         </itemInstances>
         <name>bottomRight</name>
+        <type>Region</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>entityName</name>
+                    <value>RecordAlert</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>filterName</name>
+                    <value>OpenStopCodes</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:filterListCard</componentName>
+                <identifier>flexipage_filterListCard4</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>sidebar</name>
         <type>Region</type>
     </flexiPageRegions>
     <masterLabel>LSBC Licensing Home</masterLabel>

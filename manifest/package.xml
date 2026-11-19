@@ -54,6 +54,7 @@
     </types>
     <types>
         <members>LSBCSeal</members>
+        <members>LSBCSeal2026</members>
         <name>ContentAsset</name>
     </types>
     <types>

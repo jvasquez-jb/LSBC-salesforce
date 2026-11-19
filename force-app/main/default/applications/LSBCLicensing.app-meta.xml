@@ -145,8 +145,8 @@
         <pageOrSobjectType>DocumentChecklistItem</pageOrSobjectType>
     </actionOverrides>
     <brand>
-        <headerColor>#051E5F</headerColor>
-        <logo>LSBCSeal</logo>
+        <headerColor>#091580</headerColor>
+        <logo>LSBCSeal2026</logo>
         <logoVersion>1</logoVersion>
         <shouldOverrideOrgTheme>true</shouldOverrideOrgTheme>
     </brand>
