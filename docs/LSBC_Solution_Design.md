@@ -1248,22 +1248,23 @@ reach production only if that load goes ahead (`OPEN-05`). The cases themselves 
 
 ### 5.1 Security model
 
-**Build status: paused.** The permission sets, groups, org-wide defaults and sharing wait for the
-Board's feedback on the access matrix (`SEC-01c`), together with the `OPEN-11` spike. The later
-phases were built so they don't depend on this: rule flows run in system context, and only System
-Administrator can see the LSBC Licensing app so far. When security resumes, it also has to cover
-what the later phases left for it:
+**Build status: in progress.** The Board went through the access matrix desk by desk on 18 Nov 2026
+(`SEC-01c`) and agreed its Sharing Settings. For the rest, Erin Marceaux asked the build team to go with
+its recommendations, which follow that tab. The later phases were built so they don't depend on this:
+rule flows run in system context, and until the staff permission sets deploy only System Administrator
+sees the LSBC Licensing app. What the later phases left for security is now decided:
 
-| Area | Still to decide or grant |
+| Area | Decision |
 |---|---|
-| Staff tools | App, record page and Home page visibility. Run access to the staff actions: Record Payment, Refund, Generate Letter, Decide, End Stop Code, Mark Printed, New Application, Upload Documents. Field access for the payment, decision and print fields. Apex and Visualforce access for letters, and who edits Letter Templates |
-| Rules | Run Flow and the core Public Sector licence, which includes rule runtime (confirmed by the Account Executive on 19 Nov 2026), for every staff user and for the Default Workflow User that scheduled flows run as. Production checks it on the running user even in system context; sandboxes don't. `BRECmtyRuntime` for portal users. Confirm that system-context rule flows are acceptable under private-by-default |
-| Stop codes and violations | Who adds and ends manual stop codes, who creates violations and runs Record Complaint. Amount Paid stays read-only (set by flow) |
-| Complaints | Who sees the complainant when the reporter is confidential, and the org-wide default for `PublicComplaint`. Queue members for Complaint Intake and General Inquiries |
-| Portal | The School Administrator and Business Owner audiences over Account Contact Relations, with the 17 School Forms. Staff access to portal submissions and to establishments the portal creates, and whether those move to an LSBC owner once approved |
+| Staff tools | Every staff desk sees the LSBC Licensing app, its record pages and Home. Each action goes to the desks that can edit what it changes: Record Payment to the Payment-edit desks; Refund to the refund desks; Decide and Generate Letter to the application-edit desks; End Stop Code and Add Stop Code to the Hold-edit desks; Print Licenses and Mark Printed to the License-edit desks; New Application and Upload Documents to the application desks. Decide also needs read and create on Certification Number Counter; printing needs the license page and class, letters the letter page and classes. Letter Templates are admin-only |
+| Rules | Run Flow and the core Public Sector licence, which includes rule runtime (confirmed by the Account Executive on 19 Nov 2026), for every staff user and for the Default Workflow User that scheduled flows run as, which in production must be an LSBC user. Production checks it on the running user even in system context; sandboxes don't. `BRECmtyRuntime` for portal users. System-context rule flows are accepted: they read reference data and write only what the screen submits. The Business Rules Engine Designer seat goes to LSBC's named admin at handover |
+| Stop codes and violations | The Hold-edit desks (Compliance Officer, Front Desk Supervisor, Front Desk, Problem Desk, Program Manager) add and end manual stop codes. Inspector, Compliance Officer and Program Manager create violations; the Complaint-edit desks run Record Complaint. Amount Paid stays read-only (set by flow) |
+| Complaints | `PublicComplaint` is Private. A confidential complainant is seen only by Compliance Officer and the roles above it (Executive Director), plus Program Manager, who edits complaints; the licensee and the portal never see the reporter. Queue members are desk groups, not named people: Complaint Intake gets the Complaint-edit desks, General Inquiries gets Front Desk Supervisor, Front Desk and Problem Desk |
+| Portal | The School Administrator and Business Owner audiences use Account Contact Relations (the `OPEN-11` spike, built last). Staff reach establishments the portal creates through the Account sharing rules, whoever owns them. On approval, ownership moves to an LSBC queue and the owner keeps access through their Owner relation; that move is built with the `OPEN-11` spike, since until then ownership is how the owner sees the record |
 | Field history (`SEC-05`) | `RecordAlert` Valid Until and Active, violation Status, `PublicComplaint` reporter confidentiality, and the fee item's year if the object supports it |
-| Reports | Sharing for the LSBC Finance and LSBC Operations folders. The dashboard runs as the viewer |
-| Refunds | Whether the refund verifier must be a different person from the requester |
+| Reports | LSBC Finance: Executive Director, Finance and Program Manager. LSBC Operations: all staff. The dashboard runs as the viewer, so Home shows report charts rather than a link |
+| Refunds | The verifier must be a different person from the requester, enforced by a validation rule. The refund desks verify: Finance, Front Desk Supervisor and Front Desk |
+| Accommodation documents | Checklist items in the Exam Accommodations category are open only to the desks that see Accommodation: Reciprocity Desk, Testing Desk and Program Manager |
 
 `SEC-01a` `[SETTLED]` **Private by default, with sharing opened deliberately.** Of the three
 options — public read/write, public read-only, and private with sharing rules — the Board chose
@@ -1279,18 +1280,18 @@ requirements. Core security model covers profiles, roles, permission sets and sh
 desk, finance, inspectors and leadership. An Inspector permission set group and role slot are
 reserved now.
 
-`SEC-01c` `[PROPOSED]` **The access matrix is kept in
-[LSBC_Access_Matrix.xlsx](LSBC_Access_Matrix.xlsx)**, not in this document. It is the working copy
-the Board reviews and the source the permission sets, groups and sharing rules are built from. In
-outline:
+`SEC-01c` `[SETTLED]` **The access matrix is kept in
+[LSBC Access Matrix.xlsx](<LSBC Access Matrix.xlsx>)**, not in this document. It is the working copy
+the Board reviews and the source the permission sets, groups and sharing rules are built from. The
+Board agreed its Sharing Settings tab on 18 Nov 2026; the other tabs follow from it. In outline:
 
 | Layer | Shape |
 |---|---|
 | Profile | One profile, `LSBC Standard User`, cloned from Minimum Access. It grants nothing |
-| Role | One per desk (section 6), for record visibility up the hierarchy. `SystemAdministrator` for admins and IT, who also own portal accounts |
+| Role | One per desk (section 6), for record visibility up the hierarchy. Program Manager sits over Reciprocity Desk, Student Registration, Testing Desk and Inspection Supervisor (Erin Marceaux, 18 Nov 2026); the other desks report to Executive Director. `SystemAdministrator` for admins and IT, who also own portal accounts |
 | Permission sets | Small building blocks (`LicensingRead`, `PaymentEntry`, `AccommodationAccess`, …). Any that touch a Public Sector object is cloned from `PublicSectorAccessPSL`, so it carries the Public Sector Access licence |
-| Permission set groups | One per desk, combining building blocks. A person covering two desks gets two groups |
-| Sharing | Private by default. Sharing rules open records outward to a public group per desk |
+| Permission set groups | One per desk, combining building blocks, with a muting permission set that removes whatever the desk's Sharing Settings column doesn't give it. A person covering two desks gets two groups |
+| Sharing | Private by default; License Type, Training Course and Course Offering are Public Read Only. Sharing rules open records outward to a public group per desk, or to AllStaff for reading. Account rules are split by record type, because one Account permission covers all four |
 
 `SEC-02` `[SETTLED]` **Person Accounts constrain the sharing design.** Org-wide default for
 Contacts must be Controlled by Parent, or both Account and Contact set to Private.
@@ -1366,14 +1367,14 @@ A dedicated accommodation request form exists, with a separate disability docume
 - Separate testing area
 
 Accommodations surface at testing, not at registration. Access is restricted to the testing and
-reciprocity roles, with encryption at rest and Field Audit Trail behind it from Shield enablement.
+reciprocity desks and the Program Manager, who covers testing (Board, 18 Nov 2026), with encryption at rest and Field Audit Trail behind it from Shield enablement.
 These fields belong on the Week 6 encrypted field list.
 
 As built (16 Nov 2026): the request is one `PersonDisability` per form, updated when the applicant
 comes back to the step and removed with its documentation if the answer becomes No. The supporting
 documentation is not a file on the Person Disability: it is a checklist item on the application in
-the Exam Accommodations category (`PT-18`). Who may open items in that category is a Phase 2 access
-question.
+the Exam Accommodations category (`PT-18`). Only the desks that see Accommodation (Reciprocity Desk,
+Testing Desk, Program Manager) may open items in that category (Phase 2, 19 Nov 2026).
 
 `SEC-09` `[SETTLED]` **Employee data is out of scope.** Onboarding, I-9, drug tests and civil
 service records are excluded from the build.
@@ -1936,3 +1937,4 @@ the source.
 | 19 Nov 2026 | Licence numbers (`PT-14`, `OPEN-40`, `PT-16`, `DM-19`): a person's Certification Number (`Contact.CertificationNumber__c`) is issued by Decide from the new Certification Number Counter plus the birth month and day, as CLOSE does; each licence's License Number is that number, a dash and the type code (`RegulatoryAuthCode`), because `Identifier` is unique. Sign-up, public search and the manager check match a number with or without the code. 21,191 people and 18,371 licences loaded from CLOSE. Licenses Ready to Print groups by approval date; Print Licenses prints onto the three-part stock (LBC-19). The Print Name on License flag is not used (William) and isn't migrated. |
 | 19 Nov 2026 | `OPEN-57` opened: the org allows 2,500 rule calls a month and 100 portal users' licences, far below the build's volume and the licensee population; sizing is with the Account Executive. |
 | 19 Nov 2026 | `OPEN-57`: Jonathan kept the portal as built (logins trued up at LSBC's renewal) and put moving rules out of the rules engine on hold. |
+| 19 Nov 2026 | `SEC-01c` settled: the Board agreed the access matrix's Sharing Settings on 18 Nov 2026, and the other tabs were rebuilt to match. Program Manager edits almost everything, accommodations included (`SEC-08`); Executive Director and Program Manager edit Fee Products; Reciprocity Desk, Student Registration, Testing Desk and Inspection Supervisor report to Program Manager. Each desk group gets a muting permission set so it never exceeds its Sharing Settings. The remaining Phase 2 questions (violations, complaint confidentiality, queues, refunds, report folders, portal establishments, accommodation documents, letter templates) follow the build team's recommendations in the Client Questions doc, adjusted to the agreed Sharing Settings, at Erin Marceaux's request. The workbook is now `LSBC Access Matrix.xlsx`. |

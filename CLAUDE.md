@@ -85,7 +85,7 @@ you are working on before building, and section 9 for what the org actually prov
 |---|---|---|
 | 0 | Foundation: Person Accounts, record types, repo, doc corrections | Done |
 | 1 | Data model (section 1), encrypted field list | Done |
-| 2 | Security (5.1), `OPEN-11` ACR sharing spike | Paused: awaiting Board feedback on `LSBC_Access_Matrix.xlsx` |
+| 2 | Security (5.1), `OPEN-11` ACR sharing spike | In progress. Board agreed Sharing Settings in `docs/LSBC Access Matrix.xlsx` (18 Nov 2026); the decisions for the carry-over items are in design 5.1 |
 | 3 | Business rules (section 2) | Done. Eligibility rules built, called from Phase 5 and 6 |
 | 4 | Cases and violations (section 4) | Done |
 | 5 | Portal (section 3) | Done. School Administrator and Business Owner forms wait for Phase 2 |
@@ -93,7 +93,8 @@ you are working on before building, and section 9 for what the org actually prov
 
 ### Phase 2 carry-over
 
-Raised by later phases while Phase 2 is paused. Pick these up when it resumes.
+Raised by later phases while Phase 2 was paused. Each is now decided (design 5.1, from the access
+matrix and the build team's recommendations, which the Board accepted); build them in Phase 2.
 
 1. Staff need Run Flow and the core Public Sector licence, which includes rule runtime (Account Executive,
    19 Nov 2026; no separate `BRERuntime` licence exists or is needed). Production checks it on the user who
@@ -128,7 +129,7 @@ Raised by later phases while Phase 2 is paused. Pick these up when it resumes.
 14. The LSBC Licensing app is visible only to System Administrator (in `profiles/Admin`). Give the
     staff profile or permission sets app visibility, the record pages and the Home page.
 15. Staff access to the Phase 6 actions and flows: Record Payment, Refund, Generate Letter, Decide,
-    End Stop Code, Mark Printed, New Application, Upload Documents. Decide whether the refund
+    End Stop Code, Mark Printed, Print Licenses, New Application, Upload Documents. Decide whether the refund
     verifier must differ from the requester (only a department name is recorded now).
 16. Field access for the Phase 6 fields (`Payment__c` CheckDate, PayerName, ChecklistItem;
     DecisionReason on both applications; BusinessLicense PrintRequestedDate, PrintedDate,
