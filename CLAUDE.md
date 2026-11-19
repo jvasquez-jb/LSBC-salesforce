@@ -158,12 +158,18 @@ Raised by later phases while Phase 2 is paused. Pick these up when it resumes.
 - BRE in this org:
   - Test an expression set through `POST /services/data/v66.0/actions/custom/runExpressionSet/<Name>`
     with `{"inputs":[{...}]}` (the same action Flow uses). The Connect `business-rules` endpoint rejects the name.
-  - An active version can't be redeployed. Set `ExpressionSetVersion.IsActive` false with
-    `sf data update record`, deploy, and the file's `<status>Active</status>` reactivates it. A new
-    expression set version can't be deployed here ("LatestVersionSnapshotId not found"), so rule
-    changes go into the existing version this way; git keeps the old rule. Keep the gap short: while
-    the version is inactive, every flow calling it fails. Version descriptions max 255 characters.
-    Decision matrices do take new versions (`FeeSchedule` V3).
+  - A rule change is a new version, never an edit to the active one (Salesforce: production rejects
+    in-place edits). Put it in its own file,
+    `force-app/main/default/expressionSetVersion/<Name>_V<n>.expressionSetVersion-meta.xml` (metadata
+    type `ExpressionSetDefinitionVersion`; retrieve the current version with
+    `sf project retrieve start --metadata ExpressionSetDefinitionVersion:<Name>_V<n-1>` to start from),
+    with the next `rank` and `versionNumber`, `startDate` today and `status` Active, and deploy only
+    that file. The old version stays active, so nothing goes offline. Which overlapping active version
+    runs was not proven (the test V2 was identical): on the first real change, test through
+    `runExpressionSet` that the new logic answers, then deactivate the old version.
+    Never redeploy the whole `expressionSetDefinition` file once a version in it is active: that is
+    what fails with "LatestVersionSnapshotId not found". Tested 19 Nov 2026 on `EligibilityInstructorCE`.
+    Version descriptions max 255 characters. Decision matrices take new versions too (`FeeSchedule` V3).
   - Every expression set variable must be an input, an output or a constant. A working variable
     that is neither breaks the Flow action ("type mapping … is not a supported type"), though the
     REST test passes. Fold working values into the output formulas.

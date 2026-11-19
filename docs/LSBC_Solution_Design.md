@@ -446,11 +446,12 @@ BRE carries the decision logic; Flow carries orchestration. Rules are readable, 
 administrator can change a threshold without touching a flow.
 
 > **Versions and history.** Decision matrices keep versions: a price change is a new version with a
-> later start date, and the old one stays. Expression sets do not, in this org. A new expression set
-> version cannot be deployed ("LatestVersionSnapshotId not found"), so a rule change edits the
-> active version in place. Salesforce keeps no record of the old threshold; only the build
-> repository does, and LSBC's administrator will not see it. Whether a new version can be created in
-> Expression Set Builder instead is untested (`OPEN-52`).
+> later start date, and the old one stays. Expression sets do too: a rule change is a new version,
+> deployed on its own (metadata type `ExpressionSetDefinitionVersion`) with the next rank and active
+> from the day it deploys, while the old version stays in the org and keeps running until then.
+> Redeploying the whole expression set file, active version included, is what fails
+> ("LatestVersionSnapshotId not found"); Salesforce says production must never have an active version
+> edited in place (`OPEN-52`, settled 19 Nov 2026).
 
 **As built (Phase 3).** Flows gather facts and write records; rules never query and never carry a
 price. Thresholds are named constants inside each expression set, amounts and lookup tables are
@@ -1675,7 +1676,6 @@ more than leaving a door open.
 | `OPEN-46` | Letter wording and letterhead | The four letters use placeholder wording and a placeholder letterhead (`PT-16`) | Staff go-live |
 | `OPEN-47` | Counting affidavits | Answered 12 Nov 2026: the first affidavit ever is free, $15 per licence after that, and CLOSE comments mark earlier ones. Code 87 is discontinued (`BR-26`, `BR-07`) | Closed |
 | `OPEN-48` | The printed licence layout | The print queue tracks what needs printing, but nothing can print onto the three-part stock until we have a sample (`PT-16`) | Staff go-live |
-| `OPEN-52` | History of rule changes | Expression set versions cannot be deployed in this org, so rule changes overwrite the active version and LSBC's administrator gets no history. Test creating versions in Expression Set Builder, or raise it with Salesforce; otherwise accept and tell LSBC (section 2) | Build team, before handover |
 | `OPEN-53` | Scope: migration and the payment ledger | Migration is listed out of scope, but the build team has loaded CLOSE data (section 7). That load is more than licence records: it includes three years of finance history, 120,554 payments with 173,806 allocations, in the custom ledger. The ledger itself grew from violations to every fee (`DM-18a`). Both need a change order or an agreed reading of the SOW | Project manager, before this document goes to LSBC |
 | `OPEN-54` | Real data in the sandbox | Real CLOSE data has been in LSBC-Partial since 10 Nov with security unbuilt and Shield in January. Confirm who may log in, and that offshore resources have no access to agency data | Project manager, immediate |
 | `OPEN-56` | Unpaid CLOSE balances and printing | Non Payment needs a due date, and the 13,212 migrated balances ($487,682) have none, so they hold nothing at go-live. CLOSE has 63 Non Payment holds open; Salesforce has 2, so licences CLOSE holds for non-payment will print. A policy choice for LSBC and finance, not a data fix: which balances, if any, should hold printing, and from what due date (`DM-18`, `BR-02`) | Staff go-live |
@@ -1686,6 +1686,7 @@ more than leaving a door open.
 |---|---|---|
 | `OPEN-01` | Cutover shape | Phased. Staff in January. The portal is built on the original schedule but published in March or April after renewal season closes |
 | `OPEN-04` | Temporary permits | A $50 event permit for an out-of-state licensee, valid 30 days, renewable once before testing |
+| `OPEN-52` | History of rule changes | A rule change is a new expression set version, deployed on its own with the next rank; the old version stays, so LSBC's administrator sees the history in Expression Set Builder (Salesforce Support and a sandbox test, 19 Nov 2026) |
 | `OPEN-51` | Encrypting the date of birth | Salesforce confirmed on 19 Nov 2026 that Shield can't encrypt the standard `Birthdate`. The date of birth moved to the custom `Contact.DateOfBirth__c`, encrypted probabilistically; the standard field is emptied and off the layouts |
 | `OPEN-08` | OTS security posture | Shield is in Phase 1, so the posture the Board expected is the posture delivered |
 | `OPEN-10` | Inspector headcount | Nine inspectors and one vacancy, connected iPads, no offline requirement. The native inspections framework is already provisioned |
@@ -1718,9 +1719,9 @@ hundred smaller configuration questions; those that change scope, go-live or the
 payment ledger as scope, and `OPEN-54`, real data in a sandbox without security. `OPEN-05`, the
 migration volume, goes with them.
 
-**Two are ours to settle:** `OPEN-11`, the sharing spike against Account Contact Relation, which holds
+**One is ours to settle:** `OPEN-11`, the sharing spike against Account Contact Relation, which holds
 up the School Administrator and Business Owner portal audiences and is picked up when security
-resumes (5.1); and `OPEN-52`, rule-change history.
+resumes (5.1).
 
 **Two are with the Board and have dates:** `OPEN-02`, cheques and money orders, at the December
 board meeting; and `OPEN-38`, freelance operators without a fixed salon, which needs board rules or
@@ -1910,3 +1911,4 @@ the source.
 | 19 Nov 2026 | `BusRegAuthorizationType` stays empty: Salesforce confirmed it comes with Public Sector Solutions and no standard feature needs it. |
 | 19 Nov 2026 | Business Rules Engine licensing confirmed by Salesforce: rule runtime for staff comes with the core Public Sector licence, checked on the running user even in system context, including the Default Workflow User for scheduled flows. 5 Designer seats are included. Sandboxes don't enforce the licence, so this can't be tested before production. |
 | 19 Nov 2026 | Date of birth moved to the new custom field `Contact.DateOfBirth__c` (`OPEN-51`, `SEC-04`): Shield can't encrypt the standard `Birthdate`. Sign Up, Applicant Details, both Decide flows, Threading Permit, the Person Account layouts and the CLOSE load use it; the 35,589 migrated dates were copied and the standard field emptied. |
+| 19 Nov 2026 | Rule changes are new expression set versions (`OPEN-52`): a version deploys on its own as `ExpressionSetDefinitionVersion` with the next rank while the old one stays active, tested on `EligibilityInstructorCE` (V2 deployed as Draft, then Active beside V1, then removed). Editing an active version in place is retired. |
