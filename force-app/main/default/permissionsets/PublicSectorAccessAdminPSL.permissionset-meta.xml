@@ -293,6 +293,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Contact.DateOfBirth__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Contact.HasCloseAffidavit__c</field>
         <readable>true</readable>
     </fieldPermissions>

@@ -93,7 +93,7 @@ for r in db.execute("""
         phones.setdefault(r["id"], {})[r["t"]] = p
 
 cols = ["LegacyKey__c", "RecordTypeId", "FirstName", "LastName", "MiddleName",
-        "MaidenName__pc", "PersonBirthdate", "PersonMailingStreet", "PersonMailingCity",
+        "MaidenName__pc", "DateOfBirth__pc", "PersonMailingStreet", "PersonMailingCity",
         "PersonMailingStateCode", "PersonMailingPostalCode", "PersonMailingCountryCode",
         "HomeParish__pc", "PersonMobilePhone", "PersonHomePhone", "Phone"]
 stats = dict(rows=0, no_address=0, bad_state=0, no_dob=0, parish_unmatched=0,
@@ -115,7 +115,7 @@ with open(out, "w", newline="", encoding="utf-8") as fh:
         row["LastName"] = ln
         dob = (p["dob"] or "")[:10]
         if re.match(r"^\d{4}-\d\d-\d\d$", dob) and "1920" <= dob[:4] <= "2012":
-            row["PersonBirthdate"] = dob
+            row["DateOfBirth__pc"] = dob
         else:
             stats["no_dob"] += 1
         a = addr.get(p["id"])

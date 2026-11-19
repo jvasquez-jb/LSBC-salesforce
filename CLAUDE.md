@@ -95,12 +95,16 @@ you are working on before building, and section 9 for what the org actually prov
 
 Raised by later phases while Phase 2 is paused. Pick these up when it resumes.
 
-1. Staff permission sets need Run Flow and BRE runtime access for the rule flows. Confirm whether
-   the Public Sector licence includes internal BRE runtime.
+1. Staff need Run Flow and the core Public Sector licence, which includes rule runtime (Account Executive,
+   19 Nov 2026; no separate `BRERuntime` licence exists or is needed). Production checks it on the user who
+   saves the record, even in system context, and on the Default Workflow User (Process Automation Settings) that
+   every scheduled flow runs as; in production that must be an LSBC user. System Administrators are not exempt.
+   Sandboxes don't enforce it (Erin Marceaux, with none, runs the nightly stop code schedule), so it can't be
+   tested here. The org has 5 Public Sector Access seats today; more licences for staff arrive in January 2027.
 2. Who can add and end manual stop codes: `RecordAlert` create/edit, its org-wide default, and the
    Add Stop Code action.
 3. Field history on `RecordAlert` `ValidUntilDate` and `IsActive` (`SEC-05`).
-4. BRE Designer for LSBC's long-term admin (5 seats in the org).
+4. BRE Designer for LSBC's long-term admin (5 seats, included in the licence; 3 used by the build team).
 5. Confirm system-context rule flows are acceptable under the private-by-default model.
 6. Portal users need `BRECmtyRuntime` (Phase 5).
 7. History on `RegulatoryTrxnFeeItem` is not enabled, so Change Year notes the change in the item's
@@ -146,6 +150,9 @@ Raised by later phases while Phase 2 is paused. Pick these up when it resumes.
 - Holds attach to the holder (Person or business Account), not the licence. Accepted; the Board may
   revisit.
 - Encrypted field list: build the fields now, encrypt when Shield arrives. No Board approval needed.
+- Date of birth is `Contact.DateOfBirth__c` (`DateOfBirth__pc`), never the standard `Birthdate`/`PersonBirthdate`:
+  Shield can't encrypt the standard field, so it stays empty. Never filter, sort or search on the date of birth;
+  read it after finding the person another way.
 - Reference data (fee codes, stop-code files, violations list, programme hours) not yet received.
   Use placeholders and flag them; don't invent values.
 - BRE in this org:

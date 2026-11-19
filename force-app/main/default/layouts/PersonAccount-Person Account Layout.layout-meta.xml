@@ -20,7 +20,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>PersonBirthdate</field>
+                <field>DateOfBirth__pc</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>

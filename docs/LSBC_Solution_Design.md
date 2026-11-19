@@ -213,7 +213,7 @@ cannot be encrypted, so field access is its main protection either way. See `OPE
 | `BusinessLicense` | The licence or permit, for individuals **and** establishments | `Identifier`, `AccountId` as holder (a Person Account for individuals, a business Account for establishments; on a person's licence `ContactId` holds the person's Contact as well, filled by `Record-Trigger: Business License Before Save` and backfilled on every migrated person licence), `RegulatoryAuthorizationType`, `PeriodStart` / `PeriodEnd`, `Status`, `IsActive`, `BusinessType`, `VerificationStatus` / `VerifiedDate`, and the jurisdiction and issuer fields for out-of-state credentials |
 | `AuthApplicationPlace` | The place recorded against a licence at issue | Application, licence, and `Place` as a lookup to `Location` or `Address` |
 | `RegulatoryAuthorizationType` | Configuration per licence or permit type | Fourteen fields, and sparse: `DurationType`, `RegulatoryAuthCategory`, `RegulatoryAuthCode`, `ProcessingDuration`, `ApplicationUrl`, `IssuingDepartment`. The fee, term length, renewal cycle, continuing-education requirement, hour thresholds and required examinations are all **custom fields**. `BusinessLicense` looks up to this object for both individual and establishment credentials |
-| `BusRegAuthorizationType` | Present, but not referenced by `BusinessLicense` | Confirm whether it is used at all before building against it |
+| `BusRegAuthorizationType` | Unused. Comes with Public Sector Solutions; links a business type to the licence types it needs | Left empty: LSBC applicants choose their form, and each `BusinessLicense` points straight at its `RegulatoryAuthorizationType`. Salesforce confirmed on 19 Nov 2026 that no standard feature needs it filled in |
 | `DocumentChecklistItem` | Outstanding requirements | `IsRequired`, `IsAccepted`, `Status`, `Instruction`, with `DocumentType` and `DocumentCategory` lookups. `ParentRecordId` reaches both application objects, `RegulatoryCodeViolation`, `PersonExamination`, `CourseOffering`, `PersonDisability` and `PreliminaryApplicationRef` — so a violation's payment receipt has a home without touching the ledger |
 | `RecordAlert` | Surfaces a hold to staff | `EffectiveDate`, `ValidUntilDate`, `IsActive`, `Severity`, and a `RecordAlertCategory` lookup — so CLOSE's thirty-two stop codes (code 32 was added in October 2026) become category records rather than a picklist, maintainable by an administrator. Twenty-nine are built, because `BR-04` makes three of them licence statuses, plus a Name Change Proof Pending hold |
 
@@ -954,9 +954,9 @@ Extended in Phase 5: **someone new to the Board** (a reciprocity, permit or firs
 with no licence number) signs up on a second path with name, date of birth and contact details. A
 person account is created unless one with the same name and date of birth already exists. The
 duplicate check queries on first and last name only and compares the date of birth after the query,
-so it keeps working once `Birthdate` is encrypted with probabilistic encryption, which cannot be
-filtered on (`SEC-04`). Whether Shield can encrypt `Contact.Birthdate` at all is still to be confirmed
-(`OPEN-51`).
+so it keeps working once the date of birth is encrypted with probabilistic encryption, which cannot be
+filtered on (`SEC-04`). The date of birth lives in the custom field `Contact.DateOfBirth__c`
+(`DateOfBirth__pc`), because Shield cannot encrypt the standard `Birthdate` (`OPEN-51`).
 
 The social security number may be stored in Salesforce, encrypted and hidden, but is never used
 as an external lookup key. That distinction is the whole point of the design: the identifier the
@@ -1238,7 +1238,7 @@ what the later phases left for it:
 | Area | Still to decide or grant |
 |---|---|
 | Staff tools | App, record page and Home page visibility. Run access to the staff actions: Record Payment, Refund, Generate Letter, Decide, End Stop Code, Mark Printed, New Application, Upload Documents. Field access for the payment, decision and print fields. Apex and Visualforce access for letters, and who edits Letter Templates |
-| Rules | Run Flow and rule-engine runtime for staff (confirm the licence covers it) and `BRECmtyRuntime` for portal users. Confirm that system-context rule flows are acceptable under private-by-default |
+| Rules | Run Flow and the core Public Sector licence, which includes rule runtime (confirmed by the Account Executive on 19 Nov 2026), for every staff user and for the Default Workflow User that scheduled flows run as. Production checks it on the running user even in system context; sandboxes don't. `BRECmtyRuntime` for portal users. Confirm that system-context rule flows are acceptable under private-by-default |
 | Stop codes and violations | Who adds and ends manual stop codes, who creates violations and runs Record Complaint. Amount Paid stays read-only (set by flow) |
 | Complaints | Who sees the complainant when the reporter is confidential, and the org-wide default for `PublicComplaint`. Queue members for Complaint Intake and General Inquiries |
 | Portal | The School Administrator and Business Owner audiences over Account Contact Relations, with the 17 School Forms. Staff access to portal submissions and to establishments the portal creates, and whether those move to an LSBC owner once approved |
@@ -1304,7 +1304,7 @@ fields in formulas, filters and list views are avoided from the start.
 |---|---|---|
 | `Contact.SocialSecurityNumber__c` (`SocialSecurityNumber__pc` on the Person Account) | Probabilistic | Identity. Never filtered or matched on (`OPEN-09`) |
 | `PersonDisability.AccommodationDetails__c` | Probabilistic | Health information (`SEC-08`) |
-| Person birthdate (`Contact.Birthdate`) | Probabilistic, if Shield supports it on this field (`OPEN-51`) | Identity; the L number already encodes part of it. Never filtered on: sign-up compares it after a name query (`PT-09`) |
+| `Contact.DateOfBirth__c` (`DateOfBirth__pc` on the Person Account) | Probabilistic. Custom Date fields take only probabilistic; the standard `Birthdate` can't be encrypted, so it is left empty (`OPEN-51`) | Identity; the L number already encodes part of it. Never filtered on: sign-up compares it after a name query (`PT-09`) |
 
 Considered and **not** encrypted:
 
@@ -1675,7 +1675,6 @@ more than leaving a door open.
 | `OPEN-46` | Letter wording and letterhead | The four letters use placeholder wording and a placeholder letterhead (`PT-16`) | Staff go-live |
 | `OPEN-47` | Counting affidavits | Answered 12 Nov 2026: the first affidavit ever is free, $15 per licence after that, and CLOSE comments mark earlier ones. Code 87 is discontinued (`BR-26`, `BR-07`) | Closed |
 | `OPEN-48` | The printed licence layout | The print queue tracks what needs printing, but nothing can print onto the three-part stock until we have a sample (`PT-16`) | Staff go-live |
-| `OPEN-51` | Encrypting the date of birth | Confirm Shield can encrypt `Contact.Birthdate` before the field list is applied in January. Nothing filters on it (`SEC-04`, `PT-09`) | Before Shield, January |
 | `OPEN-52` | History of rule changes | Expression set versions cannot be deployed in this org, so rule changes overwrite the active version and LSBC's administrator gets no history. Test creating versions in Expression Set Builder, or raise it with Salesforce; otherwise accept and tell LSBC (section 2) | Build team, before handover |
 | `OPEN-53` | Scope: migration and the payment ledger | Migration is listed out of scope, but the build team has loaded CLOSE data (section 7). That load is more than licence records: it includes three years of finance history, 120,554 payments with 173,806 allocations, in the custom ledger. The ledger itself grew from violations to every fee (`DM-18a`). Both need a change order or an agreed reading of the SOW | Project manager, before this document goes to LSBC |
 | `OPEN-54` | Real data in the sandbox | Real CLOSE data has been in LSBC-Partial since 10 Nov with security unbuilt and Shield in January. Confirm who may log in, and that offshore resources have no access to agency data | Project manager, immediate |
@@ -1687,6 +1686,7 @@ more than leaving a door open.
 |---|---|---|
 | `OPEN-01` | Cutover shape | Phased. Staff in January. The portal is built on the original schedule but published in March or April after renewal season closes |
 | `OPEN-04` | Temporary permits | A $50 event permit for an out-of-state licensee, valid 30 days, renewable once before testing |
+| `OPEN-51` | Encrypting the date of birth | Salesforce confirmed on 19 Nov 2026 that Shield can't encrypt the standard `Birthdate`. The date of birth moved to the custom `Contact.DateOfBirth__c`, encrypted probabilistically; the standard field is emptied and off the layouts |
 | `OPEN-08` | OTS security posture | Shield is in Phase 1, so the posture the Board expected is the posture delivered |
 | `OPEN-10` | Inspector headcount | Nine inspectors and one vacancy, connected iPads, no offline requirement. The native inspections framework is already provisioned |
 | `OPEN-12` | The encryption commitment | Accurate, since Shield is in Phase 1 |
@@ -1907,3 +1907,6 @@ the source.
 | 17 Nov 2026 | Decide's Deny and Refuse cancel the application's unpaid fees (`PT-15`). The latest exam attempt for stop codes is chosen by the new formula Attempt Order on Person Examination (date, attempt number, created time), so a same-day fail and pass are ordered correctly (`BR-02`, code 08). |
 | 19 Nov 2026 | Reciprocity answers from the Board (`BR-19`, `BR-23`, `DM-15`, `PT-20`): a licence not earned at a licensed or certified school, or of a type the Board doesn't accept from any state, can't transfer (new field Non-Transferable License Type; `EligibilityReciprocity` inputs). Utah takes the state exam only and Indiana's cut-off moves (`ReciprocityStateExams` V2). Military applications charge $25 plus a $50 military permit (`FeeSchedule` V5); the permit's licence type and renewal fee wait on the Board. Military ID or orders. Documents sent to the Board take an optional copy on the portal. Portal forms discard at most three abandoned drafts per start (the form faulted for an applicant with 14). |
 | 19 Nov 2026 | Military Permit (`BR-23`, `BR-07`): a military reciprocity application is for the new licence type Military Permit (category Permit), so Decide issues only the permit. Renewal $50 and late fee $50 (`FeeSchedule` V6); new field `RegulatoryAuthorizationType.LateFeeGraceDays__c` (30 on the permit) delays the late fee in `Subflow: Fee Renewal Assessment`. The permit expires on the holder's birthday, like the other permits (confirmed 19 Nov 2026). |
+| 19 Nov 2026 | `BusRegAuthorizationType` stays empty: Salesforce confirmed it comes with Public Sector Solutions and no standard feature needs it. |
+| 19 Nov 2026 | Business Rules Engine licensing confirmed by Salesforce: rule runtime for staff comes with the core Public Sector licence, checked on the running user even in system context, including the Default Workflow User for scheduled flows. 5 Designer seats are included. Sandboxes don't enforce the licence, so this can't be tested before production. |
+| 19 Nov 2026 | Date of birth moved to the new custom field `Contact.DateOfBirth__c` (`OPEN-51`, `SEC-04`): Shield can't encrypt the standard `Birthdate`. Sign Up, Applicant Details, both Decide flows, Threading Permit, the Person Account layouts and the CLOSE load use it; the 35,589 migrated dates were copied and the standard field emptied. |

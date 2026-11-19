@@ -5,7 +5,7 @@
     <fields>LegacyKey__c</fields>
     <fields>PersonMobilePhone</fields>
     <fields>PersonEmail</fields>
-    <fields>PersonBirthdate</fields>
+    <fields>DateOfBirth__pc</fields>
     <fields>PersonMailingAddress</fields>
     <label>Person Account Compact Layout</label>
 </CompactLayout>

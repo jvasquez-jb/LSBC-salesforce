@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DateOfBirth__c</fullName>
+    <description>The person's date of birth. Used in place of the standard Birthdate field because Shield Platform Encryption can't encrypt the standard field; this one is encrypted (probabilistic) once Shield is turned on. Never filter, sort or search on it: flows read it after finding the person another way. Licenses that expire on the holder's birthday and the age checks read it.</description>
+    <inlineHelpText>The person's date of birth. Licenses that expire on the birthday use it.</inlineHelpText>
+    <label>Date of Birth</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <type>Date</type>
+</CustomField>

@@ -95,6 +95,7 @@
         <members>BusinessLicenseApplication.ReturnReason__c</members>
         <members>Case.ComplaintType__c</members>
         <members>Case.IncidentDate__c</members>
+        <members>Contact.DateOfBirth__c</members>
         <members>Contact.HasCloseAffidavit__c</members>
         <members>Contact.HomeParish__c</members>
         <members>Contact.LegacyCertificationNumber__c</members>

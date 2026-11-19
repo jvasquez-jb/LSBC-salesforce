@@ -62,9 +62,9 @@ def build(obj, label_obj, refuse_status, refuse_word, outdir):
     F.formula('forT_LicenseTypeId', 'String', 'IF({!forB_IsRenewal}, {!GetLicense.RegulatoryAuthorizationTypeId}, {!GetApplication.LicenseTypeId})', 'The license type whose expiration basis sets the new expiration date.')
     F.formula('forD_StartDate', 'Date', 'IF({!forB_IsRenewal} && DATEVALUE({!GetLicense.PeriodEnd}) > TODAY(), DATEVALUE({!GetLicense.PeriodEnd}), TODAY())', 'Where the new period starts: a renewal runs on from the current expiration date unless it has passed; a new license starts today.')
     F.formula('forT_DurationType', 'String', 'IF(TEXT({!GetLicenseType.ExpirationBasis__c}) = "From Issue Date", "Day", "Month")', 'The unit of the license type\'s term: days for licenses that run a set time from issue (the temporary permit), otherwise months.')
-    F.formula('forB_BirthdayMissing', 'Boolean', 'TEXT({!GetLicenseType.ExpirationBasis__c}) = "Holders Birthday" && ISBLANK({!GetHolder.PersonBirthdate})', 'True when the license expires on the holder\'s birthday but the holder has no date of birth.')
-    F.formula('forN_BirthMonth', 'Number', 'IF(ISBLANK({!GetHolder.PersonBirthdate}), 1, MONTH({!GetHolder.PersonBirthdate}))', 'The holder\'s birth month, for licenses that expire on the birthday.', scale=0)
-    F.formula('forN_BirthDay', 'Number', 'IF(ISBLANK({!GetHolder.PersonBirthdate}), 1, DAY({!GetHolder.PersonBirthdate}))', 'The holder\'s birth day, for licenses that expire on the birthday.', scale=0)
+    F.formula('forB_BirthdayMissing', 'Boolean', 'TEXT({!GetLicenseType.ExpirationBasis__c}) = "Holders Birthday" && ISBLANK({!GetHolder.DateOfBirth__pc})', 'True when the license expires on the holder\'s birthday but the holder has no date of birth.')
+    F.formula('forN_BirthMonth', 'Number', 'IF(ISBLANK({!GetHolder.DateOfBirth__pc}), 1, MONTH({!GetHolder.DateOfBirth__pc}))', 'The holder\'s birth month, for licenses that expire on the birthday.', scale=0)
+    F.formula('forN_BirthDay', 'Number', 'IF(ISBLANK({!GetHolder.DateOfBirth__pc}), 1, DAY({!GetHolder.DateOfBirth__pc}))', 'The holder\'s birth day, for licenses that expire on the birthday.', scale=0)
     F.formula('forDT_PeriodEnd', 'DateTime', '{!varDT_NewPeriodEnd} + (17 / 24)', 'The new expiration date at noon Louisiana time (the rule returns midnight GMT), so it shows as the same date in every US time zone.')
     F.formula('forDT_PeriodStart', 'DateTime', 'DATETIMEVALUE(TEXT({!forD_StartDate}) & " 17:00:00")', 'The period start at noon Louisiana time.')
     F.formula('forN_RenewalCount', 'Number', 'BLANKVALUE({!GetLicense.RenewalCount__c}, 0) + 1', 'The license\'s renewal count after this renewal.', scale=0)
@@ -150,7 +150,7 @@ def build(obj, label_obj, refuse_status, refuse_word, outdir):
     F.lookup('GetLicenseType', 'Get License Type', 'RegulatoryAuthorizationType', [('Id', 'EqualTo', REF('forT_LicenseTypeId'))],
              ['Id', 'Name', 'ExpirationBasis__c', 'TermLength__c'], 'GetHolder', first=True, sort=None)
     F.lookup('GetHolder', 'Get Holder', 'Account', [('Id', 'EqualTo', REF('GetApplication.AccountId'))],
-             ['Id', 'Name', 'PersonBirthdate'], 'IsTheBirthdayNeeded', first=True, sort=None)
+             ['Id', 'Name', 'DateOfBirth__pc'], 'IsTheBirthdayNeeded', first=True, sort=None)
     F.decision('IsTheBirthdayNeeded', 'Is a Missing Birthday Needed?', [
         ('BirthdayMissing', 'Yes', [cond('forB_BirthdayMissing', 'EqualTo', BOOL(True))], 'NoBirthday', 'and')], 'CalculateExpiration')
     F.screen('NoBirthday', 'No Date of Birth', [
