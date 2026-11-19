@@ -179,6 +179,7 @@
         <members>RegulatoryAuthorizationType.CompletionThresholdHours__c</members>
         <members>RegulatoryAuthorizationType.ExpirationBasis__c</members>
         <members>RegulatoryAuthorizationType.FeeProduct__c</members>
+        <members>RegulatoryAuthorizationType.LateFeeGraceDays__c</members>
         <members>RegulatoryAuthorizationType.Program__c</members>
         <members>RegulatoryAuthorizationType.RequiresCE__c</members>
         <members>RegulatoryAuthorizationType.RequiresNationalExam__c</members>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LateFeeGraceDays__c</fullName>
+    <description>Days after a license of this type expires before a renewal is charged the late fee. Blank means the late fee applies from the day after expiry. The military permit allows 30 days.</description>
+    <inlineHelpText>Leave blank unless the Board allows renewals of this type a period after expiry without the late fee.</inlineHelpText>
+    <label>Late Fee Grace Days</label>
+    <precision>3</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <type>Number</type>
+</CustomField>

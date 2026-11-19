@@ -91,7 +91,7 @@
         <inputParameters>
             <name>AsOfDate</name>
             <value>
-                <elementReference>forD_AsOfDate</elementReference>
+                <elementReference>forD_LateFeeAsOfDate</elementReference>
             </value>
         </inputParameters>
         <inputParameters>
@@ -620,6 +620,12 @@
         <description>The record the fee belongs to: the renewal application when one is given, otherwise the license.</description>
         <dataType>String</dataType>
         <expression>BLANKVALUE({!varT_ApplicationId}, {!GetBusinessLicense.Id})</expression>
+    </formulas>
+    <formulas>
+        <name>forD_LateFeeAsOfDate</name>
+        <description>The date the late fee is judged from: the as-of date, less the license type&apos;s Late Fee Grace Days, so a renewal inside the grace period is on time.</description>
+        <dataType>Date</dataType>
+        <expression>{!forD_AsOfDate} - BLANKVALUE({!GetLicenseType.LateFeeGraceDays__c}, 0)</expression>
     </formulas>
     <formulas>
         <name>forD_AsOfDate</name>

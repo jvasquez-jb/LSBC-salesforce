@@ -146,6 +146,18 @@
     {
       "attributes": {
         "type": "RegulatoryAuthorizationType",
+        "referenceId": "TypeMilitaryPermit"
+      },
+      "Name": "Military Permit",
+      "RegulatoryAuthCategory": "Permit",
+      "ExpirationBasis__c": "Holders Birthday",
+      "TermLength__c": 12,
+      "DurationType": "Month",
+      "LateFeeGraceDays__c": 30
+    },
+    {
+      "attributes": {
+        "type": "RegulatoryAuthorizationType",
         "referenceId": "TypeBoothRentalPermit"
       },
       "Name": "Booth Rental Permit",
