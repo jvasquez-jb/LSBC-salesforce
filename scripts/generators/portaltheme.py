@@ -149,17 +149,36 @@ def branding():
     save(path, b)
 
 
+BLOCK_IDS = ('83076612-e9a9-442a-bcb4-a66b2fa20e20', '1aaa3c58-0373-4185-9025-eaa24288eff4')
+MARKER = '<!-- COLLECTION'
+
+
+def html_block(cid, html):
+    return {'componentAttributes': {'richTextValue': html}, 'componentName': 'forceCommunity:htmlBlock', 'id': cid,
+            'renderPriority': 'NEUTRAL', 'renditionMap': {}, 'type': 'component'}
+
+
 def home():
-    """One HTML block under the hero, replacing the earlier three."""
+    """Under the hero: the first HTML block (topics, promo, news heading), the Board News & Publications CMS
+    collection (portal/news_collection.json, made in Experience Builder and kept here), then the second HTML block
+    (popular tasks, help). Any other collection or HTML block on the page is removed."""
     path = os.path.join(SITE, 'views/home.json')
     v = load(path)
+    first, second = read('home.html').split(MARKER, 1)
+    second = second.split('-->', 1)[1].strip()
+    with open(os.path.join(SRC, 'news_collection.json'), encoding='utf-8') as f:
+        collection = json.load(f)
+    managed = ('forceCommunity:htmlBlock', 'forceCommunity:dynamicCollection')
     for region in v['regions']:
-        blocks = [c for c in region.get('components', []) if c['componentName'] == 'forceCommunity:htmlBlock']
-        if not blocks:
+        region_components = region.get('components')
+        if region_components is None:
             continue
-        keep = blocks[0]
-        keep['componentAttributes']['richTextValue'] = read('home.html')
-        region['components'] = [c for c in region['components'] if c is keep or c not in blocks]
+        others = [c for c in region_components if c['componentName'] not in managed]
+        if region['regionName'] == 'footer':
+            region['components'] = [html_block(BLOCK_IDS[0], first.strip()),
+                                    collection, html_block(BLOCK_IDS[1], second)] + others
+        else:
+            region['components'] = others
     save(path, v, seps=(',', ' : '))
 
 
