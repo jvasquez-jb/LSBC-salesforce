@@ -99,19 +99,16 @@ Settings column, 142 sharing rules, org-wide defaults (Account, Case, Opportunit
 Course, Course Offering Public Read Only), profile `LSBC Standard User`, public groups (members:
 `scripts/apex/SecurityGroupMembers.apex`), queue members, report folder sharing. The staff action flows run in
 system context with sharing and only for the desks whose blocks grant them. Field history (carry-over 3, 7, 11)
-and the staff Home page (19) were built by the demo-feedback session. Still open:
+and the staff Home page (19) were built by the demo-feedback session. Also built (`f7749da`): the refund verifier must differ from the requester (`Payment__c.RefundRequestedByUser__c`, rule `RefundVerifiedByNotRequestedBy`); confidential complainants show only to holders of `ViewConfidentialComplainant` (permission set `ConfidentialComplainantAccess`: Executive Director, Compliance Officer, Program Manager, admins), through field sections on the Public Complaint page (`SECTION_RULES` in `pagegen.py`). Administrators get every gated staff flow through `PublicSectorAccessAdminPSL`. A Public Sector-licensed set can't hold custom permissions either.
+
+Still open:
 
 1. Licences: the org has 5 Salesforce user licences, all held by admins, so no desk test user can be created.
    Every staff user needs the Public Sector Access licence (5 seats today; more in January 2027), and in
    production so does the Default Workflow User. Portal seats (100) are with the Account Executive.
-2. Refund verifier must differ from the requester (decided). Needs the requesting user recorded (today
-   `RefundRequestedBy__c` is a department name) and a validation rule: names to propose to Jonathan.
-3. Confidential complainant: only Compliance Officer, Program Manager and Executive Director see the reporter
-   when `IsReporterConfidential` is ticked (decided). Field access can't vary by record, so the Public Complaint
-   record page needs a visibility rule on a custom permission: names to propose to Jonathan.
-4. `OPEN-11`: School Administrator and Business Owner portal access over Account Contact Relations, the 17
+2. `OPEN-11`: School Administrator and Business Owner portal access over Account Contact Relations, the 17
    School Forms, and moving portal-created establishments to an LSBC queue on approval.
-5. The long-term LSBC admin who gets the Business Rules Engine Designer seat and edits Letter Templates (name
+3. The long-term LSBC admin who gets the Business Rules Engine Designer seat and edits Letter Templates (name
    needed from Erin).
 
 ## Org notes

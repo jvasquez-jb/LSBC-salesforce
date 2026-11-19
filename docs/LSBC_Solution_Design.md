@@ -1257,8 +1257,8 @@ Settings column, and 142 sharing rules. The staff action flows (Decide, Record P
 Add and End Stop Code, Mark Printed, New Application, Record Complaint, Change Year) run in system context
 **with sharing**: the user acts only on records shared with them, and the flow makes the writes a desk's own
 permissions wouldn't (a licence created by Decide at Front Desk). Each runs only for the desks whose permission
-sets grant it. Still to build: the refund verifier rule and the confidential complainant rule (names to agree),
-and `OPEN-11`. No desk can be tested as a real user yet: the org's five Salesforce licences are all held by
+sets grant it. The refund verifier rule and the confidential complainant rule followed the same day. Still to build:
+`OPEN-11`. No desk can be tested as a real user yet: the org's five Salesforce licences are all held by
 admins. What the later phases left for security is now decided:
 
 | Area | Decision |
@@ -1946,3 +1946,4 @@ the source.
 | 19 Nov 2026 | `OPEN-57`: Jonathan kept the portal as built (logins trued up at LSBC's renewal) and put moving rules out of the rules engine on hold. |
 | 19 Nov 2026 | `SEC-01c` settled: the Board agreed the access matrix's Sharing Settings on 18 Nov 2026, and the other tabs were rebuilt to match. Program Manager edits almost everything, accommodations included (`SEC-08`); Executive Director and Program Manager edit Fee Products; Reciprocity Desk, Student Registration, Testing Desk and Inspection Supervisor report to Program Manager. Each desk group gets a muting permission set so it never exceeds its Sharing Settings. The remaining Phase 2 questions (violations, complaint confidentiality, queues, refunds, report folders, portal establishments, accommodation documents, letter templates) follow the build team's recommendations in the Client Questions doc, adjusted to the agreed Sharing Settings, at Erin Marceaux's request. The workbook is now `LSBC Access Matrix.xlsx`. |
 | 19 Nov 2026 | Phase 2 security built from the access matrix (`SEC-01c`): permission sets, desk groups with muting sets, sharing rules, org-wide defaults (Account, Case, Opportunity Private; License Type, Training Course, Course Offering Public Read Only), profile LSBC Standard User, report folder sharing, queue members. Staff action flows now run in system context with sharing, restricted to the desks that use them. |
+| 19 Nov 2026 | Refund: a new Refund Requested By User field and a validation rule stop the requester verifying their own refund (`DM-18b`). Confidential complainant: the Public Complaint page shows the Complainant section only when the complaint isn't confidential or the user holds View Confidential Complainant (Executive Director, Compliance Officer, Program Manager, admins) (`CM-02`). |
