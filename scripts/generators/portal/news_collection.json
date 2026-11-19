@@ -3,24 +3,19 @@
     "config": {
       "collectionLayoutDefinition": {
         "attributes": {
-          "collectionTitle": "",
-          "collectionTitleHeadingTag": "h2",
-          "columns": 3,
-          "rows": 2,
-          "showCollectionTitle": false,
-          "showViewMoreButton": false,
-          "spacing": "large",
-          "viewMoreButtonBackgroundColor": "",
-          "viewMoreButtonBackgroundColorHover": "",
-          "viewMoreButtonBorderColor": "",
-          "viewMoreButtonBorderColorHover": "",
-          "viewMoreButtonLabel": "View More Items",
-          "viewMoreButtonPlacement": "center",
-          "viewMoreButtonRadius": 4,
-          "viewMoreButtonTextColor": "",
-          "viewMoreButtonTextColorHover": ""
+          "contentIndicatorSpacing": "none",
+          "limitItems": 5,
+          "pauseButtonPlacement": "left",
+          "progressionPace": 5,
+          "shouldAutoScroll": false,
+          "showPauseButton": true,
+          "showProgressArrows": true,
+          "showProgressIndicator": true,
+          "slidesToShow": 3,
+          "spacing": "medium",
+          "transitionSpeed": 600
         },
-        "componentName": "forceCommunity:dynamicCollectionGrid"
+        "componentName": "forceCommunity:dynamicCollectionCarouselMultiSlide"
       },
       "dataProviderDefinition": {
         "attributes": {
