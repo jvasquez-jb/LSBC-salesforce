@@ -27,7 +27,6 @@ private class LicensePdfControllerTest {
         Assert.areEqual('Test Cosmetologist-Renewal', sheet.typeLine);
         Assert.areEqual('Deneros, Denada', sheet.holderName);
         Assert.areEqual('January 1, 2028', sheet.expirationDate);
-        Assert.areEqual('01-JAN-28', sheet.walletExpiration);
         Assert.areEqual(2, sheet.addressLines.size());
         Assert.areEqual(Label.LicenseGovernorName, controller.governor);
     }

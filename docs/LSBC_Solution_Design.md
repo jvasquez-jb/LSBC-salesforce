@@ -1099,8 +1099,9 @@ licence whose holder has an active stop code is skipped and stays in the list, a
 today's Printed Date. The **Licenses Ready to Print** report groups the queue by Print Requested Date
 (the approval day, oldest first), then licence type, so staff print one day's batch at a time.
 **Print Licenses** on the list view opens the ticked licences as a PDF laid out on LSBC's three-part
-stock (form LBC-19, 8.5 x 11 in: a wall certificate, the renewal stub with the 3.5 x 2 in wallet card,
-and a second wall certificate), one sheet per licence (`LicensePdf`, `LicensePdfController`). It leaves
+stock (form LBC-19, 8.5 x 11 in: a wall certificate, the renewal stub, and a second wall certificate),
+one sheet per licence (`LicensePdf`, `LicensePdfController`). The stub's 3.5 x 2 in wallet card is left
+blank (William, 18 Nov 2026); Erin is proposing to the Board that a wallet card be sold as a $25 duplicate. It leaves
 out licences not waiting to print and holders with an active stop code, the same check as Mark Printed,
 and marks nothing printed. Positions were measured from LSBC's scan of a blank sheet; they are checked on
 blank stock LSBC is mailing, and the page takes `dx` and `dy` (inches) to nudge a printer's offset. The

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <FlexiPage xmlns="http://soap.sforce.com/2006/04/metadata">
-    <description>Home for staff in the LSBC Licensing app: the work queues. Applications awaiting review, licenses ready to print, open stop codes and this week's payments, beside the LSBC Operations dashboard. Each list shows only records the user can see.</description>
+    <description>Staff home in the LSBC Licensing app: applications awaiting review and licenses to print on top, this week's payments on the left, open stop codes and the LSBC Operations dashboard on the right. Lists show only records the user can see.</description>
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
@@ -52,20 +52,6 @@
             <componentInstance>
                 <componentInstanceProperties>
                     <name>entityName</name>
-                    <value>RecordAlert</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>filterName</name>
-                    <value>OpenStopCodes</value>
-                </componentInstanceProperties>
-                <componentName>flexipage:filterListCard</componentName>
-                <identifier>flexipage_filterListCard4</identifier>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>entityName</name>
                     <value>Payment__c</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
@@ -80,6 +66,20 @@
         <type>Region</type>
     </flexiPageRegions>
     <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>entityName</name>
+                    <value>RecordAlert</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>filterName</name>
+                    <value>OpenStopCodes</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:filterListCard</componentName>
+                <identifier>flexipage_filterListCard4</identifier>
+            </componentInstance>
+        </itemInstances>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>

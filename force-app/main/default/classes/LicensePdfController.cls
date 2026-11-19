@@ -1,6 +1,6 @@
 /**
  * Lays licenses out on the Board's three-part license stock (form LBC-19) for the LicensePdf page:
- * a wall certificate at the top, the renewal stub with the wallet card in the middle, and a second
+ * a wall certificate at the top, the renewal stub in the middle (its wallet card is left blank), and a second
  * wall certificate at the bottom, one sheet per license.
  *
  * Opened from the Print Licenses button on the Licenses Ready to Print list view with the ticked
@@ -80,10 +80,8 @@ public with sharing class LicensePdfController {
     public class Sheet {
         public String certificationNumber { get; private set; }
         public String typeLine { get; private set; }
-        public String walletType { get; private set; }
         public String issueDate { get; private set; }
         public String expirationDate { get; private set; }
-        public String walletExpiration { get; private set; }
         public String holderName { get; private set; }
         public List<String> addressLines { get; private set; }
 
@@ -93,11 +91,9 @@ public with sharing class LicensePdfController {
                 ? holder.CertificationNumber__pc : license.Identifier;
             String typeName = license.RegulatoryAuthorizationType.Name;
             typeLine = typeName + '-' + reason(license);
-            walletType = typeName == null ? '' : typeName.toUpperCase();
             issueDate = license.PrintRequestedDate__c == null ? ''
                 : Datetime.newInstance(license.PrintRequestedDate__c, Time.newInstance(12, 0, 0, 0)).format('MMMM d, yyyy');
             expirationDate = license.PeriodEnd == null ? '' : license.PeriodEnd.format('MMMM d, yyyy', 'America/Chicago');
-            walletExpiration = license.PeriodEnd == null ? '' : license.PeriodEnd.format('dd-MMM-yy', 'America/Chicago').toUpperCase();
             holderName = holder.IsPersonAccount && String.isNotBlank(holder.LastName)
                 ? holder.LastName + (String.isNotBlank(holder.FirstName) ? ', ' + holder.FirstName : '') : holder.Name;
             addressLines = addressOf(holder);

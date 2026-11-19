@@ -17,7 +17,6 @@
         .num { font-size: 11pt; font-weight: bold; }
         .exp { width: 1.6in; text-align: center; font-weight: bold; }
         .gov { width: 1.3in; text-align: center; font-style: italic; }
-        .wallet { font-size: 8pt; }
         .empty { padding: 1in; font-size: 12pt; }
     </style>
 </head>
@@ -49,11 +48,7 @@
     </div>
     <div class="f" style="left: 2.35in; top: 6.97in;">{!s.expirationDate}</div>
 
-    <!-- Wallet card -->
-    <div class="f wallet" style="left: 6.40in; top: 5.96in;"><b>{!s.holderName}</b></div>
-    <div class="f wallet" style="left: 6.40in; top: 6.26in;">{!s.walletType}</div>
-    <div class="f wallet" style="left: 6.40in; top: 6.56in;">{!s.certificationNumber}</div>
-    <div class="f wallet" style="left: 6.40in; top: 6.85in;">{!s.walletExpiration}</div>
+    <!-- The wallet card on the stub is left blank: the Board no longer prints it with the license. -->
 
     <!-- Bottom wall certificate: the top one 7.36 in lower; Type and Date 0.06 in higher to sit on their lines -->
     <div class="f num" style="left: 0.30in; top: 7.81in;">{!s.certificationNumber}</div>
