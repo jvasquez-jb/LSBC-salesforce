@@ -484,6 +484,7 @@
         <members>PortalBusinessOwner</members>
         <members>PortalLicensee</members>
         <members>PortalSchoolAdministrator</members>
+        <members>ViewAccommodationDocuments</members>
         <members>ViewConfidentialComplainant</members>
         <name>CustomPermission</name>
     </types>
@@ -783,6 +784,7 @@
     </types>
     <types>
         <members>AccommodationAccess</members>
+        <members>AccommodationAccessExtra</members>
         <members>ApplicationProcessing</members>
         <members>ApplicationProcessingExtra</members>
         <members>BondsAndApprovals</members>

@@ -10,5 +10,6 @@
     <permissionSets>LicensingReadExtra</permissionSets>
     <permissionSets>PaymentEntry</permissionSets>
     <permissionSets>PaymentEntryExtra</permissionSets>
+    <permissionSets>force__DocumentChecklist</permissionSets>
     <status>Updated</status>
 </PermissionSetGroup>

@@ -19,5 +19,6 @@
     <permissionSets>RefundProcessing</permissionSets>
     <permissionSets>ReportsRead</permissionSets>
     <permissionSets>SchoolOversight</permissionSets>
+    <permissionSets>force__DocumentChecklist</permissionSets>
     <status>Updated</status>
 </PermissionSetGroup>

@@ -16,5 +16,6 @@
     <permissionSets>PaymentEntryExtra</permissionSets>
     <permissionSets>PeopleMaintenance</permissionSets>
     <permissionSets>StudentHours</permissionSets>
+    <permissionSets>force__DocumentChecklist</permissionSets>
     <status>Updated</status>
 </PermissionSetGroup>

@@ -5,9 +5,11 @@
     <label>Testing Desk</label>
     <mutingPermissionSets>TestingDeskMuting</mutingPermissionSets>
     <permissionSets>AccommodationAccess</permissionSets>
+    <permissionSets>AccommodationAccessExtra</permissionSets>
     <permissionSets>ExamAdministration</permissionSets>
     <permissionSets>LicensingRead</permissionSets>
     <permissionSets>LicensingReadExtra</permissionSets>
     <permissionSets>StudentHours</permissionSets>
+    <permissionSets>force__DocumentChecklist</permissionSets>
     <status>Updated</status>
 </PermissionSetGroup>

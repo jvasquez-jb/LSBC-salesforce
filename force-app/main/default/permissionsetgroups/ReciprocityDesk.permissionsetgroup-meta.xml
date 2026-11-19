@@ -5,6 +5,7 @@
     <label>Reciprocity Desk</label>
     <mutingPermissionSets>ReciprocityDeskMuting</mutingPermissionSets>
     <permissionSets>AccommodationAccess</permissionSets>
+    <permissionSets>AccommodationAccessExtra</permissionSets>
     <permissionSets>ApplicationProcessing</permissionSets>
     <permissionSets>ApplicationProcessingExtra</permissionSets>
     <permissionSets>IdentityAccess</permissionSets>
@@ -14,5 +15,6 @@
     <permissionSets>PaymentEntry</permissionSets>
     <permissionSets>PaymentEntryExtra</permissionSets>
     <permissionSets>PeopleMaintenance</permissionSets>
+    <permissionSets>force__DocumentChecklist</permissionSets>
     <status>Updated</status>
 </PermissionSetGroup>

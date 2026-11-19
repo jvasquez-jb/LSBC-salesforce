@@ -105,10 +105,13 @@ permissions missing): the generator puts those in an unlicensed `<Block>Extra` s
 A set's licence can't be removed once created. Tim Owens' user (System Administrator) is a desk test user while he
 is away: profile LSBC Standard User, role FrontDesk, group FrontDesk, Public Sector Access licence; his
 `LSBCDataMigration` assignment was removed. Restore: System Administrator profile, role SystemAdministrator,
-`LSBCDataMigration`, remove the FrontDesk group and the licence. Check access with `UserRecordAccess` and the
+`LSBCDataMigration`, remove the FrontDesk group and both licences (Public Sector Access, Document Checklist). Check access with `UserRecordAccess` and the
 group's `ObjectPermissions` (via `PermissionSetAssignment.PermissionSetId`). A checklist item takes its access
-from its parent application, so sharing rules can't keep the accommodation documentation from desks that see the
-application (open).
+from its parent application, so the accommodation documentation item is hidden in the screens instead: its page's
+details and Files show only with `ViewAccommodationDocuments` (`AccommodationAccessExtra`: Reciprocity, Testing,
+Program Manager, admins; `HIDE_RULES` in `pagegen.py`). Every desk group includes `force__DocumentChecklist`, and
+every staff user needs the Document Checklist licence (`DocumentChecklistPsl`) or no checklist item page opens.
+Tim has both. `EstablishmentNumberCounter__c` sits with `CertificationNumberCounter__c` in ApplicationProcessingExtra.
 
 Still open:
 

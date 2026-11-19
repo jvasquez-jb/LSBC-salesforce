@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomPermission xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Shows the file and details of the Documentation for Disability Related Needs checklist item (health information). Held by Reciprocity Desk, Testing Desk, Program Manager and admins (through Accommodation Access Extra).</description>
+    <isLicensed>false</isLicensed>
+    <label>View Accommodation Documents</label>
+</CustomPermission>

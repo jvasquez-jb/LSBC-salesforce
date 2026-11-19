@@ -1,6 +1,7 @@
 {
  "Account.AccountSource": true,
  "Account.BillingAddress": true,
+ "Account.CertificationNumber__c": true,
  "Account.Description": true,
  "Account.Industry": true,
  "Account.Jigsaw": true,
@@ -133,6 +134,7 @@
  "DocumentChecklistItem.UploadedById": true,
  "DocumentChecklistItem.ValidatedById": true,
  "DocumentChecklistItem.ValidationDateTime": true,
+ "EstablishmentNumberCounter__c.Account__c": false,
  "Examination.ExamType__c": true,
  "Examination.LicenseType__c": true,
  "IndividualApplication.AffidavitMailingAddress__c": true,

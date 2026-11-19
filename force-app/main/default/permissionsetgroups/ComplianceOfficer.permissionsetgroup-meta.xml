@@ -14,5 +14,6 @@
     <permissionSets>LicensingRead</permissionSets>
     <permissionSets>LicensingReadExtra</permissionSets>
     <permissionSets>ReportsRead</permissionSets>
+    <permissionSets>force__DocumentChecklist</permissionSets>
     <status>Updated</status>
 </PermissionSetGroup>

@@ -5,6 +5,7 @@
     <label>Program Manager</label>
     <mutingPermissionSets>ProgramManagerMuting</mutingPermissionSets>
     <permissionSets>AccommodationAccess</permissionSets>
+    <permissionSets>AccommodationAccessExtra</permissionSets>
     <permissionSets>ApplicationProcessing</permissionSets>
     <permissionSets>ApplicationProcessingExtra</permissionSets>
     <permissionSets>CaseRead</permissionSets>
@@ -24,5 +25,6 @@
     <permissionSets>ReferenceDataMaintenanceExtra</permissionSets>
     <permissionSets>ReportsRead</permissionSets>
     <permissionSets>SchoolOversight</permissionSets>
+    <permissionSets>force__DocumentChecklist</permissionSets>
     <status>Updated</status>
 </PermissionSetGroup>

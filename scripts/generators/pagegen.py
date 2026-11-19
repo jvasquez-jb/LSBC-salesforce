@@ -184,6 +184,23 @@ SECTION_RULES = {
                                                    ('{!$Permission.CustomPermission.ViewConfidentialComplainant}', 'true')])},
 }
 
+# Components hidden record by record: {object: (booleanFilter, [(left, operator, right), ...])}, applied to the
+# Details panel and the Files list. Accommodation documentation (health information) shows only to holders of
+# View Accommodation Documents; other checklist items show as usual.
+HIDE_RULES = {
+    'DocumentChecklistItem': ('1 OR 2', [('{!Record.Name}', 'NE', 'Documentation for Disability Related Needs'),
+                                         ('{!$Permission.CustomPermission.ViewAccommodationDocuments}', 'EQUAL', 'true')]),
+}
+
+def with_rule(comp, rule):
+    """Adds a several-criteria visibility rule to a component built by Page.comp."""
+    crit = ''.join('                    <criteria>\n'
+                   f'                        <leftValue>{escape(l)}</leftValue>\n                        <operator>{op}</operator>\n'
+                   f'                        <rightValue>{escape(r)}</rightValue>\n                    </criteria>\n' for l, op, r in rule[1])
+    vis = (f'                <visibilityRule>\n                    <booleanFilter>{rule[0]}</booleanFilter>\n{crit}'
+           '                </visibilityRule>\n')
+    return comp.replace('            </componentInstance>\n', vis + '            </componentInstance>\n', 1)
+
 def layout_sections(p, obj):
     """The object's page layout as Dynamic Forms field sections, with SECTION_RULES visibility."""
     import glob
@@ -244,7 +261,10 @@ def build(obj):
         p.region('duplicatesTabs', [p.tab('Duplicates', 'duplicatesTabContent')])
         # Business accounts only: no duplicate rule covers person accounts, so the card would only say so.
         left.append(p.tabset('duplicatesTabs', BUSINESS))
-    p.region('detailTabContent', layout_sections(p, obj) if obj in SECTION_RULES else [p.comp('force:detailPanel')])
+    detail = layout_sections(p, obj) if obj in SECTION_RULES else [p.comp('force:detailPanel')]
+    if obj in HIDE_RULES:
+        detail = [with_rule(c, HIDE_RULES[obj]) for c in detail]
+    p.region('detailTabContent', detail)
     main = [p.tab('Standard.Tab.detail', 'detailTabContent', 'true')]
     # History is the record's field history (who changed which field, from what to what). Calls, tasks and
     # emails stay in the Activities panel on the right.
@@ -275,7 +295,8 @@ def build(obj):
     if obj == 'RecordAlert':
         p.region('rightcol', right, 'Region')
         return finish(p, obj, label, desc)
-    p.region('filesTabContent', [p.related('AttachedContentDocuments')])
+    files = p.related('AttachedContentDocuments')
+    p.region('filesTabContent', [with_rule(files, HIDE_RULES[obj]) if obj in HIDE_RULES else files])
     if obj not in NO_NOTES:
         p.region('notesTabContent', [p.related('AttachedContentNotes')])
     ft = [p.tab('Files', 'filesTabContent', 'true')]
