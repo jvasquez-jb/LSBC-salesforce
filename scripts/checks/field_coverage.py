@@ -40,6 +40,8 @@ for d in sorted(glob.glob(f'{ROOT}/objects/*/fields')):
     for f in sorted(glob.glob(f'{d}/*.field-meta.xml')):
         x = open(f).read()
         name = os.path.basename(f).replace('.field-meta.xml', '')
+        if not name.endswith('__c'):
+            continue  # a standard field's file only switches on its field history (scripts/generators/history.py)
         full = f'{obj}.{name}'
         auto = '<required>true</required>' in x or '<type>MasterDetail</type>' in x
         if not auto and full not in perm:

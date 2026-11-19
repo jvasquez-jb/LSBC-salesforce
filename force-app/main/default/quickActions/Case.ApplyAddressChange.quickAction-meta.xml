@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QuickAction xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Copies the address a licensee asked for on the portal to their mailing address, once staff have checked the proof, and closes the case.</description>
+    <flowDefinition>ScreenFlowCaseApplyAddressChange</flowDefinition>
+    <label>Apply Address Change</label>
+    <optionsCreateFeedItem>false</optionsCreateFeedItem>
+    <type>Flow</type>
+</QuickAction>

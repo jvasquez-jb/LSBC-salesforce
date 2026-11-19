@@ -11,4 +11,9 @@
         <default>false</default>
         <label>Inquiry</label>
     </standardValue>
+    <standardValue>
+        <fullName>Address Change</fullName>
+        <default>false</default>
+        <label>Address Change</label>
+    </standardValue>
 </StandardValueSet>

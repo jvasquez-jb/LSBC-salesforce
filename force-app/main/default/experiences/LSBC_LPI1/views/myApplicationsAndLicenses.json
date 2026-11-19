@@ -9,7 +9,7 @@
       "components": [
         {
           "componentAttributes": {
-            "richTextValue": "<h1>    <span style=\"color: #2D2D2D;font-size: 21px;\">View the Status of a License or Permit</span>   </h1><div class=\"slds-text-body_regular slds-m-top_large slds-p-bottom_x-large\">View submitted license or permit applications, draft applications, and issued licenses and permits.</div>"
+            "richTextValue": "<h1>    <span style=\"color: #2D2D2D;font-size: 21px;\">View the Status of a License or Permit</span>   </h1><div class=\"slds-text-body_regular slds-m-top_large slds-p-bottom_x-large\">View submitted license or permit applications, draft applications, and issued licenses and permits.</div><p class=\"slds-p-bottom_large\">Moved? <a href=\"/LPI/s/change-address\">Change your mailing address</a>.</p>"
           },
           "componentName": "forceCommunity:richTextInline",
           "id": "48a2720b-d660-47ea-a8bb-d6a0f0c7e779",

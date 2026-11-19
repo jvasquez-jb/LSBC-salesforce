@@ -138,6 +138,7 @@
         <members>BusinessLicenseApplication.Status</members>
         <members>BusinessLicenseApplication.WasReturned</members>
         <members>Case.AccountId</members>
+        <members>Case.AddressChangeAppliedDate__c</members>
         <members>Case.ComplaintType__c</members>
         <members>Case.ContactId</members>
         <members>Case.IncidentDate__c</members>
@@ -145,6 +146,11 @@
         <members>Case.OwnerId</members>
         <members>Case.Priority</members>
         <members>Case.Reason</members>
+        <members>Case.RequestedCity__c</members>
+        <members>Case.RequestedCountry__c</members>
+        <members>Case.RequestedPostalCode__c</members>
+        <members>Case.RequestedState__c</members>
+        <members>Case.RequestedStreet__c</members>
         <members>Case.Status</members>
         <members>Case.Subject</members>
         <members>Case.Type</members>
@@ -383,6 +389,7 @@
         <name>CustomLabels</name>
     </types>
     <types>
+        <members>ApplicationDocumentRequirement.AddressChangeProofOfAddress</members>
         <members>ApplicationDocumentRequirement.AffidavitDriversLicenseOrStateId</members>
         <members>ApplicationDocumentRequirement.AffidavitPaymentReceipt</members>
         <members>ApplicationDocumentRequirement.AhdFacLocalOccupationalLicense</members>
@@ -527,6 +534,7 @@
         <members>IdentityDriversLicenseOrStateId</members>
         <members>IdentityMilitaryId</members>
         <members>IdentityPassportPhoto</members>
+        <members>IdentityProofOfAddress</members>
         <members>IdentityProofOfNameChange</members>
         <members>IdentitySocialSecurityCard</members>
         <members>LicensureCertificationOfLicensure</members>
@@ -633,6 +641,8 @@
         <members>ScreenFlowBusinessLicenseApplicationShop</members>
         <members>ScreenFlowBusinessLicenseMarkPrinted</members>
         <members>ScreenFlowBusinessLicensePublicSearch</members>
+        <members>ScreenFlowCaseAddressChangeRequest</members>
+        <members>ScreenFlowCaseApplyAddressChange</members>
         <members>ScreenFlowCasePublicComplaint</members>
         <members>ScreenFlowCaseRecordComplaint</members>
         <members>ScreenFlowDocumentChecklistItemUpload</members>
@@ -829,6 +839,7 @@
         <members>BusinessLicenseApplication.Decide</members>
         <members>BusinessLicenseApplication.GenerateLetter</members>
         <members>BusinessLicenseApplication.UploadDocuments</members>
+        <members>Case.ApplyAddressChange</members>
         <members>Case.NewViolation</members>
         <members>Case.RecordComplaint</members>
         <members>IndividualApplication.Decide</members>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>RequestedStreet__c</fullName>
+    <description>The street address a licensee asked to change to, from the portal address change form. Copied to the person&apos;s mailing address when staff run Apply Address Change. Set by the form, not edited by hand.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>The new street address the licensee asked for.</inlineHelpText>
+    <label>Requested Street</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>TextArea</type>
+</CustomField>

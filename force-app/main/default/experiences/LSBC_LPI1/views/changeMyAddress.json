@@ -1,0 +1,70 @@
+{
+  "appPageId": "39740273-a4f0-4311-b732-31661924917d",
+  "componentName": "siteforce:sldsOneColLayout",
+  "dataProviders": [],
+  "id": "2b3c080b-fd85-43c0-acce-5743f0cdc984",
+  "label": "Change My Address",
+  "regions": [
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "richTextValue": "<!-- Page heading and one-line introduction -->\n<h1 class=\"lsbc-page-title\">Change My Address</h1>\n<p class=\"lsbc-page-intro\">Ask the Board to change your mailing address. Upload a document that shows your name at the new address.</p>"
+          },
+          "componentName": "forceCommunity:richTextInline",
+          "id": "eb3e091e-c665-4ca3-a7f6-5886f5c54d56",
+          "renderPriority": "NEUTRAL",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "eace4f38-eb73-4802-9301-042a585cc84d",
+      "regionName": "header",
+      "type": "region"
+    },
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "flowArguments": "",
+            "flowName": "ScreenFlowCaseAddressChangeRequest"
+          },
+          "componentName": "forceCommunity:flowCommunity",
+          "id": "25269d22-e281-4bbd-8ac0-91baa779552a",
+          "renderPriority": "NEUTRAL",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "dc090929-8b40-495b-898b-e1ed79740706",
+      "regionName": "content",
+      "type": "region"
+    },
+    {
+      "id": "9cdb0832-55dd-4974-b62b-292ba4b5ed87",
+      "regionName": "footer",
+      "type": "region"
+    },
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "customHeadTags": "",
+            "description": "",
+            "title": "Change My Address"
+          },
+          "componentName": "forceCommunity:seoAssistant",
+          "id": "1a673851-62a4-4aaf-a7d9-78ae378f270e",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "a929525e-823b-4c93-b9dc-2c137eb48587",
+      "regionName": "sfdcHiddenRegion",
+      "type": "region"
+    }
+  ],
+  "themeLayoutType": "Inner",
+  "type": "view",
+  "viewType": "custom-change-my-address"
+}
