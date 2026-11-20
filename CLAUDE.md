@@ -281,8 +281,8 @@ Still open:
   and `AccountId` can't be set at all. Each item is filed under its document type's
   `DocumentCategory` (links in `documentCategoryDocumentTypes/`). Portal uploads go through the
   `documentChecklistUpload` LWC in `Subflow: Document Checklist Upload`. Documents that reach the Board by mail
-  or straight from another state or company are flagged `IsSentToBoard__c` (on the requirement settings, copied
-  to the item): the portal shows them without an upload and doesn't wait for them; staff upload them on arrival. A file can't be deleted while
+  or straight from another state or company are flagged `IsSentToBoard__c` (the template puts the item in the Sent to the Board
+  category; the subflow ticks the flag and files the item under its usual category): the portal shows them without an upload and doesn't wait for them; staff upload them on arrival. A file can't be deleted while
   it is linked to a checklist item, nor the item while it has a file: delete the
   `ContentDocumentLink` first (`scripts/apex/DeleteRegistrantThreeTestApplications.apex`).
   A checklist item holds one file (platform rule, admin included): when staff return an item the checklist
@@ -301,6 +301,16 @@ Still open:
   deletes a draft; the nightly `PreliminaryApplicationReferenceScheduleExpiredDrafts` (01:15) runs it
   after 30 days untouched. A form start discards at most three abandoned drafts (`IsTheDiscardLimitReached`): discarding
   14 in one go passed the 100-query limit. New forms follow the same pattern.
+- Document checklists (20 Nov 2026, Jonathan): each form's checklist is an Action Plan template (Setup > Action Plan Templates), not a CMDT
+  (`ApplicationDocumentRequirement__mdt` is retired). Templates only: `SubflowDocumentChecklistGenerate`
+  (`scripts/generators/checklistgenerate.py`) reads the latest Final version and creates the items itself; no ActionPlan records
+  (a `PreliminaryApplicationRef` refuses an application's template, and applying needs no licence this way: a portal user
+  without the Action Plans PSL was tested). Template Unique Name = record type part (after the dot) + licence type, or +
+  path + type, or + type, or alone, spaces removed, first match wins, compared ignoring case (a SOQL filter on UniqueName is
+  case-sensitive, so the flow reads all templates). Template metadata stores document type and category as record Ids, so
+  templates are data: `python3 -I scripts/actionplans/load_templates.py [--target-org]` loads missing ones from
+  `data/actionPlanTemplates/DocumentChecklists.csv` and publishes them; existing ones are left for the admin. A Final
+  template can't be deleted (set it Obsolete first). Template editors need the Action Plans PSL (`ActionPlans` permission set).
 - CLOSE migration (the Board's legacy system): load scripts in `scripts/migration` (see its README).
   Work only from the de-identified copy `../LSBC-Migration/extract/lsbc_deid.sqlite`, where every
   SSN-shaped applicant ID and certificate number is a mock starting `000`; never open the raw export
@@ -391,9 +401,9 @@ Still open:
   students (Student Registration applications on its course offerings). The student is never shared to the school:
   the forms run in system context. A student the school adds is owned by the school's owner at the Board. Where the
   paper has the student's signature, the School Administrator certifies the student signed it (Jonathan, 19 Nov 2026).
-  The forms' own documents are requirement rows whose Application Type names the form (`Contractual Fees`,
-  `Transfer Hours`, `Relinquish Hours`), put on the student's latest registration. A requirement row's Application
-  Type may list several types separated by semicolons. Test school: UAT Fees School (UAT Portal Licensee is its School
+  The forms' own documents come from the templates named after the form (`StudentRegistrationContractualFees`,
+  `StudentRegistrationTransferHours`, `StudentRegistrationRelinquishHours`), put on the student's latest registration;
+  each exam type has its own template (`ExaminationNationalExam`, …). Test school: UAT Fees School (UAT Portal Licensee is its School
   Administrator), student UAT Enrollment Student (IA-0000000209 enrollment, IA-0000000210 exam retake).
 - A screen radio or checkbox group returns its choice's *label* in formulas and decisions, not its stored value: give
   choices the same label and value, or test the label.

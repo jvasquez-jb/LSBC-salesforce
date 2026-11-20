@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DocumentCategory xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>For checklist templates only: an item in this category reaches the Board by mail or from another state or company. The applicant can submit without it; staff upload it. The item is filed under its document type&apos;s usual category.</description>
+    <masterLabel>Sent to the Board</masterLabel>
+</DocumentCategory>

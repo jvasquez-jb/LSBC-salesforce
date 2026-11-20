@@ -94,15 +94,6 @@
         <members>Accreditation.SubType</members>
         <members>Accreditation.Type</members>
         <members>Accreditation.Underwriter__c</members>
-        <members>ApplicationDocumentRequirement__mdt.ApplicationPath__c</members>
-        <members>ApplicationDocumentRequirement__mdt.ApplicationType__c</members>
-        <members>ApplicationDocumentRequirement__mdt.DocumentType__c</members>
-        <members>ApplicationDocumentRequirement__mdt.Instruction__c</members>
-        <members>ApplicationDocumentRequirement__mdt.IsRequired__c</members>
-        <members>ApplicationDocumentRequirement__mdt.IsSentToBoard__c</members>
-        <members>ApplicationDocumentRequirement__mdt.LicenseType__c</members>
-        <members>ApplicationDocumentRequirement__mdt.RecordType__c</members>
-        <members>ApplicationDocumentRequirement__mdt.SortOrder__c</members>
         <members>BusinessLicense.AccountId</members>
         <members>BusinessLicense.ConsecutiveCEUCycles__c</members>
         <members>BusinessLicense.ContactId</members>
@@ -408,75 +399,6 @@
         <name>CustomLabels</name>
     </types>
     <types>
-        <members>ApplicationDocumentRequirement.AddressChangeProofOfAddress</members>
-        <members>ApplicationDocumentRequirement.AffidavitDriversLicenseOrStateId</members>
-        <members>ApplicationDocumentRequirement.AffidavitPaymentReceipt</members>
-        <members>ApplicationDocumentRequirement.AhdFacLocalOccupationalLicense</members>
-        <members>ApplicationDocumentRequirement.AhdFacOperatorLicense</members>
-        <members>ApplicationDocumentRequirement.CompletionCumulativeHoursReport</members>
-        <members>ApplicationDocumentRequirement.CompletionPaymentReceipt</members>
-        <members>ApplicationDocumentRequirement.DuplicatePaymentReceipt</members>
-        <members>ApplicationDocumentRequirement.ExamContractualFees</members>
-        <members>ApplicationDocumentRequirement.ExamHourlyReport</members>
-        <members>ApplicationDocumentRequirement.ExamPaymentReceipt</members>
-        <members>ApplicationDocumentRequirement.ExamPhoto</members>
-        <members>ApplicationDocumentRequirement.NewSchoolBusinessPlan</members>
-        <members>ApplicationDocumentRequirement.NewSchoolCurriculum</members>
-        <members>ApplicationDocumentRequirement.NewSchoolDailySchedule</members>
-        <members>ApplicationDocumentRequirement.NewSchoolEnrollmentContract</members>
-        <members>ApplicationDocumentRequirement.NewSchoolFinancialStatements</members>
-        <members>ApplicationDocumentRequirement.NewSchoolFireSafetyReport</members>
-        <members>ApplicationDocumentRequirement.NewSchoolFloorPlan</members>
-        <members>ApplicationDocumentRequirement.NewSchoolLease</members>
-        <members>ApplicationDocumentRequirement.NewSchoolLetterOfIntent</members>
-        <members>ApplicationDocumentRequirement.NewSchoolNotarizedTeacherStatement</members>
-        <members>ApplicationDocumentRequirement.NewSchoolPaymentReceipt</members>
-        <members>ApplicationDocumentRequirement.NewSchoolPremisesInspectionReport</members>
-        <members>ApplicationDocumentRequirement.NewSchoolSuretyBond</members>
-        <members>ApplicationDocumentRequirement.RecIntlDriversLicenseOrStateId</members>
-        <members>ApplicationDocumentRequirement.RecIntlGeneralEducationEvaluation</members>
-        <members>ApplicationDocumentRequirement.RecIntlOriginalForeignLicense</members>
-        <members>ApplicationDocumentRequirement.RecIntlPassportPhoto</members>
-        <members>ApplicationDocumentRequirement.RecIntlPaymentReceipt</members>
-        <members>ApplicationDocumentRequirement.RecIntlProfessionalCredentialEvaluation</members>
-        <members>ApplicationDocumentRequirement.RecIntlProofOfEducation</members>
-        <members>ApplicationDocumentRequirement.RecIntlSocialSecurityCard</members>
-        <members>ApplicationDocumentRequirement.RecMilCertificationOfLicensure</members>
-        <members>ApplicationDocumentRequirement.RecMilCourtRecordsAndExplanation</members>
-        <members>ApplicationDocumentRequirement.RecMilDriversLicenseOrStateId</members>
-        <members>ApplicationDocumentRequirement.RecMilMilitaryId</members>
-        <members>ApplicationDocumentRequirement.RecMilOriginalOutOfStateLicense</members>
-        <members>ApplicationDocumentRequirement.RecMilPassportPhoto</members>
-        <members>ApplicationDocumentRequirement.RecMilPaymentReceipt</members>
-        <members>ApplicationDocumentRequirement.RecMilSocialSecurityCard</members>
-        <members>ApplicationDocumentRequirement.RecRegCertificationOfLicensure</members>
-        <members>ApplicationDocumentRequirement.RecRegDriversLicenseOrStateId</members>
-        <members>ApplicationDocumentRequirement.RecRegNicScoreSheet</members>
-        <members>ApplicationDocumentRequirement.RecRegOriginalOutOfStateLicense</members>
-        <members>ApplicationDocumentRequirement.RecRegPassportPhoto</members>
-        <members>ApplicationDocumentRequirement.RecRegPaymentReceipt</members>
-        <members>ApplicationDocumentRequirement.RecRegSocialSecurityCard</members>
-        <members>ApplicationDocumentRequirement.RecRetakePaymentReceipt</members>
-        <members>ApplicationDocumentRequirement.RenewalPaymentReceipt</members>
-        <members>ApplicationDocumentRequirement.RenewalProofOfNameChange</members>
-        <members>ApplicationDocumentRequirement.ShopOperatorLicense</members>
-        <members>ApplicationDocumentRequirement.ShopPaymentReceipt</members>
-        <members>ApplicationDocumentRequirement.StudentEnrollmentContractualFees</members>
-        <members>ApplicationDocumentRequirement.StudentEnrollmentPaymentReceipt</members>
-        <members>ApplicationDocumentRequirement.StudentEnrollmentPhotos</members>
-        <members>ApplicationDocumentRequirement.StudentEnrollmentProofOfAge</members>
-        <members>ApplicationDocumentRequirement.StudentEnrollmentProofOfEducation</members>
-        <members>ApplicationDocumentRequirement.StudentEnrollmentSocialSecurityCard</members>
-        <members>ApplicationDocumentRequirement.StudentFormContractualFees</members>
-        <members>ApplicationDocumentRequirement.StudentFormRelinquishLetter</members>
-        <members>ApplicationDocumentRequirement.StudentFormTransferHours</members>
-        <members>ApplicationDocumentRequirement.TempPermitOutOfStateLicenseCopy</members>
-        <members>ApplicationDocumentRequirement.TempPermitPaymentReceipt</members>
-        <members>ApplicationDocumentRequirement.ThreadFacLocalOccupationalLicense</members>
-        <members>ApplicationDocumentRequirement.ThreadFacOperatorLicense</members>
-        <members>ApplicationDocumentRequirement.ThreadingDriversLicenseOrStateId</members>
-        <members>ApplicationDocumentRequirement.ThreadingPaymentReceipt</members>
-        <members>ApplicationDocumentRequirement.ThreadingSocialSecurityCard</members>
         <members>LetterTemplate.AffidavitCertification</members>
         <members>LetterTemplate.BalanceDue</members>
         <members>LetterTemplate.ReturnLetter</members>
@@ -486,7 +408,6 @@
     <types>
         <members>Account</members>
         <members>Accreditation</members>
-        <members>ApplicationDocumentRequirement__mdt</members>
         <members>BusinessLicense</members>
         <members>BusinessLicenseApplication</members>
         <members>Case</members>
@@ -544,6 +465,7 @@
         <members>Identity</members>
         <members>Licensure</members>
         <members>Payment</members>
+        <members>SentToTheBoard</members>
         <name>DocumentCategory</name>
     </types>
     <types>

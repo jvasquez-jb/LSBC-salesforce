@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
-    <description>Which documents each kind of application needs, worded as on the Board's paper form. A portal application gets one document checklist item for every row whose record type matches and whose license type, path and application type either match or are blank (blank means any). Add or change rows in Setup to change a checklist without touching a flow.</description>
-    <label>Application Document Requirement</label>
-    <pluralLabel>Application Document Requirements</pluralLabel>
-    <visibility>Public</visibility>
-</CustomObject>
