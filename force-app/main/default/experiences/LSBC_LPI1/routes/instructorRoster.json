@@ -1,0 +1,12 @@
+{
+  "activeViewId": "8eeb614c-85cf-5365-8585-97f90fbee7cb",
+  "appPageId": "39740273-a4f0-4311-b732-31661924917d",
+  "configurationTags": [],
+  "devName": "instructorRoster",
+  "id": "1e3ad070-34dc-5ac2-a8f2-278481b83a77",
+  "label": "Instructor Quarterly Roster",
+  "pageAccess": "RequiresLogin",
+  "routeType": "custom-instructor-roster",
+  "type": "route",
+  "urlPrefix": "instructor-roster"
+}

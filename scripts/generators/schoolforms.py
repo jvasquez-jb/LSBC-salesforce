@@ -45,14 +45,14 @@ class Flow:
         self.first = None
 
     # data
-    def lookup(self, name, label, obj, filters, fields, nxt, first=False, sort=None, logic='and'):
+    def lookup(self, name, label, obj, filters, fields, nxt, first=False, sort=None, logic='and', desc=False):
         x = f'<recordLookups><name>{name}</name><label>{e(label)}</label>{LOC}<assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>{conn(nxt)}<filterLogic>{logic}</filterLogic>'
         for f, op, v in filters:
             x += f'<filters><field>{f}</field><operator>{op}</operator><value>{val(v)}</value></filters>'
         x += f'<getFirstRecordOnly>{"true" if first else "false"}</getFirstRecordOnly><object>{obj}</object>'
         x += ''.join(f'<queriedFields>{f}</queriedFields>' for f in fields)
         if sort:
-            x += f'<sortField>{sort}</sortField><sortOrder>Asc</sortOrder>'
+            x += f'<sortField>{sort}</sortField><sortOrder>{"Desc" if desc else "Asc"}</sortOrder>'
         self.el['recordLookups'].append(x + '<storeOutputAutomatically>true</storeOutputAutomatically></recordLookups>')
 
     def create(self, name, label, obj, assigns, nxt, fault=None):
@@ -96,10 +96,12 @@ class Flow:
         s = f'<scale>{scale}</scale>' if scale is not None else ''
         self.el['formulas'].append(f'<formulas><name>{name}</name><description>{e(desc)}</description><dataType>{dtype}</dataType><expression>{e(expr)}</expression>{s}</formulas>')
 
-    def var(self, name, dtype, desc, coll=False, inp=False, obj=None, default=None):
+    def var(self, name, dtype, desc, coll=False, inp=False, obj=None, default=None, scale=None):
         x = f'<variables><name>{name}</name><description>{e(desc)}</description><dataType>{dtype}</dataType><isCollection>{"true" if coll else "false"}</isCollection><isInput>{"true" if inp else "false"}</isInput><isOutput>false</isOutput>'
         if obj:
             x += f'<objectType>{obj}</objectType>'
+        if scale is not None or dtype == 'Number':
+            x += f'<scale>{scale if scale is not None else 2}</scale>'
         if default is not None:
             x += f'<value>{val(default)}</value>'
         self.el['variables'].append(x + '</variables>')
@@ -137,7 +139,7 @@ class Flow:
         j = lambda t: ''.join(self.el[t])
         meta = ''.join(f'<processMetadataValues><name>{k}</name><value><stringValue>{v}</stringValue></value></processMetadataValues>'
                        for k, v in [('BuilderType', 'LightningFlowBuilder'), ('CanvasMode', 'AUTO_LAYOUT_CANVAS'), ('OriginBuilderType', 'LightningFlowBuilder')])
-        x = ('<?xml version="1.0" encoding="UTF-8"?>\n<Flow xmlns="http://soap.sforce.com/2006/04/metadata"><apiVersion>66.0</apiVersion>'
+        x = ('<?xml version="1.0" encoding="UTF-8"?>\n<Flow xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><apiVersion>66.0</apiVersion>'
              + j('actionCalls') + j('assignments') + j('choices') + j('decisions') + f'<description>{e(self.desc)}</description>'
              + j('dynamicChoiceSets') + '<environments>Default</environments>' + j('formulas')
              + f'<interviewLabel>{e(self.label)} {{!$Flow.CurrentDateTime}}</interviewLabel><label>{e(self.label)}</label>' + j('loops')
@@ -415,6 +417,481 @@ def student_enrollment(outdir):
     f.write(outdir, 'GetRunningUser')
 
 
+# ---- forms about a student already enrolled at the school ----
+def student_start(f, form_name, intro_html, after):
+    """School (ChooseSchool -> GetSchool), then one of its students (ChooseStudent -> GetStudent) and the
+    student's latest registration at the school (GetRegistration). Students are those with a Student
+    Registration application on one of the school's course offerings."""
+    school_start(f, form_name, 'GetSchool')
+    f.screen('ChooseSchool', form_name, [display('CS_Intro', intro_html),
+             radio('CS_School', 'Cosmetology school', ['choice_Schools'])], 'GetSchool', back=False, pause=False)
+    f.lookup('GetSchool', 'Get School', 'Account', [('Id', 'EqualTo', '=CS_School')],
+             ['Id', 'Name', 'OwnerId', 'CertificationNumber__c', 'Phone'], 'IsTheSchoolApproved', first=True)
+    f.decide('IsTheSchoolApproved', 'Is the School Approved?', [
+        ('Approved', 'Yes', [('GetSchool.Owner.IsPortalEnabled', 'EqualTo', False)], 'GetCourseOfferings', 'and')],
+        'SchoolNotApproved')
+    f.screen('SchoolNotApproved', 'Not Available', [display('SNA_Message',
+             f'<p>{{!GetSchool.Name}} can file school forms once the Board has approved the school. Call {PHONE}.</p>')],
+             None, back=False, pause=False)
+    f.lookup('GetCourseOfferings', 'Get Course Offerings', 'CourseOffering', [('School__c', 'EqualTo', '=GetSchool.Id')],
+             ['Id', 'Name'], 'LoopThroughCourseOfferings', sort='Name')
+    f.var('varT_OfferingIds', 'String', 'The school\'s course offerings.', coll=True)
+    f.loop('LoopThroughCourseOfferings', 'Loop Through Course Offerings', 'GetCourseOfferings', 'AddOfferingId', 'AreThereOfferings')
+    f.assign('AddOfferingId', 'Add Offering Id', [('varT_OfferingIds', 'Add', '=LoopThroughCourseOfferings.Id')], 'LoopThroughCourseOfferings')
+    f.decide('AreThereOfferings', 'Does the School Have Courses?', [
+        ('HasOfferings', 'Yes', [('varT_OfferingIds', 'IsEmpty', False)], 'GetRegistrationRecordType', 'and')], 'NoStudents')
+    f.lookup('GetRegistrationRecordType', 'Get Student Registration Record Type', 'RecordType', [
+        ('SobjectType', 'EqualTo', 'IndividualApplication'), ('DeveloperName', 'EqualTo', 'StudentRegistration')], ['Id'],
+        'GetRegistrations', first=True)
+    f.lookup('GetRegistrations', 'Get Student Registrations', 'IndividualApplication', [
+        ('RecordTypeId', 'EqualTo', '=GetRegistrationRecordType.Id'), ('CourseOffering__c', 'In', '=varT_OfferingIds')],
+        ['Id', 'AccountId'], 'LoopThroughRegistrations', sort='Id')
+    f.var('varT_StudentIds', 'String', 'The school\'s students.', coll=True)
+    f.loop('LoopThroughRegistrations', 'Loop Through Student Registrations', 'GetRegistrations', 'AddStudentId', 'AreThereStudents')
+    f.assign('AddStudentId', 'Add Student Id', [('varT_StudentIds', 'Add', '=LoopThroughRegistrations.AccountId')], 'LoopThroughRegistrations')
+    f.decide('AreThereStudents', 'Does the School Have Students?', [
+        ('HasStudents', 'Yes', [('varT_StudentIds', 'IsEmpty', False)], 'GetStudents', 'and')], 'NoStudents')
+    f.screen('NoStudents', 'Not Available', [display('NST_Message',
+             '<p>The Board has no students registered at {!GetSchool.Name} yet. Enroll a student with <b>Student Enrollment</b> first.</p>')],
+             None, back=False, pause=False)
+    f.lookup('GetStudents', 'Get Students', 'Account', [('Id', 'In', '=varT_StudentIds')], ['Id', 'Name'], 'ChooseStudent', sort='Name')
+    f.collection_choices('choice_Students', 'GetStudents', 'Account', 'Name')
+    f.screen('ChooseStudent', 'Student', [radio('ST_Student', 'Student', ['choice_Students'])], 'GetStudent', pause=False)
+    f.lookup('GetStudent', 'Get Student', 'Account', [('Id', 'EqualTo', '=ST_Student')],
+             ['Id', 'FirstName', 'LastName', 'PersonContactId', 'PersonIndividualId'], 'GetRegistration', first=True)
+    f.lookup('GetRegistration', 'Get Latest Registration', 'IndividualApplication', [
+        ('AccountId', 'EqualTo', '=GetStudent.Id'), ('RecordTypeId', 'EqualTo', '=GetRegistrationRecordType.Id'),
+        ('CourseOffering__c', 'In', '=varT_OfferingIds')], ['Id', 'Name', 'CourseOffering__c', 'EnrolledDate__c', 'ClassStartDate__c'],
+        after, first=True, sort='CreatedDate', desc=True)
+    f.formula('forT_StudentName', 'String', '{!GetStudent.FirstName} & " " & {!GetStudent.LastName}', 'The student\'s name.')
+    f.formula('forT_SchoolAdministratorName', 'String', '{!GetRunningUser.FirstName} & " " & {!GetRunningUser.LastName}',
+              'The School Administrator certifying the form.')
+
+
+def certify(f, name, text, nxt):
+    f.subflow(name, 'Certification', 'SubflowApplicationCertification', [
+        ('varT_AttestationText', text), ('varT_ApplicantName', '=forT_SchoolAdministratorName')], nxt,
+        outputs=[('varB_IsCertified', 'varB_IsCertified'), ('varT_CertifiedName', 'varT_CertifiedName'),
+                 ('varDT_CertifiedDateTime', 'varDT_CertifiedDateTime')])
+    f.var('varB_IsCertified', 'Boolean', 'The school certified the form.')
+    f.var('varT_CertifiedName', 'String', 'The name typed to certify.')
+    f.var('varDT_CertifiedDateTime', 'DateTime', 'When the form was certified.')
+
+
+def documents(f, name, form_type, nxt):
+    """The form's documents as checklist items on the student's registration (requirement rows whose Application
+    Type is the form's name), then the upload screen."""
+    f.subflow(name, 'Generate Checklist', 'SubflowDocumentChecklistGenerate', [
+        ('varT_ApplicationId', '=GetRegistration.Id'), ('varT_AccountId', '=GetStudent.Id'),
+        ('varT_RecordType', 'IndividualApplication.StudentRegistration'), ('varT_ApplicationType', form_type),
+        ('varB_LeaveOutReceipt', True)], name + 'Upload')
+    f.subflow(name + 'Upload', 'Upload Documents', 'SubflowDocumentChecklistUpload', [
+        ('varT_ApplicationId', '=GetRegistration.Id'), ('varB_IsStaffEntry', False), ('varT_IncludeCategories', 'EducationAndTraining')], nxt)
+
+
+def done(f, title, body):
+    f.screen('Submitted', 'Submitted', [display('SUB_Message', f'<h2>{title}</h2><p>{body}</p>')], None, back=False, pause=False)
+    f.screen('CouldNotSave', 'Could Not Save', [display('CNS_Message',
+             f'<p><b>The form could not be saved.</b> {{!$Flow.FaultMessage}}</p><p>Go back and try again, or call the Board at {PHONE}.</p>')],
+             None, back=True, pause=False)
+
+
+def hours_entry(f, name, entry_type, assigns, nxt):
+    f.create(name, f'Create {entry_type} Hours Entry', 'TrainingCourseParticipant', [
+        ('ContactId', '=GetStudent.PersonContactId'), ('CourseOfferingId', '=GetRegistration.CourseOffering__c'),
+        ('EntryType__c', entry_type), ('ReceivedDate__c', '=$Flow.CurrentDate')] + assigns, nxt, 'CouldNotSave')
+
+
+def contractual_fees(outdir):
+    f = Flow('ScreenFlowIndividualApplicationContractualFees', 'Certification of Contractual Fees',
+             'Screen Flow: Individual Application Contractual Fees. The Board\'s Certification of Contractual Fees, filed by a '
+             'School Administrator for one of the school\'s students: Section I, the student has paid all contractual fees, or '
+             'Section II, the student entered a contract on or after 21 August 1992 and has not paid them all. Sets Contractual '
+             'Fees Status on the student\'s latest registration and asks for the notarized original as a checklist item there.')
+    student_start(f, 'Certification of Contractual Fees', '<p><b>CERTIFICATION OF CONTRACTUAL FEES</b></p><p>Section I or II must be '
+                  'completed by the school owner or authorized school personnel. The official signature must be notarized: upload '
+                  'the notarized form on a later screen.</p>', 'WhichSection')
+    f.choice('choice_Paid', 'Section I: Certification of payment of contractual fees', 'Paid')
+    f.choice('choice_NotPaid', 'Section II: Certification of non-payment of contractual fees', 'Not Paid')
+    f.screen('WhichSection', 'Section', [
+        display('WS_Student', '<p><b>Student:</b> {!forT_StudentName}</p>'),
+        radio('WS_Section', 'Which section does the school certify?', ['choice_Paid', 'choice_NotPaid']),
+        display('WS_Paid', '<p>This is to certify that the above named student has paid all contractual fees, pursuant to Louisiana '
+                'R.S. 37:508.B, to this school and is therefore eligible to be scheduled for examination or transfer by the Louisiana '
+                'State Board of Cosmetology.</p>', vis_if('WS_Section', 'EqualTo', 'Paid')),
+        display('WS_NotPaid', '<p>This is to certify that the above-named student entered a contract with this school on or after '
+                'August 21, 1992 and has not paid all contractual fees, pursuant to Louisiana R.S. 37:508.B/37:542.C, to this school. '
+                'Upon payment of all said contractual fees I shall file a Certificate of Payment of Contractual Fees with the '
+                'Louisiana State Board of Cosmetology within 10 days of said payment. I understand that the above-named individual '
+                'will not be eligible for examination or transfer in the state of Louisiana until all contractual fees have been '
+                'paid and I have submitted the required certification.</p>', vis_if('WS_Section', 'EqualTo', 'Not Paid')),
+    ], 'Documents')
+    documents(f, 'Documents', 'Contractual Fees', 'Certification')
+    certify(f, 'Certification', 'I certify, as the school owner or authorized school personnel, the section of the Certification of '
+            'Contractual Fees chosen above for this student, and that the notarized original is uploaded with this form.', 'SetContractualFeesStatus')
+    f.update('SetContractualFeesStatus', 'Set Contractual Fees Status', 'IndividualApplication', 'GetRegistration.Id',
+             [('ContractualFeesStatus__c', '=WS_Section')], 'Submitted', 'CouldNotSave')
+    done(f, 'The certification has been filed', 'The Board has recorded the contractual fees status for {!forT_StudentName} and will review the notarized form.')
+    f.write(outdir, 'GetRunningUser')
+
+
+def transfer_hours(outdir):
+    f = Flow('ScreenFlowTrainingCourseParticipantTransferHours', 'Transfer Hours',
+             'Screen Flow: Training Course Participant Transfer Hours. The Board\'s Student Registration Transfer Hours form, filed by '
+             'a School Administrator for a student who brings hours from another state: the hours submitted, the hours the school '
+             'accepts, and the state and school they come from. Creates a Transfer hours entry (Total Hours = hours accepted) on the '
+             'student\'s course at the school and asks for the other state board\'s certification of the hours, unless the Board '
+             'already has it.')
+    student_start(f, 'Transfer Hours', '<p><b>STUDENT REGISTRATION TRANSFER HOURS</b></p><p>Certification from the State Board of '
+                  'Cosmetology of the transferring state must already be in our office (preferred) or accompany this request.</p>', 'Hours')
+    f.el['dynamicChoiceSets'].append('<dynamicChoiceSets><name>choice_States</name><dataType>Picklist</dataType><displayField xsi:nil="true"/>'
+                                     '<object xsi:nil="true"/><picklistField>SourceState__c</picklistField><picklistObject>TrainingCourseParticipant</picklistObject></dynamicChoiceSets>')
+    f.choice('choice_CertificationHere', 'Already sent to the Board by the other state', 'Yes')
+    f.choice('choice_CertificationUpload', 'I will upload it with this request', 'No')
+    f.screen('Hours', 'Transfer Hours', [
+        display('H_Student', '<p><b>Student:</b> {!forT_StudentName}<br/><b>School:</b> {!GetSchool.Name}</p>'),
+        inp('H_Submitted', 'Number', 'Number of total transfer hours', required=True, scale=1,
+            rule=('Enter a number of hours greater than 0.', '{!H_Submitted} > 0')),
+        inp('H_Accepted', 'Number', 'Number of hours accepted by school', required=True, scale=1,
+            rule=('Hours accepted can\'t be more than the hours submitted.', 'AND({!H_Accepted} >= 0, {!H_Accepted} <= {!H_Submitted})')),
+        '<fields><name>H_State</name><choiceReferences>choice_States</choiceReferences><dataType>String</dataType><fieldText>State transferring from</fieldText>'
+        '<fieldType>DropdownBox</fieldType><inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn><isRequired>true</isRequired></fields>',
+        inp('H_School', 'String', 'School transferring from', required=True),
+        radio('H_Certification', 'Certification from the transferring state\'s board', ['choice_CertificationHere', 'choice_CertificationUpload']),
+    ], 'IsTheCertificationToUpload')
+    f.decide('IsTheCertificationToUpload', 'Is the Certification to Upload?', [
+        ('Upload', 'Yes', [('H_Certification', 'EqualTo', 'No')], 'Documents', 'and')], 'Certification')
+    documents(f, 'Documents', 'Transfer Hours', 'Certification')
+    certify(f, 'Certification', 'I certify, as the school\'s representative, that the transfer hours above are correct and that the '
+            'school accepts the hours shown.', 'CreateTransferEntry')
+    hours_entry(f, 'CreateTransferEntry', 'Transfer', [('TotalHours', '=H_Accepted'), ('HoursSubmitted__c', '=H_Submitted'),
+                ('SourceState__c', '=H_State'), ('SourceSchool__c', '=H_School')], 'Submitted')
+    done(f, 'The transfer hours have been filed', 'The Board will add {!H_Accepted} hours to {!forT_StudentName}\'s record once the '
+         'transferring state\'s certification is checked.')
+    f.write(outdir, 'GetRunningUser')
+
+
+def relinquish_hours(outdir):
+    f = Flow('ScreenFlowTrainingCourseParticipantRelinquishHours', 'Relinquish Hours',
+             'Screen Flow: Training Course Participant Relinquish Hours. The Board\'s Notarized Letter to Relinquish Hours, filed by a '
+             'School Administrator for a student giving up hours earned at the school: the course and the hours. Creates a '
+             'Relinquished hours entry (a negative number of hours) and asks for the student\'s notarized letter.')
+    student_start(f, 'Relinquish Hours', '<p><b>NOTARIZED LETTER TO RELINQUISH HOURS</b></p><p>The student\'s signed and notarized '
+                  'letter is uploaded on a later screen.</p>', 'Hours')
+    f.collection_choices('choice_Courses', 'GetCourseOfferings', 'CourseOffering', 'Name')
+    f.screen('Hours', 'Hours Relinquished', [
+        display('H_Student', '<p>I, <b>{!forT_StudentName}</b>, am relinquishing a total of the following hours in the course curriculum, '
+                'obtained at <b>{!GetSchool.Name}</b>, an approved school of the State Board of Cosmetology.</p>'),
+        inp('H_Hours', 'Number', 'Hours relinquished', required=True, scale=1, rule=('Enter a number of hours greater than 0.', '{!H_Hours} > 0')),
+        radio('H_Course', 'Course curriculum (cosmetology, manicurist, esthetician, etc.)', ['choice_Courses']),
+    ], 'Documents')
+    documents(f, 'Documents', 'Relinquish Hours', 'Certification')
+    certify(f, 'Certification', 'I certify, as the school\'s representative, that the student signed the notarized letter uploaded '
+            'with this form, relinquishing the hours shown.', 'CreateRelinquishedEntry')
+    f.formula('forN_Relinquished', 'Number', '0 - {!H_Hours}', 'Relinquished hours are recorded as a negative number.', scale=1)
+    f.create('CreateRelinquishedEntry', 'Create Relinquished Hours Entry', 'TrainingCourseParticipant', [
+        ('ContactId', '=GetStudent.PersonContactId'), ('CourseOfferingId', '=H_Course'), ('EntryType__c', 'Relinquished'),
+        ('ReceivedDate__c', '=$Flow.CurrentDate'), ('TotalHours', '=forN_Relinquished')], 'Submitted', 'CouldNotSave')
+    done(f, 'The letter has been filed', 'The Board will take {!H_Hours} hours off {!forT_StudentName}\'s record once the notarized letter is checked.')
+    f.write(outdir, 'GetRunningUser')
+
+
+def termination(outdir):
+    f = Flow('ScreenFlowTrainingCourseParticipantTermination', 'Notice of Termination',
+             'Screen Flow: Training Course Participant Termination. The Board\'s Notice of Termination, filed by a School '
+             'Administrator for a student (or instructor in training) who has discontinued training: the last date of physical '
+             'attendance. Shows the months attended and the hours on file for the student at the school, then records a '
+             'Termination hours entry (End Date = last day attended, no hours), which stop codes ignore.')
+    student_start(f, 'Notice of Termination', '<p><b>NOTICE OF TERMINATION</b></p><p>This form is to be completed for either students or '
+                  'instructors who have discontinued training.</p>', 'GetHoursEntries')
+    f.lookup('GetHoursEntries', 'Get Hours Entries', 'TrainingCourseParticipant', [
+        ('ContactId', 'EqualTo', '=GetStudent.PersonContactId'), ('CourseOfferingId', 'In', '=varT_OfferingIds'),
+        ('EntryType__c', 'NotEqualTo', 'Continuing Education'), ('EntryType__c', 'NotEqualTo', 'Termination')],
+        ['Id', 'TotalHours'], 'LoopThroughHoursEntries', sort='Id')
+    f.var('varN_TotalHours', 'Number', 'The student\'s hours at the school.', default=0)
+    f.loop('LoopThroughHoursEntries', 'Loop Through Hours Entries', 'GetHoursEntries', 'AddHours', 'LastAttendance')
+    f.assign('AddHours', 'Add Hours', [('varN_TotalHours', 'Add', '=LoopThroughHoursEntries.TotalHours')], 'LoopThroughHoursEntries')
+    f.formula('forD_StartDate', 'Date', 'BLANKVALUE({!GetRegistration.ClassStartDate__c}, {!GetRegistration.EnrolledDate__c})',
+              'When the student started at the school.')
+    f.screen('LastAttendance', 'Training Information', [
+        display('LA_Student', '<p><b>STUDENT PERSONAL DATA</b><br/>Name of student: {!forT_StudentName}<br/>Name of school: {!GetSchool.Name}</p>'
+                '<p><b>TRAINING INFORMATION</b><br/>Started: {!forD_StartDate}<br/>Total hours on file with the Board for this student at the school: {!varN_TotalHours}</p>'),
+        inp('LA_LastDate', 'Date', 'Last date of physical student attendance', required=True,
+            rule=('The last date of attendance can\'t be in the future.', '{!LA_LastDate} <= TODAY()')),
+    ], 'Certification')
+    certify(f, 'Certification', 'School: I certify that the above information is correct and complete.', 'CreateTerminationEntry')
+    hours_entry(f, 'CreateTerminationEntry', 'Termination', [('EndDate', '=LA_LastDate'), ('StartDate', '=forD_StartDate'),
+                ('TotalHours', 0)], 'Submitted')
+    done(f, 'The notice of termination has been filed', 'The Board has recorded {!forT_StudentName}\'s last day of attendance.')
+    f.write(outdir, 'GetRunningUser')
+
+
+def instructors(f, nxt):
+    """The school's instructors: active relations with role Instructor (GetInstructors, Contacts; choice_Instructors)."""
+    f.lookup('GetSchoolRelations', 'Get School Relationships', 'AccountContactRelation', [
+        ('AccountId', 'EqualTo', '=GetSchool.Id'), ('IsActive', 'EqualTo', True)], ['Id', 'ContactId', 'Roles'], 'LoopThroughSchoolRelations', sort='Id')
+    f.var('varT_InstructorIds', 'String', 'The school\'s instructors.', coll=True)
+    f.loop('LoopThroughSchoolRelations', 'Loop Through School Relationships', 'GetSchoolRelations', 'IsItAnInstructor', 'GetInstructors')
+    f.formula('forB_IsInstructor', 'Boolean', 'INCLUDES({!LoopThroughSchoolRelations.Roles}, "Instructor")', 'The relationship is an instructor\'s.')
+    f.decide('IsItAnInstructor', 'Is It an Instructor?', [('Instructor', 'Yes', [('forB_IsInstructor', 'EqualTo', True)], 'AddInstructorId', 'and')],
+             'LoopThroughSchoolRelations')
+    f.assign('AddInstructorId', 'Add Instructor Id', [('varT_InstructorIds', 'Add', '=LoopThroughSchoolRelations.ContactId')], 'LoopThroughSchoolRelations')
+    f.lookup('GetInstructors', 'Get Instructors', 'Contact', [('Id', 'In', '=varT_InstructorIds')], ['Id', 'Name', 'CertificationNumber__c'], nxt, sort='LastName')
+    f.collection_choices('choice_Instructors', 'GetInstructors', 'Contact', 'Name')
+
+
+def activity_hours(outdir):
+    f = Flow('ScreenFlowTrainingCourseParticipantActivityHours', 'Field Trips, Workshops, Shows and Community Service',
+             'Screen Flow: Training Course Participant Activity Hours. The Board\'s Student Field Trips, Workshops, Shows and Community '
+             'Service Reporting Form, filed by a School Administrator: the activity type, date, location, hours credited and the '
+             'instructor who accompanied the students. Creates an Activity hours entry on the student\'s course, which counts as hours.')
+    student_start(f, 'Field Trips, Workshops, Shows and Community Service', '<p><b>STUDENT FIELD TRIPS, WORKSHOPS, SHOWS AND COMMUNITY '
+                  'SERVICE REPORTING FORM</b></p>', 'GetSchoolRelations')
+    instructors(f, 'Activity')
+    for code, t in [('FieldTrip', 'Field Trip (FT)'), ('Workshop', 'Workshop (WS)'), ('Show', 'Show (SH)'), ('CommunityService', 'Community Service (CS)')]:
+        f.choice(f'choice_{code}', t, t.split(' (')[0])
+    f.screen('Activity', 'Activity', [
+        display('AC_Student', '<p><b>Student:</b> {!forT_StudentName}<br/><b>Name of school:</b> {!GetSchool.Name}</p>'),
+        radio('AC_Type', 'Type of trip taken', ['choice_FieldTrip', 'choice_Workshop', 'choice_Show', 'choice_CommunityService']),
+        inp('AC_Date', 'Date', 'Date of trip', required=True, rule=('The date can\'t be in the future.', '{!AC_Date} <= TODAY()')),
+        inp('AC_Location', 'String', 'Location', required=True),
+        inp('AC_Hours', 'Number', 'Number of hours credited', required=True, scale=1, rule=('Enter between 0 and 24 hours.', 'AND({!AC_Hours} > 0, {!AC_Hours} <= 24)')),
+        radio('AC_Instructor', 'Instructor accompanying students', ['choice_Instructors'], required=False,
+              help='The school\'s instructors on file with the Board.'),
+    ], 'Certification')
+    certify(f, 'Certification', 'I certify, as the school\'s representative, that the activity above took place as reported, and that '
+            'the student and the senior instructor signed the paper reporting form, which the school keeps on file.', 'CreateActivityEntry')
+    hours_entry(f, 'CreateActivityEntry', 'Activity', [('TotalHours', '=AC_Hours'), ('StartDate', '=AC_Date'), ('EndDate', '=AC_Date'),
+                ('ActivityType__c', '=AC_Type'), ('ActivityLocation__c', '=AC_Location'), ('AccompanyingInstructor__c', '=AC_Instructor')], 'Submitted')
+    done(f, 'The activity has been reported', 'The Board has added {!AC_Hours} hours for {!forT_StudentName}.')
+    f.write(outdir, 'GetRunningUser')
+
+
+def instructor_roster(outdir):
+    f = Flow('ScreenFlowAccountInstructorRoster', 'Instructor Quarterly Roster',
+             'Screen Flow: Account Instructor Roster. The Board\'s Instructor Quarterly Roster, filed by a School Administrator each '
+             'quarter (March, June, September, December): lists the school\'s instructors on file (Account Contact Relations with role '
+             'Instructor), lets the school mark those no longer teaching (the relation is ended) and add one by license number, and '
+             'stamps the quarter and date on the school.')
+    school_start(f, 'The Instructor Quarterly Roster', 'GetSchool')
+    f.formula('forT_SchoolAdministratorName', 'String', '{!GetRunningUser.FirstName} & " " & {!GetRunningUser.LastName}',
+              'The School Administrator certifying the form.')
+    for m in ['March', 'June', 'September', 'December']:
+        f.choice(f'choice_{m}', m)
+    f.formula('forN_ThisYear', 'Number', 'YEAR(TODAY())', 'This year.', scale=0)
+    f.screen('ChooseSchool', 'Instructor Quarterly Roster', [
+        display('CS_Intro', '<p><b>INSTRUCTOR QUARTERLY ROSTER</b></p>'),
+        radio('CS_School', 'School name', ['choice_Schools']),
+        radio('CS_Month', 'Circle the appropriate month', ['choice_March', 'choice_June', 'choice_September', 'choice_December']),
+        inp('CS_Year', 'Number', 'Year', required=True, scale=0, default='=forN_ThisYear',
+            rule=('Enter this year or last year.', 'AND({!CS_Year} >= YEAR(TODAY()) - 1, {!CS_Year} <= YEAR(TODAY()))')),
+    ], 'GetSchool', back=False, pause=False)
+    f.lookup('GetSchool', 'Get School', 'Account', [('Id', 'EqualTo', '=CS_School')], ['Id', 'Name', 'OwnerId'], 'GetSchoolRelations', first=True)
+    instructors(f, 'BuildRoster')
+    f.var('varT_RosterHtml', 'String', 'The instructors on file, as a list.')
+    f.loop('BuildRoster', 'Loop Through Instructors', 'GetInstructors', 'AddRosterLine', 'Roster')
+    f.formula('forT_RosterLine', 'String', '"<li>" & {!BuildRoster.Name} & IF(ISBLANK({!BuildRoster.CertificationNumber__c}), "", ", license # " & {!BuildRoster.CertificationNumber__c}) & "</li>"',
+              'One instructor on the roster.')
+    f.assign('AddRosterLine', 'Add Roster Line', [('varT_RosterHtml', 'Add', '=forT_RosterLine')], 'BuildRoster')
+    f.screen('Roster', 'Roster', [
+        display('RO_List', '<p><b>Instructors on file with the Board for {!GetSchool.Name}:</b></p><ul>{!varT_RosterHtml}</ul>'),
+        f'<fields><name>RO_Left</name><choiceReferences>choice_Instructors</choiceReferences><dataType>String</dataType>'
+        f'<fieldText>Instructors no longer teaching at the school</fieldText><fieldType>MultiSelectCheckboxes</fieldType>'
+        f'<inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn><isRequired>false</isRequired></fields>',
+        inp('RO_NewNumber', 'String', 'Add an instructor: their license number', help='Leave blank if no instructor joined this quarter.'),
+    ], 'IsAnInstructorAdded')
+    f.formula('forT_NewNumber', 'String', 'IF(CONTAINS(TRIM({!RO_NewNumber}), "-"), LEFT(TRIM({!RO_NewNumber}), FIND("-", TRIM({!RO_NewNumber})) - 1), TRIM({!RO_NewNumber}))',
+              'The number typed, without a license type suffix.')
+    f.formula('forT_NewNumberClean', 'String', 'IF(LEFT(UPPER({!forT_NewNumber}), 1) = "L", MID({!forT_NewNumber}, 2, 40), {!forT_NewNumber})',
+              'The number without the L printed in front.')
+    f.decide('IsAnInstructorAdded', 'Is an Instructor Added?', [
+        ('Added', 'Yes', [('RO_NewNumber', 'IsBlank', False)], 'GetNewInstructor', 'and')], 'Certification')
+    f.lookup('GetNewInstructor', 'Get New Instructor', 'Contact', [('CertificationNumber__c', 'EqualTo', '=forT_NewNumberClean')],
+             ['Id', 'Name'], 'IsTheNewInstructorFound', first=True)
+    f.decide('IsTheNewInstructorFound', 'Is the New Instructor Found?', [
+        ('Found', 'Yes', [('GetNewInstructor.Id', 'IsNull', False)], 'ConfirmNewInstructor', 'and')], 'NewInstructorNotFound')
+    f.screen('NewInstructorNotFound', 'Not Found', [display('NNF_Message', '<p>No licensee has license number {!RO_NewNumber}. Go back and '
+             'check the number, or leave it blank and call the Board.</p>')], None, back=True, pause=False)
+    f.screen('ConfirmNewInstructor', 'New Instructor', [display('CN_Message', '<p><b>{!GetNewInstructor.Name}</b> will be added to the '
+             'roster as an instructor at {!GetSchool.Name}.</p>')], 'Certification')
+    certify(f, 'Certification', 'I certify that this roster lists the instructors teaching at the school for the quarter shown.', 'IsANewInstructorToAdd')
+    f.decide('IsANewInstructorToAdd', 'Is a New Instructor to Add?', [
+        ('ToAdd', 'Yes', [('GetNewInstructor.Id', 'IsNull', False)], 'CreateInstructorRelation', 'and')], 'LoopThroughRelationsToEnd')
+    f.create('CreateInstructorRelation', 'Create Instructor Relationship', 'AccountContactRelation', [
+        ('AccountId', '=GetSchool.Id'), ('ContactId', '=GetNewInstructor.Id'), ('Roles', 'Instructor'), ('IsActive', True),
+        ('StartDate', '=$Flow.CurrentDate')], 'LoopThroughRelationsToEnd', 'CouldNotSave')
+    f.var('varR_Ended', 'SObject', 'One relationship being ended.', obj='AccountContactRelation')
+    f.var('varR_EndedRelations', 'SObject', 'Relationships of instructors no longer teaching.', coll=True, obj='AccountContactRelation')
+    f.loop('LoopThroughRelationsToEnd', 'Loop Through Relationships', 'GetSchoolRelations', 'HasTheInstructorLeft', 'AreThereRelationsToEnd')
+    f.formula('forB_HasLeft', 'Boolean', 'AND({!forB_IsInstructorToEnd}, CONTAINS(";" & {!RO_Left} & ";", ";" & {!LoopThroughRelationsToEnd.ContactId} & ";"))',
+              'The school marked this instructor as no longer teaching.')
+    f.formula('forB_IsInstructorToEnd', 'Boolean', 'INCLUDES({!LoopThroughRelationsToEnd.Roles}, "Instructor")', 'An instructor relationship.')
+    f.decide('HasTheInstructorLeft', 'Has the Instructor Left?', [('Left', 'Yes', [('forB_HasLeft', 'EqualTo', True)], 'SetEndedRelation', 'and')],
+             'LoopThroughRelationsToEnd')
+    f.assign('SetEndedRelation', 'Set Ended Relationship', [('varR_Ended.Id', 'Assign', '=LoopThroughRelationsToEnd.Id'),
+             ('varR_Ended.IsActive', 'Assign', False), ('varR_Ended.EndDate', 'Assign', '=$Flow.CurrentDate')], 'AddEndedRelation')
+    f.assign('AddEndedRelation', 'Add Ended Relationship', [('varR_EndedRelations', 'Add', '=varR_Ended')], 'LoopThroughRelationsToEnd')
+    f.decide('AreThereRelationsToEnd', 'Are There Relationships to End?', [
+        ('HasEnded', 'Yes', [('varR_EndedRelations', 'IsEmpty', False)], 'EndRelations', 'and')], 'SetRosterDate')
+    f.el['recordUpdates'].append(f'<recordUpdates><name>EndRelations</name><label>End Relationships</label>{LOC}{conn("SetRosterDate")}'
+                                 f'{conn("CouldNotSave", "faultConnector")}<inputReference>varR_EndedRelations</inputReference></recordUpdates>')
+    f.formula('forT_Quarter', 'String', '{!CS_Month} & " " & TEXT({!CS_Year})', 'The quarter the roster covers.')
+    f.update('SetRosterDate', 'Set Roster Date and Quarter', 'Account', 'GetSchool.Id', [
+        ('LastInstructorRosterDate__c', '=$Flow.CurrentDate'), ('LastInstructorRosterQuarter__c', '=forT_Quarter')], 'Submitted', 'CouldNotSave')
+    done(f, 'The roster has been filed', 'The Board has the {!forT_Quarter} instructor roster for {!GetSchool.Name}.')
+    f.write(outdir, 'GetRunningUser')
+
+
+EXAM_FORMS = [  # (choice name, label, Application Type, needs practical+state, asks hours/dates)
+    ('NationalExam', 'Application for National Exam', 'National Exam'),
+    ('NationalRetake', 'Application for National Retake Exam', 'National Retake'),
+    ('AlternativeHairDesign', 'Application for Alternative Hair Design Practical and State Exam', 'Practical and State'),
+    ('PracticalAndState', 'Application for Practical and State Exam', 'Practical and State'),
+    ('PracticalAndState1400', '1400 Hour Application for Practical and State Examinations', 'Practical and State 1400 Hour'),
+    ('ExamRetake', 'Application for Retake Exam(s)', 'Exam Retake'),
+    ('NoShow', 'Application for No Show Exam(s)', 'No Show'),
+]
+NO_SHOW_TEXT = ('I understand that if I fail to show for my scheduled examination without proper notification, a seven day notice or 24 '
+                'hours emergency notice, I will be required upon reapplication to submit a $25.00 administrative fee.')
+
+
+def examination(outdir):
+    f = Flow('ScreenFlowIndividualApplicationExamination', 'Exam Application',
+             'Screen Flow: Individual Application Examination. The Board\'s seven exam applications from the School Forms packet, filed '
+             'by a School Administrator for a student: national exam, national retake, alternative hair design practical and state, '
+             'practical and state, 1400 hour practical and state, retake exam(s) and no-show exam(s). Each keeps its own sections and '
+             'wording. Creates an Examination application with the exams, dates and hours, the no-show acknowledgement and any '
+             'accommodation request, the documents the form lists, and the fees printed on the form, from the Fee Schedule.')
+    student_start(f, 'Exam Application', '<p><b>EXAM APPLICATIONS</b></p><p>Choose the school, then the student and the application.</p>', 'CreateDraft')
+    f.formula('forT_SavedApplicationUrl', 'String', '"/LPI/s/continue-application?guid=" & {!$Flow.InterviewGuid}', 'Finds a saved form again.')
+    f.create('CreateDraft', 'Create Draft', 'PreliminaryApplicationRef', [
+        ('ApplicationName', 'Exam Application'), ('ApplicationType', 'IndividualApplication'), ('OwnerId', '=$User.Id'),
+        ('IsSubmitted', False), ('SavedApplicationUrl', '=forT_SavedApplicationUrl')], 'WhichForm')
+    for code, label, _ in EXAM_FORMS:
+        f.choice(f'choice_{code}', label, code)
+    for n, t in [('Cosmetology', 'Cosmetology'), ('Manicurist', 'Manicurist'), ('Esthetician', 'Esthetician'), ('Instructor', 'Instructor'),
+                 ('CosmetologyInstructor', 'Cosmetology Instructor'), ('EstheticianInstructor', 'Esthetician Instructor'),
+                 ('ManicuristInstructor', 'Manicurist Instructor'), ('AlternativeHair', 'Alternative Hair Design'),
+                 ('English', 'English'), ('Vietnamese', 'Vietnamese'), ('Spanish', 'Spanish'),
+                 ('State', 'State'), ('Practical', 'Practical'), ('StateRetake', 'State Retake'), ('PracticalRetake', 'Practical Retake')]:
+        f.choice(f'choice_{n}', t)
+    f.screen('WhichForm', 'Application', [
+        display('WF_Student', '<p><b>Student:</b> {!forT_StudentName}<br/><b>School:</b> {!GetSchool.Name}</p>'),
+        radio('WF_Form', 'Which application?', [f'choice_{c}' for c, _, _ in EXAM_FORMS]),
+    ], 'ExamDetails')
+    is_ = lambda *codes: ' || '.join(f'{{!WF_Form}} = "{c}"' for c in codes)
+    f.formula('forB_IsNational', 'Boolean', is_('NationalExam', 'NationalRetake'), 'A national exam application.')
+    f.formula('forB_IsAhd', 'Boolean', is_('AlternativeHairDesign'), 'The alternative hair design application.')
+    f.formula('forB_IsPracticalAndState', 'Boolean', is_('AlternativeHairDesign', 'PracticalAndState', 'PracticalAndState1400'),
+              'An application for both the practical and state exams.')
+    f.formula('forB_Is1400', 'Boolean', is_('PracticalAndState1400'), 'The 1400 hour application.')
+    f.formula('forB_ChoosesExams', 'Boolean', is_('ExamRetake', 'NoShow'), 'The applicant chooses which exams.')
+    f.formula('forT_ApplicationType', 'String', 'CASE({!WF_Form}, ' + ', '.join(f'"{c}", "{t}"' for c, _, t in EXAM_FORMS) + ', "")',
+              'The application type for the form chosen.')
+    vis = lambda formula: vis_if(formula, 'EqualTo', True)
+    f.screen('ExamDetails', 'Applicant Personal Data', [
+        display('ED_Heading', '<p><b>APPLICANT PERSONAL DATA</b></p><p>I hereby make application for license by examination to practice:</p>'),
+        radio('ED_License', 'License', ['choice_Cosmetology', 'choice_Manicurist', 'choice_Esthetician', 'choice_Instructor', 'choice_AlternativeHair'],
+              vis=vis_if('forB_IsAhd', 'EqualTo', False)),
+        display('ED_AhdLicense', '<p><b>Alternative hair design permit</b></p>', vis=vis('forB_IsAhd')),
+        radio('ED_InstructorLicense', 'Which instructor license?', ['choice_CosmetologyInstructor', 'choice_EstheticianInstructor', 'choice_ManicuristInstructor'],
+              vis=vis_if('ED_License', 'EqualTo', 'Instructor')),
+        radio('ED_Language', 'Select language', ['choice_English', 'choice_Vietnamese', 'choice_Spanish'], vis=vis('forB_IsNational')),
+        f'<fields><name>ED_Exams</name><choiceReferences>choice_State</choiceReferences><choiceReferences>choice_Practical</choiceReferences>'
+        f'<choiceReferences>choice_StateRetake</choiceReferences><choiceReferences>choice_PracticalRetake</choiceReferences><dataType>String</dataType>'
+        f'<fieldText>Exams</fieldText><fieldType>MultiSelectCheckboxes</fieldType><inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>'
+        f'<isRequired>true</isRequired>{vis("forB_ChoosesExams")}</fields>',
+        inp('ED_Enrolled', 'Date', 'Date enrolled', required=True, default='=GetRegistration.ClassStartDate__c', vis=vis('forB_IsPracticalAndState')),
+        inp('ED_Hours', 'Number', 'Total number of hours completed', required=True, scale=1, vis=vis_if('forB_IsNational', 'EqualTo', False, 'and', [('forB_ChoosesExams', 'EqualTo', False)])),
+        inp('ED_Completed', 'Date', 'Date completed training', required=True, vis=vis_if('forB_IsPracticalAndState', 'EqualTo', True, 'and', [('forB_Is1400', 'EqualTo', False)]),
+            rule=('The date completed can\'t be in the future.', 'OR(ISBLANK({!ED_Completed}), {!ED_Completed} <= TODAY())')),
+        inp('ED_Attendance', 'Number', 'Hours of attendance at school', required=True, scale=1, vis=vis('forB_IsNational')),
+    ], 'StudentDetails')
+    f.subflow('StudentDetails', 'Student Details', 'SubflowApplicantDetails', [
+        ('varT_AccountId', '=GetStudent.Id'), ('varB_IsStaffEntry', False), ('varB_AskGender', '=forB_Is1400')], 'NeedsNoShowStatement')
+    f.decide('NeedsNoShowStatement', 'Does the Form Carry the No-Show Statement?', [
+        ('NoShowStatement', 'Yes', [('forB_IsNational', 'EqualTo', False)], 'NoShowAcknowledgement', 'and')], 'GenerateDraftChecklist')
+    f.subflow('NoShowAcknowledgement', 'No-Show Acknowledgement', 'SubflowApplicationNoShowAcknowledgement', [('varT_StatementText', NO_SHOW_TEXT)],
+              'Accommodation', outputs=[('varB_Acknowledged', 'varB_NoShowAcknowledged')])
+    f.var('varB_NoShowAcknowledged', 'Boolean', 'The applicant acknowledged the no-show statement.', default=False)
+    f.subflow('Accommodation', 'Accommodation Request', 'SubflowAccommodationRequest', [
+        ('varT_AccountId', '=GetStudent.Id'), ('varT_ExamName', '=forT_ApplicationType'), ('varB_IsStaffEntry', False), ('varT_DraftId', '=CreateDraft')],
+        'GenerateDraftChecklist')
+    f.subflow('GenerateDraftChecklist', 'Generate Draft Checklist', 'SubflowDocumentChecklistGenerate', [
+        ('varT_ApplicationId', '=CreateDraft'), ('varT_AccountId', '=GetStudent.Id'), ('varT_RecordType', 'IndividualApplication.Examination'),
+        ('varT_ApplicationType', '=forT_ApplicationType'), ('varB_LeaveOutReceipt', True)], 'UploadDocuments')
+    f.subflow('UploadDocuments', 'Upload Documents', 'SubflowDocumentChecklistUpload', [('varT_ApplicationId', '=CreateDraft'), ('varB_IsStaffEntry', False)],
+              'Certification')
+    certify(f, 'Certification', 'The applicant hereby makes application for license by examination as shown, and the information given is '
+            'true and correct. I certify, as the school\'s representative, that the applicant (and, where the form asks, the instructor) '
+            'signed the paper application, which the school keeps on file.', 'GetExamRecordType')
+    f.formula('forT_LicenseTypeName', 'String', 'IF({!forB_IsAhd}, "Alternative Hair Design Permit", CASE({!ED_License}, "Cosmetology", "Cosmetologist", '
+              '"Manicurist", "Manicurist", "Esthetician", "Esthetician", "Alternative Hair Design", "Alternative Hair Design Permit", '
+              '"Instructor", {!ED_InstructorLicense}, ""))', 'The license type sought.')
+    f.lookup('GetExamRecordType', 'Get Examination Record Type', 'RecordType', [
+        ('SobjectType', 'EqualTo', 'IndividualApplication'), ('DeveloperName', 'EqualTo', 'Examination')], ['Id'], 'GetLicenseType', first=True)
+    f.lookup('GetLicenseType', 'Get License Type', 'RegulatoryAuthorizationType', [('Name', 'EqualTo', '=forT_LicenseTypeName')],
+             ['Id', 'Name', 'RegulatoryAuthCategory'], 'CreateApplication', first=True)
+    f.formula('forB_State', 'Boolean', 'OR({!forB_IsPracticalAndState}, CONTAINS({!ED_Exams}, "State"))', 'The state exam is applied for.')
+    f.formula('forB_Practical', 'Boolean', 'OR({!forB_IsPracticalAndState}, CONTAINS({!ED_Exams}, "Practical"))', 'The practical exam is applied for.')
+    f.formula('forT_Exams', 'String', 'IF({!forB_IsNational}, "National", IF({!forB_Practical}, "Practical", "") & IF({!forB_Practical} && {!forB_State}, ";", "") & IF({!forB_State}, "State", ""))',
+              'The Exams value.')
+    f.formula('forT_Category', 'String', 'IF(ISPICKVAL({!GetLicenseType.RegulatoryAuthCategory}, "Permit"), "Permit", "License")', 'License or permit.')
+    f.create('CreateApplication', 'Create Application', 'IndividualApplication', [
+        ('RecordTypeId', '=GetExamRecordType.Id'), ('AccountId', '=GetStudent.Id'), ('LicenseTypeId', '=GetLicenseType.Id'),
+        ('Category', '=forT_Category'), ('ApplicationType', '=forT_ApplicationType'), ('Status', 'Submitted'), ('AppliedDate', '=$Flow.CurrentDateTime'),
+        ('Exams__c', '=forT_Exams'), ('CourseOffering__c', '=GetRegistration.CourseOffering__c'), ('EnrolledDate__c', '=ED_Enrolled'),
+        ('CompletedDate__c', '=ED_Completed'), ('TotalCompletedHours__c', '=forN_Hours'), ('NoShowFeeAcknowledged__c', '=varB_NoShowAcknowledged'),
+        ('IsCertified__c', '=varB_IsCertified'), ('CertifiedName__c', '=varT_CertifiedName'), ('CertifiedDateTime__c', '=varDT_CertifiedDateTime')],
+        'TransferDraft', 'CouldNotSave')
+    f.formula('forN_Hours', 'Number', 'BLANKVALUE({!ED_Hours}, {!ED_Attendance})', 'Hours completed or attended.', scale=1)
+    f.subflow('TransferDraft', 'Transfer Draft', 'SubflowPreliminaryApplicationTransfer', [
+        ('varT_PreliminaryApplicationId', '=CreateDraft'), ('varT_ApplicationId', '=CreateApplication')], 'AreFeesDue')
+    # fees, as printed on each form
+    f.formula('forB_InitialFee', 'Boolean', '{!WF_Form} = "PracticalAndState" || {!WF_Form} = "AlternativeHairDesign"', 'The initial license or permit fee applies.')
+    f.formula('forB_NoShowFees', 'Boolean', '{!WF_Form} = "NoShow"', 'No-show fees apply per exam.')
+    f.formula('forT_InitialFeeName', 'String', '{!GetLicenseType.Name} & " Initial"', 'The license type\'s initial fee row.')
+    f.decide('AreFeesDue', 'Are Fees Due?', [('FeesDue', 'Yes', [('forB_IsNational', 'EqualTo', False)], 'CreateFee', 'and')], 'DeleteDraft',
+             default_label='No, national exams are paid to the testing company')
+    f.create('CreateFee', 'Create Fee', 'RegulatoryTrxnFee', [
+        ('AccountId', '=GetStudent.Id'), ('ParentRecordId', '=CreateApplication'), ('Status', 'DUE'), ('DueDate', '=$Flow.CurrentDateTime'),
+        ('Description', '=forT_ApplicationType')], 'IsTheInitialFeeDue')
+    f.formula('forT_ThisYear', 'String', 'TEXT(YEAR(TODAY()))', 'This year, the fee items\' year.')
+    f.var('varR_FeeItems', 'SObject', 'The fee items.', coll=True, obj='RegulatoryTrxnFeeItem')
+    f.var('varR_FeeItem', 'SObject', 'One fee item.', obj='RegulatoryTrxnFeeItem')
+    chain = [('Initial', 'forB_InitialFee', '=forT_InitialFeeName', 'Initial license fee'),
+             ('Practical', 'forB_Practical', 'Practical Examination', 'Practical examination fee'),
+             ('State', 'forB_State', 'State Examination', 'State examination fee'),
+             ('NoShowPractical', 'forB_NoShowPractical', 'No Show', 'No-show administrative fee, practical exam'),
+             ('NoShowState', 'forB_NoShowState', 'No Show', 'No-show administrative fee, state exam')]
+    f.formula('forB_NoShowPractical', 'Boolean', '{!forB_NoShowFees} && {!forB_Practical}', 'A no-show fee for the practical exam.')
+    f.formula('forB_NoShowState', 'Boolean', '{!forB_NoShowFees} && {!forB_State}', 'A no-show fee for the state exam.')
+    for i, (k, cond, fee, text) in enumerate(chain):
+        nxt = f'Is{chain[i + 1][0]}FeeDue' if i + 1 < len(chain) else 'CreateFeeItems'
+        if i == 0:
+            k_dec = 'IsTheInitialFeeDue'
+        else:
+            k_dec = f'Is{k}FeeDue'
+        f.decide(k_dec, f'Is the {text} Due?', [(f'{k}Due', 'Yes', [(cond, 'EqualTo', True)], f'LookUp{k}Fee', 'and')], nxt)
+        f.action(f'LookUp{k}Fee', f'Look Up {text}', 'FeeSchedule', 'runDecisionMatrix', [('FeeName', fee)], f'Set{k}FeeItem')
+        f.assign(f'Set{k}FeeItem', f'Set {text} Item', [
+            ('varR_FeeItem.RegulatoryTrxnFeeId', 'Assign', '=CreateFee'), ('varR_FeeItem.Name', 'Assign', text),
+            ('varR_FeeItem.FeeAmount', 'Assign', f'=LookUp{k}Fee.Amount'), ('varR_FeeItem.ForYear__c', 'Assign', '=forT_ThisYear'),
+            ('varR_FeeItem.CalculationInfo', 'Assign', f'{text}, from the Fee Schedule.'), ('varR_FeeItems', 'Add', '=varR_FeeItem')], nxt)
+    f.create_many('CreateFeeItems', 'Create Fee Items', 'varR_FeeItems', 'GenerateReceiptItem', 'CouldNotSave')
+    f.subflow('GenerateReceiptItem', 'Generate Receipt Checklist Item', 'SubflowDocumentChecklistGenerate', [
+        ('varT_ApplicationId', '=CreateApplication'), ('varT_AccountId', '=GetStudent.Id'), ('varT_RecordType', 'IndividualApplication.Examination'),
+        ('varT_ApplicationType', '=forT_ApplicationType')], 'SetPaymentIds')
+    f.var('varT_FeeIds', 'String', 'The fees to pay.', coll=True)
+    f.var('varT_ApplicationIds', 'String', 'The application the fees are for.', coll=True)
+    f.assign('SetPaymentIds', 'Set Payment Ids', [('varT_FeeIds', 'Add', '=CreateFee'), ('varT_ApplicationIds', 'Add', '=CreateApplication')], 'Payment')
+    f.subflow('Payment', 'Payment', 'SubflowApplicationPayment', [
+        ('varB_IsStaffEntry', False), ('varT_FeeIds', '=varT_FeeIds'), ('varT_ApplicationIds', '=varT_ApplicationIds')], 'DeleteDraft')
+    f.delete('DeleteDraft', 'Delete Draft', 'PreliminaryApplicationRef', 'CreateDraft', 'Submitted')
+    done(f, 'The exam application has been submitted', 'The Board will review {!forT_StudentName}\'s application and schedule the exams.')
+    f.write(outdir, 'GetRunningUser')
+
+
 EXPERIENCE = 'force-app/main/default/experiences/LSBC_LPI1'
 APP_PAGE = '39740273-a4f0-4311-b732-31661924917d'
 
@@ -448,6 +925,27 @@ def page(dev, label, url, intro, flow):
 
 if __name__ == '__main__':
     student_enrollment(sys.argv[1])
+    contractual_fees(sys.argv[1])
+    transfer_hours(sys.argv[1])
+    relinquish_hours(sys.argv[1])
+    termination(sys.argv[1])
+    activity_hours(sys.argv[1])
+    instructor_roster(sys.argv[1])
+    examination(sys.argv[1])
     page('studentEnrollment', 'Student Enrollment', 'student-enrollment',
          'Enroll a new student, a transfer or a student seeking additional training at your school.',
          'ScreenFlowIndividualApplicationStudentEnrollment')
+    page('contractualFees', 'Certification of Contractual Fees', 'contractual-fees',
+         'Certify whether a student has paid all contractual fees to your school.', 'ScreenFlowIndividualApplicationContractualFees')
+    page('transferHours', 'Transfer Hours', 'transfer-hours',
+         'Report hours a student brings from a school in another state.', 'ScreenFlowTrainingCourseParticipantTransferHours')
+    page('relinquishHours', 'Relinquish Hours', 'relinquish-hours',
+         'File a student\'s notarized letter giving up hours earned at your school.', 'ScreenFlowTrainingCourseParticipantRelinquishHours')
+    page('noticeOfTermination', 'Notice of Termination', 'notice-of-termination',
+         'Tell the Board a student or instructor in training has stopped attending.', 'ScreenFlowTrainingCourseParticipantTermination')
+    page('activityHours', 'Field Trips, Workshops, Shows and Community Service', 'activity-hours',
+         'Report hours a student earned on a field trip, workshop, show or community service.', 'ScreenFlowTrainingCourseParticipantActivityHours')
+    page('instructorRoster', 'Instructor Quarterly Roster', 'instructor-roster',
+         'File your school\'s instructor roster for the quarter.', 'ScreenFlowAccountInstructorRoster')
+    page('examApplication', 'Exam Application', 'exam-application',
+         'Apply for a student\'s national, practical or state exam, a retake or a no-show reapplication.', 'ScreenFlowIndividualApplicationExamination')

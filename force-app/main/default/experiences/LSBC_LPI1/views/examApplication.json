@@ -1,0 +1,70 @@
+{
+  "appPageId": "39740273-a4f0-4311-b732-31661924917d",
+  "componentName": "siteforce:sldsOneColLayout",
+  "dataProviders": [],
+  "id": "dcc8d3ba-7552-511e-9ed7-a56272ac80b5",
+  "label": "Exam Application",
+  "regions": [
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "richTextValue": "<!-- Page heading and one-line introduction -->\n<h1 class=\"lsbc-page-title\">Exam Application</h1>\n<p class=\"lsbc-page-intro\">Apply for a student's national, practical or state exam, a retake or a no-show reapplication.</p>"
+          },
+          "componentName": "forceCommunity:richTextInline",
+          "id": "48993a0a-16d2-5b76-b1a2-8513e726ba25",
+          "renderPriority": "NEUTRAL",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "c11bdabe-2a0a-5eb7-a892-c77484e800b8",
+      "regionName": "header",
+      "type": "region"
+    },
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "flowArguments": "",
+            "flowName": "ScreenFlowIndividualApplicationExamination"
+          },
+          "componentName": "forceCommunity:flowCommunity",
+          "id": "2966a275-6071-5451-8d0c-abb1efed8a79",
+          "renderPriority": "NEUTRAL",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "bc37fdf6-b784-5beb-aa09-beaa075f178a",
+      "regionName": "content",
+      "type": "region"
+    },
+    {
+      "id": "80f373fc-bbac-532c-8bb7-69e4f9a00835",
+      "regionName": "footer",
+      "type": "region"
+    },
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "customHeadTags": "",
+            "description": "",
+            "title": "Exam Application"
+          },
+          "componentName": "forceCommunity:seoAssistant",
+          "id": "89f5a4b8-0bcf-5fba-8397-273e4cd36ec6",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "f3760c74-9df4-5dba-af01-048c2c8568c4",
+      "regionName": "sfdcHiddenRegion",
+      "type": "region"
+    }
+  ],
+  "themeLayoutType": "Inner",
+  "type": "view",
+  "viewType": "custom-exam-application"
+}

@@ -1,0 +1,70 @@
+{
+  "appPageId": "39740273-a4f0-4311-b732-31661924917d",
+  "componentName": "siteforce:sldsOneColLayout",
+  "dataProviders": [],
+  "id": "5925a4d4-9d97-50a5-a7cf-e4b5ca46893c",
+  "label": "Notice of Termination",
+  "regions": [
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "richTextValue": "<!-- Page heading and one-line introduction -->\n<h1 class=\"lsbc-page-title\">Notice of Termination</h1>\n<p class=\"lsbc-page-intro\">Tell the Board a student or instructor in training has stopped attending.</p>"
+          },
+          "componentName": "forceCommunity:richTextInline",
+          "id": "20e775aa-5d40-5a20-a82b-646b00d63d93",
+          "renderPriority": "NEUTRAL",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "67573fc7-1e61-54b1-ac64-767a41a86b0f",
+      "regionName": "header",
+      "type": "region"
+    },
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "flowArguments": "",
+            "flowName": "ScreenFlowTrainingCourseParticipantTermination"
+          },
+          "componentName": "forceCommunity:flowCommunity",
+          "id": "71284073-53a4-52d2-99cd-aca7d0b95526",
+          "renderPriority": "NEUTRAL",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "c5700bad-7c91-557c-90e1-a735453c15b5",
+      "regionName": "content",
+      "type": "region"
+    },
+    {
+      "id": "e367118b-34e2-5f3d-8788-f95c9c4576ff",
+      "regionName": "footer",
+      "type": "region"
+    },
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "customHeadTags": "",
+            "description": "",
+            "title": "Notice of Termination"
+          },
+          "componentName": "forceCommunity:seoAssistant",
+          "id": "141d39f8-e8c5-5d42-9c07-bd4cdb1bb05a",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "95f9f6b9-b25f-5bcc-a63c-c754034a67b6",
+      "regionName": "sfdcHiddenRegion",
+      "type": "region"
+    }
+  ],
+  "themeLayoutType": "Inner",
+  "type": "view",
+  "viewType": "custom-notice-of-termination"
+}

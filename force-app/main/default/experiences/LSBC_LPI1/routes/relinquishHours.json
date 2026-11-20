@@ -1,0 +1,12 @@
+{
+  "activeViewId": "e1ae8a5c-7a5a-5115-a9ac-1d0c04194602",
+  "appPageId": "39740273-a4f0-4311-b732-31661924917d",
+  "configurationTags": [],
+  "devName": "relinquishHours",
+  "id": "35954a28-be5c-52f9-8012-e94d99c0f423",
+  "label": "Relinquish Hours",
+  "pageAccess": "RequiresLogin",
+  "routeType": "custom-relinquish-hours",
+  "type": "route",
+  "urlPrefix": "relinquish-hours"
+}

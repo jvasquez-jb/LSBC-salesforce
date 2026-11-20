@@ -467,6 +467,9 @@
         <members>ApplicationDocumentRequirement.StudentEnrollmentProofOfAge</members>
         <members>ApplicationDocumentRequirement.StudentEnrollmentProofOfEducation</members>
         <members>ApplicationDocumentRequirement.StudentEnrollmentSocialSecurityCard</members>
+        <members>ApplicationDocumentRequirement.StudentFormContractualFees</members>
+        <members>ApplicationDocumentRequirement.StudentFormRelinquishLetter</members>
+        <members>ApplicationDocumentRequirement.StudentFormTransferHours</members>
         <members>ApplicationDocumentRequirement.TempPermitOutOfStateLicenseCopy</members>
         <members>ApplicationDocumentRequirement.TempPermitPaymentReceipt</members>
         <members>ApplicationDocumentRequirement.ThreadFacLocalOccupationalLicense</members>
@@ -668,6 +671,7 @@
         <members>RecordTriggerUserAfterSave</members>
         <members>RegulatoryTransactionFeeScheduleOverdueFees</members>
         <members>ScreenFlowAccountAddStopCode</members>
+        <members>ScreenFlowAccountInstructorRoster</members>
         <members>ScreenFlowAccountNewApplication</members>
         <members>ScreenFlowAccountPersonLanguages</members>
         <members>ScreenFlowAccountPortalRegistration</members>
@@ -686,7 +690,9 @@
         <members>ScreenFlowCaseRecordComplaint</members>
         <members>ScreenFlowDocumentChecklistItemUpload</members>
         <members>ScreenFlowIndividualApplicationAffidavit</members>
+        <members>ScreenFlowIndividualApplicationContractualFees</members>
         <members>ScreenFlowIndividualApplicationDecide</members>
+        <members>ScreenFlowIndividualApplicationExamination</members>
         <members>ScreenFlowIndividualApplicationNewLicensure</members>
         <members>ScreenFlowIndividualApplicationReciprocity</members>
         <members>ScreenFlowIndividualApplicationRenewal</members>
@@ -699,6 +705,10 @@
         <members>ScreenFlowPaymentRefund</members>
         <members>ScreenFlowRecordAlertEndStopCode</members>
         <members>ScreenFlowRegulatoryTransactionFeeItemChangeYear</members>
+        <members>ScreenFlowTrainingCourseParticipantActivityHours</members>
+        <members>ScreenFlowTrainingCourseParticipantRelinquishHours</members>
+        <members>ScreenFlowTrainingCourseParticipantTermination</members>
+        <members>ScreenFlowTrainingCourseParticipantTransferHours</members>
         <members>SubflowAccommodationRequest</members>
         <members>SubflowApplicantDetails</members>
         <members>SubflowApplicationCertification</members>

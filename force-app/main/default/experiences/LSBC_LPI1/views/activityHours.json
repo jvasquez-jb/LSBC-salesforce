@@ -1,0 +1,70 @@
+{
+  "appPageId": "39740273-a4f0-4311-b732-31661924917d",
+  "componentName": "siteforce:sldsOneColLayout",
+  "dataProviders": [],
+  "id": "0796018d-ee77-5c96-be9b-1cefc35371c5",
+  "label": "Field Trips, Workshops, Shows and Community Service",
+  "regions": [
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "richTextValue": "<!-- Page heading and one-line introduction -->\n<h1 class=\"lsbc-page-title\">Field Trips, Workshops, Shows and Community Service</h1>\n<p class=\"lsbc-page-intro\">Report hours a student earned on a field trip, workshop, show or community service.</p>"
+          },
+          "componentName": "forceCommunity:richTextInline",
+          "id": "a235226c-6a16-556e-8cec-4122deb7cdb6",
+          "renderPriority": "NEUTRAL",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "0fba3ef1-de26-54c3-8db9-c7635ed8fa7d",
+      "regionName": "header",
+      "type": "region"
+    },
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "flowArguments": "",
+            "flowName": "ScreenFlowTrainingCourseParticipantActivityHours"
+          },
+          "componentName": "forceCommunity:flowCommunity",
+          "id": "27792936-0fd5-5ff7-8ca6-d720e12a8fa5",
+          "renderPriority": "NEUTRAL",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "132a2b4e-78e9-5d4d-8c86-7c71624f54d3",
+      "regionName": "content",
+      "type": "region"
+    },
+    {
+      "id": "9f677c4a-30ae-59d9-957d-3cf8dcf5b3cc",
+      "regionName": "footer",
+      "type": "region"
+    },
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "customHeadTags": "",
+            "description": "",
+            "title": "Field Trips, Workshops, Shows and Community Service"
+          },
+          "componentName": "forceCommunity:seoAssistant",
+          "id": "4cdcbdad-c273-5a45-a675-a6a21d2f57af",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "4fba94fa-fad4-5e18-b51f-3fedab82d2d8",
+      "regionName": "sfdcHiddenRegion",
+      "type": "region"
+    }
+  ],
+  "themeLayoutType": "Inner",
+  "type": "view",
+  "viewType": "custom-activity-hours"
+}

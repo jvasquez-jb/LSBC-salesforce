@@ -1,0 +1,12 @@
+{
+  "activeViewId": "5925a4d4-9d97-50a5-a7cf-e4b5ca46893c",
+  "appPageId": "39740273-a4f0-4311-b732-31661924917d",
+  "configurationTags": [],
+  "devName": "noticeOfTermination",
+  "id": "c2b94561-aa67-5e8d-91ee-f7a0fd4a78c3",
+  "label": "Notice of Termination",
+  "pageAccess": "RequiresLogin",
+  "routeType": "custom-notice-of-termination",
+  "type": "route",
+  "urlPrefix": "notice-of-termination"
+}

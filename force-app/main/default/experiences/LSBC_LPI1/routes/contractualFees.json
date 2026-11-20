@@ -1,0 +1,12 @@
+{
+  "activeViewId": "c26b3808-21a9-59d7-b425-a73b3c1437b6",
+  "appPageId": "39740273-a4f0-4311-b732-31661924917d",
+  "configurationTags": [],
+  "devName": "contractualFees",
+  "id": "7810a608-4aba-5d5a-8ffe-499612dae714",
+  "label": "Certification of Contractual Fees",
+  "pageAccess": "RequiresLogin",
+  "routeType": "custom-contractual-fees",
+  "type": "route",
+  "urlPrefix": "contractual-fees"
+}

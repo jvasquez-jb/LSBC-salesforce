@@ -1,0 +1,70 @@
+{
+  "appPageId": "39740273-a4f0-4311-b732-31661924917d",
+  "componentName": "siteforce:sldsOneColLayout",
+  "dataProviders": [],
+  "id": "8eeb614c-85cf-5365-8585-97f90fbee7cb",
+  "label": "Instructor Quarterly Roster",
+  "regions": [
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "richTextValue": "<!-- Page heading and one-line introduction -->\n<h1 class=\"lsbc-page-title\">Instructor Quarterly Roster</h1>\n<p class=\"lsbc-page-intro\">File your school's instructor roster for the quarter.</p>"
+          },
+          "componentName": "forceCommunity:richTextInline",
+          "id": "5cd66400-673a-5332-9ef9-7ea81a5c47ec",
+          "renderPriority": "NEUTRAL",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "b7b9e005-5bda-5549-b460-a5de5003b6f7",
+      "regionName": "header",
+      "type": "region"
+    },
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "flowArguments": "",
+            "flowName": "ScreenFlowAccountInstructorRoster"
+          },
+          "componentName": "forceCommunity:flowCommunity",
+          "id": "4c0ab03e-2869-5cf9-8919-1e2117df2e27",
+          "renderPriority": "NEUTRAL",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "104430ce-c985-5403-8517-a0c8e9c9e318",
+      "regionName": "content",
+      "type": "region"
+    },
+    {
+      "id": "d85cb7cd-b18d-55fe-b6d4-940b77d734b2",
+      "regionName": "footer",
+      "type": "region"
+    },
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "customHeadTags": "",
+            "description": "",
+            "title": "Instructor Quarterly Roster"
+          },
+          "componentName": "forceCommunity:seoAssistant",
+          "id": "05241c49-5bf7-5bc5-a802-319f9eaf128a",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "6a597de0-c740-57c0-a9c9-a91380a97dad",
+      "regionName": "sfdcHiddenRegion",
+      "type": "region"
+    }
+  ],
+  "themeLayoutType": "Inner",
+  "type": "view",
+  "viewType": "custom-instructor-roster"
+}

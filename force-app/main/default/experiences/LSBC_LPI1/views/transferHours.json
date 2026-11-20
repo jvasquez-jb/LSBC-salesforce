@@ -1,0 +1,70 @@
+{
+  "appPageId": "39740273-a4f0-4311-b732-31661924917d",
+  "componentName": "siteforce:sldsOneColLayout",
+  "dataProviders": [],
+  "id": "fc07f7e8-1599-5fc7-bbee-921de4475036",
+  "label": "Transfer Hours",
+  "regions": [
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "richTextValue": "<!-- Page heading and one-line introduction -->\n<h1 class=\"lsbc-page-title\">Transfer Hours</h1>\n<p class=\"lsbc-page-intro\">Report hours a student brings from a school in another state.</p>"
+          },
+          "componentName": "forceCommunity:richTextInline",
+          "id": "53f29d35-a463-5835-88ea-4688efb8159d",
+          "renderPriority": "NEUTRAL",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "9e50c3a4-a5f8-5f2f-a156-398bfc8a0b2e",
+      "regionName": "header",
+      "type": "region"
+    },
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "flowArguments": "",
+            "flowName": "ScreenFlowTrainingCourseParticipantTransferHours"
+          },
+          "componentName": "forceCommunity:flowCommunity",
+          "id": "57fb45a0-6e85-5d62-93f2-5c7fc66dbffe",
+          "renderPriority": "NEUTRAL",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "b842dda6-2d0a-599b-aeab-3ae6c018de65",
+      "regionName": "content",
+      "type": "region"
+    },
+    {
+      "id": "7980fc9d-f965-5047-93ac-0c06fd837622",
+      "regionName": "footer",
+      "type": "region"
+    },
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "customHeadTags": "",
+            "description": "",
+            "title": "Transfer Hours"
+          },
+          "componentName": "forceCommunity:seoAssistant",
+          "id": "09d2a3fc-bd1b-59e0-936c-bdcae8eaeca1",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "9f06404b-e233-5501-bc86-efb821ded9cb",
+      "regionName": "sfdcHiddenRegion",
+      "type": "region"
+    }
+  ],
+  "themeLayoutType": "Inner",
+  "type": "view",
+  "viewType": "custom-transfer-hours"
+}

@@ -1,0 +1,70 @@
+{
+  "appPageId": "39740273-a4f0-4311-b732-31661924917d",
+  "componentName": "siteforce:sldsOneColLayout",
+  "dataProviders": [],
+  "id": "e1ae8a5c-7a5a-5115-a9ac-1d0c04194602",
+  "label": "Relinquish Hours",
+  "regions": [
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "richTextValue": "<!-- Page heading and one-line introduction -->\n<h1 class=\"lsbc-page-title\">Relinquish Hours</h1>\n<p class=\"lsbc-page-intro\">File a student's notarized letter giving up hours earned at your school.</p>"
+          },
+          "componentName": "forceCommunity:richTextInline",
+          "id": "42f3f4ff-e999-5233-bc4c-550dfc59c052",
+          "renderPriority": "NEUTRAL",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "677298e2-bed2-5ef0-994f-72ccba2d5286",
+      "regionName": "header",
+      "type": "region"
+    },
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "flowArguments": "",
+            "flowName": "ScreenFlowTrainingCourseParticipantRelinquishHours"
+          },
+          "componentName": "forceCommunity:flowCommunity",
+          "id": "5920ff6e-4d3e-54cf-a7d9-ade6972e8dbe",
+          "renderPriority": "NEUTRAL",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "daedf82b-3172-536f-96d3-b57b12dde09f",
+      "regionName": "content",
+      "type": "region"
+    },
+    {
+      "id": "da33d059-5dad-5079-9da5-34ac2ebe7c00",
+      "regionName": "footer",
+      "type": "region"
+    },
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "customHeadTags": "",
+            "description": "",
+            "title": "Relinquish Hours"
+          },
+          "componentName": "forceCommunity:seoAssistant",
+          "id": "0f106d11-2ecc-5ad3-b75f-70e371eb06d1",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "6e7bdaa0-efcf-562d-879d-8a2eaf3d730f",
+      "regionName": "sfdcHiddenRegion",
+      "type": "region"
+    }
+  ],
+  "themeLayoutType": "Inner",
+  "type": "view",
+  "viewType": "custom-relinquish-hours"
+}

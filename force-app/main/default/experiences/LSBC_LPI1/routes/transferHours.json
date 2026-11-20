@@ -1,0 +1,12 @@
+{
+  "activeViewId": "fc07f7e8-1599-5fc7-bbee-921de4475036",
+  "appPageId": "39740273-a4f0-4311-b732-31661924917d",
+  "configurationTags": [],
+  "devName": "transferHours",
+  "id": "fc35a739-1015-5cb8-bd91-85997905f063",
+  "label": "Transfer Hours",
+  "pageAccess": "RequiresLogin",
+  "routeType": "custom-transfer-hours",
+  "type": "route",
+  "urlPrefix": "transfer-hours"
+}

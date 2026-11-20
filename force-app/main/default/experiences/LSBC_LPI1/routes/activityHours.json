@@ -1,0 +1,12 @@
+{
+  "activeViewId": "0796018d-ee77-5c96-be9b-1cefc35371c5",
+  "appPageId": "39740273-a4f0-4311-b732-31661924917d",
+  "configurationTags": [],
+  "devName": "activityHours",
+  "id": "1b291e1e-214c-5768-ae69-3ebb92a34e33",
+  "label": "Field Trips, Workshops, Shows and Community Service",
+  "pageAccess": "RequiresLogin",
+  "routeType": "custom-activity-hours",
+  "type": "route",
+  "urlPrefix": "activity-hours"
+}

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Student Form: Contractual Fees</label>
+    <protected>false</protected>
+    <values>
+        <field>ApplicationPath__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>ApplicationType__c</field>
+        <value xsi:type="xsd:string">Contractual Fees</value>
+    </values>
+    <values>
+        <field>DocumentType__c</field>
+        <value xsi:type="xsd:string">CertificationOfContractualFees</value>
+    </values>
+    <values>
+        <field>Instruction__c</field>
+        <value xsi:type="xsd:string">The school's notarized Certification of Contractual Fees for the student (Section I or II).</value>
+    </values>
+    <values>
+        <field>IsRequired__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
+        <field>IsSentToBoard__c</field>
+        <value xsi:type="xsd:boolean">false</value>
+    </values>
+    <values>
+        <field>LicenseType__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>RecordType__c</field>
+        <value xsi:type="xsd:string">IndividualApplication.StudentRegistration</value>
+    </values>
+    <values>
+        <field>SortOrder__c</field>
+        <value xsi:type="xsd:double">1</value>
+    </values>
+</CustomMetadata>

@@ -1,0 +1,12 @@
+{
+  "activeViewId": "dcc8d3ba-7552-511e-9ed7-a56272ac80b5",
+  "appPageId": "39740273-a4f0-4311-b732-31661924917d",
+  "configurationTags": [],
+  "devName": "examApplication",
+  "id": "f8fca323-8bfb-50a4-aca9-66ed3903637b",
+  "label": "Exam Application",
+  "pageAccess": "RequiresLogin",
+  "routeType": "custom-exam-application",
+  "type": "route",
+  "urlPrefix": "exam-application"
+}

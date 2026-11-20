@@ -1,0 +1,70 @@
+{
+  "appPageId": "39740273-a4f0-4311-b732-31661924917d",
+  "componentName": "siteforce:sldsOneColLayout",
+  "dataProviders": [],
+  "id": "c26b3808-21a9-59d7-b425-a73b3c1437b6",
+  "label": "Certification of Contractual Fees",
+  "regions": [
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "richTextValue": "<!-- Page heading and one-line introduction -->\n<h1 class=\"lsbc-page-title\">Certification of Contractual Fees</h1>\n<p class=\"lsbc-page-intro\">Certify whether a student has paid all contractual fees to your school.</p>"
+          },
+          "componentName": "forceCommunity:richTextInline",
+          "id": "5a16f9c7-5129-5030-93c3-648c0b938b64",
+          "renderPriority": "NEUTRAL",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "fbac122f-441a-54e7-9bad-92597391b9ac",
+      "regionName": "header",
+      "type": "region"
+    },
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "flowArguments": "",
+            "flowName": "ScreenFlowIndividualApplicationContractualFees"
+          },
+          "componentName": "forceCommunity:flowCommunity",
+          "id": "ee2d5cb5-0b8d-5ee5-9f26-00af5ca6aff8",
+          "renderPriority": "NEUTRAL",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "2f7befc8-0825-59d2-b930-fca4538334fd",
+      "regionName": "content",
+      "type": "region"
+    },
+    {
+      "id": "23bf9215-c401-5860-b502-c8729ae50d15",
+      "regionName": "footer",
+      "type": "region"
+    },
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "customHeadTags": "",
+            "description": "",
+            "title": "Certification of Contractual Fees"
+          },
+          "componentName": "forceCommunity:seoAssistant",
+          "id": "7f8862a2-c32e-52e4-bc16-5c942fd83c4b",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "e2c8de11-dfc5-55b2-8efb-7c6cd3ae57f4",
+      "regionName": "sfdcHiddenRegion",
+      "type": "region"
+    }
+  ],
+  "themeLayoutType": "Inner",
+  "type": "view",
+  "viewType": "custom-contractual-fees"
+}
