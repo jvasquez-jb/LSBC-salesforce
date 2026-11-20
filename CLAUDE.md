@@ -136,8 +136,10 @@ Activities: `SubjectDescriptionEditOnlyByCreator` on Task and Event and `RecordT
 
 Still open:
 
-1. The 14 School Forms not yet built, and the portal pages where owners and school administrators see their
-   businesses.
+1. School forms built 19 Nov 2026 (all 14 remaining forms, My School, My Businesses); the Board's confirmation of the
+   school certifying for the student, how long a student registration lasts, and whether a Notice of Termination still
+   needs the paper student license are in Client Questions. Links to My School and My Businesses in the portal
+   navigation are still to add.
 
 ## Org notes
 
@@ -383,6 +385,18 @@ Still open:
   deploy the record types that use them. Production needs the same step (Deployment Manifest). School forms values
   (19 Nov 2026): Transfer, Additional Training (Student Registration record type); National Exam, National Retake,
   Practical and State, Practical and State 1400 Hour, Exam Retake, No Show (Examination record type).
+- School forms (`scripts/generators/schoolforms.py`, pages `/student-enrollment`, `/contractual-fees`, `/transfer-hours`,
+  `/relinquish-hours`, `/notice-of-termination`, `/activity-hours`, `/exam-application`, `/instructor-roster`, `/my-school`;
+  owners' `/my-businesses`): filed by an active School Administrator; a form about a student starts from the school's
+  students (Student Registration applications on its course offerings). The student is never shared to the school:
+  the forms run in system context. A student the school adds is owned by the school's owner at the Board. Where the
+  paper has the student's signature, the School Administrator certifies the student signed it (Jonathan, 19 Nov 2026).
+  The forms' own documents are requirement rows whose Application Type names the form (`Contractual Fees`,
+  `Transfer Hours`, `Relinquish Hours`), put on the student's latest registration. A requirement row's Application
+  Type may list several types separated by semicolons. Test school: UAT Fees School (UAT Portal Licensee is its School
+  Administrator), student UAT Enrollment Student (IA-0000000209 enrollment, IA-0000000210 exam retake).
+- A screen radio or checkbox group returns its choice's *label* in formulas and decisions, not its stored value: give
+  choices the same label and value, or test the label.
 - Hours entries (`TrainingCourseParticipant.EntryType__c`): Termination (End Date = last day attended, no hours) and
   Continuing Education are skipped by every stop code query and trigger; Activity (field trips, workshops, shows,
   community service) counts as hours. Licence type Student Registration (code L, data) has no term until the Board

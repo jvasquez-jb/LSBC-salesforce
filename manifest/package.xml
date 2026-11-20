@@ -672,6 +672,8 @@
         <members>RegulatoryTransactionFeeScheduleOverdueFees</members>
         <members>ScreenFlowAccountAddStopCode</members>
         <members>ScreenFlowAccountInstructorRoster</members>
+        <members>ScreenFlowAccountMyBusinesses</members>
+        <members>ScreenFlowAccountMySchool</members>
         <members>ScreenFlowAccountNewApplication</members>
         <members>ScreenFlowAccountPersonLanguages</members>
         <members>ScreenFlowAccountPortalRegistration</members>

@@ -1,0 +1,12 @@
+{
+  "activeViewId": "ea6ba121-8369-5adc-900f-86415df930b2",
+  "appPageId": "39740273-a4f0-4311-b732-31661924917d",
+  "configurationTags": [],
+  "devName": "mySchool",
+  "id": "5d7c2a53-c888-5fad-92e9-ce2964c3c722",
+  "label": "My School",
+  "pageAccess": "RequiresLogin",
+  "routeType": "custom-my-school",
+  "type": "route",
+  "urlPrefix": "my-school"
+}

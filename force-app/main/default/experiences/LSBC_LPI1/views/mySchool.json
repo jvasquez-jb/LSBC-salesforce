@@ -1,0 +1,70 @@
+{
+  "appPageId": "39740273-a4f0-4311-b732-31661924917d",
+  "componentName": "siteforce:sldsOneColLayout",
+  "dataProviders": [],
+  "id": "ea6ba121-8369-5adc-900f-86415df930b2",
+  "label": "My School",
+  "regions": [
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "richTextValue": "<!-- Page heading and one-line introduction -->\n<h1 class=\"lsbc-page-title\">My School</h1>\n<p class=\"lsbc-page-intro\">Your school's licenses, students and school forms.</p>"
+          },
+          "componentName": "forceCommunity:richTextInline",
+          "id": "007880ab-48c7-534b-ae29-8cfe6d6f0da2",
+          "renderPriority": "NEUTRAL",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "6326421c-f7bf-5ac9-b8a4-ff3cd6e5e922",
+      "regionName": "header",
+      "type": "region"
+    },
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "flowArguments": "",
+            "flowName": "ScreenFlowAccountMySchool"
+          },
+          "componentName": "forceCommunity:flowCommunity",
+          "id": "54f5120f-3075-5292-8166-9e9d1899a219",
+          "renderPriority": "NEUTRAL",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "1a6f7a1c-539d-567f-b8bc-378d51412856",
+      "regionName": "content",
+      "type": "region"
+    },
+    {
+      "id": "17908e54-e0dc-577e-8855-0539f5575463",
+      "regionName": "footer",
+      "type": "region"
+    },
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "customHeadTags": "",
+            "description": "",
+            "title": "My School"
+          },
+          "componentName": "forceCommunity:seoAssistant",
+          "id": "16c1c19c-9d74-5e1a-bbfa-83df1015bc5f",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "9028d476-a810-51ad-9163-15e4dc016ac1",
+      "regionName": "sfdcHiddenRegion",
+      "type": "region"
+    }
+  ],
+  "themeLayoutType": "Inner",
+  "type": "view",
+  "viewType": "custom-my-school"
+}

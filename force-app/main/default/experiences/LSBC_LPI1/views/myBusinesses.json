@@ -1,0 +1,70 @@
+{
+  "appPageId": "39740273-a4f0-4311-b732-31661924917d",
+  "componentName": "siteforce:sldsOneColLayout",
+  "dataProviders": [],
+  "id": "27848214-ab24-5178-aa28-d9a675ac84b2",
+  "label": "My Businesses",
+  "regions": [
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "richTextValue": "<!-- Page heading and one-line introduction -->\n<h1 class=\"lsbc-page-title\">My Businesses</h1>\n<p class=\"lsbc-page-intro\">The licenses, applications and violations of the businesses you own or manage.</p>"
+          },
+          "componentName": "forceCommunity:richTextInline",
+          "id": "fa1bc19f-b01f-55fb-b2dc-4e26afd61ac2",
+          "renderPriority": "NEUTRAL",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "6654cc6d-9fd9-5411-b2d2-d684de0b9fd5",
+      "regionName": "header",
+      "type": "region"
+    },
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "flowArguments": "",
+            "flowName": "ScreenFlowAccountMyBusinesses"
+          },
+          "componentName": "forceCommunity:flowCommunity",
+          "id": "a214ead1-78a4-560d-84f8-4dca320dc481",
+          "renderPriority": "NEUTRAL",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "ffaba919-739d-57c3-ba59-b73b4bebb8b3",
+      "regionName": "content",
+      "type": "region"
+    },
+    {
+      "id": "45f2ee75-2a99-514b-af34-dc99a21a420c",
+      "regionName": "footer",
+      "type": "region"
+    },
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "customHeadTags": "",
+            "description": "",
+            "title": "My Businesses"
+          },
+          "componentName": "forceCommunity:seoAssistant",
+          "id": "ba1c4316-a47f-5195-8cd0-23a022189497",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "2a81123e-2ca5-5964-acfc-e8eac1e362bb",
+      "regionName": "sfdcHiddenRegion",
+      "type": "region"
+    }
+  ],
+  "themeLayoutType": "Inner",
+  "type": "view",
+  "viewType": "custom-my-businesses"
+}

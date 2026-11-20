@@ -518,19 +518,21 @@ def contractual_fees(outdir):
         radio('WS_Section', 'Which section does the school certify?', ['choice_Paid', 'choice_NotPaid']),
         display('WS_Paid', '<p>This is to certify that the above named student has paid all contractual fees, pursuant to Louisiana '
                 'R.S. 37:508.B, to this school and is therefore eligible to be scheduled for examination or transfer by the Louisiana '
-                'State Board of Cosmetology.</p>', vis_if('WS_Section', 'EqualTo', 'Paid')),
+                'State Board of Cosmetology.</p>', vis_if('forT_ContractualFeesStatus', 'EqualTo', 'Paid', 'and', [('WS_Section', 'IsNull', False)])),
         display('WS_NotPaid', '<p>This is to certify that the above-named student entered a contract with this school on or after '
                 'August 21, 1992 and has not paid all contractual fees, pursuant to Louisiana R.S. 37:508.B/37:542.C, to this school. '
                 'Upon payment of all said contractual fees I shall file a Certificate of Payment of Contractual Fees with the '
                 'Louisiana State Board of Cosmetology within 10 days of said payment. I understand that the above-named individual '
                 'will not be eligible for examination or transfer in the state of Louisiana until all contractual fees have been '
-                'paid and I have submitted the required certification.</p>', vis_if('WS_Section', 'EqualTo', 'Not Paid')),
+                'paid and I have submitted the required certification.</p>', vis_if('forT_ContractualFeesStatus', 'EqualTo', 'Not Paid')),
     ], 'Documents')
+    f.formula('forT_ContractualFeesStatus', 'String', 'IF(OR({!WS_Section} = "Not Paid", CONTAINS({!WS_Section}, "non-payment")), "Not Paid", "Paid")',
+              'Paid for Section I, Not Paid for Section II.')
     documents(f, 'Documents', 'Contractual Fees', 'Certification')
     certify(f, 'Certification', 'I certify, as the school owner or authorized school personnel, the section of the Certification of '
             'Contractual Fees chosen above for this student, and that the notarized original is uploaded with this form.', 'SetContractualFeesStatus')
     f.update('SetContractualFeesStatus', 'Set Contractual Fees Status', 'IndividualApplication', 'GetRegistration.Id',
-             [('ContractualFeesStatus__c', '=WS_Section')], 'Submitted', 'CouldNotSave')
+             [('ContractualFeesStatus__c', '=forT_ContractualFeesStatus')], 'Submitted', 'CouldNotSave')
     done(f, 'The certification has been filed', 'The Board has recorded the contractual fees status for {!forT_StudentName} and will review the notarized form.')
     f.write(outdir, 'GetRunningUser')
 
@@ -560,7 +562,9 @@ def transfer_hours(outdir):
         radio('H_Certification', 'Certification from the transferring state\'s board', ['choice_CertificationHere', 'choice_CertificationUpload']),
     ], 'IsTheCertificationToUpload')
     f.decide('IsTheCertificationToUpload', 'Is the Certification to Upload?', [
-        ('Upload', 'Yes', [('H_Certification', 'EqualTo', 'No')], 'Documents', 'and')], 'Certification')
+        ('Upload', 'Yes', [('forB_UploadCertification', 'EqualTo', True)], 'Documents', 'and')], 'Certification')
+    f.formula('forB_UploadCertification', 'Boolean', 'OR({!H_Certification} = "No", CONTAINS({!H_Certification}, "upload"))',
+              'The school uploads the other state\'s certification with the form.')
     documents(f, 'Documents', 'Transfer Hours', 'Certification')
     certify(f, 'Certification', 'I certify, as the school\'s representative, that the transfer hours above are correct and that the '
             'school accepts the hours shown.', 'CreateTransferEntry')
@@ -659,10 +663,12 @@ def activity_hours(outdir):
         radio('AC_Instructor', 'Instructor accompanying students', ['choice_Instructors'], required=False,
               help='The school\'s instructors on file with the Board.'),
     ], 'Certification')
+    f.formula('forT_ActivityType', 'String', 'IF(CONTAINS({!AC_Type}, "Field"), "Field Trip", IF(CONTAINS({!AC_Type}, "Workshop"), "Workshop", '
+              'IF(CONTAINS({!AC_Type}, "Community"), "Community Service", "Show")))', 'The activity type without its two-letter code.')
     certify(f, 'Certification', 'I certify, as the school\'s representative, that the activity above took place as reported, and that '
             'the student and the senior instructor signed the paper reporting form, which the school keeps on file.', 'CreateActivityEntry')
     hours_entry(f, 'CreateActivityEntry', 'Activity', [('TotalHours', '=AC_Hours'), ('StartDate', '=AC_Date'), ('EndDate', '=AC_Date'),
-                ('ActivityType__c', '=AC_Type'), ('ActivityLocation__c', '=AC_Location'), ('AccompanyingInstructor__c', '=AC_Instructor')], 'Submitted')
+                ('ActivityType__c', '=forT_ActivityType'), ('ActivityLocation__c', '=AC_Location'), ('AccompanyingInstructor__c', '=AC_Instructor')], 'Submitted')
     done(f, 'The activity has been reported', 'The Board has added {!AC_Hours} hours for {!forT_StudentName}.')
     f.write(outdir, 'GetRunningUser')
 
@@ -768,7 +774,7 @@ def examination(outdir):
         ('ApplicationName', 'Exam Application'), ('ApplicationType', 'IndividualApplication'), ('OwnerId', '=$User.Id'),
         ('IsSubmitted', False), ('SavedApplicationUrl', '=forT_SavedApplicationUrl')], 'WhichForm')
     for code, label, _ in EXAM_FORMS:
-        f.choice(f'choice_{code}', label, code)
+        f.choice(f'choice_{code}', label)
     for n, t in [('Cosmetology', 'Cosmetology'), ('Manicurist', 'Manicurist'), ('Esthetician', 'Esthetician'), ('Instructor', 'Instructor'),
                  ('CosmetologyInstructor', 'Cosmetology Instructor'), ('EstheticianInstructor', 'Esthetician Instructor'),
                  ('ManicuristInstructor', 'Manicurist Instructor'), ('AlternativeHair', 'Alternative Hair Design'),
@@ -779,14 +785,15 @@ def examination(outdir):
         display('WF_Student', '<p><b>Student:</b> {!forT_StudentName}<br/><b>School:</b> {!GetSchool.Name}</p>'),
         radio('WF_Form', 'Which application?', [f'choice_{c}' for c, _, _ in EXAM_FORMS]),
     ], 'ExamDetails')
-    is_ = lambda *codes: ' || '.join(f'{{!WF_Form}} = "{c}"' for c in codes)
+    lab = {c: l for c, l, _ in EXAM_FORMS}
+    is_ = lambda *codes: ' || '.join(f'{{!WF_Form}} = "{lab[c]}"' for c in codes)
     f.formula('forB_IsNational', 'Boolean', is_('NationalExam', 'NationalRetake'), 'A national exam application.')
     f.formula('forB_IsAhd', 'Boolean', is_('AlternativeHairDesign'), 'The alternative hair design application.')
     f.formula('forB_IsPracticalAndState', 'Boolean', is_('AlternativeHairDesign', 'PracticalAndState', 'PracticalAndState1400'),
               'An application for both the practical and state exams.')
     f.formula('forB_Is1400', 'Boolean', is_('PracticalAndState1400'), 'The 1400 hour application.')
     f.formula('forB_ChoosesExams', 'Boolean', is_('ExamRetake', 'NoShow'), 'The applicant chooses which exams.')
-    f.formula('forT_ApplicationType', 'String', 'CASE({!WF_Form}, ' + ', '.join(f'"{c}", "{t}"' for c, _, t in EXAM_FORMS) + ', "")',
+    f.formula('forT_ApplicationType', 'String', 'CASE({!WF_Form}, ' + ', '.join(f'"{l}", "{t}"' for _, l, t in EXAM_FORMS) + ', "")',
               'The application type for the form chosen.')
     vis = lambda formula: vis_if(formula, 'EqualTo', True)
     f.screen('ExamDetails', 'Applicant Personal Data', [
@@ -848,8 +855,8 @@ def examination(outdir):
     f.subflow('TransferDraft', 'Transfer Draft', 'SubflowPreliminaryApplicationTransfer', [
         ('varT_PreliminaryApplicationId', '=CreateDraft'), ('varT_ApplicationId', '=CreateApplication')], 'AreFeesDue')
     # fees, as printed on each form
-    f.formula('forB_InitialFee', 'Boolean', '{!WF_Form} = "PracticalAndState" || {!WF_Form} = "AlternativeHairDesign"', 'The initial license or permit fee applies.')
-    f.formula('forB_NoShowFees', 'Boolean', '{!WF_Form} = "NoShow"', 'No-show fees apply per exam.')
+    f.formula('forB_InitialFee', 'Boolean', '{!forB_IsAhd} || {!WF_Form} = "Application for Practical and State Exam"', 'The initial license or permit fee applies.')
+    f.formula('forB_NoShowFees', 'Boolean', '{!WF_Form} = "Application for No Show Exam(s)"', 'No-show fees apply per exam.')
     f.formula('forT_InitialFeeName', 'String', '{!GetLicenseType.Name} & " Initial"', 'The license type\'s initial fee row.')
     f.decide('AreFeesDue', 'Are Fees Due?', [('FeesDue', 'Yes', [('forB_IsNational', 'EqualTo', False)], 'CreateFee', 'and')], 'DeleteDraft',
              default_label='No, national exams are paid to the testing company')
@@ -889,6 +896,101 @@ def examination(outdir):
         ('varB_IsStaffEntry', False), ('varT_FeeIds', '=varT_FeeIds'), ('varT_ApplicationIds', '=varT_ApplicationIds')], 'DeleteDraft')
     f.delete('DeleteDraft', 'Delete Draft', 'PreliminaryApplicationRef', 'CreateDraft', 'Submitted')
     done(f, 'The exam application has been submitted', 'The Board will review {!forT_StudentName}\'s application and schedule the exams.')
+    f.write(outdir, 'GetRunningUser')
+
+
+FORM_LINKS = [('student-enrollment', 'Student Enrollment'), ('contractual-fees', 'Certification of Contractual Fees'),
+              ('transfer-hours', 'Transfer Hours'), ('relinquish-hours', 'Relinquish Hours'), ('notice-of-termination', 'Notice of Termination'),
+              ('activity-hours', 'Field Trips, Workshops, Shows and Community Service'), ('exam-application', 'Exam Application'),
+              ('instructor-roster', 'Instructor Quarterly Roster')]
+
+
+def listing(f, name, coll, line_expr, desc, nxt, var):
+    """Builds an HTML list in var from a collection, one <li> per record."""
+    f.var(var, 'String', desc)
+    f.loop(name, f'Loop Through {desc}', coll, f'Add{name}Line', nxt)
+    f.formula(f'forT_{name}Line', 'String', '"<li>" & ' + line_expr + ' & "</li>"', f'One line of {desc}.')
+    f.assign(f'Add{name}Line', f'Add {desc} Line', [(var, 'Add', f'=forT_{name}Line')], name)
+
+
+def my_school(outdir):
+    f = Flow('ScreenFlowAccountMySchool', 'My School',
+             'Screen Flow: Account My School. The School Administrator\'s home on the portal: the school\'s licenses, its students '
+             '(Student Registration applications on the school\'s course offerings, with status) and links to the school forms. '
+             'Read only; runs in system context, showing only the schools the signed-in person administers.')
+    school_start(f, 'My School', 'GetSchool')
+    f.screen('ChooseSchool', 'My School', [radio('CS_School', 'School', ['choice_Schools'])], 'GetSchool', back=False, pause=False)
+    f.lookup('GetSchool', 'Get School', 'Account', [('Id', 'EqualTo', '=CS_School')], ['Id', 'Name', 'LastInstructorRosterQuarter__c'], 'GetLicenses', first=True)
+    f.lookup('GetLicenses', 'Get School Licenses', 'BusinessLicense', [('AccountId', 'EqualTo', '=GetSchool.Id')],
+             ['Id', 'Name', 'Identifier', 'Status', 'PeriodEnd'], 'ListLicenses', sort='Name')
+    listing(f, 'ListLicenses', 'GetLicenses', '{!ListLicenses.Name} & ", license " & BLANKVALUE({!ListLicenses.Identifier}, "pending") & ": " & TEXT({!ListLicenses.Status}) '
+            '& IF(ISBLANK({!ListLicenses.PeriodEnd}), "", ", expires " & TEXT(DATEVALUE({!ListLicenses.PeriodEnd})))', 'licenses', 'GetCourseOfferings', 'varT_LicensesHtml')
+    f.lookup('GetCourseOfferings', 'Get Course Offerings', 'CourseOffering', [('School__c', 'EqualTo', '=GetSchool.Id')], ['Id'], 'LoopThroughCourseOfferings')
+    f.var('varT_OfferingIds', 'String', 'The school\'s course offerings.', coll=True)
+    f.loop('LoopThroughCourseOfferings', 'Loop Through Course Offerings', 'GetCourseOfferings', 'AddOfferingId', 'AreThereOfferings')
+    f.assign('AddOfferingId', 'Add Offering Id', [('varT_OfferingIds', 'Add', '=LoopThroughCourseOfferings.Id')], 'LoopThroughCourseOfferings')
+    f.decide('AreThereOfferings', 'Does the School Have Courses?', [('HasOfferings', 'Yes', [('varT_OfferingIds', 'IsEmpty', False)], 'GetRegistrations', 'and')], 'School')
+    f.lookup('GetRegistrations', 'Get Student Applications', 'IndividualApplication', [('CourseOffering__c', 'In', '=varT_OfferingIds')],
+             ['Id', 'Name', 'ApplicationType', 'Status', 'AccountId'], 'LoopThroughRegistrations', sort='CreatedDate', desc=True)
+    f.var('varT_StudentIds', 'String', 'The students with applications.', coll=True)
+    f.loop('LoopThroughRegistrations', 'Loop Through Student Applications', 'GetRegistrations', 'AddStudentId', 'GetStudentAccounts')
+    f.assign('AddStudentId', 'Add Student Id', [('varT_StudentIds', 'Add', '=LoopThroughRegistrations.AccountId')], 'LoopThroughRegistrations')
+    f.lookup('GetStudentAccounts', 'Get Students', 'Account', [('Id', 'In', '=varT_StudentIds')], ['Id', 'Name'], 'ListStudents', sort='Name')
+    f.var('varT_StudentsHtml', 'String', 'The student applications, as a list.')
+    f.var('varT_StudentName', 'String', 'The student on the application being listed.')
+    f.loop('ListStudents', 'Loop Through Student Applications to List', 'GetRegistrations', 'FindStudentName', 'School')
+    f.loop('FindStudentName', 'Loop Through Students', 'GetStudentAccounts', 'IsItThisStudent', 'AddListStudentsLine')
+    f.decide('IsItThisStudent', 'Is It This Application\'s Student?', [('ThisStudent', 'Yes', [('FindStudentName.Id', 'EqualTo', '=ListStudents.AccountId')], 'SetStudentName', 'and')],
+             'FindStudentName')
+    f.assign('SetStudentName', 'Set Student Name', [('varT_StudentName', 'Assign', '=FindStudentName.Name')], 'FindStudentName')
+    f.formula('forT_ListStudentsLine', 'String', '"<li>" & {!varT_StudentName} & ": " & TEXT({!ListStudents.ApplicationType}) & " (" & {!ListStudents.Name} & "), " & TEXT({!ListStudents.Status}) & "</li>"',
+              'One line of student applications.')
+    f.assign('AddListStudentsLine', 'Add Student Application Line', [('varT_StudentsHtml', 'Add', '=forT_ListStudentsLine')], 'ListStudents')
+    links = ''.join(f'<li><a href="/LPI/s/{u}">{e(t)}</a></li>' for u, t in FORM_LINKS)
+    f.screen('School', 'My School', [display('MS_Body',
+             '<h2>{!GetSchool.Name}</h2><p><b>Licenses</b></p><ul>{!varT_LicensesHtml}</ul>'
+             '<p><b>Student applications</b> (newest first)</p><ul>{!varT_StudentsHtml}</ul>'
+             '<p><b>Last instructor roster:</b> {!GetSchool.LastInstructorRosterQuarter__c}</p>'
+             f'<p><b>School forms</b></p><ul>{links}</ul>')], None, back=True, pause=False, next_label='Done')
+    f.write(outdir, 'GetRunningUser')
+
+
+def my_businesses(outdir):
+    f = Flow('ScreenFlowAccountMyBusinesses', 'My Businesses',
+             'Screen Flow: Account My Businesses. A portal page for owners and managers: the businesses the signed-in person is '
+             'related to as Owner or Manager, with their licenses, open business applications and violations. Read only; runs in '
+             'system context and shows only those businesses.')
+    f.lookup('GetRunningUser', 'Get Running User', 'User', [('Id', 'EqualTo', '=$User.Id')], ['Id', 'ContactId'], 'GetRelationships', first=True)
+    f.lookup('GetRelationships', 'Get Business Relationships', 'AccountContactRelation', [
+        ('ContactId', 'EqualTo', '=GetRunningUser.ContactId'), ('IsActive', 'EqualTo', True)], ['Id', 'AccountId', 'Roles'], 'LoopThroughRelationships', sort='Id')
+    f.var('varT_BusinessIds', 'String', 'The businesses the person owns or manages.', coll=True)
+    f.loop('LoopThroughRelationships', 'Loop Through Business Relationships', 'GetRelationships', 'IsAnOwnerOrManager', 'AreThereBusinesses')
+    f.formula('forB_OwnerOrManager', 'Boolean', 'INCLUDES({!LoopThroughRelationships.Roles}, "Owner") || INCLUDES({!LoopThroughRelationships.Roles}, "Manager")',
+              'The person owns or manages the business.')
+    f.decide('IsAnOwnerOrManager', 'Is the Person an Owner or Manager?', [('OwnerOrManager', 'Yes', [('forB_OwnerOrManager', 'EqualTo', True)], 'AddBusinessId', 'and')],
+             'LoopThroughRelationships')
+    f.assign('AddBusinessId', 'Add Business Id', [('varT_BusinessIds', 'Add', '=LoopThroughRelationships.AccountId')], 'LoopThroughRelationships')
+    f.decide('AreThereBusinesses', 'Does the Person Own or Manage a Business?', [('HasBusinesses', 'Yes', [('varT_BusinessIds', 'IsEmpty', False)], 'GetLicenses', 'and')],
+             'NoBusinesses')
+    f.screen('NoBusinesses', 'My Businesses', [display('NB_Message', f'<p>Your portal account isn\'t linked to a business as its owner or manager. '
+             f'If it should be, call the Board at {PHONE}.</p>')], None, back=False, pause=False)
+    f.lookup('GetLicenses', 'Get Licenses', 'BusinessLicense', [('AccountId', 'In', '=varT_BusinessIds')], ['Id', 'Name', 'Identifier', 'Status', 'PeriodEnd', 'AccountId'],
+             'ListLicenses', sort='Name')
+    listing(f, 'ListLicenses', 'GetLicenses', '{!ListLicenses.Account.Name} & ": " & {!ListLicenses.Name} & ", license " & BLANKVALUE({!ListLicenses.Identifier}, "pending") '
+            '& ", " & TEXT({!ListLicenses.Status}) & IF(ISBLANK({!ListLicenses.PeriodEnd}), "", ", expires " & TEXT(DATEVALUE({!ListLicenses.PeriodEnd})))',
+            'licenses', 'GetApplications', 'varT_LicensesHtml')
+    f.lookup('GetApplications', 'Get Business Applications', 'BusinessLicenseApplication', [('AccountId', 'In', '=varT_BusinessIds'),
+             ('Status', 'NotEqualTo', 'Approved'), ('Status', 'NotEqualTo', 'Canceled')], ['Id', 'Name', 'Status', 'AccountId', 'ApplicationType'], 'ListApplications', sort='Name')
+    listing(f, 'ListApplications', 'GetApplications', '{!ListApplications.Account.Name} & ": " & {!ListApplications.Name} & " " & TEXT({!ListApplications.ApplicationType}) & ", " & TEXT({!ListApplications.Status})',
+            'open applications', 'GetViolations', 'varT_ApplicationsHtml')
+    f.lookup('GetViolations', 'Get Violations', 'RegulatoryCodeViolation', [('Establishment__c', 'In', '=varT_BusinessIds')], ['Id', 'Name', 'Status', 'Establishment__c'],
+             'ListViolations', sort='Name')
+    listing(f, 'ListViolations', 'GetViolations', '{!ListViolations.Establishment__r.Name} & ": " & {!ListViolations.Name} & ", " & TEXT({!ListViolations.Status})',
+            'violations', 'Businesses', 'varT_ViolationsHtml')
+    f.screen('Businesses', 'My Businesses', [display('MB_Body',
+             '<p><b>Licenses</b></p><ul>{!varT_LicensesHtml}</ul><p><b>Open applications</b></p><ul>{!varT_ApplicationsHtml}</ul>'
+             '<p><b>Violations</b></p><ul>{!varT_ViolationsHtml}</ul>'
+             '<p>To open a new location, report new ownership or reopen a shop, use the <a href="/LPI/s/shop-application">Shop Application</a>.</p>')], None, back=False, pause=False, next_label='Done')
     f.write(outdir, 'GetRunningUser')
 
 
@@ -932,6 +1034,8 @@ if __name__ == '__main__':
     activity_hours(sys.argv[1])
     instructor_roster(sys.argv[1])
     examination(sys.argv[1])
+    my_school(sys.argv[1])
+    my_businesses(sys.argv[1])
     page('studentEnrollment', 'Student Enrollment', 'student-enrollment',
          'Enroll a new student, a transfer or a student seeking additional training at your school.',
          'ScreenFlowIndividualApplicationStudentEnrollment')
@@ -949,3 +1053,6 @@ if __name__ == '__main__':
          'File your school\'s instructor roster for the quarter.', 'ScreenFlowAccountInstructorRoster')
     page('examApplication', 'Exam Application', 'exam-application',
          'Apply for a student\'s national, practical or state exam, a retake or a no-show reapplication.', 'ScreenFlowIndividualApplicationExamination')
+    page('mySchool', 'My School', 'my-school', 'Your school\'s licenses, students and school forms.', 'ScreenFlowAccountMySchool')
+    page('myBusinesses', 'My Businesses', 'my-businesses', 'The licenses, applications and violations of the businesses you own or manage.',
+         'ScreenFlowAccountMyBusinesses')
