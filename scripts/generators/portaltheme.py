@@ -86,7 +86,7 @@ BRANDING = {
     'PrimaryFont': 'Montserrat',
     'LinkColor': NAVY,
     '_LinkColorDarker': '#060E57',
-    'LoginBackgroundColor': '#000000',
+    'LoginBackgroundColor': PAGE,  # was black until 20 Nov 2026
     'TextColor': INK,
     '_DxpPageBackgroundColor': PAGE,
     '_HoverColor': 'rgba(0, 0, 0, 0.04)',

@@ -9,7 +9,7 @@
       "components": [
         {
           "componentAttributes": {
-            "richTextValue": "<!-- Login header: LSBC wordmark on navy, linking back to the portal home -->\n<div class=\"lsbc-login-header\">\n  <a href=\"/LPI/s/\" aria-label=\"LSBC licensing portal home\">\n    <img class=\"lsbc-login-header__logo\" src=\"/sfsites/c/resource/PortalLogoWhite\" alt=\"Louisiana State Board of Cosmetology\">\n  </a>\n</div>"
+            "richTextValue": "<!-- Login header: LSBC wordmark on navy, linking back to the portal home -->\n<div class=\"lsbc-login-header\">\n  <a href=\"/LPI/s/\" aria-label=\"LSBC licensing portal home\">\n    <img class=\"lsbc-login-header__logo\" src=\"/sfsites/c/resource/PortalLogoBlack\" alt=\"Louisiana State Board of Cosmetology\">\n  </a>\n</div>"
           },
           "componentName": "forceCommunity:htmlBlock",
           "id": "28209d80-1d0c-44bd-b255-8ba22f1cf1c2",

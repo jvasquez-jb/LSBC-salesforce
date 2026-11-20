@@ -174,27 +174,30 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .lsbc-doclist__sub a, .lsbc-doclist__sub a:visited { font: 500 12px/1.4 var(--lsbc-sans) !important; letter-spacing: 0.12em; text-transform: uppercase; color: var(--lsbc-navy); }
 /* Portal forms (flows) sit in the same column; square black buttons */
 .forceCommunityFlowCommunity { max-width: 1000px; margin: 0 auto 4rem !important; padding: 0 1rem; }
+/* Form panels sit on the page colour (20 Nov 2026: every page and background in the page colour); inputs stay white */
+.forceCommunityFlowCommunity .slds-card, .flowRuntimeForFlexipage, flowruntime-flow { background: transparent !important; }
 .forceCommunityFlowCommunity .slds-button, .forceCommunityFlowCommunity button.slds-button { border-radius: 0 !important; font-family: var(--lsbc-sans) !important; letter-spacing: 0.08em; }
 .forceCommunityFlowCommunity .slds-button_brand, .forceCommunityFlowCommunity .slds-button--brand { background: var(--lsbc-ink) !important; border-color: var(--lsbc-ink) !important; color: #FFFFFF !important; }
 .forceCommunityFlowCommunity .slds-button_brand:hover, .forceCommunityFlowCommunity .slds-button--brand:hover { background: var(--lsbc-navy) !important; border-color: var(--lsbc-navy) !important; }
 .forceCommunityFlowCommunity .slds-input, .forceCommunityFlowCommunity .slds-textarea, .forceCommunityFlowCommunity .slds-select, .forceCommunityFlowCommunity .slds-combobox__input { border-radius: 0 !important; }
 .forceCommunityFlowCommunity h1, .forceCommunityFlowCommunity h2 { font-family: var(--lsbc-serif); }
 
-/* ---------- Login pages: black page, white logo, white square card ---------- */
+/* ---------- Login pages: the page colour, black logo, a square bordered card (20 Nov 2026; black until then) ---------- */
+.salesforceIdentityLoginBody2 { background: var(--lsbc-page) !important; }
 .lsbc-login-header { text-align: center; padding: 2.5rem 1rem 0; }
 .lsbc-login-header__logo { width: 15rem; max-width: 70%; }
-.lsbc-login-intro { text-align: center; color: #FFFFFF; margin: 1.75rem auto 1.5rem; max-width: 26rem; }
+.lsbc-login-intro { text-align: center; color: var(--lsbc-ink); margin: 1.75rem auto 1.5rem; max-width: 26rem; }
 .lsbc-login-intro__seal { width: 4rem; height: 4rem; display: block; margin: 0 auto 1rem; }
-.lsbc-login-intro h1 { font: 500 2.25rem/1.15 var(--lsbc-serif); color: #FFFFFF; margin: 0 0 0.5rem; }
-.lsbc-login-intro p { font: 400 1rem/1.5 var(--lsbc-sans); color: #E6E6E6; margin: 0; }
-.salesforceIdentityLoginForm2, .salesforceIdentityForgotPassword2 { background: #FFFFFF; border-radius: 0; padding: 2rem 1.75rem 1.5rem; max-width: 26rem; margin: 0 auto; box-shadow: none; }
+.lsbc-login-intro h1 { font: 500 2.25rem/1.15 var(--lsbc-serif); color: var(--lsbc-ink); margin: 0 0 0.5rem; }
+.lsbc-login-intro p { font: 400 1rem/1.5 var(--lsbc-sans); color: var(--lsbc-grey); margin: 0; }
+.salesforceIdentityLoginForm2, .salesforceIdentityForgotPassword2 { background: transparent; border: 1px solid var(--lsbc-ink); border-radius: 0; padding: 2rem 1.75rem 1.5rem; max-width: 26rem; margin: 0 auto; box-shadow: none; }
 .salesforceIdentityLoginForm2 a, .salesforceIdentityLoginForm2 a:visited { color: var(--lsbc-navy) !important; font-weight: 600; }
 .salesforceIdentityLoginForm2 button, .salesforceIdentityForgotPassword2 button { background: var(--lsbc-ink) !important; border-color: var(--lsbc-ink) !important; border-radius: 0 !important; text-transform: uppercase; letter-spacing: 0.14em; font-family: var(--lsbc-sans) !important; }
 .salesforceIdentityLoginForm2 input, .salesforceIdentityForgotPassword2 input { border-radius: 0 !important; }
-.lsbc-login-help { text-align: center; color: #E6E6E6; margin: 1.5rem auto 3rem; }
-.lsbc-login-help a, .lsbc-login-help a:visited { color: #FFFFFF !important; text-decoration: underline; }
+.lsbc-login-help { text-align: center; color: var(--lsbc-grey); margin: 1.5rem auto 3rem; }
+.lsbc-login-help a, .lsbc-login-help a:visited { color: var(--lsbc-navy) !important; text-decoration: underline; }
 .lsbc-login-help p { margin: 0 0 0.4rem; }
-.lsbc-login-help__address { margin-top: 1.5rem !important; font-size: 0.9rem; color: #BDBDBD; }
+.lsbc-login-help__address { margin-top: 1.5rem !important; font-size: 0.9rem; color: var(--lsbc-grey); }
 
 /* ---------- Phone ---------- */
 @media (max-width: 768px) {
