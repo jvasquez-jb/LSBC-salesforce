@@ -7,7 +7,7 @@
   "regions" : [ {
     "components" : [ {
       "componentAttributes" : {
-        "richTextValue" : "<!-- Page heading and one-line introduction -->\n<h1 class=\"lsbc-page-title\">File a Complaint</h1>\n<p class=\"lsbc-page-intro\">Report a salon, school or practitioner to the Board. You can identify yourself or file anonymously.</p>"
+        "richTextValue" : "<!-- Page heading and one-line introduction -->\n<h1 class=\"lsbc-page-title\">File a Complaint</h1>\n<p class=\"lsbc-page-intro\">Report a salon, school or practitioner to the Board. You must give your name and contact details and sign your complaint.</p>"
       },
       "componentName" : "forceCommunity:richTextInline",
       "id" : "2e5dcc37-b443-4282-b01b-390bc1c7eb87",

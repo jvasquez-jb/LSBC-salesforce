@@ -280,7 +280,7 @@
     </formulas>
     <formulas>
         <name>forB_AskedToStayConfidential</name>
-        <description>True when the complaint came from the portal&apos;s File a Complaint form and the complainant asked to stay confidential: that form records the answer in the Case description. Pre-ticks Keep the complainant&apos;s identity confidential; staff can change it.</description>
+        <description>True when the complaint came from the portal&apos;s File a Complaint form before 20 Nov 2026 and the complainant asked to stay confidential: the form recorded the answer in the Case description. The form no longer offers it (complaints must be signed), so newer complaints never match. Pre-ticks Keep the complainant&apos;s identity confidential; staff can change it.</description>
         <dataType>Boolean</dataType>
         <expression>CONTAINS({!GetCase.Description}, &quot;Complainant asked to stay confidential: Yes&quot;)</expression>
     </formulas>
