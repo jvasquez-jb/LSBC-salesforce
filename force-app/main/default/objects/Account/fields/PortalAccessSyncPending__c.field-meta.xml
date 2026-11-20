@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PortalAccessSyncPending__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Ticked by automation when something changes who should see this business on the portal, or what they should see: a relationship (Owner, Manager or School Administrator), a portal login, a license, an application, a violation or a fee. A background job then gives those people&apos;s portal logins access to the business and its records, removes access from anyone no longer related, and unticks it. Not for manual edit. If it stays ticked, the background job failed: see the flow error email, then untick and tick it again to retry.</description>
+    <label>Portal Access Sync Pending</label>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Checkbox</type>
+</CustomField>

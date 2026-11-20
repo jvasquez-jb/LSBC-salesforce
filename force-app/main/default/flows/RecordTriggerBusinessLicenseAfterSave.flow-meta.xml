@@ -17,7 +17,7 @@
             <targetReference>LoopThroughHolderRelations</targetReference>
         </connector>
     </assignments>
-    <decisions>
+    <decisions><name>IsItNewOrMovedToAnotherBusiness</name><label>Is It New or Moved to Another Business?</label><locationX>0</locationX><locationY>0</locationY><defaultConnector><targetReference>GetHolderFirstRecordInSameSave</targetReference></defaultConnector><defaultConnectorLabel>No</defaultConnectorLabel><rules><name>NewOrMoved</name><conditionLogic>or</conditionLogic><conditions><leftValueReference>$Record__Prior.Id</leftValueReference><operator>IsNull</operator><rightValue><booleanValue>true</booleanValue></rightValue></conditions><conditions><leftValueReference>$Record.AccountId</leftValueReference><operator>NotEqualTo</operator><rightValue><elementReference>$Record__Prior.AccountId</elementReference></rightValue></conditions><connector><targetReference>SetPortalAccessSyncPendingToTrue</targetReference></connector><label>Yes</label></rules></decisions><decisions>
         <name>IsThisTheFirstRecordForTheHolder</name>
         <label>Is This The First Record For The Holder In This Save?</label>
         <locationX>0</locationX>
@@ -135,7 +135,7 @@
         <object>AccountContactRelation</object>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
-    <recordUpdates>
+    <recordUpdates><name>SetPortalAccessSyncPendingToTrue</name><description>Queues the background portal access sync for the business (Record-Trigger: Account After Save) instead of changing access during this save.</description><label>Set Portal Access Sync Pending to True</label><locationX>0</locationX><locationY>0</locationY><connector><targetReference>GetHolderFirstRecordInSameSave</targetReference></connector><filterLogic>and</filterLogic><filters><field>Id</field><operator>EqualTo</operator><value><elementReference>$Record.AccountId</elementReference></value></filters><filters><field>IsPersonAccount</field><operator>EqualTo</operator><value><booleanValue>false</booleanValue></value></filters><filters><field>PortalAccessSyncPending__c</field><operator>EqualTo</operator><value><booleanValue>false</booleanValue></value></filters><inputAssignments><field>PortalAccessSyncPending__c</field><value><booleanValue>true</booleanValue></value></inputAssignments><object>Account</object></recordUpdates><recordUpdates>
         <name>SetRelatedSalonsStopCodeSyncPendingToTrue</name>
         <description>Queues the background stop code sync for every account the license holder is related to (a manager or owner license affects the salon&apos;s holds).</description>
         <label>Set Related Salons Stop Code Sync Pending to True</label>
@@ -200,7 +200,7 @@
         <locationX>0</locationX>
         <locationY>0</locationY>
         <connector>
-            <targetReference>GetHolderFirstRecordInSameSave</targetReference>
+            <targetReference>IsItNewOrMovedToAnotherBusiness</targetReference>
         </connector>
         <filterFormula>ISNEW() || ISCHANGED({!$Record.PeriodEnd}) || ISCHANGED({!$Record.Status}) || ISCHANGED({!$Record.RegulatoryAuthorizationTypeId}) || ISCHANGED({!$Record.AccountId})</filterFormula>
         <object>BusinessLicense</object>

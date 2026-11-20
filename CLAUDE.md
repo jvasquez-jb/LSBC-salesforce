@@ -85,7 +85,7 @@ you are working on before building, and section 9 for what the org actually prov
 |---|---|---|
 | 0 | Foundation: Person Accounts, record types, repo, doc corrections | Done |
 | 1 | Data model (section 1), encrypted field list | Done |
-| 2 | Security (5.1), `OPEN-11` ACR sharing spike | In progress. Staff security built 19 Nov 2026 from the agreed access matrix; `OPEN-11` and the items under Phase 2 status still open |
+| 2 | Security (5.1), `OPEN-11` ACR sharing spike | In progress. Staff security built 19 Nov 2026 from the agreed access matrix; `OPEN-11` access built 19 Nov 2026; the 14 school forms still to build |
 | 3 | Business rules (section 2) | Done. Eligibility rules built, called from Phase 5 and 6 |
 | 4 | Cases and violations (section 4) | Done |
 | 5 | Portal (section 3) | Done. School Administrator and Business Owner forms wait for Phase 2 |
@@ -124,14 +124,20 @@ false: keep it off); tasks and events get a rule.
 licence Customer Community Plus Login) but can't filter by Account Contact Relation role (`roles` is refused): a
 Booth Renter saw the salon and its licence, and instructors would see a school's students. A manual share
 (`AccountShare`, `BusinessLicenseShare`, …) to the portal user works, and a flow can create share records. So
-Business Owner, Manager and School Administrator access is built as share records kept in step by a flow; the
-spike mapping was removed. Accounts can't be owned by a queue, so "move to an LSBC queue on approval" becomes a
-change of owner to an LSBC user.
+Owner, Manager and School Administrator access is share records (Read on the business, its licences, business
+applications, violations and fees) kept by `SubflowPortalBusinessAccessSync` (`scripts/generators/portalaccess.py`,
+which also patches the triggers): the relation, user, licence, business application, violation and fee triggers
+tick `Account.PortalAccessSyncPending__c`, and `RecordTriggerAccountAfterSave` runs it in the background, as the
+stop code sync. It removes only portal logins' manual shares, never staff ones, and never shares a record to its
+owner. Students' records are never shared to a school: school screens read them filtered by the relation.
+Accounts can't be owned by a queue, so Decide passes a portal-created business to the approving staff member.
+Activities: `SubjectDescriptionEditOnlyByCreator` on Task and Event and `RecordTriggerTaskBeforeDelete` /
+`RecordTriggerEventBeforeDelete` (admins included; admin test-data clean-up deletes only its own tasks).
 
 Still open:
 
-1. `OPEN-11` build: School Administrator and Business Owner portal access, the 14 School Forms not yet built, and
-   the change of owner on approval.
+1. The 14 School Forms not yet built, and the portal pages where owners and school administrators see their
+   businesses.
 
 ## Org notes
 

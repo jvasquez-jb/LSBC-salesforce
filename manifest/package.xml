@@ -74,6 +74,7 @@
         <members>Account.PersonMailingAddress</members>
         <members>Account.PersonMobilePhone</members>
         <members>Account.Phone</members>
+        <members>Account.PortalAccessSyncPending__c</members>
         <members>Account.ShippingAddress</members>
         <members>Account.StopCodeSyncPending__c</members>
         <members>Account.TaxIdentificationNumber__c</members>
@@ -617,9 +618,11 @@
         <members>RecordTriggerAccountContactRelationBeforeDelete</members>
         <members>RecordTriggerAccreditationAfterSave</members>
         <members>RecordTriggerBusinessLicenseAfterSave</members>
+        <members>RecordTriggerBusinessLicenseApplicationAfterSave</members>
         <members>RecordTriggerBusinessLicenseBeforeDelete</members>
         <members>RecordTriggerBusinessLicenseBeforeSave</members>
         <members>RecordTriggerDocumentChecklistItemAfterSave</members>
+        <members>RecordTriggerEventBeforeDelete</members>
         <members>RecordTriggerIndividualApplicationAfterSave</members>
         <members>RecordTriggerIndividualApplicationBeforeDelete</members>
         <members>RecordTriggerPaymentAfterSave</members>
@@ -631,6 +634,7 @@
         <members>RecordTriggerProductBeforeSave</members>
         <members>RecordTriggerRegulatoryCodeViolationAfterSave</members>
         <members>RecordTriggerRegulatoryTransactionFeeAfterSave</members>
+        <members>RecordTriggerTaskBeforeDelete</members>
         <members>RecordTriggerTrainingCourseParticipantAfterSave</members>
         <members>RecordTriggerTrainingCourseParticipantBeforeDelete</members>
         <members>RecordTriggerUserAfterSave</members>
@@ -677,6 +681,7 @@
         <members>SubflowFeeRenewalAssessment</members>
         <members>SubflowOutOfStateLicenses</members>
         <members>SubflowPaymentReceiptPaymentCreate</members>
+        <members>SubflowPortalBusinessAccessSync</members>
         <members>SubflowPreliminaryApplicationDiscard</members>
         <members>SubflowPreliminaryApplicationTransfer</members>
         <members>SubflowSchoolsAttended</members>
@@ -958,6 +963,7 @@
         <name>Role</name>
     </types>
     <types>
+        <members>Content</members>
         <members>Flow</members>
         <name>Settings</name>
     </types>
@@ -1219,6 +1225,7 @@
     </types>
     <types>
         <members>BusinessLicense.StatusDraftOutOfStateLicense</members>
+        <members>Event.SubjectDescriptionEditOnlyByCreator</members>
         <members>PaymentAllocation__c.FeeItemRequired</members>
         <members>Payment__c.AmountMinAppliedAmount</members>
         <members>Payment__c.RefundAmountMaxUnappliedAmount</members>
@@ -1230,6 +1237,7 @@
         <members>RegulatoryCodeViolation.CitedPartyMatchesAccount</members>
         <members>RegulatoryCodeViolation.DescriptionRequiredOtherViolationType</members>
         <members>RegulatoryCodeViolation.EstablishmentOrPractitionerRequired</members>
+        <members>Task.SubjectDescriptionEditOnlyByCreator</members>
         <members>TrainingCourseParticipant.TotalHoursMax192MonthlyHours</members>
         <members>TrainingCourseParticipant.TotalHoursNegativeOnlyRelinquished</members>
         <name>ValidationRule</name>

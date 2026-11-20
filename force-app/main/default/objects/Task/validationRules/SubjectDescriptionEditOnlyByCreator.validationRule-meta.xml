@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SubjectDescriptionEditOnlyByCreator</fullName>
+    <active>true</active>
+    <description>Only the person who wrote a task can change its subject or comments, so the record of what was said or done stays as written. The person it is assigned to can still change its status, priority and due date.</description>
+    <errorConditionFormula>AND(
+    NOT(ISNEW()),
+    CreatedById &lt;&gt; $User.Id,
+    OR(ISCHANGED(Subject), ISCHANGED(Description))
+)</errorConditionFormula>
+    <errorMessage>Only the person who wrote this task can change its subject or comments. To add something, log a new task.</errorMessage>
+</ValidationRule>

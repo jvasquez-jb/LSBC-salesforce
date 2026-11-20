@@ -860,7 +860,7 @@ Screen Flow that follows its paper PDF section by section, built from shared sub
 | Certification | Every form ends with the checkbox, typed name and timestamp (`PT-19`), showing the form's printed attestation |
 | Payment | Fees come from the Fee Schedule; the pay step links to PayStar and takes the receipt as a checklist upload. Shop and facility fees are paid to the inspector as printed; when nothing is due the empty receipt item is removed. The portal books no inspection: inspectors set their own schedule (LSBC, 12 Nov 2026). Whether the $105 moves online, and whether PayStar takes e-checks, is with LSBC |
 | Rules called | Reciprocity exams from the `ReciprocityStateExams` matrix and `EligibilityReciprocity` version 2; threading permits from `EligibilityPermit` (it also limits a temporary permit to one renewal, for staff); duplicate and renewal fees from the Phase 3 rules |
-| Access | Guest profile LSBC LPI Profile, member profile LSBC Portal User, sharing set on the user's own records. School Administrator and Business Owner access over Account Contact Relations waits for Phase 2 (`PT-02`) |
+| Access | Guest profile LSBC LPI Profile, member profile LSBC Portal User, sharing set on the user's own records. Owners, Managers and School Administrators read their businesses through share records kept by `Subflow: Portal Business Access Sync` (`PT-02`) |
 
 | Form (PDF) | Flow | Creates on Certify |
 |---|---|---|
@@ -902,9 +902,16 @@ turning on according to the roles they hold.
 | School Administrator | Student registration, rosters, hours reporting, school forms, the school's own licence |
 | Business Owner / Manager | The establishment's licence, renewals and violations |
 
-`PT-02` `[OPEN]` Access to a business account that is not the user's own depends on sharing
-following an Account Contact Relation. **Unconfirmed — needs a sandbox spike before the portal
-design is locked.** Fallback is share groups or Apex managed sharing. See `OPEN-11`.
+`PT-02` `[SETTLED]` Access to a business account that is not the user's own follows the person's Account
+Contact Relation. The `OPEN-11` spike (19 Nov 2026) found that a sharing set can map a portal user to their
+related accounts (`Contact.RelatedAccount`) without code, but can't filter by the relation's role: a Booth
+Renter would see the salon, and an instructor a school's students. So `Subflow: Portal Business Access Sync`
+keeps manual share records instead: the portal logins of a business's Owners, Managers and School
+Administrators read the business, its licences, business applications, violations and fees, and lose that
+access when the relation ends or its role changes. The relation, portal user, licence, business application,
+violation and fee triggers tick `Account.PortalAccessSyncPending__c`, and `Record-Trigger: Account After Save`
+runs the sync in the background, once per business per save, as it does the stop code sync. Students' records
+are never shared to a school: the school forms read them in screens filtered by the school's relation.
 
 ### 3.2 Completeness before payment
 
@@ -1274,7 +1281,7 @@ reach production only if that load goes ahead (`OPEN-05`). The cases themselves 
 
 ### 5.1 Security model
 
-**Build status: built 19 Nov 2026, except `OPEN-11`.** The Board went through the access matrix desk by
+**Build status: built 19 Nov 2026; `OPEN-11` access built the same day, the school forms follow.** The Board went through the access matrix desk by
 desk on 18 Nov 2026 (`SEC-01c`) and agreed its Sharing Settings. For the rest, Erin Marceaux asked the build team
 to go with its recommendations, which follow that tab. `scripts/generators/security.py` builds everything from
 the workbook: 18 permission sets, a permission set group per desk with a muting set that caps it at its Sharing
@@ -1282,9 +1289,10 @@ Settings column, and 142 sharing rules. The staff action flows (Decide, Record P
 Add and End Stop Code, Mark Printed, New Application, Record Complaint, Change Year) run in system context
 **with sharing**: the user acts only on records shared with them, and the flow makes the writes a desk's own
 permissions wouldn't (a licence created by Decide at Front Desk). Each runs only for the desks whose permission
-sets grant it. The refund verifier rule and the confidential complainant rule followed the same day. Still to build:
-`OPEN-11`. No desk can be tested as a real user yet: the org's five Salesforce licences are all held by
-admins. What the later phases left for security is now decided:
+sets grant it. The refund verifier rule and the confidential complainant rule followed the same day. Staff licences (Public Sector Access and
+Document Checklist for every staff user and the Default Workflow User) and real desk users move to Phase 7, in
+January 2027 (Jonathan, 19 Nov 2026); until then the desks are tested by moving one test user through them.
+What the later phases left for security is now decided:
 
 | Area | Decision |
 |---|---|
@@ -1292,7 +1300,9 @@ admins. What the later phases left for security is now decided:
 | Rules | Run Flow and the core Public Sector licence, which includes rule runtime (confirmed by the Account Executive on 19 Nov 2026), for every staff user and for the Default Workflow User that scheduled flows run as, which in production must be an LSBC user. Production checks it on the running user even in system context; sandboxes don't. `BRECmtyRuntime` for portal users. System-context rule flows are accepted: they read reference data and write only what the screen submits. The Business Rules Engine Designer seat goes to LSBC's named admin at handover |
 | Stop codes and violations | The Hold-edit desks (Compliance Officer, Front Desk Supervisor, Front Desk, Problem Desk, Program Manager) add and end manual stop codes. Inspector, Compliance Officer and Program Manager create violations; the Complaint-edit desks run Record Complaint. Amount Paid stays read-only (set by flow) |
 | Complaints | `PublicComplaint` is Private. A confidential complainant is seen only by Compliance Officer and the roles above it (Executive Director), plus Program Manager, who edits complaints; the licensee and the portal never see the reporter. Queue members are desk groups, not named people: Complaint Intake gets the Complaint-edit desks, General Inquiries gets Front Desk Supervisor, Front Desk and Problem Desk |
-| Portal | The School Administrator and Business Owner audiences use Account Contact Relations (the `OPEN-11` spike, built last). Staff reach establishments the portal creates through the Account sharing rules, whoever owns them. On approval, ownership moves to an LSBC queue and the owner keeps access through their Owner relation; that move is built with the `OPEN-11` spike, since until then ownership is how the owner sees the record |
+| Portal | Owners, Managers and School Administrators reach their businesses through their Account Contact Relations, as share records kept by a flow (`PT-02`). Staff reach establishments the portal creates through the Account sharing rules, whoever owns them. An account can't be owned by a queue, so on approval Decide passes a portal-created business to the staff member approving it; the applicant keeps access through their relation |
+| Notes and activities | No one edits or deletes a note or activity they didn't write (Erin Marceaux, 18 Nov 2026). Notes open view-only to everyone but their author because the file setting "Set by record" stays off. Tasks and events: only the creator may change the subject or comments (validation rule `SubjectDescriptionEditOnlyByCreator`) or delete them (`Record-Trigger: Task Before Delete`, `Event Before Delete`); whoever a task is assigned to can still close it. Administrators included |
+| Admin and portal content | William is LSBC's long-term admin: the Business Rules Engine Designer seat and Letter Templates. Only admins publish Board documents on the portal |
 | Field history (`SEC-05`) | `RecordAlert` Valid Until and Active, violation Status, `PublicComplaint` reporter confidentiality, and the fee item's year if the object supports it |
 | Reports | LSBC Finance: Executive Director, Finance and Program Manager. LSBC Operations: all staff. The dashboard runs as the viewer, so Home shows report charts rather than a link |
 | Refunds | The verifier must be a different person from the requester, enforced by a validation rule. The refund desks verify: Finance, Front Desk Supervisor and Front Desk |
@@ -1717,7 +1727,7 @@ more than leaving a door open.
 | `OPEN-38` | Freelance and mobile operators | Mobile salons, disability permits and 30-day temporary permits must file monthly itineraries or client rosters. Freelance operators without a fixed salon are a tracking gap the rules do not close. Needs board rules or legislation | Board, later phase |
 | `OPEN-05` | The migration volume | Licence records are in scope up to an agreed volume. The figure has not been set. The sandbox now holds 40,234 licences and much more besides (section 7) | Immediate |
 | `OPEN-06` | Extent of the website content move | Agendas, minutes, directories, the rules book and FAQs all go past what has been confirmed | Immediate |
-| `OPEN-11` | Sharing across Account Contact Relation | Decides whether school administrators and salon owners can be served declaratively | Sandbox spike |
+| `OPEN-11` | Sharing across Account Contact Relation | Settled 19 Nov 2026: a sharing set can't filter by role, so a flow keeps share records (`PT-02`) | Closed |
 | `OPEN-13` | Race and sex on the applicant record | A protected category. Still collected? Migrating? What access model? | Erin |
 | `OPEN-15` | Two stop-code files | Partial files received. A regular and a revised version exist — which is authoritative? | William |
 | `OPEN-19` | Sealed certifications | Whether a scanned certification is acceptable, or the sealed original must be kept | Stephanie |
@@ -1783,9 +1793,7 @@ hundred smaller configuration questions; those that change scope, go-live or the
 payment ledger as scope, and `OPEN-54`, real data in a sandbox without security. `OPEN-05`, the
 migration volume, goes with them.
 
-**One is ours to settle:** `OPEN-11`, the sharing spike against Account Contact Relation, which holds
-up the School Administrator and Business Owner portal audiences and is picked up when security
-resumes (5.1).
+`OPEN-11`, the sharing spike against Account Contact Relation, was settled on 19 Nov 2026 (`PT-02`).
 
 **Two are with the Board and have dates:** `OPEN-02`, cheques and money orders, at the December
 board meeting; and `OPEN-38`, freelance operators without a fixed salon, which needs board rules or
@@ -1986,3 +1994,4 @@ the source.
 | 19 Nov 2026 | Portal address change for individual licensees: Change My Address request Case and staff Apply Address Change, proof of address checked first (`PT-15`, `CM-02`). |
 | 19 Nov 2026 | Portal redesigned in an editorial style with Erin Marceaux's 2026 logos and seal, then the Board's colours (pale cool blue-grey, slate blue, no gold) (`PT-01`, `PT-02`). Staff app takes the 2026 seal and logo navy. |
 | 19 Nov 2026 | Board Documents and Publications on the portal home from Salesforce CMS, as Documents because Aura detail pages take only Document or Image content; guests may view published CMS content (`PT-01`). |
+| 19 Nov 2026 | `OPEN-11` settled (`PT-02`): portal Owners, Managers and School Administrators read their businesses through share records kept by `Subflow: Portal Business Access Sync`, since a sharing set can't filter by relation role; Decide passes a portal-created business to the approving staff member. No one edits or deletes notes or activities they didn't write. William is LSBC's long-term admin; only admins publish Board documents. Staff licences move to Phase 7, January 2027 (5.1). |

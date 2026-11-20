@@ -21,7 +21,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>SetSalonStopCodeSyncPendingToTrue</targetReference>
+                <targetReference>SetSalonPortalAccessSyncPendingToTrue</targetReference>
             </connector>
             <label>Yes</label>
         </rules>
@@ -133,7 +133,7 @@
         <sortOrder>Asc</sortOrder>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
-    <recordUpdates>
+    <recordUpdates><name>SetSalonPortalAccessSyncPendingToTrue</name><description>Queues the background portal access sync for the business (Record-Trigger: Account After Save) instead of changing access during this save.</description><label>Set Salon Portal Access Sync Pending to True</label><locationX>0</locationX><locationY>0</locationY><connector><targetReference>SetSalonStopCodeSyncPendingToTrue</targetReference></connector><filterLogic>and</filterLogic><filters><field>Id</field><operator>EqualTo</operator><value><elementReference>$Record.AccountId</elementReference></value></filters><filters><field>IsPersonAccount</field><operator>EqualTo</operator><value><booleanValue>false</booleanValue></value></filters><filters><field>PortalAccessSyncPending__c</field><operator>EqualTo</operator><value><booleanValue>false</booleanValue></value></filters><inputAssignments><field>PortalAccessSyncPending__c</field><value><booleanValue>true</booleanValue></value></inputAssignments><object>Account</object></recordUpdates><recordUpdates>
         <name>SetPersonStopCodeSyncPendingToTrue</name>
         <description>Queues the background stop code sync for the holder (Record-Trigger: Account After Save) instead of syncing during this save.</description>
         <label>Set Person Stop Code Sync Pending to True</label>

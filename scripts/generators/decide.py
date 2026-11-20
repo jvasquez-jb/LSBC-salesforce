@@ -240,7 +240,17 @@ def build(obj, label_obj, refuse_status, refuse_word, outdir):
         ('PrintRequestedDate__c', REF('$Flow.CurrentDate')),
         ('PrintedDate__c', None)], 'ApproveApplication', 'CouldNotSaveDecision')
     update('ApproveApplication', 'Set Application to Approved', 'recordId', obj, [
-        ('ApprovedDate', REF('$Flow.CurrentDateTime')), ('LicensePermitNameId', REF('forT_LicenseId')), ('Status', STR('Approved'))], 'Approved', 'CouldNotSaveDecision')
+        ('ApprovedDate', REF('$Flow.CurrentDateTime')), ('LicensePermitNameId', REF('forT_LicenseId')), ('Status', STR('Approved'))],
+        'Approved' if is_person else 'IsTheBusinessOwnedByAPortalUser', 'CouldNotSaveDecision')
+    if not is_person:
+        # A business created on the portal belongs to its applicant's login, which is how they see it before approval.
+        # On approval it passes to the staff member approving it; the applicant keeps access through their relationship
+        # (Owner, Manager or School Administrator), shared by Subflow: Portal Business Access Sync.
+        F.decision('IsTheBusinessOwnedByAPortalUser', 'Is the Business Owned by a Portal User?', [
+            ('PortalOwned', 'Yes', [cond('GetHolder.Owner.IsPortalEnabled', 'EqualTo', BOOL(True))], 'TransferBusinessToStaff', 'and')],
+            'Approved')
+        update('TransferBusinessToStaff', 'Set Business Owner to the Approving Staff Member', 'GetHolder.Id', 'Account', [
+            ('OwnerId', REF('$User.Id')), ('PortalAccessSyncPending__c', BOOL(True))], 'Approved', 'CouldNotSaveDecision')
     F.screen('Approved', 'Approved', [
         F.display('AP_Message', '<p><b>{!GetApplication.Name} is approved.</b></p><p>The license is marked ready to print. It prints once the holder has no active stop codes.</p>'),
     ], None, next_label='Done')
@@ -293,7 +303,8 @@ def build(obj, label_obj, refuse_status, refuse_word, outdir):
                '(a salon\'s or facility\'s first license gets a new number from the Establishment Number Counter, saved on the establishment; a school\'s license takes the number staff enter), its expiration date') +
             f' from License Expiration Date; approving a renewal moves the '
             f'existing license\'s expiration on and adds one to its renewal count; approving a duplicate records the date on the license as its Last Duplicate Date. Either way the license is marked ready to print (its Printed Date is cleared, so a license printed earlier goes back in the print queue) and the application is Approved with today as its Approved Date. '
-            f'A return records the reason and can create the return letter; an application can also be {refusal_text}, with the reason saved and its unpaid fees set to Canceled.')
+            + ('' if is_person else 'A business created on the portal still belongs to its applicant\'s login until approval; approving passes it to the staff member approving, and the applicant keeps access through their relationship to it (Subflow: Portal Business Access Sync). ')
+            + f'A return records the reason and can create the return letter; an application can also be {refusal_text}, with the reason saved and its unpaid fees set to Canceled.')
     label = f'Screen Flow: {label_obj} Decide'
     head = ('<?xml version="1.0" encoding="UTF-8"?>\n<Flow xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">'
             '<apiVersion>66.0</apiVersion>')
