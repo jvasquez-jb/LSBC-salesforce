@@ -1,0 +1,70 @@
+{
+  "appPageId": "39740273-a4f0-4311-b732-31661924917d",
+  "componentName": "siteforce:sldsOneColLayout",
+  "dataProviders": [],
+  "id": "33910924-4a9c-5ed2-bf35-00cd1852f482",
+  "label": "Student Enrollment",
+  "regions": [
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "richTextValue": "<!-- Page heading and one-line introduction -->\n<h1 class=\"lsbc-page-title\">Student Enrollment</h1>\n<p class=\"lsbc-page-intro\">Enroll a new student, a transfer or a student seeking additional training at your school.</p>"
+          },
+          "componentName": "forceCommunity:richTextInline",
+          "id": "df1060b1-1d07-57db-a45f-9f5dac3fef01",
+          "renderPriority": "NEUTRAL",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "ac688000-55f1-571f-b226-ce90174f297f",
+      "regionName": "header",
+      "type": "region"
+    },
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "flowArguments": "",
+            "flowName": "ScreenFlowIndividualApplicationStudentEnrollment"
+          },
+          "componentName": "forceCommunity:flowCommunity",
+          "id": "66dc6f2f-6c7c-56e3-b207-7617b1e45161",
+          "renderPriority": "NEUTRAL",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "6a461214-d4bc-50b2-a613-36eb82eb408f",
+      "regionName": "content",
+      "type": "region"
+    },
+    {
+      "id": "503a8df1-ab7c-5f05-8871-189575445912",
+      "regionName": "footer",
+      "type": "region"
+    },
+    {
+      "components": [
+        {
+          "componentAttributes": {
+            "customHeadTags": "",
+            "description": "",
+            "title": "Student Enrollment"
+          },
+          "componentName": "forceCommunity:seoAssistant",
+          "id": "c4573e8b-2d0f-5548-a9c4-21383680f761",
+          "renditionMap": {},
+          "type": "component"
+        }
+      ],
+      "id": "06c1bcb5-5270-5c97-b790-52cf14294801",
+      "regionName": "sfdcHiddenRegion",
+      "type": "region"
+    }
+  ],
+  "themeLayoutType": "Inner",
+  "type": "view",
+  "viewType": "custom-student-enrollment"
+}

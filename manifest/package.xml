@@ -416,6 +416,10 @@
         <members>ApplicationDocumentRequirement.CompletionCumulativeHoursReport</members>
         <members>ApplicationDocumentRequirement.CompletionPaymentReceipt</members>
         <members>ApplicationDocumentRequirement.DuplicatePaymentReceipt</members>
+        <members>ApplicationDocumentRequirement.ExamContractualFees</members>
+        <members>ApplicationDocumentRequirement.ExamHourlyReport</members>
+        <members>ApplicationDocumentRequirement.ExamPaymentReceipt</members>
+        <members>ApplicationDocumentRequirement.ExamPhoto</members>
         <members>ApplicationDocumentRequirement.NewSchoolBusinessPlan</members>
         <members>ApplicationDocumentRequirement.NewSchoolCurriculum</members>
         <members>ApplicationDocumentRequirement.NewSchoolDailySchedule</members>
@@ -457,6 +461,12 @@
         <members>ApplicationDocumentRequirement.RenewalProofOfNameChange</members>
         <members>ApplicationDocumentRequirement.ShopOperatorLicense</members>
         <members>ApplicationDocumentRequirement.ShopPaymentReceipt</members>
+        <members>ApplicationDocumentRequirement.StudentEnrollmentContractualFees</members>
+        <members>ApplicationDocumentRequirement.StudentEnrollmentPaymentReceipt</members>
+        <members>ApplicationDocumentRequirement.StudentEnrollmentPhotos</members>
+        <members>ApplicationDocumentRequirement.StudentEnrollmentProofOfAge</members>
+        <members>ApplicationDocumentRequirement.StudentEnrollmentProofOfEducation</members>
+        <members>ApplicationDocumentRequirement.StudentEnrollmentSocialSecurityCard</members>
         <members>ApplicationDocumentRequirement.TempPermitOutOfStateLicenseCopy</members>
         <members>ApplicationDocumentRequirement.TempPermitPaymentReceipt</members>
         <members>ApplicationDocumentRequirement.ThreadFacLocalOccupationalLicense</members>
@@ -544,14 +554,18 @@
         <members>BusinessAndPremisesPremisesInspectionReport</members>
         <members>BusinessAndPremisesSuretyBond</members>
         <members>DisclosuresCourtRecordsAndExplanation</members>
+        <members>EducationAndTrainingCertificationOfContractualFees</members>
         <members>EducationAndTrainingCumulativeHoursReport</members>
         <members>EducationAndTrainingCurriculum</members>
         <members>EducationAndTrainingDailySchedule</members>
         <members>EducationAndTrainingEnrollmentContract</members>
         <members>EducationAndTrainingGeneralEducationEvaluation</members>
         <members>EducationAndTrainingNicScoreSheet</members>
+        <members>EducationAndTrainingNotarizedRelinquishLetter</members>
         <members>EducationAndTrainingNotarizedTeacherStatement</members>
+        <members>EducationAndTrainingProofOfAge</members>
         <members>EducationAndTrainingProofOfEducation</members>
+        <members>EducationAndTrainingTransferHoursCertification</members>
         <members>ExamAccommodationsDisabilityDocumentation</members>
         <members>IdentityDriversLicenseOrStateId</members>
         <members>IdentityMilitaryId</members>
@@ -678,6 +692,7 @@
         <members>ScreenFlowIndividualApplicationRenewal</members>
         <members>ScreenFlowIndividualApplicationResume</members>
         <members>ScreenFlowIndividualApplicationRetake</members>
+        <members>ScreenFlowIndividualApplicationStudentEnrollment</members>
         <members>ScreenFlowIndividualApplicationTemporaryPermit</members>
         <members>ScreenFlowIndividualApplicationThreadingPermit</members>
         <members>ScreenFlowLetterGenerate</members>

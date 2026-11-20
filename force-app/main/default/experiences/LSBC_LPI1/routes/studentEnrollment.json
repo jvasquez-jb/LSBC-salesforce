@@ -1,0 +1,12 @@
+{
+  "activeViewId": "33910924-4a9c-5ed2-bf35-00cd1852f482",
+  "appPageId": "39740273-a4f0-4311-b732-31661924917d",
+  "configurationTags": [],
+  "devName": "studentEnrollment",
+  "id": "5115a528-d2f9-514a-be60-44ec7a47a1a0",
+  "label": "Student Enrollment",
+  "pageAccess": "RequiresLogin",
+  "routeType": "custom-student-enrollment",
+  "type": "route",
+  "urlPrefix": "student-enrollment"
+}

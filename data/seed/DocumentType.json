@@ -362,6 +362,50 @@
       "Description": "A document showing the licensee's name and new address: a driver's license or state ID, utility bill, lease or bank statement.",
       "IsActive": true,
       "Language": "en_US"
+    },
+    {
+      "attributes": {
+        "type": "DocumentType",
+        "referenceId": "ProofOfAge"
+      },
+      "DeveloperName": "ProofOfAge",
+      "MasterLabel": "Proof of Age",
+      "Description": "A copy of the student's birth certificate (preferred) or driver's license, for proof of age. Sent with the Student Enrollment form.",
+      "IsActive": true,
+      "Language": "en_US"
+    },
+    {
+      "attributes": {
+        "type": "DocumentType",
+        "referenceId": "CertificationOfContractualFees"
+      },
+      "DeveloperName": "CertificationOfContractualFees",
+      "MasterLabel": "Certification of Contractual Fees",
+      "Description": "The school's notarized certification that a student has, or has not, paid all contractual fees. Needed before a student is scheduled for examination or transfers.",
+      "IsActive": true,
+      "Language": "en_US"
+    },
+    {
+      "attributes": {
+        "type": "DocumentType",
+        "referenceId": "TransferHoursCertification"
+      },
+      "DeveloperName": "TransferHoursCertification",
+      "MasterLabel": "Transfer Hours Certification",
+      "Description": "Certification of a student's hours from the board of the state they transfer from, sent with the school's Transfer Hours form.",
+      "IsActive": true,
+      "Language": "en_US"
+    },
+    {
+      "attributes": {
+        "type": "DocumentType",
+        "referenceId": "NotarizedRelinquishLetter"
+      },
+      "DeveloperName": "NotarizedRelinquishLetter",
+      "MasterLabel": "Notarized Letter to Relinquish Hours",
+      "Description": "A student's notarized letter giving up hours earned at a school.",
+      "IsActive": true,
+      "Language": "en_US"
     }
   ]
 }

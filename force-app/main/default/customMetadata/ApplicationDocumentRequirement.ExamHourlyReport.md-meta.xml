@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Examination: Hourly Report</label>
+    <protected>false</protected>
+    <values>
+        <field>ApplicationPath__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>ApplicationType__c</field>
+        <value xsi:type="xsd:string">National Exam;Practical and State;Practical and State 1400 Hour;No Show</value>
+    </values>
+    <values>
+        <field>DocumentType__c</field>
+        <value xsi:type="xsd:string">CumulativeHoursReport</value>
+    </values>
+    <values>
+        <field>Instruction__c</field>
+        <value xsi:type="xsd:string">The school's hourly report for the student (for the 1400 hour application, the cumulative hours report).</value>
+    </values>
+    <values>
+        <field>IsRequired__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
+        <field>IsSentToBoard__c</field>
+        <value xsi:type="xsd:boolean">false</value>
+    </values>
+    <values>
+        <field>LicenseType__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>RecordType__c</field>
+        <value xsi:type="xsd:string">IndividualApplication.Examination</value>
+    </values>
+    <values>
+        <field>SortOrder__c</field>
+        <value xsi:type="xsd:double">2</value>
+    </values>
+</CustomMetadata>
