@@ -3,7 +3,7 @@
     <sharingCriteriaRules>
         <fullName>CourseOfferingAllToProgramManagerEdit</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>All records, shared with ProgramManager. From the LSBC Access Matrix.</description>
+        <description>Gives the Program Manager desk read and edit access to all Course Offering records.</description>
         <label>Course Offering All To Program Manager Edit</label>
         <sharedTo>
             <group>ProgramManager</group>

@@ -3,7 +3,7 @@
     <sharingCriteriaRules>
         <fullName>PaymentAllToAllStaff</fullName>
         <accessLevel>Read</accessLevel>
-        <description>All records, shared with AllStaff. From the LSBC Access Matrix.</description>
+        <description>Gives every staff desk read access to all Payment records.</description>
         <label>Payment All To All Staff</label>
         <sharedTo>
             <group>AllStaff</group>
@@ -18,7 +18,7 @@
     <sharingCriteriaRules>
         <fullName>PaymentAllToFinanceEdit</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>All records, shared with Finance. From the LSBC Access Matrix.</description>
+        <description>Gives the Finance desk read and edit access to all Payment records.</description>
         <label>Payment All To Finance Edit</label>
         <sharedTo>
             <group>Finance</group>
@@ -33,7 +33,7 @@
     <sharingCriteriaRules>
         <fullName>PaymentAllToFrontDeskSupervisorEdit</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>All records, shared with FrontDeskSupervisor. From the LSBC Access Matrix.</description>
+        <description>Gives the Front Desk Supervisor desk read and edit access to all Payment records.</description>
         <label>Payment All To Front Desk Supervisor Edit</label>
         <sharedTo>
             <group>FrontDeskSupervisor</group>
@@ -48,7 +48,7 @@
     <sharingCriteriaRules>
         <fullName>PaymentAllToFrontDeskEdit</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>All records, shared with FrontDesk. From the LSBC Access Matrix.</description>
+        <description>Gives the Front Desk desk read and edit access to all Payment records.</description>
         <label>Payment All To Front Desk Edit</label>
         <sharedTo>
             <group>FrontDesk</group>
@@ -63,7 +63,7 @@
     <sharingCriteriaRules>
         <fullName>PaymentAllToMailroomEdit</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>All records, shared with Mailroom. From the LSBC Access Matrix.</description>
+        <description>Gives the Mailroom desk read and edit access to all Payment records.</description>
         <label>Payment All To Mailroom Edit</label>
         <sharedTo>
             <group>Mailroom</group>
@@ -78,7 +78,7 @@
     <sharingCriteriaRules>
         <fullName>PaymentAllToProblemDeskEdit</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>All records, shared with ProblemDesk. From the LSBC Access Matrix.</description>
+        <description>Gives the Problem Desk desk read and edit access to all Payment records.</description>
         <label>Payment All To Problem Desk Edit</label>
         <sharedTo>
             <group>ProblemDesk</group>
@@ -93,7 +93,7 @@
     <sharingCriteriaRules>
         <fullName>PaymentAllToRenewalDeskEdit</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>All records, shared with RenewalDesk. From the LSBC Access Matrix.</description>
+        <description>Gives the Renewal Desk desk read and edit access to all Payment records.</description>
         <label>Payment All To Renewal Desk Edit</label>
         <sharedTo>
             <group>RenewalDesk</group>
@@ -108,7 +108,7 @@
     <sharingCriteriaRules>
         <fullName>PaymentAllToReciprocityDeskEdit</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>All records, shared with ReciprocityDesk. From the LSBC Access Matrix.</description>
+        <description>Gives the Reciprocity Desk desk read and edit access to all Payment records.</description>
         <label>Payment All To Reciprocity Desk Edit</label>
         <sharedTo>
             <group>ReciprocityDesk</group>
@@ -123,7 +123,7 @@
     <sharingCriteriaRules>
         <fullName>PaymentAllToStudentRegistrationEdit</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>All records, shared with StudentRegistration. From the LSBC Access Matrix.</description>
+        <description>Gives the Student Registration desk read and edit access to all Payment records.</description>
         <label>Payment All To Student Registration Edit</label>
         <sharedTo>
             <group>StudentRegistration</group>
@@ -138,7 +138,7 @@
     <sharingCriteriaRules>
         <fullName>PaymentAllToProgramManagerEdit</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>All records, shared with ProgramManager. From the LSBC Access Matrix.</description>
+        <description>Gives the Program Manager desk read and edit access to all Payment records.</description>
         <label>Payment All To Program Manager Edit</label>
         <sharedTo>
             <group>ProgramManager</group>
@@ -153,7 +153,7 @@
     <sharingCriteriaRules>
         <fullName>PaymentAllToInspectorEdit</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>All records, shared with Inspector. From the LSBC Access Matrix.</description>
+        <description>Gives the Inspector desk read and edit access to all Payment records.</description>
         <label>Payment All To Inspector Edit</label>
         <sharedTo>
             <group>Inspector</group>

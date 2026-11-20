@@ -3,7 +3,7 @@
     <sharingCriteriaRules>
         <fullName>PersonDisabilityAllToReciprocityDeskEdit</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>All records, shared with ReciprocityDesk. From the LSBC Access Matrix.</description>
+        <description>Gives the Reciprocity Desk desk read and edit access to all Accommodation records.</description>
         <label>Person Disability All To Reciprocity Desk Edit</label>
         <sharedTo>
             <group>ReciprocityDesk</group>
@@ -18,7 +18,7 @@
     <sharingCriteriaRules>
         <fullName>PersonDisabilityAllToProgramManagerEdit</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>All records, shared with ProgramManager. From the LSBC Access Matrix.</description>
+        <description>Gives the Program Manager desk read and edit access to all Accommodation records.</description>
         <label>Person Disability All To Program Manager Edit</label>
         <sharedTo>
             <group>ProgramManager</group>
@@ -33,7 +33,7 @@
     <sharingCriteriaRules>
         <fullName>PersonDisabilityAllToTestingDeskEdit</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>All records, shared with TestingDesk. From the LSBC Access Matrix.</description>
+        <description>Gives the Testing Desk desk read and edit access to all Accommodation records.</description>
         <label>Person Disability All To Testing Desk Edit</label>
         <sharedTo>
             <group>TestingDesk</group>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <MutingPermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Part of the Student Registration permission set group. Takes away anything its permission sets give beyond what the Board agreed the Student Registration desk may see and change.</description>
     <label>Student Registration Muting</label>
     <objectPermissions>
         <allowCreate>true</allowCreate>

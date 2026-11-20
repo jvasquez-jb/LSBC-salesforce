@@ -3,7 +3,7 @@
     <sharingCriteriaRules>
         <fullName>PersonEducationAllToExecutiveDirector</fullName>
         <accessLevel>Read</accessLevel>
-        <description>All records, shared with ExecutiveDirector. From the LSBC Access Matrix.</description>
+        <description>Gives the Executive Director desk read access to all Education records.</description>
         <label>Person Education All To Executive Director</label>
         <sharedTo>
             <group>ExecutiveDirector</group>
@@ -18,7 +18,7 @@
     <sharingCriteriaRules>
         <fullName>PersonEducationAllToComplianceOfficer</fullName>
         <accessLevel>Read</accessLevel>
-        <description>All records, shared with ComplianceOfficer. From the LSBC Access Matrix.</description>
+        <description>Gives the Compliance Officer desk read access to all Education records.</description>
         <label>Person Education All To Compliance Officer</label>
         <sharedTo>
             <group>ComplianceOfficer</group>
@@ -33,7 +33,7 @@
     <sharingCriteriaRules>
         <fullName>PersonEducationAllToMailroom</fullName>
         <accessLevel>Read</accessLevel>
-        <description>All records, shared with Mailroom. From the LSBC Access Matrix.</description>
+        <description>Gives the Mailroom desk read access to all Education records.</description>
         <label>Person Education All To Mailroom</label>
         <sharedTo>
             <group>Mailroom</group>
@@ -48,7 +48,7 @@
     <sharingCriteriaRules>
         <fullName>PersonEducationAllToProblemDesk</fullName>
         <accessLevel>Read</accessLevel>
-        <description>All records, shared with ProblemDesk. From the LSBC Access Matrix.</description>
+        <description>Gives the Problem Desk desk read access to all Education records.</description>
         <label>Person Education All To Problem Desk</label>
         <sharedTo>
             <group>ProblemDesk</group>
@@ -63,7 +63,7 @@
     <sharingCriteriaRules>
         <fullName>PersonEducationAllToRenewalDesk</fullName>
         <accessLevel>Read</accessLevel>
-        <description>All records, shared with RenewalDesk. From the LSBC Access Matrix.</description>
+        <description>Gives the Renewal Desk desk read access to all Education records.</description>
         <label>Person Education All To Renewal Desk</label>
         <sharedTo>
             <group>RenewalDesk</group>
@@ -78,7 +78,7 @@
     <sharingCriteriaRules>
         <fullName>PersonEducationAllToTestingDesk</fullName>
         <accessLevel>Read</accessLevel>
-        <description>All records, shared with TestingDesk. From the LSBC Access Matrix.</description>
+        <description>Gives the Testing Desk desk read access to all Education records.</description>
         <label>Person Education All To Testing Desk</label>
         <sharedTo>
             <group>TestingDesk</group>
@@ -93,7 +93,7 @@
     <sharingCriteriaRules>
         <fullName>PersonEducationAllToFrontDeskSupervisorEdit</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>All records, shared with FrontDeskSupervisor. From the LSBC Access Matrix.</description>
+        <description>Gives the Front Desk Supervisor desk read and edit access to all Education records.</description>
         <label>Person Education All To Front Desk Supervisor Edit</label>
         <sharedTo>
             <group>FrontDeskSupervisor</group>
@@ -108,7 +108,7 @@
     <sharingCriteriaRules>
         <fullName>PersonEducationAllToReciprocityDeskEdit</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>All records, shared with ReciprocityDesk. From the LSBC Access Matrix.</description>
+        <description>Gives the Reciprocity Desk desk read and edit access to all Education records.</description>
         <label>Person Education All To Reciprocity Desk Edit</label>
         <sharedTo>
             <group>ReciprocityDesk</group>
@@ -123,7 +123,7 @@
     <sharingCriteriaRules>
         <fullName>PersonEducationAllToStudentRegistrationEdit</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>All records, shared with StudentRegistration. From the LSBC Access Matrix.</description>
+        <description>Gives the Student Registration desk read and edit access to all Education records.</description>
         <label>Person Education All To Student Registration Edit</label>
         <sharedTo>
             <group>StudentRegistration</group>
@@ -138,7 +138,7 @@
     <sharingCriteriaRules>
         <fullName>PersonEducationAllToProgramManagerEdit</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>All records, shared with ProgramManager. From the LSBC Access Matrix.</description>
+        <description>Gives the Program Manager desk read and edit access to all Education records.</description>
         <label>Person Education All To Program Manager Edit</label>
         <sharedTo>
             <group>ProgramManager</group>

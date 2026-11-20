@@ -3,7 +3,7 @@
     <sharingCriteriaRules>
         <fullName>CaseAllToExecutiveDirector</fullName>
         <accessLevel>Read</accessLevel>
-        <description>All records, shared with ExecutiveDirector. From the LSBC Access Matrix.</description>
+        <description>Gives the Executive Director desk read access to all Case records.</description>
         <label>Case All To Executive Director</label>
         <sharedTo>
             <group>ExecutiveDirector</group>
@@ -18,7 +18,7 @@
     <sharingCriteriaRules>
         <fullName>CaseAllToComplianceOfficerEdit</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>All records, shared with ComplianceOfficer. From the LSBC Access Matrix.</description>
+        <description>Gives the Compliance Officer desk read and edit access to all Case records.</description>
         <label>Case All To Compliance Officer Edit</label>
         <sharedTo>
             <group>ComplianceOfficer</group>
@@ -33,7 +33,7 @@
     <sharingCriteriaRules>
         <fullName>CaseAllToFrontDeskSupervisorEdit</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>All records, shared with FrontDeskSupervisor. From the LSBC Access Matrix.</description>
+        <description>Gives the Front Desk Supervisor desk read and edit access to all Case records.</description>
         <label>Case All To Front Desk Supervisor Edit</label>
         <sharedTo>
             <group>FrontDeskSupervisor</group>
@@ -48,7 +48,7 @@
     <sharingCriteriaRules>
         <fullName>CaseAllToFrontDeskEdit</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>All records, shared with FrontDesk. From the LSBC Access Matrix.</description>
+        <description>Gives the Front Desk desk read and edit access to all Case records.</description>
         <label>Case All To Front Desk Edit</label>
         <sharedTo>
             <group>FrontDesk</group>
@@ -63,7 +63,7 @@
     <sharingCriteriaRules>
         <fullName>CaseAllToProblemDeskEdit</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>All records, shared with ProblemDesk. From the LSBC Access Matrix.</description>
+        <description>Gives the Problem Desk desk read and edit access to all Case records.</description>
         <label>Case All To Problem Desk Edit</label>
         <sharedTo>
             <group>ProblemDesk</group>
@@ -78,7 +78,7 @@
     <sharingCriteriaRules>
         <fullName>CaseAllToProgramManagerEdit</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>All records, shared with ProgramManager. From the LSBC Access Matrix.</description>
+        <description>Gives the Program Manager desk read and edit access to all Case records.</description>
         <label>Case All To Program Manager Edit</label>
         <sharedTo>
             <group>ProgramManager</group>
@@ -93,7 +93,7 @@
     <sharingCriteriaRules>
         <fullName>CaseAllToInspectorEdit</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>All records, shared with Inspector. From the LSBC Access Matrix.</description>
+        <description>Gives the Inspector desk read and edit access to all Case records.</description>
         <label>Case All To Inspector Edit</label>
         <sharedTo>
             <group>Inspector</group>

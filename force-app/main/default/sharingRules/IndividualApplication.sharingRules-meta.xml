@@ -3,7 +3,7 @@
     <sharingCriteriaRules>
         <fullName>IndividualApplicationAllToAllStaff</fullName>
         <accessLevel>Read</accessLevel>
-        <description>All records, shared with AllStaff. From the LSBC Access Matrix.</description>
+        <description>Gives every staff desk read access to all Individual Application records.</description>
         <label>Individual Application All To All Staff</label>
         <sharedTo>
             <group>AllStaff</group>
@@ -18,7 +18,7 @@
     <sharingCriteriaRules>
         <fullName>IndividualApplicationAllToComplianceOfficerEdit</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>All records, shared with ComplianceOfficer. From the LSBC Access Matrix.</description>
+        <description>Gives the Compliance Officer desk read and edit access to all Individual Application records.</description>
         <label>Individual Application All To Compliance Officer Edit</label>
         <sharedTo>
             <group>ComplianceOfficer</group>
@@ -33,7 +33,7 @@
     <sharingCriteriaRules>
         <fullName>IndividualApplicationNewLicensureToFrontDeskSupervisorEdit</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>Record type is New Licensure, shared with FrontDeskSupervisor. From the LSBC Access Matrix.</description>
+        <description>Gives the Front Desk Supervisor desk read and edit access to Individual Application records with record type New Licensure.</description>
         <label>Individual Application New Licensure To Front Desk Supervisor Edit</label>
         <sharedTo>
             <group>FrontDeskSupervisor</group>
@@ -48,7 +48,7 @@
     <sharingCriteriaRules>
         <fullName>IndividualApplicationNewLicensureToFrontDeskEdit</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>Record type is New Licensure, shared with FrontDesk. From the LSBC Access Matrix.</description>
+        <description>Gives the Front Desk desk read and edit access to Individual Application records with record type New Licensure.</description>
         <label>Individual Application New Licensure To Front Desk Edit</label>
         <sharedTo>
             <group>FrontDesk</group>
@@ -63,7 +63,7 @@
     <sharingCriteriaRules>
         <fullName>IndividualApplicationRenewalToRenewalDeskEdit</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>Record type is Renewal, shared with RenewalDesk. From the LSBC Access Matrix.</description>
+        <description>Gives the Renewal Desk desk read and edit access to Individual Application records with record type Renewal.</description>
         <label>Individual Application Renewal To Renewal Desk Edit</label>
         <sharedTo>
             <group>RenewalDesk</group>
@@ -78,7 +78,7 @@
     <sharingCriteriaRules>
         <fullName>IndividualApplicationReciprocityToReciprocityDeskEdit</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>Record type is Reciprocity, shared with ReciprocityDesk. From the LSBC Access Matrix.</description>
+        <description>Gives the Reciprocity Desk desk read and edit access to Individual Application records with record type Reciprocity.</description>
         <label>Individual Application Reciprocity To Reciprocity Desk Edit</label>
         <sharedTo>
             <group>ReciprocityDesk</group>
@@ -93,7 +93,7 @@
     <sharingCriteriaRules>
         <fullName>IndividualApplicationNewLicensureToStudentRegistrationEdit</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>Record type is New Licensure, shared with StudentRegistration. From the LSBC Access Matrix.</description>
+        <description>Gives the Student Registration desk read and edit access to Individual Application records with record type New Licensure.</description>
         <label>Individual Application New Licensure To Student Registration Edit</label>
         <sharedTo>
             <group>StudentRegistration</group>
@@ -108,7 +108,7 @@
     <sharingCriteriaRules>
         <fullName>IndividualApplicationAllToProgramManagerEdit</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>All records, shared with ProgramManager. From the LSBC Access Matrix.</description>
+        <description>Gives the Program Manager desk read and edit access to all Individual Application records.</description>
         <label>Individual Application All To Program Manager Edit</label>
         <sharedTo>
             <group>ProgramManager</group>

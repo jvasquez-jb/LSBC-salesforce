@@ -3,7 +3,7 @@
     <sharingCriteriaRules>
         <fullName>ComplaintCaseAllToExecutiveDirector</fullName>
         <accessLevel>Read</accessLevel>
-        <description>All records, shared with ExecutiveDirector. Follows the LSBC Access Matrix.</description>
+        <description>Gives the Executive Director desk read access to all Complaint Case records.</description>
         <label>Complaint Case All To Executive Director</label>
         <sharedTo>
             <group>ExecutiveDirector</group>
@@ -18,7 +18,7 @@
     <sharingCriteriaRules>
         <fullName>ComplaintCaseAllToComplianceOfficer</fullName>
         <accessLevel>Read</accessLevel>
-        <description>All records, shared with ComplianceOfficer. Follows the LSBC Access Matrix.</description>
+        <description>Gives the Compliance Officer desk read access to all Complaint Case records.</description>
         <label>Complaint Case All To Compliance Officer</label>
         <sharedTo>
             <group>ComplianceOfficer</group>
@@ -33,7 +33,7 @@
     <sharingCriteriaRules>
         <fullName>ComplaintCaseAllToFrontDeskSupervisor</fullName>
         <accessLevel>Read</accessLevel>
-        <description>All records, shared with FrontDeskSupervisor. Follows the LSBC Access Matrix.</description>
+        <description>Gives the Front Desk Supervisor desk read access to all Complaint Case records.</description>
         <label>Complaint Case All To Front Desk Supervisor</label>
         <sharedTo>
             <group>FrontDeskSupervisor</group>
@@ -48,7 +48,7 @@
     <sharingCriteriaRules>
         <fullName>ComplaintCaseAllToFrontDesk</fullName>
         <accessLevel>Read</accessLevel>
-        <description>All records, shared with FrontDesk. Follows the LSBC Access Matrix.</description>
+        <description>Gives the Front Desk desk read access to all Complaint Case records.</description>
         <label>Complaint Case All To Front Desk</label>
         <sharedTo>
             <group>FrontDesk</group>
@@ -63,7 +63,7 @@
     <sharingCriteriaRules>
         <fullName>ComplaintCaseAllToProblemDesk</fullName>
         <accessLevel>Read</accessLevel>
-        <description>All records, shared with ProblemDesk. Follows the LSBC Access Matrix.</description>
+        <description>Gives the Problem Desk desk read access to all Complaint Case records.</description>
         <label>Complaint Case All To Problem Desk</label>
         <sharedTo>
             <group>ProblemDesk</group>
@@ -78,7 +78,7 @@
     <sharingCriteriaRules>
         <fullName>ComplaintCaseAllToProgramManager</fullName>
         <accessLevel>Read</accessLevel>
-        <description>All records, shared with ProgramManager. Follows the LSBC Access Matrix.</description>
+        <description>Gives the Program Manager desk read access to all Complaint Case records.</description>
         <label>Complaint Case All To Program Manager</label>
         <sharedTo>
             <group>ProgramManager</group>
@@ -93,7 +93,7 @@
     <sharingCriteriaRules>
         <fullName>ComplaintCaseAllToInspector</fullName>
         <accessLevel>Read</accessLevel>
-        <description>All records, shared with Inspector. Follows the LSBC Access Matrix.</description>
+        <description>Gives the Inspector desk read access to all Complaint Case records.</description>
         <label>Complaint Case All To Inspector</label>
         <sharedTo>
             <group>Inspector</group>

@@ -3,7 +3,7 @@
     <sharingCriteriaRules>
         <fullName>VisitAllToFrontDeskSupervisor</fullName>
         <accessLevel>Read</accessLevel>
-        <description>All records, shared with FrontDeskSupervisor. From the LSBC Access Matrix.</description>
+        <description>Gives the Front Desk Supervisor desk read access to all Inspection Visit records.</description>
         <label>Visit All To Front Desk Supervisor</label>
         <sharedTo>
             <group>FrontDeskSupervisor</group>
@@ -18,7 +18,7 @@
     <sharingCriteriaRules>
         <fullName>VisitAllToFrontDesk</fullName>
         <accessLevel>Read</accessLevel>
-        <description>All records, shared with FrontDesk. From the LSBC Access Matrix.</description>
+        <description>Gives the Front Desk desk read access to all Inspection Visit records.</description>
         <label>Visit All To Front Desk</label>
         <sharedTo>
             <group>FrontDesk</group>
@@ -33,7 +33,7 @@
     <sharingCriteriaRules>
         <fullName>VisitAllToProgramManagerEdit</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>All records, shared with ProgramManager. From the LSBC Access Matrix.</description>
+        <description>Gives the Program Manager desk read and edit access to all Inspection Visit records.</description>
         <label>Visit All To Program Manager Edit</label>
         <sharedTo>
             <group>ProgramManager</group>
@@ -48,7 +48,7 @@
     <sharingCriteriaRules>
         <fullName>VisitAllToInspectorEdit</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>All records, shared with Inspector. From the LSBC Access Matrix.</description>
+        <description>Gives the Inspector desk read and edit access to all Inspection Visit records.</description>
         <label>Visit All To Inspector Edit</label>
         <sharedTo>
             <group>Inspector</group>

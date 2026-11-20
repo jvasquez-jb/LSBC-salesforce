@@ -3,7 +3,7 @@
     <sharingCriteriaRules>
         <fullName>RegulatoryAuthorizationTypeAllToProgramManagerEdit</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>All records, shared with ProgramManager. From the LSBC Access Matrix.</description>
+        <description>Gives the Program Manager desk read and edit access to all License Type records.</description>
         <label>Regulatory Authorization Type All To Program Manager Edit</label>
         <sharedTo>
             <group>ProgramManager</group>

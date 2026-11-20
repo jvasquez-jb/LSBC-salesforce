@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <MutingPermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Part of the Compliance Officer permission set group. Takes away anything its permission sets give beyond what the Board agreed the Compliance Officer desk may see and change.</description>
     <label>Compliance Officer Muting</label>
     <objectPermissions>
         <allowCreate>true</allowCreate>

@@ -8,7 +8,7 @@
             <contactAccessLevel>Read</contactAccessLevel>
             <opportunityAccessLevel>None</opportunityAccessLevel>
         </accountSettings>
-        <description>Record type is Person, shared with AllStaff. From the LSBC Access Matrix.</description>
+        <description>Gives every staff desk read access to Account records with record type Person.</description>
         <label>Account Person To All Staff</label>
         <sharedTo>
             <group>AllStaff</group>
@@ -28,7 +28,7 @@
             <contactAccessLevel>Edit</contactAccessLevel>
             <opportunityAccessLevel>None</opportunityAccessLevel>
         </accountSettings>
-        <description>Record type is Person, shared with FrontDeskSupervisor. From the LSBC Access Matrix.</description>
+        <description>Gives the Front Desk Supervisor desk read and edit access to Account records with record type Person.</description>
         <label>Account Person To Front Desk Supervisor Edit</label>
         <sharedTo>
             <group>FrontDeskSupervisor</group>
@@ -48,7 +48,7 @@
             <contactAccessLevel>Edit</contactAccessLevel>
             <opportunityAccessLevel>None</opportunityAccessLevel>
         </accountSettings>
-        <description>Record type is Person, shared with FrontDesk. From the LSBC Access Matrix.</description>
+        <description>Gives the Front Desk desk read and edit access to Account records with record type Person.</description>
         <label>Account Person To Front Desk Edit</label>
         <sharedTo>
             <group>FrontDesk</group>
@@ -68,7 +68,7 @@
             <contactAccessLevel>Edit</contactAccessLevel>
             <opportunityAccessLevel>None</opportunityAccessLevel>
         </accountSettings>
-        <description>Record type is Person, shared with ProblemDesk. From the LSBC Access Matrix.</description>
+        <description>Gives the Problem Desk desk read and edit access to Account records with record type Person.</description>
         <label>Account Person To Problem Desk Edit</label>
         <sharedTo>
             <group>ProblemDesk</group>
@@ -88,7 +88,7 @@
             <contactAccessLevel>Edit</contactAccessLevel>
             <opportunityAccessLevel>None</opportunityAccessLevel>
         </accountSettings>
-        <description>Record type is Person, shared with RenewalDesk. From the LSBC Access Matrix.</description>
+        <description>Gives the Renewal Desk desk read and edit access to Account records with record type Person.</description>
         <label>Account Person To Renewal Desk Edit</label>
         <sharedTo>
             <group>RenewalDesk</group>
@@ -108,7 +108,7 @@
             <contactAccessLevel>Edit</contactAccessLevel>
             <opportunityAccessLevel>None</opportunityAccessLevel>
         </accountSettings>
-        <description>Record type is Person, shared with ReciprocityDesk. From the LSBC Access Matrix.</description>
+        <description>Gives the Reciprocity Desk desk read and edit access to Account records with record type Person.</description>
         <label>Account Person To Reciprocity Desk Edit</label>
         <sharedTo>
             <group>ReciprocityDesk</group>
@@ -128,7 +128,7 @@
             <contactAccessLevel>Edit</contactAccessLevel>
             <opportunityAccessLevel>None</opportunityAccessLevel>
         </accountSettings>
-        <description>Record type is Person, shared with StudentRegistration. From the LSBC Access Matrix.</description>
+        <description>Gives the Student Registration desk read and edit access to Account records with record type Person.</description>
         <label>Account Person To Student Registration Edit</label>
         <sharedTo>
             <group>StudentRegistration</group>
@@ -148,7 +148,7 @@
             <contactAccessLevel>Edit</contactAccessLevel>
             <opportunityAccessLevel>None</opportunityAccessLevel>
         </accountSettings>
-        <description>Record type is Person, shared with ProgramManager. From the LSBC Access Matrix.</description>
+        <description>Gives the Program Manager desk read and edit access to Account records with record type Person.</description>
         <label>Account Person To Program Manager Edit</label>
         <sharedTo>
             <group>ProgramManager</group>
@@ -168,7 +168,7 @@
             <contactAccessLevel>Read</contactAccessLevel>
             <opportunityAccessLevel>None</opportunityAccessLevel>
         </accountSettings>
-        <description>Record type is Establishment, shared with ExecutiveDirector. From the LSBC Access Matrix.</description>
+        <description>Gives the Executive Director desk read access to Account records with record type Establishment.</description>
         <label>Account Establishment To Executive Director</label>
         <sharedTo>
             <group>ExecutiveDirector</group>
@@ -188,7 +188,7 @@
             <contactAccessLevel>Read</contactAccessLevel>
             <opportunityAccessLevel>None</opportunityAccessLevel>
         </accountSettings>
-        <description>Record type is Establishment, shared with ComplianceOfficer. From the LSBC Access Matrix.</description>
+        <description>Gives the Compliance Officer desk read access to Account records with record type Establishment.</description>
         <label>Account Establishment To Compliance Officer</label>
         <sharedTo>
             <group>ComplianceOfficer</group>
@@ -208,7 +208,7 @@
             <contactAccessLevel>Read</contactAccessLevel>
             <opportunityAccessLevel>None</opportunityAccessLevel>
         </accountSettings>
-        <description>Record type is Establishment, shared with Finance. From the LSBC Access Matrix.</description>
+        <description>Gives the Finance desk read access to Account records with record type Establishment.</description>
         <label>Account Establishment To Finance</label>
         <sharedTo>
             <group>Finance</group>
@@ -228,7 +228,7 @@
             <contactAccessLevel>Read</contactAccessLevel>
             <opportunityAccessLevel>None</opportunityAccessLevel>
         </accountSettings>
-        <description>Record type is Establishment, shared with Mailroom. From the LSBC Access Matrix.</description>
+        <description>Gives the Mailroom desk read access to Account records with record type Establishment.</description>
         <label>Account Establishment To Mailroom</label>
         <sharedTo>
             <group>Mailroom</group>
@@ -248,7 +248,7 @@
             <contactAccessLevel>Read</contactAccessLevel>
             <opportunityAccessLevel>None</opportunityAccessLevel>
         </accountSettings>
-        <description>Record type is Establishment, shared with TestingDesk. From the LSBC Access Matrix.</description>
+        <description>Gives the Testing Desk desk read access to Account records with record type Establishment.</description>
         <label>Account Establishment To Testing Desk</label>
         <sharedTo>
             <group>TestingDesk</group>
@@ -268,7 +268,7 @@
             <contactAccessLevel>Read</contactAccessLevel>
             <opportunityAccessLevel>None</opportunityAccessLevel>
         </accountSettings>
-        <description>Record type is Establishment, shared with Inspector. From the LSBC Access Matrix.</description>
+        <description>Gives the Inspector desk read access to Account records with record type Establishment.</description>
         <label>Account Establishment To Inspector</label>
         <sharedTo>
             <group>Inspector</group>
@@ -288,7 +288,7 @@
             <contactAccessLevel>Edit</contactAccessLevel>
             <opportunityAccessLevel>None</opportunityAccessLevel>
         </accountSettings>
-        <description>Record type is Establishment, shared with FrontDeskSupervisor. From the LSBC Access Matrix.</description>
+        <description>Gives the Front Desk Supervisor desk read and edit access to Account records with record type Establishment.</description>
         <label>Account Establishment To Front Desk Supervisor Edit</label>
         <sharedTo>
             <group>FrontDeskSupervisor</group>
@@ -308,7 +308,7 @@
             <contactAccessLevel>Edit</contactAccessLevel>
             <opportunityAccessLevel>None</opportunityAccessLevel>
         </accountSettings>
-        <description>Record type is Establishment, shared with FrontDesk. From the LSBC Access Matrix.</description>
+        <description>Gives the Front Desk desk read and edit access to Account records with record type Establishment.</description>
         <label>Account Establishment To Front Desk Edit</label>
         <sharedTo>
             <group>FrontDesk</group>
@@ -328,7 +328,7 @@
             <contactAccessLevel>Edit</contactAccessLevel>
             <opportunityAccessLevel>None</opportunityAccessLevel>
         </accountSettings>
-        <description>Record type is Establishment, shared with ProblemDesk. From the LSBC Access Matrix.</description>
+        <description>Gives the Problem Desk desk read and edit access to Account records with record type Establishment.</description>
         <label>Account Establishment To Problem Desk Edit</label>
         <sharedTo>
             <group>ProblemDesk</group>
@@ -348,7 +348,7 @@
             <contactAccessLevel>Edit</contactAccessLevel>
             <opportunityAccessLevel>None</opportunityAccessLevel>
         </accountSettings>
-        <description>Record type is Establishment, shared with RenewalDesk. From the LSBC Access Matrix.</description>
+        <description>Gives the Renewal Desk desk read and edit access to Account records with record type Establishment.</description>
         <label>Account Establishment To Renewal Desk Edit</label>
         <sharedTo>
             <group>RenewalDesk</group>
@@ -368,7 +368,7 @@
             <contactAccessLevel>Edit</contactAccessLevel>
             <opportunityAccessLevel>None</opportunityAccessLevel>
         </accountSettings>
-        <description>Record type is Establishment, shared with StudentRegistration. From the LSBC Access Matrix.</description>
+        <description>Gives the Student Registration desk read and edit access to Account records with record type Establishment.</description>
         <label>Account Establishment To Student Registration Edit</label>
         <sharedTo>
             <group>StudentRegistration</group>
@@ -388,7 +388,7 @@
             <contactAccessLevel>Edit</contactAccessLevel>
             <opportunityAccessLevel>None</opportunityAccessLevel>
         </accountSettings>
-        <description>Record type is Establishment, shared with ProgramManager. From the LSBC Access Matrix.</description>
+        <description>Gives the Program Manager desk read and edit access to Account records with record type Establishment.</description>
         <label>Account Establishment To Program Manager Edit</label>
         <sharedTo>
             <group>ProgramManager</group>
@@ -408,7 +408,7 @@
             <contactAccessLevel>Read</contactAccessLevel>
             <opportunityAccessLevel>None</opportunityAccessLevel>
         </accountSettings>
-        <description>Record type is School, shared with ExecutiveDirector. From the LSBC Access Matrix.</description>
+        <description>Gives the Executive Director desk read access to Account records with record type School.</description>
         <label>Account School To Executive Director</label>
         <sharedTo>
             <group>ExecutiveDirector</group>
@@ -428,7 +428,7 @@
             <contactAccessLevel>Read</contactAccessLevel>
             <opportunityAccessLevel>None</opportunityAccessLevel>
         </accountSettings>
-        <description>Record type is School, shared with ComplianceOfficer. From the LSBC Access Matrix.</description>
+        <description>Gives the Compliance Officer desk read access to Account records with record type School.</description>
         <label>Account School To Compliance Officer</label>
         <sharedTo>
             <group>ComplianceOfficer</group>
@@ -448,7 +448,7 @@
             <contactAccessLevel>Read</contactAccessLevel>
             <opportunityAccessLevel>None</opportunityAccessLevel>
         </accountSettings>
-        <description>Record type is School, shared with Finance. From the LSBC Access Matrix.</description>
+        <description>Gives the Finance desk read access to Account records with record type School.</description>
         <label>Account School To Finance</label>
         <sharedTo>
             <group>Finance</group>
@@ -468,7 +468,7 @@
             <contactAccessLevel>Read</contactAccessLevel>
             <opportunityAccessLevel>None</opportunityAccessLevel>
         </accountSettings>
-        <description>Record type is School, shared with Mailroom. From the LSBC Access Matrix.</description>
+        <description>Gives the Mailroom desk read access to Account records with record type School.</description>
         <label>Account School To Mailroom</label>
         <sharedTo>
             <group>Mailroom</group>
@@ -488,7 +488,7 @@
             <contactAccessLevel>Read</contactAccessLevel>
             <opportunityAccessLevel>None</opportunityAccessLevel>
         </accountSettings>
-        <description>Record type is School, shared with TestingDesk. From the LSBC Access Matrix.</description>
+        <description>Gives the Testing Desk desk read access to Account records with record type School.</description>
         <label>Account School To Testing Desk</label>
         <sharedTo>
             <group>TestingDesk</group>
@@ -508,7 +508,7 @@
             <contactAccessLevel>Read</contactAccessLevel>
             <opportunityAccessLevel>None</opportunityAccessLevel>
         </accountSettings>
-        <description>Record type is School, shared with Inspector. From the LSBC Access Matrix.</description>
+        <description>Gives the Inspector desk read access to Account records with record type School.</description>
         <label>Account School To Inspector</label>
         <sharedTo>
             <group>Inspector</group>
@@ -528,7 +528,7 @@
             <contactAccessLevel>Edit</contactAccessLevel>
             <opportunityAccessLevel>None</opportunityAccessLevel>
         </accountSettings>
-        <description>Record type is School, shared with FrontDeskSupervisor. From the LSBC Access Matrix.</description>
+        <description>Gives the Front Desk Supervisor desk read and edit access to Account records with record type School.</description>
         <label>Account School To Front Desk Supervisor Edit</label>
         <sharedTo>
             <group>FrontDeskSupervisor</group>
@@ -548,7 +548,7 @@
             <contactAccessLevel>Edit</contactAccessLevel>
             <opportunityAccessLevel>None</opportunityAccessLevel>
         </accountSettings>
-        <description>Record type is School, shared with FrontDesk. From the LSBC Access Matrix.</description>
+        <description>Gives the Front Desk desk read and edit access to Account records with record type School.</description>
         <label>Account School To Front Desk Edit</label>
         <sharedTo>
             <group>FrontDesk</group>
@@ -568,7 +568,7 @@
             <contactAccessLevel>Edit</contactAccessLevel>
             <opportunityAccessLevel>None</opportunityAccessLevel>
         </accountSettings>
-        <description>Record type is School, shared with ProblemDesk. From the LSBC Access Matrix.</description>
+        <description>Gives the Problem Desk desk read and edit access to Account records with record type School.</description>
         <label>Account School To Problem Desk Edit</label>
         <sharedTo>
             <group>ProblemDesk</group>
@@ -588,7 +588,7 @@
             <contactAccessLevel>Edit</contactAccessLevel>
             <opportunityAccessLevel>None</opportunityAccessLevel>
         </accountSettings>
-        <description>Record type is School, shared with StudentRegistration. From the LSBC Access Matrix.</description>
+        <description>Gives the Student Registration desk read and edit access to Account records with record type School.</description>
         <label>Account School To Student Registration Edit</label>
         <sharedTo>
             <group>StudentRegistration</group>
@@ -608,7 +608,7 @@
             <contactAccessLevel>Edit</contactAccessLevel>
             <opportunityAccessLevel>None</opportunityAccessLevel>
         </accountSettings>
-        <description>Record type is School, shared with ProgramManager. From the LSBC Access Matrix.</description>
+        <description>Gives the Program Manager desk read and edit access to Account records with record type School.</description>
         <label>Account School To Program Manager Edit</label>
         <sharedTo>
             <group>ProgramManager</group>
@@ -628,7 +628,7 @@
             <contactAccessLevel>Read</contactAccessLevel>
             <opportunityAccessLevel>None</opportunityAccessLevel>
         </accountSettings>
-        <description>Record type is Organization, shared with AllStaff. From the LSBC Access Matrix.</description>
+        <description>Gives every staff desk read access to Account records with record type Organization.</description>
         <label>Account Organization To All Staff</label>
         <sharedTo>
             <group>AllStaff</group>
@@ -648,7 +648,7 @@
             <contactAccessLevel>Edit</contactAccessLevel>
             <opportunityAccessLevel>None</opportunityAccessLevel>
         </accountSettings>
-        <description>Record type is Organization, shared with FrontDeskSupervisor. From the LSBC Access Matrix.</description>
+        <description>Gives the Front Desk Supervisor desk read and edit access to Account records with record type Organization.</description>
         <label>Account Organization To Front Desk Supervisor Edit</label>
         <sharedTo>
             <group>FrontDeskSupervisor</group>
@@ -668,7 +668,7 @@
             <contactAccessLevel>Edit</contactAccessLevel>
             <opportunityAccessLevel>None</opportunityAccessLevel>
         </accountSettings>
-        <description>Record type is Organization, shared with FrontDesk. From the LSBC Access Matrix.</description>
+        <description>Gives the Front Desk desk read and edit access to Account records with record type Organization.</description>
         <label>Account Organization To Front Desk Edit</label>
         <sharedTo>
             <group>FrontDesk</group>
@@ -688,7 +688,7 @@
             <contactAccessLevel>Edit</contactAccessLevel>
             <opportunityAccessLevel>None</opportunityAccessLevel>
         </accountSettings>
-        <description>Record type is Organization, shared with ProblemDesk. From the LSBC Access Matrix.</description>
+        <description>Gives the Problem Desk desk read and edit access to Account records with record type Organization.</description>
         <label>Account Organization To Problem Desk Edit</label>
         <sharedTo>
             <group>ProblemDesk</group>
@@ -708,7 +708,7 @@
             <contactAccessLevel>Edit</contactAccessLevel>
             <opportunityAccessLevel>None</opportunityAccessLevel>
         </accountSettings>
-        <description>Record type is Organization, shared with RenewalDesk. From the LSBC Access Matrix.</description>
+        <description>Gives the Renewal Desk desk read and edit access to Account records with record type Organization.</description>
         <label>Account Organization To Renewal Desk Edit</label>
         <sharedTo>
             <group>RenewalDesk</group>
@@ -728,7 +728,7 @@
             <contactAccessLevel>Edit</contactAccessLevel>
             <opportunityAccessLevel>None</opportunityAccessLevel>
         </accountSettings>
-        <description>Record type is Organization, shared with ReciprocityDesk. From the LSBC Access Matrix.</description>
+        <description>Gives the Reciprocity Desk desk read and edit access to Account records with record type Organization.</description>
         <label>Account Organization To Reciprocity Desk Edit</label>
         <sharedTo>
             <group>ReciprocityDesk</group>
@@ -748,7 +748,7 @@
             <contactAccessLevel>Edit</contactAccessLevel>
             <opportunityAccessLevel>None</opportunityAccessLevel>
         </accountSettings>
-        <description>Record type is Organization, shared with StudentRegistration. From the LSBC Access Matrix.</description>
+        <description>Gives the Student Registration desk read and edit access to Account records with record type Organization.</description>
         <label>Account Organization To Student Registration Edit</label>
         <sharedTo>
             <group>StudentRegistration</group>
@@ -768,7 +768,7 @@
             <contactAccessLevel>Edit</contactAccessLevel>
             <opportunityAccessLevel>None</opportunityAccessLevel>
         </accountSettings>
-        <description>Record type is Organization, shared with ProgramManager. From the LSBC Access Matrix.</description>
+        <description>Gives the Program Manager desk read and edit access to Account records with record type Organization.</description>
         <label>Account Organization To Program Manager Edit</label>
         <sharedTo>
             <group>ProgramManager</group>

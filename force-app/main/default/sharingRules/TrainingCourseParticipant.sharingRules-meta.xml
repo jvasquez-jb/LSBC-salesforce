@@ -3,7 +3,7 @@
     <sharingCriteriaRules>
         <fullName>TrainingCourseParticipantAllToExecutiveDirector</fullName>
         <accessLevel>Read</accessLevel>
-        <description>All records, shared with ExecutiveDirector. From the LSBC Access Matrix.</description>
+        <description>Gives the Executive Director desk read access to all Student Hours records.</description>
         <label>Training Course Participant All To Executive Director</label>
         <sharedTo>
             <group>ExecutiveDirector</group>
@@ -18,7 +18,7 @@
     <sharingCriteriaRules>
         <fullName>TrainingCourseParticipantAllToComplianceOfficer</fullName>
         <accessLevel>Read</accessLevel>
-        <description>All records, shared with ComplianceOfficer. From the LSBC Access Matrix.</description>
+        <description>Gives the Compliance Officer desk read access to all Student Hours records.</description>
         <label>Training Course Participant All To Compliance Officer</label>
         <sharedTo>
             <group>ComplianceOfficer</group>
@@ -33,7 +33,7 @@
     <sharingCriteriaRules>
         <fullName>TrainingCourseParticipantAllToFrontDeskSupervisor</fullName>
         <accessLevel>Read</accessLevel>
-        <description>All records, shared with FrontDeskSupervisor. From the LSBC Access Matrix.</description>
+        <description>Gives the Front Desk Supervisor desk read access to all Student Hours records.</description>
         <label>Training Course Participant All To Front Desk Supervisor</label>
         <sharedTo>
             <group>FrontDeskSupervisor</group>
@@ -48,7 +48,7 @@
     <sharingCriteriaRules>
         <fullName>TrainingCourseParticipantAllToReciprocityDesk</fullName>
         <accessLevel>Read</accessLevel>
-        <description>All records, shared with ReciprocityDesk. From the LSBC Access Matrix.</description>
+        <description>Gives the Reciprocity Desk desk read access to all Student Hours records.</description>
         <label>Training Course Participant All To Reciprocity Desk</label>
         <sharedTo>
             <group>ReciprocityDesk</group>
@@ -63,7 +63,7 @@
     <sharingCriteriaRules>
         <fullName>TrainingCourseParticipantAllToStudentRegistration</fullName>
         <accessLevel>Read</accessLevel>
-        <description>All records, shared with StudentRegistration. From the LSBC Access Matrix.</description>
+        <description>Gives the Student Registration desk read access to all Student Hours records.</description>
         <label>Training Course Participant All To Student Registration</label>
         <sharedTo>
             <group>StudentRegistration</group>
@@ -78,7 +78,7 @@
     <sharingCriteriaRules>
         <fullName>TrainingCourseParticipantAllToProgramManager</fullName>
         <accessLevel>Read</accessLevel>
-        <description>All records, shared with ProgramManager. From the LSBC Access Matrix.</description>
+        <description>Gives the Program Manager desk read access to all Student Hours records.</description>
         <label>Training Course Participant All To Program Manager</label>
         <sharedTo>
             <group>ProgramManager</group>
@@ -93,7 +93,7 @@
     <sharingCriteriaRules>
         <fullName>TrainingCourseParticipantAllToProblemDeskEdit</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>All records, shared with ProblemDesk. From the LSBC Access Matrix.</description>
+        <description>Gives the Problem Desk desk read and edit access to all Student Hours records.</description>
         <label>Training Course Participant All To Problem Desk Edit</label>
         <sharedTo>
             <group>ProblemDesk</group>
@@ -108,7 +108,7 @@
     <sharingCriteriaRules>
         <fullName>TrainingCourseParticipantAllToTestingDeskEdit</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>All records, shared with TestingDesk. From the LSBC Access Matrix.</description>
+        <description>Gives the Testing Desk desk read and edit access to all Student Hours records.</description>
         <label>Training Course Participant All To Testing Desk Edit</label>
         <sharedTo>
             <group>TestingDesk</group>

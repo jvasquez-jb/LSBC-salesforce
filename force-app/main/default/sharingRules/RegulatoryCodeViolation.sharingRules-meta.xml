@@ -3,7 +3,7 @@
     <sharingCriteriaRules>
         <fullName>RegulatoryCodeViolationAllToAllStaff</fullName>
         <accessLevel>Read</accessLevel>
-        <description>All records, shared with AllStaff. Follows the LSBC Access Matrix.</description>
+        <description>Gives every staff desk read access to all Violation records.</description>
         <label>Regulatory Code Violation All To All Staff</label>
         <sharedTo>
             <group>AllStaff</group>
@@ -18,7 +18,7 @@
     <sharingCriteriaRules>
         <fullName>RegulatoryCodeViolationAllToComplianceOfficerEdit</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>All records, shared with ComplianceOfficer. Follows the LSBC Access Matrix.</description>
+        <description>Gives the Compliance Officer desk read and edit access to all Violation records.</description>
         <label>Regulatory Code Violation All To Compliance Officer Edit</label>
         <sharedTo>
             <group>ComplianceOfficer</group>
@@ -33,7 +33,7 @@
     <sharingCriteriaRules>
         <fullName>RegulatoryCodeViolationAllToProgramManagerEdit</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>All records, shared with ProgramManager. Follows the LSBC Access Matrix.</description>
+        <description>Gives the Program Manager desk read and edit access to all Violation records.</description>
         <label>Regulatory Code Violation All To Program Manager Edit</label>
         <sharedTo>
             <group>ProgramManager</group>
@@ -48,7 +48,7 @@
     <sharingCriteriaRules>
         <fullName>RegulatoryCodeViolationAllToInspectorEdit</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>All records, shared with Inspector. Follows the LSBC Access Matrix.</description>
+        <description>Gives the Inspector desk read and edit access to all Violation records.</description>
         <label>Regulatory Code Violation All To Inspector Edit</label>
         <sharedTo>
             <group>Inspector</group>

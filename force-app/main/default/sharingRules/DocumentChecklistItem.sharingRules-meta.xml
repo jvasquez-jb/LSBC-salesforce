@@ -3,7 +3,7 @@
     <sharingCriteriaRules>
         <fullName>DocumentChecklistItemStandardToAllStaff</fullName>
         <accessLevel>Read</accessLevel>
-        <description>Every checklist item except the accommodation documentation, shared with AllStaff. Follows the LSBC Access Matrix.</description>
+        <description>Gives every staff desk read access to Document Checklist Item records: every checklist item except the accommodation documentation.</description>
         <label>Document Checklist Item Standard To All Staff</label>
         <sharedTo>
             <group>AllStaff</group>
@@ -18,7 +18,7 @@
     <sharingCriteriaRules>
         <fullName>DocumentChecklistItemStandardToComplianceOfficerEdit</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>Every checklist item except the accommodation documentation, shared with ComplianceOfficer. Follows the LSBC Access Matrix.</description>
+        <description>Gives the Compliance Officer desk read and edit access to Document Checklist Item records: every checklist item except the accommodation documentation.</description>
         <label>Document Checklist Item Standard To Compliance Officer Edit</label>
         <sharedTo>
             <group>ComplianceOfficer</group>
@@ -33,7 +33,7 @@
     <sharingCriteriaRules>
         <fullName>DocumentChecklistItemStandardToFrontDeskSupervisorEdit</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>Every checklist item except the accommodation documentation, shared with FrontDeskSupervisor. Follows the LSBC Access Matrix.</description>
+        <description>Gives the Front Desk Supervisor desk read and edit access to Document Checklist Item records: every checklist item except the accommodation documentation.</description>
         <label>Document Checklist Item Standard To Front Desk Supervisor Edit</label>
         <sharedTo>
             <group>FrontDeskSupervisor</group>
@@ -48,7 +48,7 @@
     <sharingCriteriaRules>
         <fullName>DocumentChecklistItemStandardToFrontDeskEdit</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>Every checklist item except the accommodation documentation, shared with FrontDesk. Follows the LSBC Access Matrix.</description>
+        <description>Gives the Front Desk desk read and edit access to Document Checklist Item records: every checklist item except the accommodation documentation.</description>
         <label>Document Checklist Item Standard To Front Desk Edit</label>
         <sharedTo>
             <group>FrontDesk</group>
@@ -63,7 +63,7 @@
     <sharingCriteriaRules>
         <fullName>DocumentChecklistItemStandardToRenewalDeskEdit</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>Every checklist item except the accommodation documentation, shared with RenewalDesk. Follows the LSBC Access Matrix.</description>
+        <description>Gives the Renewal Desk desk read and edit access to Document Checklist Item records: every checklist item except the accommodation documentation.</description>
         <label>Document Checklist Item Standard To Renewal Desk Edit</label>
         <sharedTo>
             <group>RenewalDesk</group>
@@ -78,7 +78,7 @@
     <sharingCriteriaRules>
         <fullName>DocumentChecklistItemStandardToReciprocityDeskEdit</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>Every checklist item except the accommodation documentation, shared with ReciprocityDesk. Follows the LSBC Access Matrix.</description>
+        <description>Gives the Reciprocity Desk desk read and edit access to Document Checklist Item records: every checklist item except the accommodation documentation.</description>
         <label>Document Checklist Item Standard To Reciprocity Desk Edit</label>
         <sharedTo>
             <group>ReciprocityDesk</group>
@@ -93,7 +93,7 @@
     <sharingCriteriaRules>
         <fullName>DocumentChecklistItemStandardToStudentRegistrationEdit</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>Every checklist item except the accommodation documentation, shared with StudentRegistration. Follows the LSBC Access Matrix.</description>
+        <description>Gives the Student Registration desk read and edit access to Document Checklist Item records: every checklist item except the accommodation documentation.</description>
         <label>Document Checklist Item Standard To Student Registration Edit</label>
         <sharedTo>
             <group>StudentRegistration</group>
@@ -108,7 +108,7 @@
     <sharingCriteriaRules>
         <fullName>DocumentChecklistItemStandardToProgramManagerEdit</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>Every checklist item except the accommodation documentation, shared with ProgramManager. Follows the LSBC Access Matrix.</description>
+        <description>Gives the Program Manager desk read and edit access to Document Checklist Item records: every checklist item except the accommodation documentation.</description>
         <label>Document Checklist Item Standard To Program Manager Edit</label>
         <sharedTo>
             <group>ProgramManager</group>
@@ -123,7 +123,7 @@
     <sharingCriteriaRules>
         <fullName>DocumentChecklistItemAccommodationToReciprocityDeskEdit</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>The accommodation documentation (health information), shared with ReciprocityDesk. Follows the LSBC Access Matrix.</description>
+        <description>Gives the Reciprocity Desk desk read and edit access to Document Checklist Item records: the accommodation documentation (health information).</description>
         <label>Document Checklist Item Accommodation To Reciprocity Desk Edit</label>
         <sharedTo>
             <group>ReciprocityDesk</group>
@@ -138,7 +138,7 @@
     <sharingCriteriaRules>
         <fullName>DocumentChecklistItemAccommodationToTestingDeskEdit</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>The accommodation documentation (health information), shared with TestingDesk. Follows the LSBC Access Matrix.</description>
+        <description>Gives the Testing Desk desk read and edit access to Document Checklist Item records: the accommodation documentation (health information).</description>
         <label>Document Checklist Item Accommodation To Testing Desk Edit</label>
         <sharedTo>
             <group>TestingDesk</group>
@@ -153,7 +153,7 @@
     <sharingCriteriaRules>
         <fullName>DocumentChecklistItemAccommodationToProgramManagerEdit</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>The accommodation documentation (health information), shared with ProgramManager. Follows the LSBC Access Matrix.</description>
+        <description>Gives the Program Manager desk read and edit access to Document Checklist Item records: the accommodation documentation (health information).</description>
         <label>Document Checklist Item Accommodation To Program Manager Edit</label>
         <sharedTo>
             <group>ProgramManager</group>

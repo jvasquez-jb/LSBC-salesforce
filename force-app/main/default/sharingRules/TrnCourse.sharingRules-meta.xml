@@ -3,7 +3,7 @@
     <sharingCriteriaRules>
         <fullName>TrnCourseAllToFrontDeskSupervisorEdit</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>All records, shared with FrontDeskSupervisor. From the LSBC Access Matrix.</description>
+        <description>Gives the Front Desk Supervisor desk read and edit access to all Training Course records.</description>
         <label>Trn Course All To Front Desk Supervisor Edit</label>
         <sharedTo>
             <group>FrontDeskSupervisor</group>
@@ -18,7 +18,7 @@
     <sharingCriteriaRules>
         <fullName>TrnCourseAllToProgramManagerEdit</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>All records, shared with ProgramManager. From the LSBC Access Matrix.</description>
+        <description>Gives the Program Manager desk read and edit access to all Training Course records.</description>
         <label>Trn Course All To Program Manager Edit</label>
         <sharedTo>
             <group>ProgramManager</group>

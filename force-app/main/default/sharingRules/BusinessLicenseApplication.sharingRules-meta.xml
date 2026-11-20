@@ -3,7 +3,7 @@
     <sharingCriteriaRules>
         <fullName>BusinessLicenseApplicationAllToExecutiveDirector</fullName>
         <accessLevel>Read</accessLevel>
-        <description>All records, shared with ExecutiveDirector. From the LSBC Access Matrix.</description>
+        <description>Gives the Executive Director desk read access to all Business Application records.</description>
         <label>Business License Application All To Executive Director</label>
         <sharedTo>
             <group>ExecutiveDirector</group>
@@ -18,7 +18,7 @@
     <sharingCriteriaRules>
         <fullName>BusinessLicenseApplicationAllToFinance</fullName>
         <accessLevel>Read</accessLevel>
-        <description>All records, shared with Finance. From the LSBC Access Matrix.</description>
+        <description>Gives the Finance desk read access to all Business Application records.</description>
         <label>Business License Application All To Finance</label>
         <sharedTo>
             <group>Finance</group>
@@ -33,7 +33,7 @@
     <sharingCriteriaRules>
         <fullName>BusinessLicenseApplicationAllToProblemDesk</fullName>
         <accessLevel>Read</accessLevel>
-        <description>All records, shared with ProblemDesk. From the LSBC Access Matrix.</description>
+        <description>Gives the Problem Desk desk read access to all Business Application records.</description>
         <label>Business License Application All To Problem Desk</label>
         <sharedTo>
             <group>ProblemDesk</group>
@@ -48,7 +48,7 @@
     <sharingCriteriaRules>
         <fullName>BusinessLicenseApplicationAllToStudentRegistration</fullName>
         <accessLevel>Read</accessLevel>
-        <description>All records, shared with StudentRegistration. From the LSBC Access Matrix.</description>
+        <description>Gives the Student Registration desk read access to all Business Application records.</description>
         <label>Business License Application All To Student Registration</label>
         <sharedTo>
             <group>StudentRegistration</group>
@@ -63,7 +63,7 @@
     <sharingCriteriaRules>
         <fullName>BusinessLicenseApplicationAllToTestingDesk</fullName>
         <accessLevel>Read</accessLevel>
-        <description>All records, shared with TestingDesk. From the LSBC Access Matrix.</description>
+        <description>Gives the Testing Desk desk read access to all Business Application records.</description>
         <label>Business License Application All To Testing Desk</label>
         <sharedTo>
             <group>TestingDesk</group>
@@ -78,7 +78,7 @@
     <sharingCriteriaRules>
         <fullName>BusinessLicenseApplicationAllToInspector</fullName>
         <accessLevel>Read</accessLevel>
-        <description>All records, shared with Inspector. From the LSBC Access Matrix.</description>
+        <description>Gives the Inspector desk read access to all Business Application records.</description>
         <label>Business License Application All To Inspector</label>
         <sharedTo>
             <group>Inspector</group>
@@ -93,7 +93,7 @@
     <sharingCriteriaRules>
         <fullName>BusinessLicenseApplicationAllToComplianceOfficerEdit</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>All records, shared with ComplianceOfficer. From the LSBC Access Matrix.</description>
+        <description>Gives the Compliance Officer desk read and edit access to all Business Application records.</description>
         <label>Business License Application All To Compliance Officer Edit</label>
         <sharedTo>
             <group>ComplianceOfficer</group>
@@ -108,7 +108,7 @@
     <sharingCriteriaRules>
         <fullName>BusinessLicenseApplicationNewToFrontDeskSupervisorEdit</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>Record type is New Establishment or New School, shared with FrontDeskSupervisor. From the LSBC Access Matrix.</description>
+        <description>Gives the Front Desk Supervisor desk read and edit access to Business Application records with record type New Establishment or New School.</description>
         <label>Business License Application New To Front Desk Supervisor Edit</label>
         <sharedTo>
             <group>FrontDeskSupervisor</group>
@@ -123,7 +123,7 @@
     <sharingCriteriaRules>
         <fullName>BusinessLicenseApplicationNewToFrontDeskEdit</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>Record type is New Establishment or New School, shared with FrontDesk. From the LSBC Access Matrix.</description>
+        <description>Gives the Front Desk desk read and edit access to Business Application records with record type New Establishment or New School.</description>
         <label>Business License Application New To Front Desk Edit</label>
         <sharedTo>
             <group>FrontDesk</group>
@@ -138,7 +138,7 @@
     <sharingCriteriaRules>
         <fullName>BusinessLicenseApplicationRenewalToRenewalDeskEdit</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>Record type is Renewal, shared with RenewalDesk. From the LSBC Access Matrix.</description>
+        <description>Gives the Renewal Desk desk read and edit access to Business Application records with record type Renewal.</description>
         <label>Business License Application Renewal To Renewal Desk Edit</label>
         <sharedTo>
             <group>RenewalDesk</group>
@@ -153,7 +153,7 @@
     <sharingCriteriaRules>
         <fullName>BusinessLicenseApplicationAllToProgramManagerEdit</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>All records, shared with ProgramManager. From the LSBC Access Matrix.</description>
+        <description>Gives the Program Manager desk read and edit access to all Business Application records.</description>
         <label>Business License Application All To Program Manager Edit</label>
         <sharedTo>
             <group>ProgramManager</group>
@@ -168,7 +168,7 @@
     <sharingCriteriaRules>
         <fullName>BusinessLicenseApplicationAllToFrontDeskSupervisor</fullName>
         <accessLevel>Read</accessLevel>
-        <description>All records, shared with FrontDeskSupervisor. From the LSBC Access Matrix.</description>
+        <description>Gives the Front Desk Supervisor desk read access to all Business Application records.</description>
         <label>Business License Application All To Front Desk Supervisor</label>
         <sharedTo>
             <group>FrontDeskSupervisor</group>
@@ -183,7 +183,7 @@
     <sharingCriteriaRules>
         <fullName>BusinessLicenseApplicationAllToFrontDesk</fullName>
         <accessLevel>Read</accessLevel>
-        <description>All records, shared with FrontDesk. From the LSBC Access Matrix.</description>
+        <description>Gives the Front Desk desk read access to all Business Application records.</description>
         <label>Business License Application All To Front Desk</label>
         <sharedTo>
             <group>FrontDesk</group>
@@ -198,7 +198,7 @@
     <sharingCriteriaRules>
         <fullName>BusinessLicenseApplicationAllToMailroom</fullName>
         <accessLevel>Read</accessLevel>
-        <description>All records, shared with Mailroom. From the LSBC Access Matrix.</description>
+        <description>Gives the Mailroom desk read access to all Business Application records.</description>
         <label>Business License Application All To Mailroom</label>
         <sharedTo>
             <group>Mailroom</group>
@@ -213,7 +213,7 @@
     <sharingCriteriaRules>
         <fullName>BusinessLicenseApplicationAllToRenewalDesk</fullName>
         <accessLevel>Read</accessLevel>
-        <description>All records, shared with RenewalDesk. From the LSBC Access Matrix.</description>
+        <description>Gives the Renewal Desk desk read access to all Business Application records.</description>
         <label>Business License Application All To Renewal Desk</label>
         <sharedTo>
             <group>RenewalDesk</group>

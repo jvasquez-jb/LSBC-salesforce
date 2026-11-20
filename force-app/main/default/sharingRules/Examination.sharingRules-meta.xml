@@ -3,7 +3,7 @@
     <sharingCriteriaRules>
         <fullName>ExaminationAllToAllStaff</fullName>
         <accessLevel>Read</accessLevel>
-        <description>All records, shared with AllStaff. Follows the LSBC Access Matrix.</description>
+        <description>Gives every staff desk read access to all Examination records.</description>
         <label>Examination All To All Staff</label>
         <sharedTo>
             <group>AllStaff</group>

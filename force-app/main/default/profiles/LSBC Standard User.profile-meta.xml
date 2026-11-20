@@ -22,7 +22,7 @@
         <enabled>true</enabled>
     </classAccesses>
     <custom>true</custom>
-    <description>Every LSBC staff user. Grants almost nothing: each desk's permission set group gives its access (LSBC Access Matrix).</description>
+    <description>Profile for every LSBC staff user. On its own it gives only the LSBC Licensing app, letter and license printing pages and Run Flows; each user's desk permission set group gives the rest.</description>
     <pageAccesses>
         <apexPage>LetterPdf</apexPage>
         <enabled>true</enabled>
