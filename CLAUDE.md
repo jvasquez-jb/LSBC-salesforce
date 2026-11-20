@@ -397,7 +397,8 @@ Still open:
   branding set from `scripts/generators/portal/` (theme.css, footer.html, home.html, news_collection.json). Edit
   there, rerun, deploy `experiences/LSBC_LPI1` and the `Portal*` static resources, publish. Anything changed in
   Experience Builder must be retrieved and copied back there first, or the next run overwrites it. Colours are
-  the Board's (19 Nov 2026): page `#D3DCE8`, icons `#4A4D78`, ink `#111111`, links `#091580`, no gold. Fonts from
+  the Board's (19 Nov 2026; page lightened and logo made black 20 Nov 2026): page `#E4E9F0`, icons `#4A4D78`, ink `#111111`,
+  links `#091580`, no gold. Masthead logo `PortalLogoBlack` (`PortalLogoNavy` kept, unused). Fonts from
   `PortalFonts`. Icon links carry `?v=2`: raise it when the icons change, or browsers keep the old ones.
 - Board Documents and Publications (portal home): enhanced CMS workspace LSBC Portal Content, channel LSBC LPI
   (added in Workspace Settings > Channels: a channel can't be created by API). Items are CMS Documents (PDFs),

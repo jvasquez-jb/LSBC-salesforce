@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StaticResource xmlns="http://soap.sforce.com/2006/04/metadata">
+    <cacheControl>Public</cacheControl>
+    <contentType>image/png</contentType>
+    <description>The Board's 2026 LSBC logo in black, on a transparent background: the portal masthead logo (black since 20 Nov 2026)</description>
+</StaticResource>

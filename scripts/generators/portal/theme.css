@@ -1,5 +1,5 @@
-/* LSBC portal theme: editorial look (pale blue-grey page and masthead, serif headlines, black type, logo navy links, cool slate accents;
-   colours chosen by the Board, 19 Nov 2026).
+/* LSBC portal theme: editorial look (pale blue-grey page and masthead, black logo, serif headlines, black type, navy links, cool slate accents;
+   colours chosen by the Board, 19 Nov 2026; page lightened and logo made black 20 Nov 2026).
    Source of truth for the theme's custom CSS: scripts/generators/portaltheme.py copies this file into
    experiences/LSBC_LPI1/themes/licensePermits.json. Edit here, rerun the script, deploy and publish. */
 
@@ -11,7 +11,7 @@
 :root {
   --lsbc-ink: #111111;        /* text, buttons, rules */
   --lsbc-navy: #091580;       /* the logo's navy: links */
-  --lsbc-page: #D3DCE8;       /* the Board's pale cool blue-grey: page and masthead background */
+  --lsbc-page: #E4E9F0;       /* the Board's pale cool blue-grey, lightened 20 Nov 2026: page and masthead background */
   --lsbc-slate: #4A4D78;      /* the Board's cool slate blue: icon circles and accents */
   --lsbc-grey: #5A5A5A;       /* secondary text (AA on white) */
   --lsbc-rule: #B7C2D2;       /* hairlines on the blue-grey */

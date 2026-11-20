@@ -19,7 +19,7 @@ SITE = os.path.join(ROOT, 'force-app/main/default/experiences/LSBC_LPI1')
 SRC = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'portal')
 
 INK, NAVY = '#111111', '#091580'
-PAGE, SLATE = '#D3DCE8', '#4A4D78'  # the Board's pale cool blue-grey and cool slate blue (19 Nov 2026)
+PAGE, SLATE = '#E4E9F0', '#4A4D78'  # the Board's pale cool blue-grey (lightened two steps from #D3DCE8, 20 Nov 2026) and cool slate blue (19 Nov 2026)
 
 HEADER = {  # forceCommunity:themeHeaderStacked, on every layout
     'background': 'background: ' + PAGE,
@@ -80,7 +80,7 @@ BRANDING = {
     '_ActionColorDarker': '#000000',
     '_ActionColorTrans': 'rgba(17, 17, 17, 0.9)',
     'BorderColor': '#8A8A8A',
-    'CompanyLogo': '/sfsites/c/resource/PortalLogoNavy',
+    'CompanyLogo': '/sfsites/c/resource/PortalLogoBlack',  # black logo, Board's choice 20 Nov 2026 (PortalLogoNavy kept to switch back)
     'DetailTextColor': '#5A5A5A',
     'HeaderFonts': 'Montserrat',
     'PrimaryFont': 'Montserrat',
