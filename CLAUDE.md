@@ -301,7 +301,7 @@ Still open:
   deletes a draft; the nightly `PreliminaryApplicationReferenceScheduleExpiredDrafts` (01:15) runs it
   after 30 days untouched. A form start discards at most three abandoned drafts (`IsTheDiscardLimitReached`): discarding
   14 in one go passed the 100-query limit. New forms follow the same pattern.
-- Document checklists (20 Nov 2026, Jonathan): each form's checklist is an Action Plan template (Setup > Action Plan Templates), not a CMDT
+- Document checklists (19 Nov 2026, Jonathan): each form's checklist is an Action Plan template (Setup > Action Plan Templates), not a CMDT
   (`ApplicationDocumentRequirement__mdt` is retired). Templates only: `SubflowDocumentChecklistGenerate`
   (`scripts/generators/checklistgenerate.py`) reads the latest Final version and creates the items itself; no ActionPlan records
   (a `PreliminaryApplicationRef` refuses an application's template, and applying needs no licence this way: a portal user
