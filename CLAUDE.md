@@ -345,7 +345,8 @@ Still open:
   `lsbc-button`, Back to My Applications (`/LPI/s/view-license-permit-status`). Generated forms get it from `F.screen()` in
   `schoolforms.py`; the nine hand-maintained Apply forms send staff (`forB_IsStaffEntry`) to the original screen with Finish and
   portal users to a `<Screen>Portal` copy. Every portal link to another portal page carries `target="_self"` (flow rich text
-  opens links in a new tab otherwise).
+  opens links in a new tab otherwise). The guest forms (File a Complaint, Sign Up) end the same way with Back to Home (`/LPI/s/`)
+  (Jonathan, 20 Nov 2026).
 - My Applications and Fees lists: `ScreenFlowIndividualApplicationStatusList` (label My Applications List, input `varT_ListName`
   Submitted, Returned or Fees). System context, because the portal licence can't query Business License Application even with
   Read; every lookup is filtered by the user's own person account or contact. The site files in `force-app` differ in format
