@@ -217,7 +217,7 @@ def school_start(f, form_name, after_school):
     f.decide('AreThereSchools', 'Does the User Administer a School?', [
         ('HasSchools', 'Yes', [('varT_SchoolIds', 'IsEmpty', False)], 'GetSchools', 'and')], 'NotSchoolAdministrator')
     f.screen('NotSchoolAdministrator', 'Not Available', [display('NSA_Message',
-             f'<p>{form_name} is filed by a school\'s School Administrator. Your portal account isn\'t linked to a school as its '
+             f'<p>{form_name} is for a school\'s School Administrator. Your portal account isn\'t linked to a school as its '
              f'School Administrator. Ask the Board to add you: call {PHONE}.</p>')], None, back=False, pause=False)
     f.lookup('GetSchools', 'Get Schools', 'Account', [('Id', 'In', '=varT_SchoolIds')], ['Id', 'Name'], 'ChooseSchool', sort='Name')
     f.collection_choices('choice_Schools', 'GetSchools', 'Account', 'Name')
