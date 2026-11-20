@@ -1,6 +1,8 @@
 """Desk access check: moves a test user through each desk (role + permission set group) and compares their
 access with docs/LSBC Access Matrix.xlsx: record access on one sample record of each kind (UserRecordAccess),
-and the staff flows and custom permissions they hold. Changes the test user's role and group; put them back after.
+whether each object opens in the screens at all (UserEntityAccess: an object can be shared and still closed, for
+example without the Public Sector Access or Record Alert user permission), and the staff flows and custom permissions
+they hold. Changes the test user's role and group; put them back after.
 
   python3 scripts/checks/desk_access.py <test user id> [Desk,Desk,...]
 
@@ -59,6 +61,13 @@ def sample_records(TIM):
     return out
 
 SAMPLES = sample_records(TIM)
+# Matrix record -> objects whose screens it needs (as in scripts/generators/security.py OBJECTS).
+ENTITY = {'Person Account': ['Account'], 'Establishment': ['Account'], 'School': ['Account'], 'Organization': ['Account'],
+          'License': ['BusinessLicense'], 'Individual Application': ['IndividualApplication'],
+          'Business Application': ['BusinessLicenseApplication'], 'Fee Owed': ['RegulatoryTrxnFee'], 'Payment': ['Payment__c'],
+          'Hold (Stop Code)': ['RecordAlert'], 'Examination': ['PersonExamination'], 'Accommodation': ['PersonDisability'],
+          'Education': ['PersonEducation'], 'Student Hours': ['TrainingCourseParticipant'], 'Accreditation / Bond': ['Accreditation'],
+          'Complaint': ['PublicComplaint'], 'Case': ['Case'], 'Inspection Visit': ['Visit']}
 wb = openpyxl.load_workbook('docs/LSBC Access Matrix.xlsx')
 ss = wb['Sharing Settings']
 desks = [ss.cell(4, c).value for c in range(6, 19)]
@@ -102,6 +111,17 @@ System.debug('DONE');""")
         a = ura.get(rid)
         got = 'Edit' if a and a['HasEditAccess'] else 'Read' if a and a['HasReadAccess'] else '—'
         if got != exp: bad.append(f'{key}: expected {exp}, got {got}')
+    # objects open in the screens: readable when any matrix record on the object is readable for the desk
+    want = {}
+    for rec, objs in ENTITY.items():
+        for o in objs:
+            want[o] = want.get(o, False) or (share[desk][rec] or '—') != '—'
+    uea = {r['EntityDefinition']['QualifiedApiName']: r['IsReadable'] for r in q(
+        f"SELECT EntityDefinition.QualifiedApiName, IsReadable FROM UserEntityAccess WHERE UserId='{TIM}' AND "
+        "EntityDefinition.QualifiedApiName IN ('" + "','".join(want) + "')")}
+    for o, w in sorted(want.items()):
+        if uea.get(o, False) != w:
+            bad.append(f'object {o}: expected {"opens" if w else "closed"}, got {"opens" if uea.get(o) else "closed"}')
     # flows and custom permissions
     sets = psg_sets(desk)
     exp_flows = from_sets(sets, 'flow'); exp_cp = from_sets(sets, 'name') & {'ViewConfidentialComplainant', 'ViewAccommodationDocuments'}

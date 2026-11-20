@@ -60,6 +60,31 @@ private class LicensePdfControllerTest {
     }
 
     @IsTest
+    static void printsATypedSchoolNumberWithoutTheL() {
+        Account school = new Account(Name = 'Test School', BillingStreet = '3 Test St', BillingCity = 'Baton Rouge');
+        insert school;
+        Id licenseType = [SELECT Id FROM RegulatoryAuthorizationType LIMIT 1].Id;
+        BusinessLicense license = new BusinessLicense(Name = 'School', AccountId = school.Id, RegulatoryAuthorizationTypeId = licenseType,
+            Identifier = 'SC-1500', PrintRequestedDate__c = Date.today(), Status = 'Active');
+        insert license;
+        LicensePdfController.Sheet sheet = new LicensePdfController(new List<Id>{ license.Id }).sheets[0];
+        Assert.areEqual('SC-1500', sheet.certificationNumber, 'A typed license number prints as it is, with no L');
+    }
+
+    @IsTest
+    static void skipsARevokedLicense() {
+        Account salon = new Account(Name = 'Revoked Salon', CertificationNumber__c = '779947962', BillingStreet = '4 Test St', BillingCity = 'Baton Rouge');
+        insert salon;
+        Id licenseType = [SELECT Id FROM RegulatoryAuthorizationType LIMIT 1].Id;
+        BusinessLicense license = new BusinessLicense(Name = 'Revoked', AccountId = salon.Id, RegulatoryAuthorizationTypeId = licenseType,
+            Identifier = '779947962-SH', PrintRequestedDate__c = Date.today(), Status = 'Revoked');
+        insert license;
+        Assert.isFalse([SELECT IsReadyToPrint__c FROM BusinessLicense WHERE Id = :license.Id].IsReadyToPrint__c,
+            'A revoked license is not waiting to print');
+        Assert.areEqual(0, new LicensePdfController(new List<Id>{ license.Id }).sheets.size(), 'A revoked license does not print');
+    }
+
+    @IsTest
     static void namesTheReason() {
         Date today = Date.today();
         Assert.areEqual('Duplicate', LicensePdfController.reason(new BusinessLicense(LastDuplicateDate__c = today, PrintRequestedDate__c = today, RenewalCount__c = 2)));

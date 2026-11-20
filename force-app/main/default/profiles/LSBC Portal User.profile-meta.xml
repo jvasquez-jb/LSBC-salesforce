@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Profile xmlns="http://soap.sforce.com/2006/04/metadata">
     <custom>true</custom>
-    <description>Base profile for LSBC portal users (licensees and applicants). It grants almost nothing; access comes from the Portal Licensee permission set.</description>
+    <description>Base profile for LSBC portal users (licensees and applicants). It grants almost nothing; access comes from the Portal Licensee permission set. Application tabs are Default Off so the My Applications lists show.</description>
+    <tabVisibilities>
+        <tab>standard-BusinessLicenseApplication</tab>
+        <visibility>DefaultOff</visibility>
+    </tabVisibilities>
+    <tabVisibilities>
+        <tab>standard-IndividualApplication</tab>
+        <visibility>DefaultOff</visibility>
+    </tabVisibilities>
     <userLicense>Customer Community Plus Login</userLicense>
 </Profile>

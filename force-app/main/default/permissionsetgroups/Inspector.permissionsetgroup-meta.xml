@@ -11,5 +11,6 @@
     <permissionSets>PaymentEntry</permissionSets>
     <permissionSets>PaymentEntryExtra</permissionSets>
     <permissionSets>force__DocumentChecklist</permissionSets>
+    <permissionSets>force__IndustriesServiceExcellence</permissionSets>
     <status>Updated</status>
 </PermissionSetGroup>

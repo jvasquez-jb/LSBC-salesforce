@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>StatusEditOnlyWithAccommodationAccess</fullName>
+    <active>true</active>
+    <description>Only holders of View Accommodation Documents can accept or return the accommodation documentation item (health information). Uploads still work for everyone (they only set Pending) and portal users are never blocked.</description>
+    <errorConditionFormula>AND(
+    ISCHANGED(Status),
+    OR(Name = &quot;Documentation for Disability Related Needs&quot;, PRIORVALUE(Name) = &quot;Documentation for Disability Related Needs&quot;),
+    NOT($Permission.ViewAccommodationDocuments),
+    ISBLANK($User.ContactId),
+    NOT(ISPICKVAL(Status, &quot;Pending&quot;))
+)</errorConditionFormula>
+    <errorDisplayField>Status</errorDisplayField>
+    <errorMessage>This is accommodation documentation (health information). Only the Testing and Reciprocity desks, Program Managers and administrators can accept or return it.</errorMessage>
+</ValidationRule>

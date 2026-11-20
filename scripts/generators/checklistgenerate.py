@@ -4,13 +4,19 @@ Builds an application's document checklist from a document checklist template (a
 scripts/actionplans/load_templates.py and edited by admins in Setup). Inputs are unchanged from the earlier version
 that read the Application Document Requirement settings, so the forms calling it don't change.
 
-The template is picked by Unique Name, built from the inputs with spaces and punctuation removed; the first that
-exists wins:
+The template is picked by its key, built from the inputs with spaces and punctuation removed; the most specific key
+that a published template has wins:
   1. record type + licence type        NewEstablishmentSalon, ReciprocityTemporaryPermit
   2. record type + path + type         ReciprocityMilitaryNew (only when there is a path)
   3. record type + application type    RenewalDuplicate, ExaminationNoShow, AddressChange (Case has no record type)
   4. record type                       NewSchool, StudentRegistration
 where record type is the part of varT_RecordType after the dot.
+
+A template has the key when its Unique Name or its Name (spaces and punctuation removed) equals it, ignoring case. Only
+published templates (Status Final) count. When several published templates have the same key, the newest wins. This
+is how an admin changes a checklist: a published template can't be edited and the template page offers no New
+Version, so the admin clones the template (the clone keeps the Name but gets a generated Unique Name), edits the
+clone's items, publishes it (from then on it is used), then deactivates the old template.
 
 Run: python3 -I scripts/generators/checklistgenerate.py force-app/main/default/flows
 """
@@ -35,12 +41,18 @@ F.formula('forT_NameLicenseType', 'String', f'IF(LEN({LT}) = 0, "", {P} & {clean
 F.formula('forT_NamePathType', 'String', f'IF(LEN({PATH}) = 0, "", {P} & {clean(PATH)} & {clean(TYPE)})',
           'Template name: record type, path and application type, when there is a path.')
 F.formula('forT_NameType', 'String', f'IF(LEN({TYPE}) = 0, "", {P} & {clean(TYPE)})', 'Template name: record type and application type.')
+F.formula('forT_TemplateName', 'String', 'LOWER(' + clean('{!LoopThroughTemplates.Name}') + ')',
+          "The template's Name with spaces and punctuation removed, in lower case. A clone keeps the Name of the template it was cloned from.")
+UN, TN = 'LOWER({!LoopThroughTemplates.UniqueName})', '{!forT_TemplateName}'
+def is_key(k):
+    return f'OR({UN} = LOWER({k}), {TN} = LOWER({k}))'
 F.formula('forN_Rank', 'Number',
-          'IF(LOWER({!LoopThroughTemplates.UniqueName}) = LOWER({!forT_NameLicenseType}), 1, '
-          'IF(LOWER({!LoopThroughTemplates.UniqueName}) = LOWER({!forT_NamePathType}), 2, '
-          'IF(LOWER({!LoopThroughTemplates.UniqueName}) = LOWER({!forT_NameType}), 3, '
-          'IF(LOWER({!LoopThroughTemplates.UniqueName}) = LOWER({!forT_RecordTypePart}), 4, 99))))',
-          'How specific this template is: 1 most specific (licence type), 4 least (record type only), 99 not a match. Names are compared ignoring case.', scale=0)
+          f'IF({is_key("{!forT_NameLicenseType}")}, 1, '
+          f'IF({is_key("{!forT_NamePathType}")}, 2, '
+          f'IF({is_key("{!forT_NameType}")}, 3, '
+          f'IF({is_key("{!forT_RecordTypePart}")}, 4, 99))))',
+          'How specific this template is: 1 most specific (licence type), 4 least (record type only), 99 not a match. '
+          'The Unique Name or the Name (spaces and punctuation removed) is compared, ignoring case.', scale=0)
 F.formula('forB_ValueIsTrue', 'Boolean', 'LOWER(BLANKVALUE({!LoopThroughItemValues.ValueLiteral}, "")) = "true"',
           'True when the template value is true.')
 F.formula('forT_ExistingToken', 'String', '";" & {!LoopThroughExistingItems.DocumentTypeId}', 'An existing item\'s document type, for the list.')
@@ -57,11 +69,12 @@ F.formula('forT_CategoryId', 'String',
           'The item\'s category: the template\'s, or the document type\'s usual category when the template says Sent to the Board or gives none.')
 
 # Pick the template
-F.lookup('GetTemplates', 'Get Document Checklist Templates', 'ActionPlanTemplate',
-         [('ActionPlanType', 'EqualTo', STR('Industries'))], ['Id', 'UniqueName'], 'LoopThroughTemplates', sort='UniqueName')
+F.lookup('GetTemplates', 'Get Published Document Checklist Templates', 'ActionPlanTemplate',
+         [('ActionPlanType', 'EqualTo', STR('Industries')), ('Status', 'EqualTo', STR('Final'))],
+         ['Id', 'Name', 'UniqueName', 'CreatedDate'], 'LoopThroughTemplates', sort='CreatedDate')
 F.loop('LoopThroughTemplates', 'Loop Through Templates', 'GetTemplates', 'IsThisTemplateMoreSpecific', 'WasATemplateFound')
-F.decision('IsThisTemplateMoreSpecific', 'Is This Template More Specific?', [
-    ('MoreSpecific', 'Yes', [cond('forN_Rank', 'LessThan', REF('varN_BestRank'))], 'SetBestTemplate', 'and')], 'LoopThroughTemplates')
+F.decision('IsThisTemplateMoreSpecific', 'Is This Template as Specific or More?', [
+    ('MoreSpecific', 'Yes', [cond('forN_Rank', 'LessThanOrEqualTo', REF('varN_BestRank'))], 'SetBestTemplate', 'and')], 'LoopThroughTemplates')
 F.assignment('SetBestTemplate', 'Set Template to This One', [
     ('varT_TemplateId', 'Assign', REF('LoopThroughTemplates.Id')), ('varN_BestRank', 'Assign', REF('forN_Rank'))], 'LoopThroughTemplates')
 F.decision('WasATemplateFound', 'Was a Template Found?', [
@@ -148,7 +161,7 @@ F.var('varB_LeaveOutReceipt', 'Boolean',
       'on all but the first application of a renewal form, which shares one receipt, and on drafts whose receipt is added on the application.',
       inp=True, default=BOOL(False))
 F.var('varT_TemplateId', 'String', 'The template that applies.')
-F.var('varN_BestRank', 'Number', 'How specific the template picked so far is (lower is more specific).', default=NUM(9), scale=0)
+F.var('varN_BestRank', 'Number', 'How specific the template picked so far is (lower is more specific). Templates are read oldest first, so of two equally specific templates the newer is kept.', default=NUM(9), scale=0)
 F.var('varT_ItemIds', 'String', "The template's item Ids.", coll=True)
 F.var('varT_ExistingTypeIds', 'String', 'Document type Ids already on the application, each preceded by a semicolon.')
 F.var('varT_DocTypeId', 'String', "The document type of the item being added.")
@@ -169,8 +182,9 @@ els['recordLookups'] = [x.replace('<sortField>Version</sortField><sortOrder>Asc<
 
 desc = ("Creates an application's document checklist from its document checklist template (Setup, Action Plan Templates): one "
         "Document Checklist Item per template item in the latest published version, with the item's name, document type, "
-        "instruction and whether it is required. The template is the one whose Unique Name matches the record type with the "
-        "licence type, path and application type, the most specific first (see the admin guide). An item the template puts in "
+        "instruction and whether it is required. The template is the published one whose Unique Name or Name matches the record "
+        "type with the licence type, path and application type, the most specific first, and the newest of equals, so a "
+        "published clone replaces the template it was cloned from (see the admin guide). An item the template puts in "
         "the Sent to the Board category is ticked Sent to the Board and filed under its document type's usual category. "
         "The payment receipt is left out when asked. Items already on the application are not added twice, so it is safe "
         "to run again after an answer changes. Runs in system context to read the templates and document types.")

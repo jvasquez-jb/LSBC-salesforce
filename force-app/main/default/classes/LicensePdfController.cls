@@ -89,7 +89,8 @@ public with sharing class LicensePdfController {
         public Sheet(BusinessLicense license) {
             Account holder = license.Account;
             String holderNumber = holder.IsPersonAccount ? holder.CertificationNumber__pc : holder.CertificationNumber__c;
-            certificationNumber = 'L' + (String.isNotBlank(holderNumber) ? holderNumber : license.Identifier);
+            // The L goes only in front of a certification number; a typed license number (schools, older licenses) prints as it is.
+            certificationNumber = String.isNotBlank(holderNumber) ? 'L' + holderNumber : license.Identifier;
             String typeName = license.RegulatoryAuthorizationType.Name;
             typeLine = typeName + '-' + reason(license);
             issueDate = license.PrintRequestedDate__c == null ? ''

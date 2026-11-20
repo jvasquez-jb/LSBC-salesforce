@@ -94,6 +94,24 @@
                 </componentInstanceProperties>
                 <componentName>runtime_omnistudio:flexcard</componentName>
                 <identifier>runtime_omnistudio_flexcard</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!$Permission.StandardPermission.OmniStudioRuntime}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$Permission.StandardPermission.OmniStudioDesigner}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$Permission.StandardPermission.FSCAlertFrameworkUserAccess}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
+                    </criteria>
+                </visibilityRule>
             </componentInstance>
         </itemInstances>
         <name>header</name>
@@ -861,6 +879,24 @@
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
+                    <name>flowArguments</name>
+                    <value>[{"label":"recordId","dataType":"String","supportsRecordId":true,"value":"{!Record.Id}"}]</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>flowLayout</name>
+                    <value>oneColumn</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>flowName</name>
+                    <value>ScreenFlowAccountStopCodes</value>
+                </componentInstanceProperties>
+                <componentName>flowruntime:interview</componentName>
+                <identifier>flowruntime_interview2</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
                     <name>exposedAttributes</name>
                     <value>{"Limit":"25","ChildLimit":"5","AggregateAlerts":false}</value>
                 </componentInstanceProperties>
@@ -870,6 +906,24 @@
                 </componentInstanceProperties>
                 <componentName>runtime_omnistudio:flexcard</componentName>
                 <identifier>runtime_omnistudio_flexcard2</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!$Permission.StandardPermission.OmniStudioRuntime}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$Permission.StandardPermission.OmniStudioDesigner}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$Permission.StandardPermission.FSCAlertFrameworkUserAccess}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
+                    </criteria>
+                </visibilityRule>
             </componentInstance>
         </itemInstances>
         <name>stopCodesTabContent</name>

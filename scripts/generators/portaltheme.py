@@ -41,7 +41,9 @@ HEADER = {  # forceCommunity:themeHeaderStacked, on every layout
     'linkTextShadowColor': 'rgba(0, 0, 0, 0)',
     'logoWidth': 250,  # Salesforce maximum; theme.css sets the displayed size
 }
-PROFILE = {  # forceCommunity:themeProfileMenu (the Log in button)
+PROFILE_MENU_STYLE = ('{"selectedMenuStyleSetting":"iconOnly","selectedIconSetting":"userAvatar",'
+                      '"includeCompanyName":false,"selectedTextOrientationSetting":"right"}')
+PROFILE = {  # forceCommunity:customizableUserProfileMenu (the Log in button and the signed-in menu)
     'buttonBackgroundColor': INK,
     'buttonBackgroundHoverColor': NAVY,
     'buttonBorderColor': INK,
@@ -128,8 +130,13 @@ def theme():
             name, attrs = comp['componentName'], comp.setdefault('componentAttributes', {})
             if name == 'forceCommunity:themeHeaderStacked':
                 attrs.update(HEADER)
-            elif name == 'forceCommunity:themeProfileMenu':
-                attrs.update(PROFILE)
+            elif name in ('forceCommunity:themeProfileMenu', 'forceCommunity:customizableUserProfileMenu'):
+                # The customizable menu reads its items (My School, My Businesses) from Default_User_Profile_Menu;
+                # the theme's own profile menu ignores that navigation menu.
+                comp['componentName'] = 'forceCommunity:customizableUserProfileMenu'
+                comp['componentAttributes'] = dict(PROFILE, buttonText='Log in',
+                                                   customizableUserProfileMenuEditor='Default_User_Profile_Menu',
+                                                   menuStyleSettings=PROFILE_MENU_STYLE)
             elif name == 'forceCommunity:themeSearch':
                 attrs.update(SEARCH)
             elif name == 'forceCommunity:themeSearchHero':

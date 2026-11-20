@@ -679,7 +679,7 @@
             </styleProperties>
         </fields>
         <pauseButtonLabel>Save for later</pauseButtonLabel>
-        <pausedText>&lt;p&gt;&lt;b&gt;Your application is saved.&lt;/b&gt;&lt;/p&gt;&lt;p&gt;To pick it up where you left off, go to &lt;a href=&quot;/LPI/s/view-license-permit-status&quot;&gt;My Applications&lt;/a&gt; and choose Continue. Saved applications are kept for 30 days from when you last worked on them, then deleted.&lt;/p&gt;</pausedText>
+        <pausedText>&lt;p&gt;&lt;b&gt;Your application is saved.&lt;/b&gt;&lt;/p&gt;&lt;p&gt;To pick it up where you left off, go to &lt;a target=&quot;_self&quot; href=&quot;/LPI/s/view-license-permit-status&quot;&gt;My Applications&lt;/a&gt; and choose Continue. Saved applications are kept for 30 days from when you last worked on them, then deleted.&lt;/p&gt;</pausedText>
         <showFooter>true</showFooter>
         <showHeader>false</showHeader>
     </screens>
@@ -765,7 +765,7 @@
             </styleProperties>
         </fields>
         <pauseButtonLabel>Save for later</pauseButtonLabel>
-        <pausedText>&lt;p&gt;&lt;b&gt;Your application is saved.&lt;/b&gt;&lt;/p&gt;&lt;p&gt;To pick it up where you left off, go to &lt;a href=&quot;/LPI/s/view-license-permit-status&quot;&gt;My Applications&lt;/a&gt; and choose Continue. Saved applications are kept for 30 days from when you last worked on them, then deleted.&lt;/p&gt;</pausedText>
+        <pausedText>&lt;p&gt;&lt;b&gt;Your application is saved.&lt;/b&gt;&lt;/p&gt;&lt;p&gt;To pick it up where you left off, go to &lt;a target=&quot;_self&quot; href=&quot;/LPI/s/view-license-permit-status&quot;&gt;My Applications&lt;/a&gt; and choose Continue. Saved applications are kept for 30 days from when you last worked on them, then deleted.&lt;/p&gt;</pausedText>
         <showFooter>true</showFooter>
         <showHeader>false</showHeader>
     </screens>

@@ -181,7 +181,7 @@ def build(obj, label_obj, refuse_status, refuse_word, outdir):
     F.lookup('GetLicenseType', 'Get License Type', 'RegulatoryAuthorizationType', [('Id', 'EqualTo', REF('forT_LicenseTypeId'))],
              ['Id', 'Name', 'ExpirationBasis__c', 'TermLength__c', 'RegulatoryAuthCode'], 'GetHolder', first=True, sort=None)
     F.lookup('GetHolder', 'Get Holder', 'Account', [('Id', 'EqualTo', REF('GetApplication.AccountId'))],
-             ['Id', 'Name', 'DateOfBirth__pc'] + (['PersonContactId', 'CertificationNumber__pc'] if is_person else ['CertificationNumber__c']),
+             ['Id', 'Name', 'DateOfBirth__pc'] + (['PersonContactId', 'CertificationNumber__pc'] if is_person else ['CertificationNumber__c', 'OwnerId']),
              'IsTheBirthdayNeeded', first=True, sort=None)
     F.decision('IsTheBirthdayNeeded', 'Is a Missing Birthday Needed?', [
         ('BirthdayMissing', 'Yes', [cond('forB_BirthdayMissing', 'EqualTo', BOOL(True))], 'NoBirthday', 'and')], 'CalculateExpiration')
@@ -241,13 +241,16 @@ def build(obj, label_obj, refuse_status, refuse_word, outdir):
         ('PrintedDate__c', None)], 'ApproveApplication', 'CouldNotSaveDecision')
     update('ApproveApplication', 'Set Application to Approved', 'recordId', obj, [
         ('ApprovedDate', REF('$Flow.CurrentDateTime')), ('LicensePermitNameId', REF('forT_LicenseId')), ('Status', STR('Approved'))],
-        'Approved' if is_person else 'IsTheBusinessOwnedByAPortalUser', 'CouldNotSaveDecision')
+        'Approved' if is_person else 'GetBusinessOwner', 'CouldNotSaveDecision')
     if not is_person:
         # A business created on the portal belongs to its applicant's login, which is how they see it before approval.
         # On approval it passes to the staff member approving it; the applicant keeps access through their relationship
         # (Owner, Manager or School Administrator), shared by Subflow: Portal Business Access Sync.
+        # Read the owner as a User: a reference through GetHolder.Owner isn't loaded by Get Records and faults.
+        F.lookup('GetBusinessOwner', 'Get Business Owner', 'User', [('Id', 'EqualTo', REF('GetHolder.OwnerId'))],
+                 ['Id', 'IsPortalEnabled'], 'IsTheBusinessOwnedByAPortalUser', first=True, sort=None)
         F.decision('IsTheBusinessOwnedByAPortalUser', 'Is the Business Owned by a Portal User?', [
-            ('PortalOwned', 'Yes', [cond('GetHolder.Owner.IsPortalEnabled', 'EqualTo', BOOL(True))], 'TransferBusinessToStaff', 'and')],
+            ('PortalOwned', 'Yes', [cond('GetBusinessOwner.IsPortalEnabled', 'EqualTo', BOOL(True))], 'TransferBusinessToStaff', 'and')],
             'Approved')
         update('TransferBusinessToStaff', 'Set Business Owner to the Approving Staff Member', 'GetHolder.Id', 'Account', [
             ('OwnerId', REF('$User.Id')), ('PortalAccessSyncPending__c', BOOL(True))], 'Approved', 'CouldNotSaveDecision')

@@ -12,5 +12,6 @@
     <permissionSets>ReferenceDataMaintenanceExtra</permissionSets>
     <permissionSets>ReportsRead</permissionSets>
     <permissionSets>force__DocumentChecklist</permissionSets>
+    <permissionSets>force__IndustriesServiceExcellence</permissionSets>
     <status>Updated</status>
 </PermissionSetGroup>

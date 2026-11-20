@@ -1183,4 +1183,8 @@
         <object>Visit</object>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
+    <userPermissions>
+        <enabled>true</enabled>
+        <name>PublicSectorPlatformUserAccess</name>
+    </userPermissions>
 </PermissionSet>

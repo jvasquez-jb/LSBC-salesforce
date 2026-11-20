@@ -19,22 +19,10 @@
         },
         {
           "componentAttributes": {
-            "enableInlineEdit": false,
-            "filterName": "DueFees",
-            "layout": "FULL",
-            "pageSize": 25,
-            "scope": "RegulatoryTrxnFee",
-            "showActionBar": true,
-            "showChartsPanel": false,
-            "showDisplay": "grid",
-            "showFilterPanel": true,
-            "showImageIcon": true,
-            "showManualRefreshButton": true,
-            "showObjectName": true,
-            "showPinnedList": false,
-            "showSearchBar": true
+            "flowArguments": "[{\"label\":\"varT_ListName\",\"dataType\":\"String\",\"supportsRecordId\":false,\"value\":\"Fees\"}]",
+            "flowName": "ScreenFlowIndividualApplicationStatusList"
           },
-          "componentName": "forceCommunity:objectHome",
+          "componentName": "forceCommunity:flowCommunity",
           "id": "279f5b03-0d06-4b76-9bcd-2e5a7313f3ea",
           "renderPriority": "NEUTRAL",
           "renditionMap": {},

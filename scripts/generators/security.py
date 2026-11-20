@@ -99,6 +99,17 @@ def with_dependencies(objs):
     return objs
 
 
+# User permissions granted by a building block. Without Public Sector Access (PublicSectorPlatformUserAccess) the
+# Public Sector objects stay closed in the screens (applications, licences, fees, stop codes: "This page isn't
+# available") whatever the object permissions say, so the block every desk holds carries it.
+USER_PERMISSIONS = {'LicensingRead': ['PublicSectorPlatformUserAccess'], 'ReportsRead': ['RunReports']}
+# User permissions that go in the unlicensed <Block>Extra set (none yet).
+EXTRA_USER_PERMISSIONS = {}
+# Stop codes (Record Alerts) also need the user permission Record Alert access (FSCAlertFrameworkUserAccess), which
+# only the Industry Service Excellence licence allows: the managed set force__IndustriesServiceExcellence (user
+# permissions only, no object access) goes in the group of every desk that reads stop codes, and each of their users
+# needs that licence. Desks without it get no Alerts box or Stop Codes tab (pagegen.py hides them).
+ALERT_SET = 'force__IndustriesServiceExcellence'
 # Custom permissions granted by a building block.
 CUSTOM_PERMISSIONS = {'ConfidentialComplainantAccess': ['ViewConfidentialComplainant']}
 # Custom permissions a licensed block needs: they go in its unlicensed <Block>Extra set.
@@ -327,6 +338,9 @@ for block, (levels, purpose) in BLOCKS.items():
         if block == 'LicensingRead':
             xp.append('    <tabSettings>\n        <tab>Payment__c</tab>\n        <visibility>Visible</visibility>\n'
                       '    </tabSettings>\n')
+        for p in EXTRA_USER_PERMISSIONS.get(block, []):
+            xp.append(f'    <userPermissions>\n        <enabled>true</enabled>\n        <name>{p}</name>\n'
+                      '    </userPermissions>\n')
         write(f'{ROOT}/permissionsets/{block}Extra.permissionset-meta.xml',
               f'{HEAD}<PermissionSet {NS}>\n{"".join(xp)}</PermissionSet>\n')
     parts.append(f'    <description>{escape(described(purpose, holders(block)))}</description>\n')
@@ -348,10 +362,9 @@ for block, (levels, purpose) in BLOCKS.items():
     for rt in RECORD_TYPES.get(block, []):
         parts.append(f'    <recordTypeVisibilities>\n        <recordType>{rt}</recordType>\n'
                      '        <visible>true</visible>\n    </recordTypeVisibilities>\n')
-    if block == 'ReportsRead':
-        for p in ('RunReports',):
-            parts.append(f'    <userPermissions>\n        <enabled>true</enabled>\n        <name>{p}</name>\n'
-                         '    </userPermissions>\n')
+    for p in USER_PERMISSIONS.get(block, []):
+        parts.append(f'    <userPermissions>\n        <enabled>true</enabled>\n        <name>{p}</name>\n'
+                     '    </userPermissions>\n')
     write(f'{ROOT}/permissionsets/{block}.permissionset-meta.xml',
           f'{HEAD}<PermissionSet {NS}>\n{"".join(parts)}</PermissionSet>\n')
 
@@ -390,8 +403,9 @@ for desk in DESKS:
           f'{HEAD}<MutingPermissionSet {NS}>\n    <description>Part of the {label} permission set group. Takes away anything its permission sets give beyond what the Board agreed the {label} desk may see and change.</description>\n    <label>{label} Muting</label>\n{"".join(mutes)}'
           '</MutingPermissionSet>\n')
     # Every desk opens checklist items, which needs Salesforce's Document Checklist set (and its licence per user).
+    managed = ['force__DocumentChecklist'] + ([ALERT_SET] if allowed.get('RecordAlert', 0) >= 1 else [])
     sets = ''.join(f'    <permissionSets>{b}</permissionSets>\n'
-                   for b in sorted(HELD[desk] + [x + 'Extra' for x in HELD[desk] if x in EXTRA_SETS]) + ['force__DocumentChecklist'])
+                   for b in sorted(HELD[desk] + [x + 'Extra' for x in HELD[desk] if x in EXTRA_SETS]) + managed)
     write(f'{ROOT}/permissionsetgroups/{desk}.permissionsetgroup-meta.xml',
           f'{HEAD}<PermissionSetGroup {NS}>\n    <description>{escape(DESK_DESCRIPTIONS[desk] + DESK_DESC_TAIL)}</description>\n'
           f'    <hasActivationRequired>false</hasActivationRequired>\n    <label>{label}</label>\n'

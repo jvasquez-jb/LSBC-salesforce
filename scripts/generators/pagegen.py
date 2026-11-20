@@ -109,7 +109,9 @@ PAGES = {
     ('Applications', [(('DYN', 'IndividualApplicationAccount', 'Individual Applications', ['Name', 'LicenseType', 'ApplicationType', 'Status', 'AppliedDate']), PERSON),
                       (('DYN', 'BusinessLicenseApplicationAccount', 'Business License Applications', ['Name', 'LicenseType', 'ApplicationType', 'Status', 'AppliedDate']), BUSINESS)]),
     ('Fees and Payments', [(FEES, None), (('ADV', 'PaymentsReceived__r'), None)]),
-    ('Stop Codes', [('ALERTCARD', None)]),
+    # Stop codes as a read-only table for every desk (ScreenFlowAccountStopCodes, from stopcodes.py; a desk that can't read
+    # stop codes sees a short message), then the alert card for OmniStudio users (CARD_RULE).
+    ('Stop Codes', [(('FLOW', 'ScreenFlowAccountStopCodes'), None), ('ALERTCARD', None)]),
     ('Training', [(('DYN', 'PersonTCPContact', 'Training Course Participants', ['Name', 'CourseOffering', 'EntryType__c', 'TotalHours', 'StartDate', 'EndDate', 'ReceivedDate__c'], ['New'], ('StartDate', 'Descending')), PERSON),
                   (('DYN', 'CourseOfferings__r', 'Course Offerings', ['Name', 'Description', 'ApprovedHours__c', 'StartDate', 'EndDate'], ['New']), SCHOOL)]),
     ('Violations', [('PractitionerViolations__r', PERSON), ('EstablishmentViolations__r', BUSINESS)]),
@@ -180,6 +182,8 @@ class Page:
 # can be hidden record by record: {object: {section label: (booleanFilter, [(left value, right value), ...])}}.
 # Public Complaint: the complainant shows only when the complaint isn't confidential or the user may see it.
 SECTION_RULES = {
+    # Case: the requested address shows only on an Address Change case.
+    'Case': {'Address Change': ('1', [('{!Record.Type}', 'Address Change')])},
     'PublicComplaint': {'Complainant': ('1 OR 2', [('{!Record.IsReporterConfidential}', 'false'),
                                                    ('{!$Permission.CustomPermission.ViewConfidentialComplainant}', 'true')])},
 }
@@ -192,13 +196,34 @@ HIDE_RULES = {
                                          ('{!$Permission.CustomPermission.ViewAccommodationDocuments}', 'EQUAL', 'true')]),
 }
 
+# The same rule on the header: without View Accommodation Documents, the accommodation documentation item shows no
+# Status and no Edit, only a note saying who can open it (NOTE_RULES).
+HEADER_HIDE = {'DocumentChecklistItem'}
+NOTE_RULES = {
+    'DocumentChecklistItem': ('<p>This is accommodation documentation (health information). Only the Testing and Reciprocity '
+                              'desks, Program Managers and administrators can open or change it.</p>',
+                              ('1 AND 2', [('{!Record.Name}', 'EQUAL', 'Documentation for Disability Related Needs'),
+                                           ('{!$Permission.CustomPermission.ViewAccommodationDocuments}', 'EQUAL', 'false')])),
+}
+# Stop codes need the user permission Record Alert Access (security.py gives it to the desks that read stop codes).
+# Without it the Alerts box and the Stop Codes tab would show an access error, so they are hidden.
+ALERT_RULE = ('1', [('{!$Permission.StandardPermission.FSCAlertFrameworkUserAccess}', 'EQUAL', 'true')])
+# The alert card (header Alerts box and Stop Codes tab) also needs an OmniStudio seat and read access to the card's
+# definition, which only administrators have (OmniStudio Designer): staff would see an access error, so it shows only to
+# OmniStudio users who may read stop codes. Stop codes are on a stop code's holder through WhatId, which Salesforce
+# offers no related list for.
+CARD_RULE = ('(1 OR 2) AND 3', [('{!$Permission.StandardPermission.OmniStudioRuntime}', 'EQUAL', 'true'),
+                                ('{!$Permission.StandardPermission.OmniStudioDesigner}', 'EQUAL', 'true'),
+                                ALERT_RULE[1][0]])
+TAB_RULES = {}
+
 def with_rule(comp, rule):
     """Adds a several-criteria visibility rule to a component built by Page.comp."""
     crit = ''.join('                    <criteria>\n'
                    f'                        <leftValue>{escape(l)}</leftValue>\n                        <operator>{op}</operator>\n'
                    f'                        <rightValue>{escape(r)}</rightValue>\n                    </criteria>\n' for l, op, r in rule[1])
-    vis = (f'                <visibilityRule>\n                    <booleanFilter>{rule[0]}</booleanFilter>\n{crit}'
-           '                </visibilityRule>\n')
+    bf = f'                    <booleanFilter>{rule[0]}</booleanFilter>\n' if len(rule[1]) > 1 else ''  # one filter: none
+    vis = f'                <visibilityRule>\n{bf}{crit}                </visibilityRule>\n'
     return comp.replace('            </componentInstance>\n', vis + '            </componentInstance>\n', 1)
 
 def layout_sections(p, obj):
@@ -234,8 +259,8 @@ def layout_sections(p, obj):
             crit = ''.join('                    <criteria>\n'
                            f'                        <leftValue>{escape(l)}</leftValue>\n                        <operator>EQUAL</operator>\n'
                            f'                        <rightValue>{r}</rightValue>\n                    </criteria>\n' for l, r in rule[1])
-            vis = (f'                <visibilityRule>\n                    <booleanFilter>{rule[0]}</booleanFilter>\n{crit}'
-                   '                </visibilityRule>\n')
+            bf = f'                    <booleanFilter>{rule[0]}</booleanFilter>\n' if len(rule[1]) > 1 else ''
+            vis = f'                <visibilityRule>\n{bf}{crit}                </visibilityRule>\n'
             comp = comp.replace('            </componentInstance>\n', vis + '            </componentInstance>\n', 1)
         out.append(comp)
     return out
@@ -250,10 +275,15 @@ def build(obj):
     header = [p.comp('force:highlightsPanel', [('collapsed', 'false'), ('enableActionsConfiguration', 'true'),
         ('enableActionsInNative', 'true'), ('hideChatterActions', 'true'), ('hideSlackAction', 'false'),
         ('numVisibleActions', '7')], value_lists={'actionNames': actions})]
+    if obj in HEADER_HIDE:
+        header = [with_rule(header[0], HIDE_RULES[obj])]
+    if obj in NOTE_RULES:
+        text, rule = NOTE_RULES[obj]
+        header.append(with_rule(p.comp('flexipage:richText', [('decorate', 'true'), ('richTextValue', text)]), rule))
     if obj == 'Account':
-        header.append(p.comp('runtime_omnistudio:flexcard', [
+        header.append(with_rule(p.comp('runtime_omnistudio:flexcard', [
             ('exposedAttributes', '{"Limit":"3","ChildLimit":"5","AggregateAlerts":false}'),
-            ('flexcardName', 'ServiceExcellenceAlertCard')]))
+            ('flexcardName', 'ServiceExcellenceAlertCard')]), CARD_RULE))
     p.region('header', header, 'Region')
     left = []
     if obj == 'Account':
@@ -283,13 +313,14 @@ def build(obj):
         for i, (title, lists) in enumerate(tabs):
             body = ''.join(w for w in title.title() if w.isalnum()) + 'TabContent'
             body = body[0].lower() + body[1:]
-            p.region(body, [p.comp('runtime_omnistudio:flexcard', [
+            p.region(body, [with_rule(p.comp('runtime_omnistudio:flexcard', [
                 ('exposedAttributes', '{"Limit":"25","ChildLimit":"5","AggregateAlerts":false}'),
-                ('flexcardName', 'ServiceExcellenceAlertCard')]) if rl == 'ALERTCARD'
+                ('flexcardName', 'ServiceExcellenceAlertCard')]), CARD_RULE) if rl == 'ALERTCARD'
                 else p.flow(rl[1], vis) if isinstance(rl, tuple) and rl[0] == 'FLOW'
                 else p.related(rl[1], vis, 'ADVGRID') if isinstance(rl, tuple) and rl[0] == 'ADV'
                 else p.dynamic(rl, vis) if isinstance(rl, tuple) else p.related(rl, vis) for rl, vis in lists])
-            ts.append(p.tab(title, body, 'true' if i == first else None))
+            t = p.tab(title, body, 'true' if i == first else None)
+            ts.append(with_rule(t, TAB_RULES[(obj, title)]) if (obj, title) in TAB_RULES else t)
         p.region('objectTabs', ts)
         right.append(p.tabset('objectTabs'))
     if obj == 'RecordAlert':

@@ -106,10 +106,11 @@ permissions missing): the generator puts those in an unlicensed `<Block>Extra` s
 A set's licence can't be removed once created. Tim Owens' user (System Administrator) is a desk test user while he
 is away: profile LSBC Standard User, role FrontDesk, group FrontDesk, Public Sector Access licence; his
 `LSBCDataMigration` assignment was removed. Restore: System Administrator profile, role SystemAdministrator,
-`LSBCDataMigration`, remove the FrontDesk group and both licences (Public Sector Access, Document Checklist). Check access with `UserRecordAccess` and the
+`LSBCDataMigration`, remove the FrontDesk group and the three licences (Public Sector Access, Document Checklist, Industry Service Excellence). Check access with `UserRecordAccess` and the
 group's `ObjectPermissions` (via `PermissionSetAssignment.PermissionSetId`). A checklist item takes its access
 from its parent application, so the accommodation documentation item is hidden in the screens instead: its page's
-details and Files show only with `ViewAccommodationDocuments` (`AccommodationAccessExtra`: Reciprocity, Testing,
+details and Files show only with `ViewAccommodationDocuments`, and validation rule `StatusEditOnlyWithAccommodationAccess` stops
+others changing its Status except to Pending (an upload) or as a portal user (`AccommodationAccessExtra`: Reciprocity, Testing,
 Program Manager, admins; `HIDE_RULES` in `pagegen.py`). Every desk group includes `force__DocumentChecklist`, and
 every staff user needs the Document Checklist licence (`DocumentChecklistPsl`) or no checklist item page opens.
 Tim has both. `EstablishmentNumberCounter__c` sits with `CertificationNumberCounter__c` in ApplicationProcessingExtra.
@@ -306,8 +307,11 @@ Still open:
   (`scripts/generators/checklistgenerate.py`) reads the latest Final version and creates the items itself; no ActionPlan records
   (a `PreliminaryApplicationRef` refuses an application's template, and applying needs no licence this way: a portal user
   without the Action Plans PSL was tested). Template Unique Name = record type part (after the dot) + licence type, or +
-  path + type, or + type, or alone, spaces removed, first match wins, compared ignoring case (a SOQL filter on UniqueName is
-  case-sensitive, so the flow reads all templates). Template metadata stores document type and category as record Ids, so
+  path + type, or + type, or alone, spaces removed, most specific wins, compared ignoring case (a SOQL filter on UniqueName is
+  case-sensitive, so the flow reads all published templates). The Name (spaces and punctuation removed) counts too, and of equally
+  specific published templates the newest wins: a published template can't be edited and has no New Version (checked 19 Nov 2026
+  with the ActionPlans permission set), and Clone gives a generated Unique Name, so an admin clones, edits and publishes the clone,
+  then deactivates the old one. A Draft template is ignored. Template metadata stores document type and category as record Ids, so
   templates are data: `python3 -I scripts/actionplans/load_templates.py [--target-org]` loads missing ones from
   `data/actionPlanTemplates/DocumentChecklists.csv` and publishes them; existing ones are left for the admin. A Final
   template can't be deleted (set it Obsolete first). Template editors need the Action Plans PSL (`ActionPlans` permission set).
@@ -331,7 +335,22 @@ Still open:
   Continuing Education (Training Course `Continuing Education`, one offering per CLOSE seminar): stop codes skip it.
 - Payments: Record Payment (Account) for mail and counter; accepting a Payment Receipt checklist item
   creates the Card payment (`SubflowPaymentReceiptPaymentCreate`, one per receipt via the unique
-  `ChecklistItem__c`). No cash, no deposit number.
+  `ChecklistItem__c`). No cash, no deposit number. When Record Payment leaves an application's fees (and those of the
+  applications certified with it) fully paid, it links the payment to the open receipt item and accepts it, so no Card
+  payment follows and the portal stops asking for a receipt.
+- Stop codes for staff: Record Alerts need `force__IndustriesServiceExcellence` plus the Industry Service Excellence licence
+  (Phase 7 seats); the OmniStudio alert card is admin-only. Every desk sees the Account Stop Codes tab through
+  `ScreenFlowAccountStopCodes` (`scripts/generators/stopcodes.py`, runs as the user; a desk without access gets a plain message).
+- Portal form endings: a portal form's last screen has no Finish (Finish restarts the form) but a same-tab link styled
+  `lsbc-button`, Back to My Applications (`/LPI/s/view-license-permit-status`). Generated forms get it from `F.screen()` in
+  `schoolforms.py`; the nine hand-maintained Apply forms send staff (`forB_IsStaffEntry`) to the original screen with Finish and
+  portal users to a `<Screen>Portal` copy. Every portal link to another portal page carries `target="_self"` (flow rich text
+  opens links in a new tab otherwise).
+- My Applications and Fees lists: `ScreenFlowIndividualApplicationStatusList` (label My Applications List, input `varT_ListName`
+  Submitted, Returned or Fees). System context, because the portal licence can't query Business License Application even with
+  Read; every lookup is filtered by the user's own person account or contact. The site files in `force-app` differ in format
+  from a retrieve: to change one portal page without pushing others, retrieve the site, edit, deploy from that copy, and keep
+  the repo file in step.
 - Phase 6 test records: `IA-0000000033` (approved new licence `TEST-C-1001` for StopCodeTest
   Licensee, which now has a date of birth), `IA-0000000034` (renewal of StopCodeTest Registrant
   Cosmetologist, now to 2028-03-01; StopCodeTest Registrant has a date of birth), `StopCodeTest

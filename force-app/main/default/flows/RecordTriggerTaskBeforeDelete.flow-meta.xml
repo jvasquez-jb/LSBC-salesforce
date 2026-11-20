@@ -24,10 +24,10 @@
             <name>Creator</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>$Record.CreatedById</leftValueReference>
+                <leftValueReference>forB_IsCreator</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
-                    <elementReference>$User.Id</elementReference>
+                    <booleanValue>true</booleanValue>
                 </rightValue>
             </conditions>
             <label>Yes</label>
@@ -35,6 +35,12 @@
     </decisions>
     <description>Stops anyone but the person who wrote a task from deleting it, so the record of what was said or done can&apos;t be removed by someone else. Editing its subject or comments is limited the same way by the validation rule Subject Description Edit Only By Creator.</description>
     <environments>Default</environments>
+    <formulas>
+        <name>forB_IsCreator</name>
+        <description>True when the person deleting the task wrote it. Compares the first 15 characters of the two user Ids, since one side can come as the 15-character form.</description>
+        <dataType>Boolean</dataType>
+        <expression>LEFT({!$Record.CreatedById}, 15) = LEFT({!$User.Id}, 15)</expression>
+    </formulas>
     <interviewLabel>Record-Trigger: Task Before Delete {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Record-Trigger: Task Before Delete</label>
     <processMetadataValues>

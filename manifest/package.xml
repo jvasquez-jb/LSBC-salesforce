@@ -601,6 +601,7 @@
         <members>ScreenFlowAccountPortalRegistration</members>
         <members>ScreenFlowAccountRecordPayment</members>
         <members>ScreenFlowAccountSchoolDirectory</members>
+        <members>ScreenFlowAccountStopCodes</members>
         <members>ScreenFlowAccreditationCEProviderList</members>
         <members>ScreenFlowBusinessLicenseApplicationDecide</members>
         <members>ScreenFlowBusinessLicenseApplicationFacility</members>
@@ -622,6 +623,7 @@
         <members>ScreenFlowIndividualApplicationRenewal</members>
         <members>ScreenFlowIndividualApplicationResume</members>
         <members>ScreenFlowIndividualApplicationRetake</members>
+        <members>ScreenFlowIndividualApplicationStatusList</members>
         <members>ScreenFlowIndividualApplicationStudentEnrollment</members>
         <members>ScreenFlowIndividualApplicationTemporaryPermit</members>
         <members>ScreenFlowIndividualApplicationThreadingPermit</members>
@@ -685,6 +687,7 @@
         <members>BusinessLicenseApplication-Business License Application Layout</members>
         <members>Case-Custom Case Layout</members>
         <members>CertificationNumberCounter__c-Certification Number Counter Layout</members>
+        <members>Contact-Contact Layout</members>
         <members>CourseOffering-Course Offering Layout</members>
         <members>DocumentChecklistItem-Document Checklist Item Layout</members>
         <members>EstablishmentNumberCounter__c-Establishment Number Counter Layout</members>
@@ -1190,6 +1193,7 @@
     </types>
     <types>
         <members>BusinessLicense.StatusDraftOutOfStateLicense</members>
+        <members>DocumentChecklistItem.StatusEditOnlyWithAccommodationAccess</members>
         <members>Event.SubjectDescriptionEditOnlyByCreator</members>
         <members>PaymentAllocation__c.FeeItemRequired</members>
         <members>Payment__c.AmountMinAppliedAmount</members>

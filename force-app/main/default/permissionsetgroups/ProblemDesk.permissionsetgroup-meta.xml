@@ -17,5 +17,6 @@
     <permissionSets>PeopleMaintenance</permissionSets>
     <permissionSets>StudentHours</permissionSets>
     <permissionSets>force__DocumentChecklist</permissionSets>
+    <permissionSets>force__IndustriesServiceExcellence</permissionSets>
     <status>Updated</status>
 </PermissionSetGroup>

@@ -41,6 +41,11 @@ formula('forC_RefundAmount', 'Currency', '{!GetPayment.RefundAmount__c}', 'The r
 formula('forT_StatusAfterRefund', 'String', 'IF({!GetPayment.RefundAmount__c} >= {!GetPayment.Amount__c}, "Refunded", TEXT({!GetPayment.Status__c}))',
         'The payment status once the refund is entered: Refunded only when the whole payment was refunded; after a partial refund the payment keeps its status, because part of it still stands.')
 
+# $User.Id can come as the 15-character Id while the lookup holds 18, so a plain "equals" never matched and the
+# validation rule's raw error showed instead: compare the first 15 characters.
+formula('forB_IsTheRequester', 'Boolean', 'LEFT({!GetPayment.RefundRequestedByUser__c}, 15) = LEFT({!$User.Id}, 15)',
+        'True when the person running the flow requested this refund (they may not verify it).')
+
 lookup('GetPayment', 'Get Payment', 'Payment__c', [('Id', 'EqualTo', REF('recordId'))],
        ['Id', 'Name', 'Amount__c', 'AppliedAmount__c', 'Status__c', 'RefundStatus__c', 'RefundAmount__c',
         'RefundRequestedBy__c', 'RefundRequestedByUser__c', 'RefundRequestedDate__c', 'RefundVerifiedDate__c', 'RefundCheckNumber__c',
@@ -82,7 +87,7 @@ decision('VerifyOrCancel', 'Verify or Cancel?', [
     ('Verify', 'Verify', [cond('VR_Decision', 'EqualTo', STR('Verify'))], 'IsTheVerifierTheRequester', 'and'),
 ], 'CancelRequest', default_label='Cancel')
 decision('IsTheVerifierTheRequester', 'Is the Verifier the Requester?', [
-    ('SamePerson', 'Same Person', [cond('GetPayment.RefundRequestedByUser__c', 'EqualTo', REF('$User.Id'))], 'VerifierIsRequester', 'and'),
+    ('SamePerson', 'Same Person', [cond('forB_IsTheRequester', 'EqualTo', BOOL(True))], 'VerifierIsRequester', 'and'),
 ], 'SaveVerified', default_label='Someone Else')
 update('SaveVerified', 'Set Refund to Verified', [
     ('RefundStatus__c', STR('Verified')),

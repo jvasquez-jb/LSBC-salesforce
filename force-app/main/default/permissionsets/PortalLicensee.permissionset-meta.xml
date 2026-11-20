@@ -254,6 +254,26 @@
         <field>RegulatoryTrxnFee.TotalFeeAmount</field>
         <readable>true</readable>
     </fieldPermissions>
+    <flowAccesses>
+        <enabled>true</enabled>
+        <flow>ScreenFlowAccountSchoolDirectory</flow>
+    </flowAccesses>
+    <flowAccesses>
+        <enabled>true</enabled>
+        <flow>ScreenFlowAccreditationCEProviderList</flow>
+    </flowAccesses>
+    <flowAccesses>
+        <enabled>true</enabled>
+        <flow>ScreenFlowBusinessLicensePublicSearch</flow>
+    </flowAccesses>
+    <flowAccesses>
+        <enabled>true</enabled>
+        <flow>ScreenFlowCasePublicComplaint</flow>
+    </flowAccesses>
+    <flowAccesses>
+        <enabled>true</enabled>
+        <flow>ScreenFlowIndividualApplicationStatusList</flow>
+    </flowAccesses>
     <hasActivationRequired>false</hasActivationRequired>
     <label>Portal Licensee</label>
     <objectPermissions>

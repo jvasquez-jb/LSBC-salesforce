@@ -2091,14 +2091,15 @@
     </recordLookups>
     <recordLookups>
         <name>GetOpenLicensureApplication</name>
-        <label>Get Open Licensure Application</label>
+        <description>The newest new licensure application, open or approved. Stop code 17 stays until each exam its license type requires has a result, so an approved license is held from printing until the exams are taken.</description>
+        <label>Get Latest Licensure Application</label>
         <locationX>0</locationX>
         <locationY>0</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>IsThereAnOpenApplication</targetReference>
         </connector>
-        <filterLogic>1 AND 2 AND (3 OR 4 OR 5)</filterLogic>
+        <filterLogic>1 AND 2 AND (3 OR 4 OR 5 OR 6)</filterLogic>
         <filters>
             <field>AccountId</field>
             <operator>EqualTo</operator>
@@ -2132,6 +2133,13 @@
             <operator>EqualTo</operator>
             <value>
                 <stringValue>In Review</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Status</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Approved</stringValue>
             </value>
         </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>

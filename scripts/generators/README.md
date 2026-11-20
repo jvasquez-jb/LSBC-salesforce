@@ -17,6 +17,7 @@ generated files stay consistent. Run with `python3 -I` from the repo root.
 | `endstop.py` | `ScreenFlowRecordAlertEndStopCode` | as above |
 | `markprinted.py` | `ScreenFlowBusinessLicenseMarkPrinted` | as above |
 | `languages.py` | `ScreenFlowAccountPersonLanguages` (read-only list of a person's languages, on the Account page) | as above |
+| `stopcodes.py` | `ScreenFlowAccountStopCodes` (read-only table of an account's stop codes, open first, on the Account page's Stop Codes tab; runs as the user, so a desk without stop code access sees a short message) | as above |
 | `newapp.py` | `ScreenFlowAccountNewApplication` | as above |
 | `newlicensure.py` | `ScreenFlowIndividualApplicationNewLicensure` (Completion and Initial License: the school's completion form, entered by staff from New Application) | as above |
 | `security.py` | Phase 2 staff security from `docs/LSBC Access Matrix.xlsx`: the 18 permission sets, 13 desk permission set groups with their `<Desk>Muting` sets, the sharing rules, and the run mode and run restriction of the staff action flows. Field access comes from `security_fields.json` (every field the admin can be given access to; refresh it when fields are added). Rerun it after any flow generator above | `python3 -I scripts/generators/security.py`, then deploy `permissionsets`, `mutingpermissionsets`, `permissionsetgroups`, `sharingRules` and the staff flows |

@@ -28,7 +28,7 @@ def loc():
     return '<locationX>0</locationX><locationY>0</locationY>'
 
 els = {k: [] for k in ['assignments', 'choices', 'decisions', 'dynamicChoiceSets', 'formulas', 'loops',
-                       'recordCreates', 'recordLookups', 'screens', 'variables']}
+                       'recordCreates', 'recordLookups', 'recordUpdates', 'screens', 'variables']}
 
 def assignment(name, label, items, nxt):
     x = f'<assignments><name>{name}</name><label>{e(label)}</label>{loc()}'
@@ -70,6 +70,18 @@ def create_one(name, label, obj, assigns, nxt, fault):
 
 def create_many(name, label, ref, nxt, fault):
     els['recordCreates'].append(f'<recordCreates><name>{name}</name><label>{e(label)}</label>{loc()}{conn(nxt)}{conn(fault, "faultConnector")}<inputReference>{ref}</inputReference></recordCreates>')
+
+def update_filtered(name, label, obj, filters, assigns, nxt, fault, desc=None):
+    d = f'<description>{e(desc)}</description>' if desc else ''
+    x = f'<recordUpdates><name>{name}</name>{d}<label>{e(label)}</label>{loc()}{conn(nxt)}{conn(fault, "faultConnector")}<filterLogic>and</filterLogic>'
+    for f, op, v in filters:
+        x += f'<filters><field>{f}</field><operator>{op}</operator><value>{val(v)}</value></filters>'
+    for f, v in assigns:
+        x += f'<inputAssignments><field>{f}</field><value>{val(v)}</value></inputAssignments>'
+    els['recordUpdates'].append(x + f'<object>{obj}</object></recordUpdates>')
+
+def update_many(name, label, ref, nxt, fault):
+    els['recordUpdates'].append(f'<recordUpdates><name>{name}</name><label>{e(label)}</label>{loc()}{conn(nxt)}{conn(fault, "faultConnector")}<inputReference>{ref}</inputReference></recordUpdates>')
 
 def var(name, dtype, desc, coll=False, inp=False, obj=None, default=None, scale=None):
     x = f'<variables><name>{name}</name><description>{e(desc)}</description><dataType>{dtype}</dataType><isCollection>{"true" if coll else "false"}</isCollection><isInput>{"true" if inp else "false"}</isInput><isOutput>false</isOutput>'
@@ -126,7 +138,16 @@ var('varR_Allocations', 'SObject', 'The amounts staff applied, before the paymen
 var('varR_AllocationToCreate', 'SObject', 'One allocation with the new payment set on it.', obj='PaymentAllocation__c')
 var('varR_AllocationsToCreate', 'SObject', 'The allocations to create, linked to the new payment.', coll=True, obj='PaymentAllocation__c')
 
+var('varT_PaidParentIds', 'String', 'The records (applications, violations, licenses) whose fees this payment was applied to.', coll=True)
+var('varT_ReceiptParentIds', 'String', 'The records a Payment Receipt item pays for: its own record and, for an individual application, the others certified with it on the same form.', coll=True)
+var('varB_PaymentLinked', 'Boolean', 'True once the payment is linked to a Payment Receipt item it settles.', default=BOOL(False))
+var('varN_ReceiptsAccepted', 'Number', 'How many Payment Receipt items this payment settles.', default=NUM(0), scale=0)
+var('varR_ReceiptItem', 'SObject', 'One Payment Receipt item being marked Accepted.', obj='DocumentChecklistItem')
+var('varR_ReceiptItems', 'SObject', 'The Payment Receipt items this payment settles, marked Accepted.', coll=True, obj='DocumentChecklistItem')
+
 # ---- formulas
+formula('forT_ReceiptNote', 'String', 'IF({!varN_ReceiptsAccepted} > 0, "The application\'s Payment Receipt checklist item is now Accepted, so the applicant is no longer asked to upload a receipt.", "")',
+        'A line for the last screen when the payment settled an application\'s Payment Receipt item.')
 formula('forC_Outstanding', 'Currency', '{!LoopThroughFeeItems.FeeAmount} - {!varC_ItemAllocated}',
         'What is still owed on the fee item being shown.', scale=2)
 formula('forC_Suggested', 'Currency', 'MIN({!forC_Outstanding}, {!varC_Remaining})',
@@ -207,6 +228,7 @@ assignment('AddAllocation', 'Add Allocation for This Item', [
     ('varR_Allocation.ForYear__c', 'Assign', REF('LoopThroughFeeItems.ForYear__c')),
     ('varR_Allocations', 'Add', REF('varR_Allocation')),
     ('varC_Remaining', 'Subtract', REF('AFI_Amount')),
+    ('varT_PaidParentIds', 'Add', REF('LoopThroughFeeItems.RegulatoryTrxnFee.ParentRecordId')),
 ], 'LoopThroughFeeItems')
 
 screen('CheckAndSave', 'Check and Save', [
@@ -228,10 +250,63 @@ assignment('SetAllocationPayment', 'Set Payment on Allocation', [
     ('varR_AllocationToCreate.Payment__c', 'Assign', REF('CreatePayment')),
     ('varR_AllocationsToCreate', 'Add', REF('varR_AllocationToCreate')),
 ], 'LoopThroughAllocationsToCreate')
-create_many('CreateAllocations', 'Create Payment Allocations', 'varR_AllocationsToCreate', 'PaymentRecorded', 'CouldNotRecordPayment')
+create_many('CreateAllocations', 'Create Payment Allocations', 'varR_AllocationsToCreate', 'GetReceiptDocumentType', 'CouldNotRecordPayment')
+
+# ---- Payment receipts: a mailed or counter payment that settles an application's fees also settles its Payment Receipt
+# checklist item, so the portal stops asking the applicant to upload a receipt. The payment is linked to the first
+# receipt it settles before the item is accepted, so the checklist trigger's receipt subflow finds a payment for it and
+# records no second (Card) payment. A receipt is settled only when nothing is still Due or Partially Paid on its record
+# (and, for an individual application, on the others certified with it): the subflow would charge nothing there either.
+lookup('GetReceiptDocumentType', 'Get Receipt Document Type', 'DocumentType',
+       [('DeveloperName', 'EqualTo', STR('PaymentReceipt'))], ['Id'], 'GetOpenReceiptItems', first=True, sort=None)
+lookup('GetOpenReceiptItems', 'Get Open Payment Receipt Items', 'DocumentChecklistItem',
+       [('ParentRecordId', 'In', REF('varT_PaidParentIds')), ('DocumentTypeId', 'EqualTo', REF('GetReceiptDocumentType.Id')),
+        ('Status', 'NotEqualTo', STR('Accepted'))], ['Id', 'ParentRecordId'], 'AreThereOpenReceiptItems')
+decision('AreThereOpenReceiptItems', 'Are There Open Payment Receipt Items?',
+         [('OpenReceipts', 'Yes', [cond('GetOpenReceiptItems', 'IsEmpty', BOOL(False))], 'LoopThroughReceiptItems', 'and')], 'PaymentRecorded')
+loop('LoopThroughReceiptItems', 'Loop Through Payment Receipt Items', 'GetOpenReceiptItems', 'SetReceiptParentIds', 'WereAnyReceiptsSettled')
+assignment('SetReceiptParentIds', 'Set Receipt Records to the Receipt\'s Record', [
+    ('varT_ReceiptParentIds', 'RemoveAll', REF('varT_ReceiptParentIds')),
+    ('varT_ReceiptParentIds', 'Add', REF('LoopThroughReceiptItems.ParentRecordId')),
+], 'GetReceiptApplication')
+lookup('GetReceiptApplication', 'Get Receipt Application', 'IndividualApplication',
+       [('Id', 'EqualTo', REF('LoopThroughReceiptItems.ParentRecordId'))], ['Id', 'AccountId', 'CertifiedDateTime__c'],
+       'GetSameSubmission', first=True, sort=None)
+lookup('GetSameSubmission', 'Get Applications from the Same Submission', 'IndividualApplication',
+       [('AccountId', 'EqualTo', REF('GetReceiptApplication.AccountId')),
+        ('CertifiedDateTime__c', 'EqualTo', REF('GetReceiptApplication.CertifiedDateTime__c')),
+        ('CertifiedDateTime__c', 'IsNull', BOOL(False))], ['Id'], 'LoopThroughSameSubmission', sort=None)
+loop('LoopThroughSameSubmission', 'Loop Through Same Submission', 'GetSameSubmission', 'AddSubmissionApplication', 'GetFeeStillOwed')
+assignment('AddSubmissionApplication', 'Add Application to Receipt Records',
+           [('varT_ReceiptParentIds', 'Add', REF('LoopThroughSameSubmission.Id'))], 'LoopThroughSameSubmission')
+lookup('GetFeeStillOwed', 'Get Fee Still Owed on the Receipt\'s Records', 'RegulatoryTrxnFee',
+       [('ParentRecordId', 'In', REF('varT_ReceiptParentIds')), ('Status', 'EqualTo', STR('DUE')), ('Status', 'EqualTo', STR('PARTIALLY_PAID'))],
+       ['Id'], 'AreTheReceiptFeesPaid', first=True, logic='1 AND (2 OR 3)', sort=None)
+decision('AreTheReceiptFeesPaid', 'Are the Receipt\'s Fees All Paid?',
+         [('AllPaid', 'Yes', [cond('GetFeeStillOwed.Id', 'IsNull', BOOL(True))], 'IsThePaymentLinkedToAReceipt', 'and')], 'LoopThroughReceiptItems')
+decision('IsThePaymentLinkedToAReceipt', 'Is the Payment Already Linked to a Receipt?',
+         [('Linked', 'Yes', [cond('varB_PaymentLinked', 'EqualTo', BOOL(True))], 'AddAcceptedReceipt', 'and')], 'LinkPaymentToReceipt')
+update_filtered('LinkPaymentToReceipt', 'Set Checklist Item on Payment to Receipt', 'Payment__c',
+                [('Id', 'EqualTo', REF('CreatePayment'))], [('ChecklistItem__c', REF('LoopThroughReceiptItems.Id'))],
+                'SetPaymentLinked', 'CouldNotAcceptReceipt',
+                desc='Links the payment to the receipt it settles, so accepting the receipt records no second payment.')
+assignment('SetPaymentLinked', 'Set Payment Linked to True', [('varB_PaymentLinked', 'Assign', BOOL(True))], 'AddAcceptedReceipt')
+assignment('AddAcceptedReceipt', 'Add Receipt Item with Status Accepted', [
+    ('varR_ReceiptItem.Id', 'Assign', REF('LoopThroughReceiptItems.Id')),
+    ('varR_ReceiptItem.Status', 'Assign', STR('Accepted')),
+    ('varR_ReceiptItems', 'Add', REF('varR_ReceiptItem')),
+    ('varN_ReceiptsAccepted', 'Add', NUM(1)),
+], 'LoopThroughReceiptItems')
+decision('WereAnyReceiptsSettled', 'Were Any Payment Receipts Settled?',
+         [('Settled', 'Yes', [cond('varR_ReceiptItems', 'IsEmpty', BOOL(False))], 'UpdateReceiptItems', 'and')], 'PaymentRecorded')
+update_many('UpdateReceiptItems', 'Update Payment Receipt Items', 'varR_ReceiptItems', 'PaymentRecorded', 'CouldNotAcceptReceipt')
+
 screen('PaymentRecorded', 'Payment Recorded', [
-    display('PR_Message', '<p><b>The payment is recorded.</b></p><p>Applied to fees: {!forC_Applied}. Left unapplied: {!varC_Remaining}.</p><p>The fees\' Amount Paid and Status update on their own.</p>'),
+    display('PR_Message', '<p><b>The payment is recorded.</b></p><p>Applied to fees: {!forC_Applied}. Left unapplied: {!varC_Remaining}.</p><p>The fees\' Amount Paid and Status update on their own.</p><p>{!forT_ReceiptNote}</p>'),
 ], None, next_label='Done')
+screen('CouldNotAcceptReceipt', 'Could Not Accept Payment Receipt', [
+    display('CNAR_Message', '<p><b>The payment is recorded</b>, but the application\'s Payment Receipt checklist item could not be marked Accepted.</p><p>{!$Flow.FaultMessage}</p><p>Open the application\'s checklist and accept the Payment Receipt item there. No second payment is recorded for it.</p>'),
+], None)
 screen('CouldNotRecordPayment', 'Could Not Record Payment', [
     display('CNRP_Message', '<p>The payment could not be recorded, and nothing was saved.</p><p>{!$Flow.FaultMessage}</p>'),
 ], None)
@@ -240,7 +315,7 @@ desc = ('Records a payment that came in by mail or at the counter (check, money 
         'from the Record Payment action on the account. Staff enter the payment, then go through each of the account\'s open fee items, oldest first, '
         'and apply part of it; each item offers what it still owes, after earlier payments that were not returned. Anything not applied stays on the payment '
         'as unapplied. The payment and its allocations are saved together at the end, and the fees\' Amount Paid and Status then update through the payment '
-        'allocation trigger. Online (PayStar) payments are recorded automatically when staff accept the receipt, not here.')
+        'allocation trigger. Online (PayStar) payments are recorded automatically when staff accept the receipt, not here. When the payment leaves nothing Due or Partially Paid on an application (and on the others certified with it), the application\'s open Payment Receipt checklist item is marked Accepted, so the portal stops asking for a receipt; the payment is first linked to that item, so accepting it records no second (Card) payment.')
 
 order = ['assignments', 'choices', 'decisions', 'dynamicChoiceSets']
 head = ('<?xml version="1.0" encoding="UTF-8"?>\n<Flow xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">'
@@ -251,7 +326,7 @@ body += '<interviewLabel>Screen Flow: Account Record Payment {!$Flow.CurrentDate
 body += ''.join(els['loops'])
 for k, v in [('BuilderType', 'LightningFlowBuilder'), ('CanvasMode', 'AUTO_LAYOUT_CANVAS'), ('OriginBuilderType', 'LightningFlowBuilder')]:
     body += f'<processMetadataValues><name>{k}</name><value><stringValue>{v}</stringValue></value></processMetadataValues>'
-body += '<processType>Flow</processType>' + ''.join(els['recordCreates']) + ''.join(els['recordLookups'])
+body += '<processType>Flow</processType>' + ''.join(els['recordCreates']) + ''.join(els['recordLookups']) + ''.join(els['recordUpdates'])
 body += '<runInMode>DefaultMode</runInMode>' + ''.join(els['screens'])
 body += f'<start>{loc()}{conn("RecordPayment")}</start><status>Active</status>' + ''.join(els['variables']) + '</Flow>\n'
 open(sys.argv[1] + '/ScreenFlowAccountRecordPayment.flow-meta.xml', 'w').write(head + body)

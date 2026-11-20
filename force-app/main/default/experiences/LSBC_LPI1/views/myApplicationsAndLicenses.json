@@ -9,7 +9,7 @@
       "components": [
         {
           "componentAttributes": {
-            "richTextValue": "<h1>    <span style=\"color: #2D2D2D;font-size: 21px;\">View the Status of a License or Permit</span>   </h1><div class=\"slds-text-body_regular slds-m-top_large slds-p-bottom_x-large\">View submitted license or permit applications, draft applications, and issued licenses and permits.</div><p class=\"slds-p-bottom_large\">Moved? <a href=\"/LPI/s/change-address\">Change your mailing address</a>.</p>"
+            "richTextValue": "<h1>    <span style=\"color: #2D2D2D;font-size: 21px;\">View the Status of a License or Permit</span>   </h1><div class=\"slds-text-body_regular slds-m-top_large slds-p-bottom_x-large\">See the applications you have submitted, any the Board has returned to you, and the forms you saved to finish later.</div><p class=\"slds-p-bottom_large\">Moved? <a href=\"/LPI/s/change-address\">Change your mailing address</a>.</p>"
           },
           "componentName": "forceCommunity:richTextInline",
           "id": "48a2720b-d660-47ea-a8bb-d6a0f0c7e779",
@@ -56,20 +56,7 @@
                   "UUID": "38c8a3ed-0c9a-4d03-b85d-3ce152525451",
                   "allowGuestUser": false,
                   "locked": false,
-                  "seedComponents": [
-                    {
-                      "attributes": {
-                        "enableInlineEdit": "false",
-                        "filterName": "MySubmittedApplicationForms",
-                        "layout": "FULL",
-                        "scope": "ApplicationForm",
-                        "showActionBar": "false",
-                        "showChartsPanel": "false",
-                        "showPinnedList": "false"
-                      },
-                      "fqn": "forceCommunity:objectHome"
-                    }
-                  ],
+                  "seedComponents": [],
                   "tabKey": "submittedApps",
                   "tabName": "My Submitted Applications"
                 },
@@ -77,20 +64,7 @@
                   "UUID": "afc87761-560d-47c0-b8d4-01a1fade33dc",
                   "allowGuestUser": false,
                   "locked": false,
-                  "seedComponents": [
-                    {
-                      "attributes": {
-                        "enableInlineEdit": "false",
-                        "filterName": "MyReturnedApplicationForms",
-                        "layout": "FULL",
-                        "scope": "ApplicationForm",
-                        "showActionBar": "false",
-                        "showChartsPanel": "false",
-                        "showPinnedList": "false"
-                      },
-                      "fqn": "forceCommunity:objectHome"
-                    }
-                  ],
+                  "seedComponents": [],
                   "tabKey": "returnedApps",
                   "tabName": "My Returned Applications"
                 }
@@ -105,22 +79,10 @@
               "components": [
                 {
                   "componentAttributes": {
-                    "enableInlineEdit": false,
-                    "filterName": "MySubmittedApplicationForms",
-                    "layout": "FULL",
-                    "pageSize": 25,
-                    "scope": "ApplicationForm",
-                    "showActionBar": false,
-                    "showChartsPanel": false,
-                    "showDisplay": "showall",
-                    "showFilterPanel": true,
-                    "showImageIcon": true,
-                    "showManualRefreshButton": true,
-                    "showObjectName": true,
-                    "showPinnedList": false,
-                    "showSearchBar": true
+                    "flowArguments": "[{\"label\":\"varT_ListName\",\"dataType\":\"String\",\"supportsRecordId\":false,\"value\":\"Submitted\"}]",
+                    "flowName": "ScreenFlowIndividualApplicationStatusList"
                   },
-                  "componentName": "forceCommunity:objectHome",
+                  "componentName": "forceCommunity:flowCommunity",
                   "id": "2739b77a-904d-4611-ba88-5201b8b91a32",
                   "renderPriority": "NEUTRAL",
                   "renditionMap": {},
@@ -137,22 +99,10 @@
               "components": [
                 {
                   "componentAttributes": {
-                    "enableInlineEdit": false,
-                    "filterName": "MyReturnedApplicationForms",
-                    "layout": "FULL",
-                    "pageSize": 25,
-                    "scope": "ApplicationForm",
-                    "showActionBar": false,
-                    "showChartsPanel": false,
-                    "showDisplay": "showall",
-                    "showFilterPanel": true,
-                    "showImageIcon": true,
-                    "showManualRefreshButton": true,
-                    "showObjectName": true,
-                    "showPinnedList": false,
-                    "showSearchBar": true
+                    "flowArguments": "[{\"label\":\"varT_ListName\",\"dataType\":\"String\",\"supportsRecordId\":false,\"value\":\"Returned\"}]",
+                    "flowName": "ScreenFlowIndividualApplicationStatusList"
                   },
-                  "componentName": "forceCommunity:objectHome",
+                  "componentName": "forceCommunity:flowCommunity",
                   "id": "9ceb6f00-5776-4a00-a803-d0c8b430b5b8",
                   "renderPriority": "NEUTRAL",
                   "renditionMap": {},
