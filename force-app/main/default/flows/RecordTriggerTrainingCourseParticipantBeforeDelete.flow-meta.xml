@@ -59,7 +59,7 @@
         <connector>
             <targetReference>SetHolderStopCodeSyncPendingToTrue</targetReference>
         </connector>
-        <filterFormula>NOT(ISPICKVAL({!$Record.EntryType__c}, &quot;Continuing Education&quot;))</filterFormula>
+        <filterFormula>NOT(ISPICKVAL({!$Record.EntryType__c}, &quot;Continuing Education&quot;)) &amp;&amp; NOT(ISPICKVAL({!$Record.EntryType__c}, &quot;Termination&quot;))</filterFormula>
         <object>TrainingCourseParticipant</object>
         <recordTriggerType>Delete</recordTriggerType>
         <triggerType>RecordBeforeDelete</triggerType>

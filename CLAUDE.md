@@ -377,6 +377,16 @@ Still open:
   layout's `defaultLinksOverrides` sets `title.linkURL` to `{!CurrentItem.source.url}` (the site prefixes `/LPI`). The
   Document Detail page (`/cms-document`) shows only the title: the standard detail component can't show a Document's
   file. Old News items and collection are unused leftovers.
+- Application Type (`IndividualApplication`/`BusinessLicenseApplication.ApplicationType`, one shared standard picklist)
+  takes new values only in Setup: a deploy that lists them in the field file succeeds but ignores them. Add them on
+  the field's classic page (`/setup/ui/picklist_masteredit.jsp?tid=0iT&pt=386`, record type boxes unticked), then
+  deploy the record types that use them. Production needs the same step (Deployment Manifest). School forms values
+  (19 Nov 2026): Transfer, Additional Training (Student Registration record type); National Exam, National Retake,
+  Practical and State, Practical and State 1400 Hour, Exam Retake, No Show (Examination record type).
+- Hours entries (`TrainingCourseParticipant.EntryType__c`): Termination (End Date = last day attended, no hours) and
+  Continuing Education are skipped by every stop code query and trigger; Activity (field trips, workshops, shows,
+  community service) counts as hours. Licence type Student Registration (code L, data) has no term until the Board
+  says how long a registration lasts.
 - Self-registration is the Sign Up flow page (`/sign-up`); the template Register page (`/SelfRegister`) is unused
   and kept (Jonathan, 19 Nov 2026).
 - Staff app LSBC Licensing: image is content asset `LSBCSeal2026` (a deploy can't add a version to an existing

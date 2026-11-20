@@ -62,6 +62,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>IndividualApplication.AttendanceSchedule__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>IndividualApplication.BudgetId</field>
         <readable>true</readable>
@@ -78,7 +83,17 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>IndividualApplication.ClassStartDate__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>IndividualApplication.CompletedDate__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>IndividualApplication.ContractualFeesStatus__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -169,6 +184,21 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>IndividualApplication.OriginatingState__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>IndividualApplication.PreviouslyEnrolledInLouisiana__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>IndividualApplication.PreviouslyLicensed__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>IndividualApplication.PriorEnrollmentExplanation__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -478,6 +508,14 @@
     </recordTypeVisibilities>
     <recordTypeVisibilities>
         <recordType>IndividualApplication.Renewal</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <recordType>IndividualApplication.StudentRegistration</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <recordType>IndividualApplication.Examination</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>

@@ -249,6 +249,17 @@
       "TermLength__c": 12,
       "DurationType": "Month",
       "RegulatoryAuthCode": "MU"
+    },
+    {
+      "attributes": {
+        "type": "RegulatoryAuthorizationType",
+        "referenceId": "TypeStudentRegistration"
+      },
+      "Name": "Student Registration",
+      "RegulatoryAuthCategory": "License",
+      "ExpirationBasis__c": "From Issue Date",
+      "RegulatoryAuthCode": "L",
+      "Description": "A student's registration with the Board while enrolled at a school (the Student License, L number), issued when the school's Student Enrollment is approved. How long it lasts is a question for the Board, so it has no term yet."
     }
   ]
 }

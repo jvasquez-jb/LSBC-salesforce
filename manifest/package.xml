@@ -64,6 +64,8 @@
     <types>
         <members>Account.BillingAddress</members>
         <members>Account.CertificationNumber__c</members>
+        <members>Account.LastInstructorRosterDate__c</members>
+        <members>Account.LastInstructorRosterQuarter__c</members>
         <members>Account.LegacyKey__c</members>
         <members>Account.MaximumStudentCapacity__c</members>
         <members>Account.Name</members>
@@ -200,10 +202,13 @@
         <members>IndividualApplication.AppliedDate</members>
         <members>IndividualApplication.ApprenticeshipSetting__c</members>
         <members>IndividualApplication.ApprovedDate</members>
+        <members>IndividualApplication.AttendanceSchedule__c</members>
         <members>IndividualApplication.Category</members>
         <members>IndividualApplication.CertifiedDateTime__c</members>
         <members>IndividualApplication.CertifiedName__c</members>
+        <members>IndividualApplication.ClassStartDate__c</members>
         <members>IndividualApplication.CompletedDate__c</members>
+        <members>IndividualApplication.ContractualFeesStatus__c</members>
         <members>IndividualApplication.CourseOffering__c</members>
         <members>IndividualApplication.DecisionReason__c</members>
         <members>IndividualApplication.DisclosureExplanation__c</members>
@@ -223,6 +228,9 @@
         <members>IndividualApplication.NoShowFeeAcknowledged__c</members>
         <members>IndividualApplication.OriginatingState__c</members>
         <members>IndividualApplication.PaymentDate</members>
+        <members>IndividualApplication.PreviouslyEnrolledInLouisiana__c</members>
+        <members>IndividualApplication.PreviouslyLicensed__c</members>
+        <members>IndividualApplication.PriorEnrollmentExplanation__c</members>
         <members>IndividualApplication.PriorLicenseAction__c</members>
         <members>IndividualApplication.ReturnReason__c</members>
         <members>IndividualApplication.SaturdayHours__c</members>
@@ -370,13 +378,19 @@
         <members>RegulatoryTrxnFeeItem.FeeProduct__c</members>
         <members>RegulatoryTrxnFeeItem.ForYear__c</members>
         <members>RegulatoryTrxnFeeItem.Name</members>
+        <members>TrainingCourseParticipant.AccompanyingInstructor__c</members>
+        <members>TrainingCourseParticipant.ActivityLocation__c</members>
+        <members>TrainingCourseParticipant.ActivityType__c</members>
         <members>TrainingCourseParticipant.ContactId</members>
         <members>TrainingCourseParticipant.CourseOfferingId</members>
         <members>TrainingCourseParticipant.EndDate</members>
         <members>TrainingCourseParticipant.EntryType__c</members>
+        <members>TrainingCourseParticipant.HoursSubmitted__c</members>
         <members>TrainingCourseParticipant.InstitutionName</members>
         <members>TrainingCourseParticipant.ReceivedDate__c</members>
         <members>TrainingCourseParticipant.Result</members>
+        <members>TrainingCourseParticipant.SourceSchool__c</members>
+        <members>TrainingCourseParticipant.SourceState__c</members>
         <members>TrainingCourseParticipant.StartDate</members>
         <members>TrainingCourseParticipant.TotalCredits</members>
         <members>TrainingCourseParticipant.TotalHours</members>
@@ -910,9 +924,11 @@
         <members>BusinessLicenseApplication.NewEstablishment</members>
         <members>BusinessLicenseApplication.NewSchool</members>
         <members>BusinessLicenseApplication.Renewal</members>
+        <members>IndividualApplication.Examination</members>
         <members>IndividualApplication.NewLicensure</members>
         <members>IndividualApplication.Reciprocity</members>
         <members>IndividualApplication.Renewal</members>
+        <members>IndividualApplication.StudentRegistration</members>
         <members>PersonAccount.PersonAccount</members>
         <name>RecordType</name>
     </types>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PriorEnrollmentExplanation__c</fullName>
+    <description>The student's explanation when they were enrolled in a Louisiana school before or have been licensed, from the Student Enrollment form.</description>
+    <label>Prior Enrollment Explanation</label>
+    <length>2000</length>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
+</CustomField>

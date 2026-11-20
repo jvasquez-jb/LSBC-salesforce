@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PreviouslyEnrolledInLouisiana__c</fullName>
+    <description>The student has been enrolled in a Louisiana cosmetology school before, from the Student Enrollment form. If so, a Certification of Contractual Fees from that school is needed.</description>
+    <label>Previously Enrolled in Louisiana</label>
+    <defaultValue>false</defaultValue>
+    <type>Checkbox</type>
+</CustomField>

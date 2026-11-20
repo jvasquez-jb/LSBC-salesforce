@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HoursSubmitted__c</fullName>
+    <description>For transferred hours: the total hours the student brought from the other school. Total Hours holds the hours this school accepted.</description>
+    <label>Hours Submitted</label>
+    <precision>6</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <type>Number</type>
+</CustomField>

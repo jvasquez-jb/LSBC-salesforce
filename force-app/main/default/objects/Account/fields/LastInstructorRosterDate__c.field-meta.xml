@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LastInstructorRosterDate__c</fullName>
+    <description>The date the school last filed its Instructor Quarterly Roster on the portal.</description>
+    <label>Last Instructor Roster Date</label>
+    <required>false</required>
+    <type>Date</type>
+</CustomField>

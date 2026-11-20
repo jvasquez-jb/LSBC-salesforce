@@ -108,7 +108,8 @@ RECORD_TYPES = {
     'PeopleMaintenance': ['PersonAccount.PersonAccount', 'Account.Establishment'],
     'SchoolOversight': ['Account.School', 'Account.Organization'],
     'ApplicationProcessing': ['IndividualApplication.NewLicensure', 'IndividualApplication.Reciprocity',
-                              'IndividualApplication.Renewal', 'BusinessLicenseApplication.NewEstablishment',
+                              'IndividualApplication.Renewal', 'IndividualApplication.StudentRegistration',
+                              'IndividualApplication.Examination', 'BusinessLicenseApplication.NewEstablishment',
                               'BusinessLicenseApplication.NewSchool', 'BusinessLicenseApplication.Renewal'],
 }
 # Apex and Visualforce access can't sit in a Public Sector-licensed set: the LSBC Standard User profile grants

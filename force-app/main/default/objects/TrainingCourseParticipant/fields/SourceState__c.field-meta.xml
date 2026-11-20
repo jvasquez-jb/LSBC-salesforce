@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SourceState__c</fullName>
+    <description>For transferred hours: the state of the school the hours came from.</description>
+    <label>Source State</label>
+    <required>false</required>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetName>State</valueSetName>
+    </valueSet>
+</CustomField>

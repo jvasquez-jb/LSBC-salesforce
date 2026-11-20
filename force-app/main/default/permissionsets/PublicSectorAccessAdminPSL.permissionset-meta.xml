@@ -82,6 +82,16 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>true</editable>
+        <field>Account.LastInstructorRosterDate__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Account.LastInstructorRosterQuarter__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Account.LegacyKey__c</field>
         <readable>true</readable>
@@ -433,12 +443,22 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>IndividualApplication.AttendanceSchedule__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>IndividualApplication.CertifiedDateTime__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
         <field>IndividualApplication.CertifiedName__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>IndividualApplication.ClassStartDate__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -464,6 +484,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>IndividualApplication.CompletedDate__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>IndividualApplication.ContractualFeesStatus__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -529,6 +554,21 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>IndividualApplication.OriginatingState__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>IndividualApplication.PreviouslyEnrolledInLouisiana__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>IndividualApplication.PreviouslyLicensed__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>IndividualApplication.PriorEnrollmentExplanation__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -818,6 +858,21 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>TrainingCourseParticipant.AccompanyingInstructor__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>TrainingCourseParticipant.ActivityLocation__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>TrainingCourseParticipant.ActivityType__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>TrainingCourseParticipant.EndDate</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -828,7 +883,22 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>TrainingCourseParticipant.HoursSubmitted__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>TrainingCourseParticipant.ReceivedDate__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>TrainingCourseParticipant.SourceSchool__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>TrainingCourseParticipant.SourceState__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

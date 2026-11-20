@@ -139,7 +139,7 @@ F.lookup('GetSchoolCourseOffering', 'Get School Course Offering', 'CourseOfferin
          ['Id', 'Name'], 'SetHoursToZero', first=True)
 F.assignment('SetHoursToZero', 'Set Hours Totals to Zero', [('varN_HoursOnFile', 'Assign', NUM(0)), ('varN_SchoolHours', 'Assign', NUM(0))], 'GetHoursEntries')
 F.lookup('GetHoursEntries', 'Get Hours Entries', 'TrainingCourseParticipant',
-         [('ContactId', 'EqualTo', REF('GetApplicant.PersonContactId')), ('EntryType__c', 'NotEqualTo', STR('Continuing Education'))],
+         [('ContactId', 'EqualTo', REF('GetApplicant.PersonContactId')), ('EntryType__c', 'NotEqualTo', STR('Continuing Education')), ('EntryType__c', 'NotEqualTo', STR('Termination'))],
          ['Id', 'TotalHours', 'CourseOfferingId'], 'LoopThroughHoursEntries')
 F.loop('LoopThroughHoursEntries', 'Loop Through Hours Entries', 'GetHoursEntries', 'AddEntryHours', 'HoursCheck')
 F.assignment('AddEntryHours', 'Add Entry Hours to Hours on File', [('varN_HoursOnFile', 'Add', REF('forN_EntryHours'))], 'IsTheEntryForThisSchool')

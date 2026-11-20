@@ -36,6 +36,14 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
+                <field>LastInstructorRosterDate__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>LastInstructorRosterQuarter__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
                 <field>StopCodeSyncPending__c</field>
             </layoutItems>
             <layoutItems>

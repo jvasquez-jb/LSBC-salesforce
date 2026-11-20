@@ -163,6 +163,13 @@
                 <stringValue>Continuing Education</stringValue>
             </value>
         </filters>
+        <filters>
+            <field>EntryType__c</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <stringValue>Termination</stringValue>
+            </value>
+        </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
         <object>TrainingCourseParticipant</object>
         <sortField>Id</sortField>
@@ -188,6 +195,13 @@
             <operator>NotEqualTo</operator>
             <value>
                 <stringValue>Continuing Education</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>EntryType__c</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <stringValue>Termination</stringValue>
             </value>
         </filters>
         <object>TrainingCourseParticipant</object>

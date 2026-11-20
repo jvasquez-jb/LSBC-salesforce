@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ActivityType__c</fullName>
+    <description>For field trip, workshop, show and community service hours: the kind of activity, from the school's reporting form.</description>
+    <label>Activity Type</label>
+    <required>false</required>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Field Trip</fullName>
+                <default>false</default>
+                <label>Field Trip</label>
+            </value>
+            <value>
+                <fullName>Workshop</fullName>
+                <default>false</default>
+                <label>Workshop</label>
+            </value>
+            <value>
+                <fullName>Show</fullName>
+                <default>false</default>
+                <label>Show</label>
+            </value>
+            <value>
+                <fullName>Community Service</fullName>
+                <default>false</default>
+                <label>Community Service</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

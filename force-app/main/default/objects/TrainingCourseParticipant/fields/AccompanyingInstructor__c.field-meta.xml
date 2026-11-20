@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AccompanyingInstructor__c</fullName>
+    <description>For field trip, workshop, show and community service hours: the instructor who went with the students.</description>
+    <label>Accompanying Instructor</label>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <referenceTo>Contact</referenceTo>
+    <relationshipLabel>Accompanied Activities</relationshipLabel>
+    <relationshipName>AccompaniedActivities</relationshipName>
+    <required>false</required>
+    <type>Lookup</type>
+</CustomField>

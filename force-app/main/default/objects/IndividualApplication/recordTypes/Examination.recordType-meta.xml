@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Examination</fullName>
+    <active>true</active>
+    <description>A student's or applicant's application to sit the national, practical or state examinations, a retake or a no-show reapplication, usually filed by the school.</description>
+    <label>Examination</label>
+    <picklistValues>
+        <picklist>ApplicationCategory</picklist>
+        <values>
+            <fullName>Basic</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Special</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>ApplicationType</picklist>
+        <values>
+            <fullName>National Exam</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>National Retake</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Practical and State</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Practical and State 1400 Hour</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Exam Retake</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No Show</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Category</picklist>
+        <values>
+            <fullName>License</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Permit</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Status</picklist>
+        <values>
+            <fullName>Application Accepted</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Approved</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Denied</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Draft</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>In Review</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Submitted</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>
