@@ -90,6 +90,7 @@ you are working on before building, and section 9 for what the org actually prov
 | 4 | Cases and violations (section 4) | Done |
 | 5 | Portal (section 3) | Done. School Administrator and Business Owner forms wait for Phase 2 |
 | 6 | Staff tools, reports, cutover (PT-15–17, DM-18c, section 5) | Done. Staff app LSBC Licensing; access waits for Phase 2 |
+| 7 | Licences and staff users: Public Sector Access and Document Checklist seats for every staff user and the Default Workflow User, portal seats, real desk users | January 2027 (Jonathan, 19 Nov 2026). Doesn't block Phase 2 |
 
 ### Phase 2 status
 
@@ -113,19 +114,24 @@ Program Manager, admins; `HIDE_RULES` in `pagegen.py`). Every desk group include
 every staff user needs the Document Checklist licence (`DocumentChecklistPsl`) or no checklist item page opens.
 Tim has both. `EstablishmentNumberCounter__c` sits with `CertificationNumberCounter__c` in ApplicationProcessingExtra.
 
+Decided 19 Nov 2026 (Jonathan): licences move to Phase 7 (January 2027) and don't block Phase 2. William is LSBC's
+long-term admin (Business Rules Engine Designer seat, Letter Templates). Only admins publish Board documents on the
+portal. No one edits a note or activity they didn't write (Erin's audit concern): notes already open view-only to
+everyone but their author, because the org's file setting "Set by record" is off (`enableFileShareSetByRecord`
+false: keep it off); tasks and events get a rule.
+
+`OPEN-11` spike (19 Nov 2026): a sharing set mapping on `Contact.RelatedAccount` works without code (portal
+licence Customer Community Plus Login) but can't filter by Account Contact Relation role (`roles` is refused): a
+Booth Renter saw the salon and its licence, and instructors would see a school's students. A manual share
+(`AccountShare`, `BusinessLicenseShare`, …) to the portal user works, and a flow can create share records. So
+Business Owner, Manager and School Administrator access is built as share records kept in step by a flow; the
+spike mapping was removed. Accounts can't be owned by a queue, so "move to an LSBC queue on approval" becomes a
+change of owner to an LSBC user.
+
 Still open:
 
-1. Licences: the org has 5 Salesforce user licences, all held by admins, so no desk test user can be created.
-   Every staff user needs the Public Sector Access licence (5 seats today; more in January 2027), and in
-   production so does the Default Workflow User. Portal seats (100) are with the Account Executive.
-2. `OPEN-11`: School Administrator and Business Owner portal access over Account Contact Relations, the 17
-   School Forms, and moving portal-created establishments to an LSBC queue on approval.
-3. The long-term LSBC admin who gets the Business Rules Engine Designer seat and edits Letter Templates (name
-   needed from Erin).
-4. Who may publish Board documents on the portal (CMS contributor on the LSBC Portal Content workspace: William,
-   others?). Admins only today.
-5. Who may edit notes and activities they didn't write (Erin's audit concern, 18 Nov 2026). Salesforce already
-   stamps Created By and Last Modified By on every note.
+1. `OPEN-11` build: School Administrator and Business Owner portal access, the 14 School Forms not yet built, and
+   the change of owner on approval.
 
 ## Org notes
 
@@ -361,9 +367,10 @@ Still open:
   Publications (portal Experience Workspaces > Content Management > Collections; UI only), shown by the
   `forceCommunity:dynamicCollection` in `news_collection.json`. Samples: `data/cms/samples`, loaded and published by
   `scripts/cms/load_portal_news.py` (multipart upload). Guests see published CMS content through the Network's
-  `enableGuestFileAccess` (Jonathan, 19 Nov 2026). The Document detail page (Builder: New Page > CMS Content Page >
-  Document) is still to create; until then theme.css makes the cards unlinked (`pointer-events: none` on
-  `.js-content-navlink`): remove that line once it exists. Old News items and collection are unused leftovers.
+  `enableGuestFileAccess` (Jonathan, 19 Nov 2026). A card's title opens the PDF itself in a new tab: the tile
+  layout's `defaultLinksOverrides` sets `title.linkURL` to `{!CurrentItem.source.url}` (the site prefixes `/LPI`). The
+  Document Detail page (`/cms-document`) shows only the title: the standard detail component can't show a Document's
+  file. Old News items and collection are unused leftovers.
 - Self-registration is the Sign Up flow page (`/sign-up`); the template Register page (`/SelfRegister`) is unused
   and kept (Jonathan, 19 Nov 2026).
 - Staff app LSBC Licensing: image is content asset `LSBCSeal2026` (a deploy can't add a version to an existing

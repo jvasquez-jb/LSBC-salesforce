@@ -46,7 +46,7 @@
           "datetimeFontSize": "regular",
           "datetimeTextColor": "",
           "datetimeTextDecoration": "",
-          "defaultLinksOverrides": "{}",
+          "defaultLinksOverrides": "{\"title\": {\"linkURL\": \"{!CurrentItem.source.url}\", \"target\": \"_blank\"}}",
           "displayDayOfWeek": false,
           "eyebrowFontSize": "regular",
           "eyebrowHighlightColor": "",
