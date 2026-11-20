@@ -853,7 +853,34 @@ def examination(outdir):
         'TransferDraft', 'CouldNotSave')
     f.formula('forN_Hours', 'Number', 'BLANKVALUE({!ED_Hours}, {!ED_Attendance})', 'Hours completed or attended.', scale=1)
     f.subflow('TransferDraft', 'Transfer Draft', 'SubflowPreliminaryApplicationTransfer', [
-        ('varT_PreliminaryApplicationId', '=CreateDraft'), ('varT_ApplicationId', '=CreateApplication')], 'AreFeesDue')
+        ('varT_PreliminaryApplicationId', '=CreateDraft'), ('varT_ApplicationId', '=CreateApplication')], 'IsALanguageChosen')
+    # national exams: the exam language joins the student's languages (Person Language) if it isn't there yet
+    f.decide('IsALanguageChosen', 'Is an Exam Language Chosen?', [('LanguageChosen', 'Yes', [('forB_IsNational', 'EqualTo', True)],
+             'DoesTheStudentHaveAnIndividual', 'and')], 'AreFeesDue')
+    f.var('varT_IndividualId', 'String', 'The student\'s Individual, which holds their languages.')
+    f.decide('DoesTheStudentHaveAnIndividual', 'Does the Student Have an Individual?', [('HasIndividual', 'Yes',
+             [('GetStudent.PersonIndividualId', 'IsNull', False)], 'SetIndividual', 'and')], 'CreateIndividual', default_label='No, create one')
+    f.assign('SetIndividual', 'Set Individual', [('varT_IndividualId', 'Assign', '=GetStudent.PersonIndividualId')], 'GetStudentLanguages')
+    f.create('CreateIndividual', 'Create Individual', 'Individual', [('FirstName', '=GetStudent.FirstName'), ('LastName', '=GetStudent.LastName')],
+             'LinkIndividualToStudent', 'CouldNotSave')
+    f.update('LinkIndividualToStudent', 'Link Individual to Student', 'Account', 'GetStudent.Id', [('PersonIndividualId', '=CreateIndividual')],
+             'SetNewIndividual', 'CouldNotSave')
+    f.assign('SetNewIndividual', 'Set New Individual', [('varT_IndividualId', 'Assign', '=CreateIndividual')], 'GetStudentLanguages')
+    f.lookup('GetStudentLanguages', 'Get Student Languages', 'PersonLanguage', [('IndividualId', 'EqualTo', '=varT_IndividualId')],
+             ['Id', 'Language', 'Rank'], 'LoopThroughLanguages', sort='Rank')
+    f.var('varN_LanguageCount', 'Number', 'How many languages the student has.', default=0, scale=0)
+    f.var('varB_HasLanguage', 'Boolean', 'The student already has the exam language.', default=False)
+    f.loop('LoopThroughLanguages', 'Loop Through Student Languages', 'GetStudentLanguages', 'CountLanguage', 'DoesTheStudentHaveTheLanguage')
+    f.formula('forB_SameLanguage', 'Boolean', 'TEXT({!LoopThroughLanguages.Language}) = {!ED_Language}', 'This is the exam language.')
+    f.assign('CountLanguage', 'Count Language', [('varN_LanguageCount', 'Add', 1)], 'IsItTheExamLanguage')
+    f.decide('IsItTheExamLanguage', 'Is It the Exam Language?', [('Same', 'Yes', [('forB_SameLanguage', 'EqualTo', True)], 'SetHasLanguage', 'and')],
+             'LoopThroughLanguages')
+    f.assign('SetHasLanguage', 'Set Has Language', [('varB_HasLanguage', 'Assign', True)], 'LoopThroughLanguages')
+    f.decide('DoesTheStudentHaveTheLanguage', 'Does the Student Have the Language?', [('Missing', 'No, add it', [('varB_HasLanguage', 'EqualTo', False)],
+             'CreateLanguage', 'and')], 'AreFeesDue', default_label='Yes')
+    f.formula('forN_NextRank', 'Number', '{!varN_LanguageCount} + 1', 'The new language\'s rank.', scale=0)
+    f.create('CreateLanguage', 'Create Person Language', 'PersonLanguage', [('IndividualId', '=varT_IndividualId'),
+             ('Language', '=ED_Language'), ('Rank', '=forN_NextRank')], 'AreFeesDue', 'CouldNotSave')
     # fees, as printed on each form
     f.formula('forB_InitialFee', 'Boolean', '{!forB_IsAhd} || {!WF_Form} = "Application for Practical and State Exam"', 'The initial license or permit fee applies.')
     f.formula('forB_NoShowFees', 'Boolean', '{!WF_Form} = "Application for No Show Exam(s)"', 'No-show fees apply per exam.')

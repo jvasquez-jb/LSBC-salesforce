@@ -90,7 +90,7 @@ you are working on before building, and section 9 for what the org actually prov
 | 4 | Cases and violations (section 4) | Done |
 | 5 | Portal (section 3) | Done. School Administrator and Business Owner forms wait for Phase 2 |
 | 6 | Staff tools, reports, cutover (PT-15–17, DM-18c, section 5) | Done. Staff app LSBC Licensing; access waits for Phase 2 |
-| 7 | Licences and staff users: Public Sector Access and Document Checklist seats for every staff user and the Default Workflow User, portal seats, real desk users | January 2027 (Jonathan, 19 Nov 2026). Doesn't block Phase 2 |
+| 7 | Licences and staff users: Public Sector Access and Document Checklist seats for every staff user and the Default Workflow User, portal seats, real desk users. The open Client Questions, taken to the Board at Jonathan's December 2026 meeting | December 2026 to January 2027 (Jonathan, 19 Nov 2026). Doesn't block Phase 2 |
 
 ### Phase 2 status
 
@@ -136,9 +136,9 @@ Activities: `SubjectDescriptionEditOnlyByCreator` on Task and Event and `RecordT
 
 Still open:
 
-1. School forms built 19 Nov 2026 (all 14 remaining forms, My School, My Businesses); the Board's confirmation of the
+1. School forms built 19 Nov 2026 (all 14 remaining forms, My School, My Businesses). The Board's answers on the
    school certifying for the student, how long a student registration lasts, and whether a Notice of Termination still
-   needs the paper student license are in Client Questions. My School and My Businesses are in the portal's profile
+   needs the paper student license wait for Phase 7 (Jonathan's December meeting), with the other open Client Questions. My School and My Businesses are in the portal's profile
    menu (top right), not the main menu, since most portal users are neither.
 
 ## Org notes
