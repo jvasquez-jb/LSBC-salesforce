@@ -138,8 +138,8 @@ Still open:
 
 1. School forms built 19 Nov 2026 (all 14 remaining forms, My School, My Businesses); the Board's confirmation of the
    school certifying for the student, how long a student registration lasts, and whether a Notice of Termination still
-   needs the paper student license are in Client Questions. Links to My School and My Businesses in the portal
-   navigation are still to add.
+   needs the paper student license are in Client Questions. My School and My Businesses are in the portal's profile
+   menu (top right), not the main menu, since most portal users are neither.
 
 ## Org notes
 

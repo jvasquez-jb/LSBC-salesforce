@@ -18,29 +18,43 @@
         <type>InternalLink</type>
     </navigationMenuItem>
     <navigationMenuItem>
-        <label>Experience Workspaces</label>
+        <label>My School</label>
         <position>3</position>
+        <publiclyAvailable>false</publiclyAvailable>
+        <target>/my-school</target>
+        <type>InternalLink</type>
+    </navigationMenuItem>
+    <navigationMenuItem>
+        <label>My Businesses</label>
+        <position>4</position>
+        <publiclyAvailable>false</publiclyAvailable>
+        <target>/my-businesses</target>
+        <type>InternalLink</type>
+    </navigationMenuItem>
+    <navigationMenuItem>
+        <label>Experience Workspaces</label>
+        <position>5</position>
         <publiclyAvailable>false</publiclyAvailable>
         <target>ExperienceWorkspaces</target>
         <type>SystemLink</type>
     </navigationMenuItem>
     <navigationMenuItem>
         <label>Experience Builder</label>
-        <position>4</position>
+        <position>6</position>
         <publiclyAvailable>false</publiclyAvailable>
         <target>ExperienceBuilder</target>
         <type>SystemLink</type>
     </navigationMenuItem>
     <navigationMenuItem>
         <label>Salesforce Setup</label>
-        <position>5</position>
+        <position>7</position>
         <publiclyAvailable>false</publiclyAvailable>
         <target>Setup</target>
         <type>SystemLink</type>
     </navigationMenuItem>
     <navigationMenuItem>
         <label>Log Out</label>
-        <position>6</position>
+        <position>8</position>
         <publiclyAvailable>false</publiclyAvailable>
         <target>Logout</target>
         <type>Event</type>
