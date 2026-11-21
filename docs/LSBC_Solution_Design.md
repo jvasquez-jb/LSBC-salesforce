@@ -209,7 +209,7 @@ cannot be encrypted, so field access is its main protection either way. See `OPE
 
 | Object | Purpose | Key content |
 |---|---|---|
-| Draft Application | Part-finished portal submissions | Save-and-resume payload |
+| `PreliminaryApplicationRef` | Part-finished portal submissions | The standard object replaced the planned custom Draft Application (10 Nov 2026, section 3): the draft, its checklist items and the saved-form link |
 | Individual Application | Person-side requests | Record types: New licensure, Renewal, Reciprocity. Originating state, application path, certification block |
 | Business Licence Application | Establishment requests | Record types: New establishment, Renewal, New school |
 | `BusinessLicense` | The licence or permit, for individuals **and** establishments | `Identifier`, `AccountId` as holder (a Person Account for individuals, a business Account for establishments; on a person's licence `ContactId` holds the person's Contact as well, filled by `Record-Trigger: Business License Before Save` and backfilled on every migrated person licence), `RegulatoryAuthorizationType`, `PeriodStart` / `PeriodEnd`, `Status`, `IsActive`, `BusinessType`, `VerificationStatus` / `VerifiedDate`, and the jurisdiction and issuer fields for out-of-state credentials |
@@ -322,11 +322,11 @@ state tables (`BR-19`). It replaced `ReciprocityStateRule` on 10 Nov 2026.
 Each date in the tables is when a state started or stopped giving the NIC theory or practical exam (the Board built them from NIC's State Education and Licensing Guide): on a start date the later period applies, on a stop date the earlier one (Board, 19 Nov 2026). Version 2 of the matrix sets Utah to the state exam only and moves Indiana's cut-off to 1 Jan 2007. Licences earned by apprenticeship, experience or online training, and the types the Board doesn't accept from any state (Hairdressing, Hairstyling, Hair Design, Hairdresser, Hairdresser/Cosmetologist, Hairdressing and Manicuring, Cosmetician, Class CA, Class CH, Florida specialists), are applicant answers that `EligibilityReciprocity` turns into Cannot Transfer. Military applicants pay $25 for the state exam and $50 for a military permit. The Board issues them only the Military Permit, never a regular licence; it renews yearly for $50, with a $50 late fee once it is more than 30 days expired (the licence type's Late Fee Grace Days).
 Violation types and regulatory codes are Phase 4 reference data.
 
-`DM-16` `[OPEN]` CLOSE has a **Seminar module** — Maintain Seminar Details and Maintain Seminar
+`DM-16` `[SETTLED]` CLOSE has a **Seminar module** — Maintain Seminar Details and Maintain Seminar
 Codes — which may be where approved CE providers and courses actually live. Confirm before
 assuming Training Course and Course Offering cover it. See `OPEN-14`.
 
-**As built (11 Nov 2026).** CLOSE's seminar module holds seminar names, dates and attendance, not providers. The 58 seminars (1992–2026) load as Course Offerings under one Training Course, Continuing Education, and each attendance of a migrated person as a Training Course Participant with Entry Type Continuing Education (3,899 rows). Stop codes read only student hours: the sync, the six-month schedule and the hours trigger skip that entry type. Whether seminar providers become Organization accounts with CE Provider Approval accreditations is a client question.
+**As built (11 Nov 2026).** CLOSE's seminar module holds seminar names, dates and attendance, not providers. The 58 seminars (1992–2026) load as Course Offerings under one Training Course, Continuing Education, and each attendance of a migrated person as a Training Course Participant with Entry Type Continuing Education (3,899 rows). Stop codes read only student hours: the sync, the six-month schedule and the hours trigger skip that entry type. Providers are Organization accounts with a CE Provider Approval each year (`OPEN-49`, settled 12 Nov 2026).
 
 `DM-17` `[SETTLED]` **School bonds are tracked with effective and end dates and an underwriter.**
 A $30,000 insurance bond must be current for a school to renew, and the bond check is a hard
@@ -843,13 +843,14 @@ event. The portal form asks neither and has no advance-notice check.
 - Money order or cashier's cheque only
 
 It belongs on the reciprocity path rather than as a standalone record type, and needs an expiry
-clock plus a single-renewal rule. Owned by the problem desk, not the reciprocity desk.
+clock plus a single-renewal rule. Owned by the reciprocity desk (Stephanie, 12 Nov 2026), although
+LSBC's form register lists the problem desk.
 
 ---
 
 ## 3. Experience Cloud portal — Week 9
 
-**As built (Phase 5).** The site is LSBC LPI at `/LPI` (Aura, Licenses & Permits template), in a
+**As built (Phase 5).** The site is LSBC LPI at `/LPI` (Aura, Licenses & Permits template), in an
 editorial layout in the Board's colours (`PT-24`). Guests get licence search, the school directory, CE providers,
 the complaint form, Forms & Resources and Sign Up; everything else needs a login. Every form is a
 Screen Flow that follows its paper PDF section by section, built from shared subflows.
@@ -902,7 +903,7 @@ turning on according to the roles they hold.
 
 | Audience | Sees |
 |---|---|
-| Guest | Licence search, school directory, CE provider list, links to the agency site, complaint form if permitted |
+| Guest | Licence search, school directory, CE provider list, links to the agency site, the signed complaint form (`CM-01`) |
 | Licensee / Applicant | Base layer for every authenticated user: my licences, apply, renew, documents, fees |
 | School Administrator | Student registration, rosters, hours reporting, school forms, the school's own licence |
 | Business Owner / Manager | The establishment's licence, renewals and violations |
@@ -1104,8 +1105,9 @@ and the holder's active stop codes. Staff then approve, return or refuse:
 - **Approve** is allowed only when the application is certified (a staff entry counts as
   certified), every required document is accepted and the fees are paid. For a renewal entered
   before its fee moved to the application, unpaid fees on the licence also count.
-  A new application creates the licence with the number staff enter (numbering is a client
-  question). A renewal moves the licence's expiration on from its current date, or from today if it
+  A new application creates the licence and numbers it (`PT-14`): a person's from the Certification
+  Number Counter, a salon's or facility's from the Establishment Number Counter; staff type only a
+  school's number. A renewal moves the licence's expiration on from its current date, or from today if it
   has passed, and adds one to Renewal Count. The expiration comes from `LicenseExpirationDate`; a
   licence that expires on the holder's birthday needs a date of birth first. Approval marks the
   licence ready to print (Print Requested Date, clearing any Printed Date), sets an Expired licence
@@ -1171,7 +1173,7 @@ with a named owner against each, plus four process areas without forms.
 | LSBC-010 | New school checklist | Shops and booth rental, with the programme manager |
 | LSBC-011 | Licence renewal application | Renewal desk |
 | LSBC-012 | Booth renters information | **Not an application.** Five pages of federal independent-contractor guidance on worker classification. Reference only |
-| LSBC-013 | Temporary permit application | Problem desk |
+| LSBC-013 | Temporary permit application | Reciprocity desk (the register says problem desk; see section 9) |
 | LSBC-014 | School reference forms | Programme manager |
 
 `PT-21` `[SETTLED]` **LSBC-014 is eleven forms in one document**, none of them published
@@ -1391,7 +1393,7 @@ From now on, no formula, filter, list view, lookup filter or decision-matrix inp
 field on the encrypted list.
 
 Rules that need the birthdate (birthday expiry, the age-16 check) never receive it. The calling flow
-reads `Birthdate` and passes only a birth month and day, or an age in whole years. Reading the field
+reads `DateOfBirth__pc` and passes only a birth month and day, or an age in whole years. Reading the field
 in Flow works under probabilistic encryption; filtering on it would not.
 
 `SEC-05` `[SETTLED]` **Standard field history tracking enabled deliberately** on licence status,
@@ -1410,9 +1412,10 @@ filing cabinets without cameras; the platform replaces that with encryption at r
 control and an audit trail.
 
 `SEC-07` `[SETTLED]` **Guest complaints are permitted.** File a Complaint is built as a guest flow that
-**creates** records (a Public Complaint and its Case, `CM-01`), and from 20 Nov 2026 the complainant must
-give a name and email and certify the complaint. Like every guest flow it runs only for the guest profile it
-is granted to. Creating records as a guest needs a larger security review than a read-only search: what the
+**creates** a record: a Case (Origin Web, Complaint Intake queue, `CM-01`). Staff create the `PublicComplaint`
+later with Record Complaint, so a guest only ever touches Case. From 20 Nov 2026 the complainant must give a
+name and email and certify the complaint. Like every guest flow it runs only for the guest profile it is granted
+to, in system context without sharing. Creating records as a guest needs a larger security review than a read-only search: what the
 guest can create and read back, spam and volume limits, and the guest profile's object access. That review
 has not been done; it is `OPEN-58`, needed before the portal is published.
 
@@ -1640,7 +1643,7 @@ CLOSE's open code 16 holds loaded, 3 of its 50 (the other 47 are on shops not mi
 automatic: LSBC confirmed a student with no activity for 180 days must re-enroll. The reverse also happens: the old unpaid balances have no due date, so they raise
 no Non Payment hold where CLOSE has one (`OPEN-56`).
 
-**Real data in a sandbox without security.** Real names, addresses, dates of birth, licences, exams,
+**Real data in a sandbox where everyone is an administrator.** Real names, addresses, dates of birth, licences, exams,
 fees and payments have been in LSBC-Partial since 10 Nov 2026. Social security numbers were never
 loaded. The security model is built (5.1, 19 Nov 2026) but protects nothing yet: real desk users
 arrive in Phase 7, January 2027, so everyone who logs in to the sandbox is still a System Administrator
@@ -1763,8 +1766,9 @@ more than leaving a door open.
 | `OPEN-46` | Letter wording and letterhead | The four letters use placeholder wording and a placeholder letterhead (`PT-16`) | Staff go-live |
 | `OPEN-48` | The printed licence layout | Built from LSBC's scan (17 Nov 2026); alignment is confirmed only by printing on blank stock, which LSBC is mailing (`PT-16`) | Staff go-live |
 | `OPEN-57` | Rule-call allowance and portal seats | The org allows 2,500 rule calls a month; about 2,600 licence expiries a month each run the hold check, and renewals add roughly 10,000 to 16,000. Portal users each hold two per-user licences with 100 seats against about 40,000 licensees. Decided 19 Nov 2026: the portal stays as built and LSBC trues up logins at renewal; moving rules out of the rules engine is on hold. Still to confirm before the portal is published: the per-user licences block sign-up at the 100th user (not billed later), and whether going over the call limit stops rules or is billed | Account Executive, before the portal is published |
-| `OPEN-58` | Guest complaint security review | File a Complaint lets a guest create a Public Complaint and a Case (`SEC-07`, `CM-01`). The review a guest create needs (what the guest profile can create and read back, spam and volume limits) has not been done | Build team, before the portal is published |
+| `OPEN-58` | Guest complaint security review | File a Complaint lets a guest create a Case, in system context (`SEC-07`, `CM-01`); staff create the Public Complaint later. The review a guest create needs (what the guest profile can create and read back, spam and volume limits) has not been done | Build team, before the portal is published |
 | `OPEN-59` | Record Alert seats | Staff see stop codes as Record Alerts only with the Industry Service Excellence licence; until then every desk uses the read-only Stop Codes tab (20 Nov 2026). Confirm the licence is needed (Salesforce's Record Alerts documentation doesn't say) and whether the seats are on the Carahsoft quote; if not, a contract change | Account Executive, before staff go-live |
+| `OPEN-60` | Three school form questions | The School Forms are built (19 Nov 2026) on the build team's assumptions: the School Administrator certifies that the student signed where the paper has the student's signature; a student registration has no end date; a Notice of Termination doesn't ask for the paper student licence back. The Board confirms or changes each (`PT-05`, `PT-21`) | December board meeting |
 | `OPEN-53` | Scope: migration and the payment ledger | Migration is listed out of scope, but the build team has loaded CLOSE data (section 7). That load is more than licence records: it includes three years of finance history, 120,554 payments with 173,806 allocations, in the custom ledger. The ledger itself grew from violations to every fee (`DM-18a`). Both need a change order or an agreed reading of the SOW | Project manager, before this document goes to LSBC |
 | `OPEN-54` | Real data in the sandbox | Real CLOSE data has been in LSBC-Partial since 10 Nov. Security is built (19 Nov) but every sandbox user is still a System Administrator until Phase 7, and Shield arrives in January. Confirm who may log in, and that offshore resources have no access to agency data | Project manager, immediate |
 | `OPEN-56` | Unpaid CLOSE balances and printing | Non Payment needs a due date, and the 13,212 migrated balances ($487,682) have none, so they hold nothing at go-live. CLOSE has 63 Non Payment holds open; Salesforce has 2, so licences CLOSE holds for non-payment will print. A policy choice for LSBC and finance, not a data fix: which balances, if any, should hold printing, and from what due date (`DM-18`, `BR-02`) | Staff go-live |
@@ -1804,7 +1808,7 @@ more than leaving a door open.
 | `OPEN-47` | Counting affidavits | The first affidavit ever is free, $15 per licence after that, and CLOSE comments mark earlier ones. Code 87 is discontinued (12 Nov 2026, `BR-26`, `BR-07`) |
 | `OPEN-39` | Complaint intake | `PublicComplaint` carries the complaint, `Case` carries the work, `ComplaintCase` joins them. It beats `Case` with record types on anonymity, categorisation, intake channel and board reporting |
 
-**The shape of what remains.** Twenty-nine open. The LSBC Client Questions document tracks over a
+**The shape of what remains.** Thirty open. The LSBC Client Questions document tracks over a
 hundred smaller configuration questions; those that change scope, go-live or the data are listed here.
 
 **Two are for the project manager before this document goes to LSBC:** `OPEN-53`, migration and the
@@ -1817,13 +1821,16 @@ seats, and `OPEN-58`, the guest complaint security review. `OPEN-44`, notarised 
 **One is a licence question with a contract side:** `OPEN-59`, the Industry Service Excellence seats Record
 Alerts need, for the Account Executive before staff go-live.
 
+**Three school form questions go to the December board meeting:** `OPEN-60`.
+
 **Two are with the Board and have dates:** `OPEN-02`, cheques and money orders, at the December
 board meeting; and `OPEN-38`, freelance operators without a fixed salon, which needs board rules or
 legislation.
 
 **Several decide the production load and what the public sees:** `OPEN-56` unpaid CLOSE balances that hold nothing, and `OPEN-06` website scope.
 
-**Several are needed for staff go-live on January 27:** `OPEN-43`, and `OPEN-45` to `OPEN-48`.
+**Several are needed for staff go-live on January 27:** `OPEN-43`, `OPEN-45`, `OPEN-46`, `OPEN-48` and
+`OPEN-59`.
 
 **The rest are configuration detail**, each with a named owner who has already been asked.
 
@@ -2015,11 +2022,13 @@ the source.
 | 19 Nov 2026 | Demo feedback (18 Nov): staff Home shows Open Stop Codes in the right-hand column (`PT-15`); the printed licence leaves the wallet card blank, a $25 wallet duplicate waits for the Board (`PT-16`); field history on every staff object with the History tab showing it (`SEC-05`). |
 | 19 Nov 2026 | Portal address change for individual licensees: Change My Address request Case and staff Apply Address Change, proof of address checked first (`PT-15`, `CM-02`). |
 | 19 Nov 2026 | Portal redesigned in an editorial style with Erin Marceaux's 2026 logos and seal, then the Board's colours (pale cool blue-grey, slate blue, no gold) (`PT-24`). Staff app takes the 2026 seal and logo navy. |
-| 19 Nov 2026 | Board Documents and Publications on the portal home from Salesforce CMS, as Documents because Aura detail pages take only Document or Image content; guests may view published CMS content (`PT-24`). |
+| 19 Nov 2026 | Board Documents and Publications on the portal home from Salesforce CMS, as Documents because Aura detail pages take only Document or Image content; guests may view published CMS content (`PT-01`, `OPEN-06`). |
 | 19 Nov 2026 | `OPEN-11` settled (`PT-02`): portal Owners, Managers and School Administrators read their businesses through share records kept by `Subflow: Portal Business Access Sync`, since a sharing set can't filter by relation role; Decide passes a portal-created business to the approving staff member. No one edits or deletes notes or activities they didn't write. William is LSBC's long-term admin; only admins publish Board documents. Staff licences move to Phase 7, January 2027 (5.1). |
 | 19 Nov 2026 | Document checklists move from the Application Document Requirement settings (retired) to Action Plan templates, one per form, so LSBC's admin maintains them in Setup (`PT-18`, `PR-01`). Templates only: the subflow builds the checklist items itself, because a draft can't take an application's template and template metadata carries org-specific Ids; templates are loaded per org by `scripts/actionplans/load_templates.py`. |
 | 19 Nov 2026 | UAT fixes (`PT-03`, `PT-15`, `PT-18`): checklist templates are matched by Unique Name or Name and the newest published one wins, so an admin changes a checklist by cloning, editing and publishing the clone, then deactivating the old template. Documents to upload also lists applications waiting for Sent to the Board items (optional copy). Change My Address follows the portal form pattern (saved-form link, abandoned-draft discard, no Finish restart) and shows the certification in Louisiana time; Apply Address Change accepts the proof. My Applications' Submitted and Returned tabs pointed at Application Form, which the build doesn't use (replaced 20 Nov). Enable Customer User on the Contact page. |
+| 19 Nov 2026 | School Forms built (`PT-05`, `PT-21`, `PT-23`, `DM-13`): student enrollment, certification of contractual fees, transfer and relinquished hours, notice of termination, activity hours (field trips, workshops, shows), instructor roster and one exam application with an exam type choice, each filed by an active School Administrator on the school's own students, plus the My School and My Businesses portal pages. New Student Registration and Examination record types and Application Type values. Three Board answers are open (`OPEN-60`). |
 | 20 Nov 2026 | UAT follow-ups (`PT-02`, `PT-03`, `PT-15`, `DM-18a`): My Applications' Submitted and Returned tabs and the Fees page are one portal screen flow (My Applications List) listing the applicant's own individual and business applications and unpaid fees; the record lists rendered nothing. Every portal form ends with Back to My Applications (same tab) instead of Finish, which restarted the form; staff entry keeps Finish; the guest forms (File a Complaint, Sign Up) end with Back to Home. Record Payment accepts the Payment Receipt item when a mailed payment settles the fees. Every desk sees an Account's stop codes on its Stop Codes tab (a read-only flow), since alerts need Industry Service Excellence seats (Phase 7) and the alert card is admin-only. Only the Testing and Reciprocity desks, Program Managers and admins change the accommodation documentation item's status. The Home dashboard runs full width. |
 | 20 Nov 2026 | Public complaints must be signed (`CM-01`, `SEC-07`), at LSBC staff's request: the File a Complaint form requires the complainant's name and email, drops the anonymous and keep-confidential options, and ends with the licence forms' certification (checkbox and typed name). The certification goes in the Case description, so no new Case fields. Find a School's programmes and school list came from CLOSE enrolments (`STUDENT_TYPES`, `REGISTRATIONS`, `HOURS`), not the schools' approved programmes (`SCHOOLS`); the Board is asked for the correct list (`DM-12`, `PT-11`). |
 | 20 Nov 2026 | Portal look (`PT-24`), at the Board's request: the page and masthead blue-grey is lightened two steps (`#D3DCE8` to `#E4E9F0`) and the masthead logo is the Board's black logo (static resource `PortalLogoBlack`; `PortalLogoNavy` is kept to switch back). Links stay navy. Every page and panel uses the page colour, login pages and form panels included (they were black and white); only the home page's hero band and the footer stay black. |
 | 20 Nov 2026 | Design review corrections: header, milestone map (Phase 7 added; security and the School Forms built) and the code table (`LicensePdfController`, `LicensePdf`) brought up to date; thirteen derived stop codes; `PT-24` describes the editorial look; `SEC-07` settled, its guest-create review opened as `OPEN-58`; `OPEN-59` opened for the Industry Service Excellence seats Record Alerts need; `OPEN-11`, `OPEN-41` and `OPEN-47` moved to Settled (twenty-nine open); section 7 and `OPEN-54` reworded now that security is built but every sandbox user is still an administrator. Change log citations corrected (`DM-12`/`PT-11` for Find a School, `PT-24` for the portal look, `SEC-07` for signed complaints). |
+| 20 Nov 2026 | Second review pass: `SEC-07` and `OPEN-58` say the guest form creates only a Case; Decide numbers new licences (`PT-14`); `SEC-04` reads `DateOfBirth__pc`; the temporary permit belongs to the reciprocity desk (`BR-28`, `PT-20`); `DM-16` settled with providers at `OPEN-49`; the 1.2 table names `PreliminaryApplicationRef`; the guest row in `PT-01` names the signed complaint form; `OPEN-60` opened for the three school form questions (thirty open); the staff go-live list drops `OPEN-47` and adds `OPEN-59`; the Board Documents row cites `PT-01`/`OPEN-06`. |
