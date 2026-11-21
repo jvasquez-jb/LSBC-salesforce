@@ -85,7 +85,7 @@ you are working on before building, and section 9 for what the org actually prov
 |---|---|---|
 | 0 | Foundation: Person Accounts, record types, repo, doc corrections | Done |
 | 1 | Data model (section 1), encrypted field list | Done |
-| 2 | Security (5.1), `OPEN-11` ACR sharing spike | In progress. Staff security built 19 Nov 2026 from the agreed access matrix; `OPEN-11` access built 19 Nov 2026; the 14 school forms still to build |
+| 2 | Security (5.1), `OPEN-11` ACR sharing spike | In progress. Staff security built 19 Nov 2026 from the agreed access matrix; `OPEN-11` access and the 14 school forms built 19 Nov 2026; three Board answers on the school forms wait for Phase 7 |
 | 3 | Business rules (section 2) | Done. Eligibility rules built, called from Phase 5 and 6 |
 | 4 | Cases and violations (section 4) | Done |
 | 5 | Portal (section 3) | Done. School Administrator and Business Owner forms wait for Phase 2 |
