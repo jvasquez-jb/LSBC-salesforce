@@ -78,7 +78,7 @@
                 <field>RequirementsCompleteDate</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Edit</behavior>
+                <behavior>Readonly</behavior>
                 <field>ApprovedDate</field>
             </layoutItems>
             <layoutItems>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PathAssistant xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>true</active>
+    <entityName>IndividualApplication</entityName>
+    <fieldName>Status</fieldName>
+    <masterLabel>Individual Application Renewal</masterLabel>
+    <pathAssistantSteps>
+        <info>&lt;p&gt;New from the portal or from staff intake. Check the applicant, the Checklist tab and the Fees tab, then move it to Application Accepted.&lt;/p&gt;</info>
+        <picklistValueName>Submitted</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <info>&lt;p&gt;Being worked. Accept or return each document on the Checklist tab and check the fees, then move it to In Review.&lt;/p&gt;</info>
+        <picklistValueName>Application Accepted</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <info>&lt;p&gt;Documents and fees are being checked. When every required document is accepted and the fees are paid, approve or deny with &lt;b&gt;Decide&lt;/b&gt;.&lt;/p&gt;</info>
+        <picklistValueName>In Review</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <info>&lt;p&gt;Set only by &lt;b&gt;Decide&lt;/b&gt; at the top of the page, which also issues the license and its number. The Path refuses it.&lt;/p&gt;</info>
+        <picklistValueName>Approved</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <info>&lt;p&gt;Set only by &lt;b&gt;Decide&lt;/b&gt; (refuse), with the reason and an optional letter. The Path refuses it.&lt;/p&gt;</info>
+        <picklistValueName>Denied</picklistValueName>
+    </pathAssistantSteps>
+    <recordTypeName>Renewal</recordTypeName>
+</PathAssistant>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>StatusFinalOnlyThroughDecide</fullName>
+    <active>true</active>
+    <description>Approved, Approved with Conditions, Denied and Canceled are set only by Decide, which sets Approved Date or Decision Reason in the same save. Stops the Path or an edit closing an application without Decide.</description>
+    <errorConditionFormula>AND(
+    ISCHANGED(Status),
+    OR(
+        ISPICKVAL(Status, &quot;Approved&quot;),
+        ISPICKVAL(Status, &quot;Approved with Conditions&quot;),
+        ISPICKVAL(Status, &quot;Denied&quot;),
+        ISPICKVAL(Status, &quot;Canceled&quot;)
+    ),
+    NOT(ISCHANGED(ApprovedDate)),
+    NOT(ISCHANGED(DecisionReason__c))
+)</errorConditionFormula>
+    <errorDisplayField>Status</errorDisplayField>
+    <errorMessage>Approve, deny or cancel an application with Decide at the top of the page. Decide issues the license and records the reason.</errorMessage>
+</ValidationRule>

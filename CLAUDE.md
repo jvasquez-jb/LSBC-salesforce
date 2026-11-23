@@ -387,6 +387,13 @@ Still open:
 - Licence printing: Print Licenses (list view Licenses Ready to Print) opens `LicensePdf` on the LBC-19 three-part
   stock; positions in inches in the page, nudged with `dx`/`dy`. Governor: custom label `LicenseGovernorName`.
   The stub's wallet card is left blank (William, 18 Nov 2026); a $25 wallet duplicate waits for the Board.
+- Paths (Jonathan, 23 Nov 2026): `scripts/generators/paths.py` writes `pathAssistants/` (Individual Application and
+  Business License Application per record type, `BusinessApplication<RecordType>` because Path names and labels are at most
+  40 characters; Case, Public Complaint, Violation), and `pagegen.py` puts the Path under the header (`PATH_OBJECTS`).
+  `recordTypeName` is the bare record type name, or `__MASTER__`. Document Checklist Item, Business License and Regulatory
+  Trxn Fee can't have a Path. Final application statuses go through Decide only (`StatusFinalOnlyThroughDecide`: the
+  status may change to Approved, Approved with Conditions, Denied or Canceled only in the save that changes Approved Date or
+  Decision Reason). Draft is unticked on the Individual Application record types so the Path doesn't show it.
 - Staff Home (`LSBCLicensingHomePage`, template home:desktopTemplate): work queues on top, Open Stop Codes in the
   right-hand `sidebar` region (visible without scrolling), payments and the LSBC Operations dashboard below.
 - Field history: `scripts/generators/history.py` (FIELDS per object, at most 20; never the SSN or date of birth)

@@ -756,6 +756,20 @@
         <name>NetworkBranding</name>
     </types>
     <types>
+        <members>BusinessApplicationNewEstablishment</members>
+        <members>BusinessApplicationNewSchool</members>
+        <members>BusinessApplicationRenewal</members>
+        <members>CaseStatus</members>
+        <members>IndividualApplicationExamination</members>
+        <members>IndividualApplicationNewLicensure</members>
+        <members>IndividualApplicationReciprocity</members>
+        <members>IndividualApplicationRenewal</members>
+        <members>IndividualApplicationStudentRegistration</members>
+        <members>PublicComplaintStatus</members>
+        <members>RegulatoryCodeViolationStatus</members>
+        <name>PathAssistant</name>
+    </types>
+    <types>
         <members>AccommodationAccess</members>
         <members>AccommodationAccessExtra</members>
         <members>ApplicationProcessing</members>
@@ -1196,9 +1210,11 @@
     </types>
     <types>
         <members>BusinessLicense.StatusDraftOutOfStateLicense</members>
+        <members>BusinessLicenseApplication.StatusFinalOnlyThroughDecide</members>
         <members>DocumentChecklistItem.StatusEditOnlyThroughPrimaryItem</members>
         <members>DocumentChecklistItem.StatusEditOnlyWithAccommodationAccess</members>
         <members>Event.SubjectDescriptionEditOnlyByCreator</members>
+        <members>IndividualApplication.StatusFinalOnlyThroughDecide</members>
         <members>PaymentAllocation__c.FeeItemRequired</members>
         <members>Payment__c.AmountMinAppliedAmount</members>
         <members>Payment__c.RefundAmountMaxUnappliedAmount</members>

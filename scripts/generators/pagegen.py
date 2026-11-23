@@ -199,6 +199,9 @@ HIDE_RULES = {
 # The same rule on the header: without View Accommodation Documents, the accommodation documentation item shows no
 # Status and no Edit, only a note saying who can open it (NOTE_RULES).
 HEADER_HIDE = {'DocumentChecklistItem'}
+# Pages with a Path (status chevrons) under the header; the Paths themselves come from paths.py. Document
+# Checklist Item, Business License and Regulatory Trxn Fee can't have one (Salesforce refuses the object).
+PATH_OBJECTS = {'IndividualApplication', 'BusinessLicenseApplication', 'Case', 'PublicComplaint', 'RegulatoryCodeViolation'}
 NOTE_RULES = {
     'DocumentChecklistItem': ('<p>This is accommodation documentation (health information). Only the Testing and Reciprocity '
                               'desks, Program Managers and administrators can open or change it.</p>',
@@ -277,6 +280,8 @@ def build(obj):
         ('numVisibleActions', '7')], value_lists={'actionNames': actions})]
     if obj in HEADER_HIDE:
         header = [with_rule(header[0], HIDE_RULES[obj])]
+    if obj in PATH_OBJECTS:
+        header.append(p.comp('runtime_sales_pathassistant:pathAssistant', []))
     if obj in NOTE_RULES:
         text, rule = NOTE_RULES[obj]
         header.append(with_rule(p.comp('flexipage:richText', [('decorate', 'true'), ('richTextValue', text)]), rule))

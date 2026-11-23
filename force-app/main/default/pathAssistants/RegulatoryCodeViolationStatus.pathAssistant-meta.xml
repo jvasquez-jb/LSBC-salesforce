@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PathAssistant xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>true</active>
+    <entityName>RegulatoryCodeViolation</entityName>
+    <fieldName>Status</fieldName>
+    <masterLabel>Violation Status</masterLabel>
+    <pathAssistantSteps>
+        <info>&lt;p&gt;The $25 fee is due 15 days after the violation date; once overdue it opens stop code 21 (Non Payment).&lt;/p&gt;</info>
+        <picklistValueName>Open</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <info>&lt;p&gt;Sent to the Board's attorney.&lt;/p&gt;</info>
+        <picklistValueName>Referred To Attorney</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <info>&lt;p&gt;Closed: paid or otherwise settled.&lt;/p&gt;</info>
+        <picklistValueName>Resolved</picklistValueName>
+    </pathAssistantSteps>
+    <recordTypeName>__MASTER__</recordTypeName>
+</PathAssistant>
