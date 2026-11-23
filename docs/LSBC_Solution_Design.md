@@ -111,7 +111,7 @@ business rule. Payments, refunds, the print queue, stop codes and every form are
 |---|---|---|
 | `PortalUserRegistration` | Apex, called from the sign-up flow | Creates the portal login. A flow run by a guest cannot create a user |
 | `LetterPdfController`, `LetterPdfSaveAction`, page `LetterPdf` | Apex and Visualforce, called from Generate Letter | Renders a letter as a PDF and saves it to the record. The org has no internal Document Generation runtime. Wording is in Letter Template custom metadata |
-| `DocumentChecklistUploadController` and the `documentChecklistUpload` component | Apex (read-only) and LWC | The document upload screen: lists an application's checklist items and their files |
+| `DocumentChecklistUploadController` and the `documentChecklistUpload` component | Apex and LWC | The document upload screen: lists an application's checklist items and their files, adds a file slot for another file in a row, and removes or replaces a file |
 | `flowResume` | Aura component | Resumes a saved portal form from My Applications |
 | `LicensePdfController`, page `LicensePdf` | Apex and Visualforce, called from Print Licenses | Lays the selected licences out on the LBC-19 three-part stock, one sheet per licence (3.4) |
 
@@ -427,7 +427,7 @@ already pointed at any fee item. Two paths write to it:
 | Path | How the payment is created |
 |---|---|
 | Mailed or counter payment (check, money order, cashier's check, card) | Staff run **Record Payment** on the Person or business Account. They enter the payment, then go through the account's open fee items, oldest first; each offers what it still owes after earlier payments that were not returned. Anything not applied stays unapplied |
-| Online (PayStar) | The applicant uploads the receipt to the application's Payment Receipt checklist item. When staff set that item to **Accepted**, a Card payment is created for the application's fees that are still Due, one allocation per fee item. One receipt creates one payment: `Payment__c.ChecklistItem__c` is unique |
+| Online (Elavon) | The applicant pays on the Elavon payment page and uploads the receipt to the application's Payment Receipt checklist item. When staff set that item to **Accepted**, a Card payment is created for the application's fees that are still Due, one allocation per fee item. One receipt creates one payment: `Payment__c.ChecklistItem__c` is unique |
 
 LSBC takes no cash. If Inbound Payments arrives through a change order, these objects still map
 across: one payment, its allocations to fee items, and a year on each.
@@ -861,7 +861,7 @@ Screen Flow that follows its paper PDF section by section, built from shared sub
 | Drafts | A form writes nothing to the application objects until Certify. It keeps a draft on `PreliminaryApplicationRef` (the standard object, used in place of the "Draft Application" in 1.2), with its documents on checklist items under the draft. Save for later is flow pause; My Applications lists saved forms with Continue, and the Aura `flowResume` component resumes them. Drafts untouched for 30 days are deleted nightly |
 | Documents | Each form's checklist is a document checklist template (an Action Plan template, Setup > Action Plan Templates) that the admin edits without a deploy; `Subflow: Document Checklist Generate` creates the items from the latest published version of the published template whose Unique Name or Name matches the application (record type with licence type, path or application type; the newest of equally specific templates wins, so a published clone replaces the template it was cloned from: a published template can't be edited and has no New Version), and no Action Plan records are created, so applicants and desk staff need no Action Plans licence (only template editors do). Each item is filed under its document type's category. The `documentChecklistUpload` LWC shows the checklist as rows with one upload each (`PT-18`). Items the form says are mailed, or sent by another state or company, are Sent to the Board (the template puts them in the Sent to the Board category): the applicant submits without them and staff upload them; the applicant may add a copy, on the form or later. Upload Documents on My Applications takes later uploads, and lists an application while it has a required item to upload or a Sent to the Board item not yet received. Every document a form asks for is a checklist item, the accommodation documentation included (16 Nov 2026) |
 | Certification | Every form ends with the checkbox, typed name and timestamp (`PT-19`), showing the form's printed attestation |
-| Payment | Fees come from the Fee Schedule; the pay step links to PayStar and takes the receipt as a checklist upload. Shop and facility fees are paid to the inspector as printed; when nothing is due the empty receipt item is removed. The portal books no inspection: inspectors set their own schedule (LSBC, 12 Nov 2026). Whether the $105 moves online, and whether PayStar takes e-checks, is with LSBC |
+| Payment | Fees come from the Fee Schedule; the pay step links to the Elavon payment page and takes the receipt as a checklist upload. Shop and facility fees are paid to the inspector as printed; when nothing is due the empty receipt item is removed. The portal books no inspection: inspectors set their own schedule (LSBC, 12 Nov 2026). Whether the $105 moves online, and whether PayStar takes e-checks, is with LSBC |
 | Rules called | Reciprocity exams from the `ReciprocityStateExams` matrix and `EligibilityReciprocity` version 2; threading permits from `EligibilityPermit` (it also limits a temporary permit to one renewal, for staff); duplicate and renewal fees from the Phase 3 rules |
 | Access | Guest profile LSBC LPI Profile, member profile LSBC Portal User, sharing set on the user's own records. Owners, Managers and School Administrators read their businesses through share records kept by `Subflow: Portal Business Access Sync` (`PT-02`) |
 
@@ -1155,6 +1155,21 @@ became one: a required Documentation for Disability Related Needs item (document
 `Subflow: Accommodation Request` when an accommodation is requested. It moves to the application at
 Certify with the other documents, staff accept or return it, and Decide waits for it. Applicants
 must upload it; staff entering a paper application can leave it for later.
+
+A row can hold several files (23 Nov 2026, Jonathan). Salesforce allows one file per checklist item,
+so **Add another file** creates an extra item: same name, document type and category, optional, with
+`PrimaryChecklistItem__c` holding the original item's Id. The component shows extra items inside the
+original item's row. Staff review the row through the original item: when they accept or return it,
+`Record-Trigger: Document Checklist Item After Save` gives its extra items the same status (and sets
+`PrimaryItemStatus__c`), and validation rule `StatusEditOnlyThroughPrimaryItem` stops anyone accepting
+or returning an extra item on its own. Only an original receipt item records a payment.
+
+A file can be removed until staff accept the item. Applicants remove only files they uploaded; staff
+remove any. Removing your own file deletes it; when staff remove someone else's file, it moves to the
+application. A returned item keeps its file, next to the Board's note, until the applicant presses
+**Replace file**: the old file moves to the application (the Board keeps what it returned) and the
+applicant uploads the new one into the same item, which goes to Pending. On a returned item only a file
+added after it was returned counts as a new upload.
 
 `PT-20` `[SETTLED]` **The form inventory, from LSBC's own register.** Fourteen numbered documents
 with a named owner against each, plus four process areas without forms.
@@ -1578,7 +1593,7 @@ excluded by the SOW; adding them was raised in session.
 | Data migration from CLOSE | Listed as out of scope, but the build team has loaded CLOSE data into the sandbox (below). Whether that work and a production load are covered by the SOW, and at what volume, is not agreed: see `OPEN-05`, `OPEN-53` |
 | Paper and microfilm digitisation | Raised in session as in scope; excluded by the SOW |
 | Inspections and enforcement | Beyond violation capture. Phase 1 prepares the ground only |
-| Payment integration | PayStar and Elavon. Phase 1 links out and records the receipt. Integration only under a signed change order |
+| Payment integration | Elavon (PayStar replaced, 23 Nov 2026). Phase 1 links out and records the receipt. Integration only under a signed change order |
 | Knowledge base and public AI | Roadmap |
 | Employee and civil service data | Explicitly excluded |
 | lsbc.louisiana.gov replacement | Extent of any content move still being agreed |
@@ -1671,8 +1686,7 @@ needs. The Carahsoft quote carries eleven Field Service licences. See `OPEN-10`.
 
 | System | State |
 |---|---|
-| PayStar | Web payments. Link out only |
-| Elavon | Counter terminal payments |
+| Elavon | Web payments (link out only; replaces PayStar, 23 Nov 2026) and counter terminal payments |
 | Converge | **Field payments taken by inspectors** on credit or debit, alongside money orders and cheques, documented on pink slips and funds-collected forms. A third channel, and the only one where money originates away from the office |
 | National examination vendor | Scores keyed by hand. Three different vendor names given across three sessions |
 | Encore | Field violations re-keyed manually. Does not talk to CLOSE |
@@ -2032,3 +2046,4 @@ the source.
 | 20 Nov 2026 | Portal look (`PT-24`), at the Board's request: the page and masthead blue-grey is lightened two steps (`#D3DCE8` to `#E4E9F0`) and the masthead logo is the Board's black logo (static resource `PortalLogoBlack`; `PortalLogoNavy` is kept to switch back). Links stay navy. Every page and panel uses the page colour, login pages and form panels included (they were black and white); only the home page's hero band and the footer stay black. |
 | 20 Nov 2026 | Design review corrections: header, milestone map (Phase 7 added; security and the School Forms built) and the code table (`LicensePdfController`, `LicensePdf`) brought up to date; thirteen derived stop codes; `PT-24` describes the editorial look; `SEC-07` settled, its guest-create review opened as `OPEN-58`; `OPEN-59` opened for the Industry Service Excellence seats Record Alerts need; `OPEN-11`, `OPEN-41` and `OPEN-47` moved to Settled (twenty-nine open); section 7 and `OPEN-54` reworded now that security is built but every sandbox user is still an administrator. Change log citations corrected (`DM-12`/`PT-11` for Find a School, `PT-24` for the portal look, `SEC-07` for signed complaints). |
 | 20 Nov 2026 | Second review pass: `SEC-07` and `OPEN-58` say the guest form creates only a Case; Decide numbers new licences (`PT-14`); `SEC-04` reads `DateOfBirth__pc`; the temporary permit belongs to the reciprocity desk (`BR-28`, `PT-20`); `DM-16` settled with providers at `OPEN-49`; the 1.2 table names `PreliminaryApplicationRef`; the guest row in `PT-01` names the signed complaint form; `OPEN-60` opened for the three school form questions (thirty open); the staff go-live list drops `OPEN-47` and adds `OPEN-59`; the Board Documents row cites `PT-01`/`OPEN-06`. |
+| 23 Nov 2026 | Online payments move from PayStar to Elavon (`DM-18a`): the portal's pay step, Fees and Apply pages and the upload screens say Elavon, and custom label `ElavonPaymentUrl` replaces `PayStarPaymentUrl` (placeholder link until LSBC sends the Elavon page). The document upload screen (`PT-03`, `PT-18`) takes several files per row through extra checklist items (`DocumentChecklistItem.PrimaryChecklistItem__c`, `PrimaryItemStatus__c`, rule `StatusEditOnlyThroughPrimaryItem`) and removes or replaces files until staff accept them. A returned item keeps its file until the applicant replaces it; the old file then moves to the application. Record Payment accepts only original receipt items. |

@@ -261,7 +261,7 @@ lookup('GetReceiptDocumentType', 'Get Receipt Document Type', 'DocumentType',
        [('DeveloperName', 'EqualTo', STR('PaymentReceipt'))], ['Id'], 'GetOpenReceiptItems', first=True, sort=None)
 lookup('GetOpenReceiptItems', 'Get Open Payment Receipt Items', 'DocumentChecklistItem',
        [('ParentRecordId', 'In', REF('varT_PaidParentIds')), ('DocumentTypeId', 'EqualTo', REF('GetReceiptDocumentType.Id')),
-        ('Status', 'NotEqualTo', STR('Accepted'))], ['Id', 'ParentRecordId'], 'AreThereOpenReceiptItems')
+        ('Status', 'NotEqualTo', STR('Accepted')), ('PrimaryChecklistItem__c', 'IsNull', BOOL(True))], ['Id', 'ParentRecordId'], 'AreThereOpenReceiptItems')
 decision('AreThereOpenReceiptItems', 'Are There Open Payment Receipt Items?',
          [('OpenReceipts', 'Yes', [cond('GetOpenReceiptItems', 'IsEmpty', BOOL(False))], 'LoopThroughReceiptItems', 'and')], 'PaymentRecorded')
 loop('LoopThroughReceiptItems', 'Loop Through Payment Receipt Items', 'GetOpenReceiptItems', 'SetReceiptParentIds', 'WereAnyReceiptsSettled')
@@ -315,7 +315,7 @@ desc = ('Records a payment that came in by mail or at the counter (check, money 
         'from the Record Payment action on the account. Staff enter the payment, then go through each of the account\'s open fee items, oldest first, '
         'and apply part of it; each item offers what it still owes, after earlier payments that were not returned. Anything not applied stays on the payment '
         'as unapplied. The payment and its allocations are saved together at the end, and the fees\' Amount Paid and Status then update through the payment '
-        'allocation trigger. Online (PayStar) payments are recorded automatically when staff accept the receipt, not here. When the payment leaves nothing Due or Partially Paid on an application (and on the others certified with it), the application\'s open Payment Receipt checklist item is marked Accepted, so the portal stops asking for a receipt; the payment is first linked to that item, so accepting it records no second (Card) payment.')
+        'allocation trigger. Online (Elavon) payments are recorded automatically when staff accept the receipt, not here. When the payment leaves nothing Due or Partially Paid on an application (and on the others certified with it), the application\'s open Payment Receipt checklist item is marked Accepted, so the portal stops asking for a receipt; the payment is first linked to that item, so accepting it records no second (Card) payment.')
 
 order = ['assignments', 'choices', 'decisions', 'dynamicChoiceSets']
 head = ('<?xml version="1.0" encoding="UTF-8"?>\n<Flow xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">'

@@ -3,7 +3,7 @@
     <apiVersion>66.0</apiVersion>
     <isExposed>true</isExposed>
     <masterLabel>Document Checklist Upload</masterLabel>
-    <description>Flow screen component: an application's checklist as rows grouped by category, each with its own upload, status and Board comments. Returns the items given a file; the flow sets them to Pending.</description>
+    <description>Flow screen: an application's checklist by category, each row with its upload, files, status and Board note. A row takes several files (one per extra item); files can be removed until accepted. Returns the items given a file.</description>
     <targets>
         <target>lightning__FlowScreen</target>
     </targets>

@@ -9,7 +9,7 @@
       "components": [
         {
           "componentAttributes": {
-            "richTextValue": "<!-- Page heading and how to pay -->\n<h1 class=\"lsbc-page-title\">Fees Due</h1>\n<p class=\"lsbc-page-intro\">These are the fees on your applications and licenses that are not paid yet. Pay them online with PayStar from the application form's payment step, or pay by check or money order to the Board. If your payment step was interrupted, call the Board at 225-756-3404 and we will match your payment to the fee.</p>"
+            "richTextValue": "<!-- Page heading and how to pay -->\n<h1 class=\"lsbc-page-title\">Fees Due</h1>\n<p class=\"lsbc-page-intro\">These are the fees on your applications and licenses that are not paid yet. Pay them online with Elavon from the application form's payment step, or pay by check or money order to the Board. If your payment step was interrupted, call the Board at 225-756-3404 and we will match your payment to the fee.</p>"
           },
           "componentName": "forceCommunity:richTextInline",
           "id": "1ae607ed-6045-4fdc-b3d7-5c8e3aa7eb9c",

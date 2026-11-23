@@ -286,8 +286,14 @@ Still open:
   category; the subflow ticks the flag and files the item under its usual category): the portal shows them without an upload and doesn't wait for them; staff upload them on arrival. A file can't be deleted while
   it is linked to a checklist item, nor the item while it has a file: delete the
   `ContentDocumentLink` first (`scripts/apex/DeleteRegistrantThreeTestApplications.apex`).
-  A checklist item holds one file (platform rule, admin included): when staff return an item the checklist
-  trigger moves its file to the application, and the upload component hides the box once an item has a file.
+  A checklist item holds one file (platform rule, admin included). A row takes more through extra items
+  (`PrimaryChecklistItem__c` = the original item's Id, optional, same type and category), made by Add another file
+  (`DocumentChecklistUploadController.addFileSlot`); the checklist trigger copies the original item's Accepted or Rejected
+  status to them (and `PrimaryItemStatus__c`), rule `StatusEditOnlyThroughPrimaryItem` blocks reviewing them directly, and
+  only an original receipt item records a payment. Files can be removed until Accepted (`removeFile`: portal users their
+  own, staff any; own files deleted, others' and returned ones moved to the application). A returned item keeps its file
+  until the applicant uses Replace file; only a file added after the return counts as a new upload (component and
+  `SubflowDocumentChecklistUpload`) (Jonathan, 23 Nov 2026).
   Portal users can't attach files to `PersonDisability`, even as owner.
 - Portal forms write nothing to the application objects until the applicant certifies. Each form
   creates a draft (`PreliminaryApplicationRef`, Application Type = target object) at the start; its
@@ -333,7 +339,8 @@ Still open:
   `Violation <Shop|School|Operator|Instructor|Special Permit>`; flows fall back to the generic row and link each
   item to its fee code Product. Continuing-education attendance is a Training Course Participant with Entry Type
   Continuing Education (Training Course `Continuing Education`, one offering per CLOSE seminar): stop codes skip it.
-- Payments: Record Payment (Account) for mail and counter; accepting a Payment Receipt checklist item
+- Payments: online payments are Elavon (link out with `$Label.ElavonPaymentUrl`, receipt uploaded; PayStar dropped 23 Nov
+  2026; the old `PayStarPaymentUrl` label stays in LSBC-Partial only because old flow versions use it). Record Payment (Account) for mail and counter; accepting a Payment Receipt checklist item
   creates the Card payment (`SubflowPaymentReceiptPaymentCreate`, one per receipt via the unique
   `ChecklistItem__c`). No cash, no deposit number. When Record Payment leaves an application's fees (and those of the
   applications certified with it) fully paid, it links the payment to the open receipt item and accepts it, so no Card

@@ -413,6 +413,16 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>DocumentChecklistItem.PrimaryChecklistItem__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>DocumentChecklistItem.PrimaryItemStatus__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Examination.ExamType__c</field>
         <readable>true</readable>
     </fieldPermissions>

@@ -9,7 +9,7 @@
       "components": [
         {
           "componentAttributes": {
-            "richTextValue": "<!-- Page heading and one-line introduction -->\n<h1 class=\"lsbc-page-title\">Apply for a License or Permit</h1>\n<p class=\"lsbc-page-intro\">Apply online, pay with PayStar and upload your documents.</p>"
+            "richTextValue": "<!-- Page heading and one-line introduction -->\n<h1 class=\"lsbc-page-title\">Apply for a License or Permit</h1>\n<p class=\"lsbc-page-intro\">Apply online, pay with Elavon and upload your documents.</p>"
           },
           "componentName": "forceCommunity:richTextInline",
           "id": "e6ea48ab-3ff3-4c8f-8e66-8cd1e0688357",

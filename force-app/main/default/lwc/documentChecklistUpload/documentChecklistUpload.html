@@ -1,5 +1,5 @@
 <template>
-    <template lwc:if={loading}>
+    <template lwc:if={showSpinner}>
         <lightning-spinner alternative-text="Loading your documents" size="small"></lightning-spinner>
     </template>
     <template lwc:if={errorMessage}>
@@ -20,16 +20,40 @@
                                 <p lwc:if={row.instruction} class="lsbc-row__instruction">{row.instruction}</p>
                                 <p class={row.statusClass}>{row.statusText}</p>
                                 <p lwc:if={row.isReturned} class="lsbc-row__returned">Board's note: {row.comments}</p>
-                                <p lwc:if={row.hasFiles} class="lsbc-row__files">Files: {row.filesText}</p>
+                                <ul lwc:if={row.hasFiles} class="lsbc-files" aria-label="Files">
+                                    <template for:each={row.files} for:item="file">
+                                        <li key={file.key} class="lsbc-file">
+                                            <template lwc:if={file.confirming}>
+                                                <span class="lsbc-file__confirm" role="alert">{file.confirmText}</span>
+                                                <button type="button" class="lsbc-link lsbc-link_danger" data-item-id={file.itemId}
+                                                    data-document-id={file.contentDocumentId} onclick={handleRemoveConfirm}>Yes</button>
+                                                <button type="button" class="lsbc-link" onclick={handleRemoveCancel}>No</button>
+                                            </template>
+                                            <template lwc:else>
+                                                <span class="lsbc-file__name">{file.name}</span>
+                                                <button lwc:if={file.canRemove} type="button" class="lsbc-link" data-key={file.key}
+                                                    aria-label={file.removeAlt} onclick={handleRemoveClick}>{file.removeLabel}</button>
+                                            </template>
+                                        </li>
+                                    </template>
+                                </ul>
+                                <button lwc:if={row.canAddFile} type="button" class="lsbc-link lsbc-add" data-id={row.id}
+                                    onclick={handleAddFile}>+ Add another file</button>
                             </div>
-                            <div lwc:if={row.canUpload} class="lsbc-row__upload">
-                                <lightning-file-upload
-                                    label={row.name}
-                                    variant="label-hidden"
-                                    record-id={row.id}
-                                    data-id={row.id}
-                                    onuploadfinished={handleUploadFinished}>
-                                </lightning-file-upload>
+                            <div lwc:if={row.hasSlots} class="lsbc-row__upload">
+                                <template for:each={row.slots} for:item="slot">
+                                    <div key={slot.itemId} class="lsbc-slot">
+                                        <lightning-file-upload
+                                            label={slot.label}
+                                            variant="label-hidden"
+                                            record-id={slot.itemId}
+                                            data-id={slot.itemId}
+                                            onuploadfinished={handleUploadFinished}>
+                                        </lightning-file-upload>
+                                        <button lwc:if={slot.isExtra} type="button" class="lsbc-link" data-id={slot.itemId}
+                                            onclick={handleSlotCancel}>Cancel</button>
+                                    </div>
+                                </template>
                             </div>
                         </li>
                     </template>

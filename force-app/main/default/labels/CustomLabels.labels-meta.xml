@@ -9,11 +9,11 @@
         <value>Jeff Landry</value>
     </labels>
     <labels>
-        <fullName>PayStarPaymentUrl</fullName>
+        <fullName>ElavonPaymentUrl</fullName>
         <categories>Portal</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>PayStar Payment URL</shortDescription>
+        <shortDescription>Elavon Payment URL</shortDescription>
         <value>https://www.lsbc.louisiana.gov</value>
     </labels>
 </CustomLabels>

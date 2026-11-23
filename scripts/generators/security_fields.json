@@ -134,6 +134,8 @@
  "DocumentChecklistItem.IsFrozen": true,
  "DocumentChecklistItem.IsRequired": true,
  "DocumentChecklistItem.IsSentToBoard__c": true,
+ "DocumentChecklistItem.PrimaryChecklistItem__c": true,
+ "DocumentChecklistItem.PrimaryItemStatus__c": true,
  "DocumentChecklistItem.UploadedById": true,
  "DocumentChecklistItem.ValidatedById": true,
  "DocumentChecklistItem.ValidationDateTime": true,

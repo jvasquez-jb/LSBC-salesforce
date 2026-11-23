@@ -74,7 +74,7 @@ if 'varB_IsStaffEntry' not in s:
             '<fields><name>SP_Fees</name><fieldText>&lt;h2&gt;Fees due&lt;/h2&gt;{!varT_Lines}&lt;p&gt;&lt;b&gt;Total: {!forT_Total}&lt;/b&gt;&lt;/p&gt;</fieldText><fieldType>DisplayText</fieldType></fields>'
             '<fields><name>SP_HowToPay</name><fieldText>&lt;p&gt;The application is submitted. Record the payment with &lt;b&gt;Record Payment&lt;/b&gt; on the applicant&apos;s account once it is received; the fees stay due until then.&lt;/p&gt;</fieldText><fieldType>DisplayText</fieldType></fields>'
             '<nextOrFinishButtonLabel>Done</nextOrFinishButtonLabel><showFooter>true</showFooter><showHeader>false</showHeader></screens>')
-    s = add(s, 'variables', var('varB_IsStaffEntry', 'Boolean', 'True when staff entered the application for the applicant: the pay step tells them to record the payment instead of linking to PayStar.', inp=True, default='false'))
+    s = add(s, 'variables', var('varB_IsStaffEntry', 'Boolean', 'True when staff entered the application for the applicant: the pay step tells them to record the payment instead of linking to Elavon.', inp=True, default='false'))
     s = rep(s, 'When nothing is due, the applications&apos; empty receipt items are removed.',
             'When nothing is due, the applications&apos; empty receipt items are removed. When staff entered the application, it shows the fees and tells them to record the payment with Record Payment instead.')
     open(p, 'w').write(s)

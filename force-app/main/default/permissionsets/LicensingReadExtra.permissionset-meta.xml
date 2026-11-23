@@ -283,6 +283,16 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>DocumentChecklistItem.PrimaryChecklistItem__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>DocumentChecklistItem.PrimaryItemStatus__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>DocumentChecklistItem.UploadedById</field>
         <readable>true</readable>
     </fieldPermissions>

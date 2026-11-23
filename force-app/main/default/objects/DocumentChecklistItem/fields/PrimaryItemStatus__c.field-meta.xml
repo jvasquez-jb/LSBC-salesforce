@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PrimaryItemStatus__c</fullName>
+    <description>On an extra item (one with Primary Checklist Item filled in), the status last copied from its original item when staff accepted or returned it. Set by Record-Trigger: Document Checklist Item After Save together with Status. The validation rule Status Edit Only Through Primary Item uses it to stop staff accepting or returning an extra item by hand.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Set automatically from the original item's status. Do not change.</inlineHelpText>
+    <label>Primary Item Status</label>
+    <length>40</length>
+    <required>false</required>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>
