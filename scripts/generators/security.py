@@ -12,7 +12,7 @@ from FieldPermissions); refresh it when fields are added:
   sf data query --json -q "SELECT Field, PermissionsEdit FROM FieldPermissions WHERE SobjectType IN (<objects>)
     AND ParentId IN (SELECT PermissionSetId FROM PermissionSetAssignment WHERE AssigneeId = '<admin user id>')"
   then keep each Field with PermissionsEdit or-ed across rows, leaving out Contact.MockSocialSecurityNumber__c.
-Fields a page layout shows read-only stay read-only.
+Fields a page layout shows read-only stay read-only, except those a staff flow sets (SET_BY_STAFF_FLOW).
 
 Run from the repo root:  python3 -I scripts/generators/security.py
 """
@@ -197,6 +197,11 @@ def read_only_on_layouts():
 
 READONLY = read_only_on_layouts()
 
+# Read-only on the page but set through a staff flow (Decide records the decision reason), so the desks that edit
+# the object get edit access to them. The layout keeps them read-only on the Details tab.
+# Approved Date isn't here: Salesforce doesn't let a permission set control it, so the layout alone keeps it read-only.
+SET_BY_STAFF_FLOW = {'IndividualApplication.DecisionReason__c', 'BusinessLicenseApplication.DecisionReason__c'}
+
 # ---- workbook ----
 wb = openpyxl.load_workbook(WORKBOOK)
 ps, mem, ss, srt = wb['Permission Sets'], wb['Membership'], wb['Sharing Settings'], wb['Sharing Rules']
@@ -250,7 +255,7 @@ def field_perms(block, objs):
                 continue
             edit = editable and admin_edit and lvl >= 2
         else:
-            edit = admin_edit and lvl >= 2 and field not in READONLY
+            edit = admin_edit and lvl >= 2 and (field not in READONLY or field in SET_BY_STAFF_FLOW)
         out.append((field, edit))
     # Restricted fields reach their owner even if it grants no other access to the object.
     for field, (owner, editable) in RESTRICTED.items():
